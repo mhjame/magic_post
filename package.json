@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
+    "watch": "node-sass --include-path --watch resources/scss/app.scss public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

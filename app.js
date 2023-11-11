@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars');
 const app = express();
 const port = 3000;
 
+const route = require('./routes/manager')
 //template engine
 app.engine('hbs', handlebars.engine({
     extname:'.hbs', // định nghĩa extname (đuôi file handlebar)
@@ -23,12 +24,15 @@ app.set('views', path.join(__dirname, 'views'));
 // })
 
 
-const managerRouter = require('./routes/manager');
-app.use(managerRouter);
+// const managerRouter = require('./routes/manager');
+// app.use(managerRouter);
 
 //localhost: 127.0.0.1
 const db = require('./config/db');
 db.connect();
+
+//Routes init
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

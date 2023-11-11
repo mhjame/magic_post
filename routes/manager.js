@@ -1,10 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const managerController = require('../controllers/ManagerController');
+const siteRouter = require('./site');
 
+function route(app) {
+    app.use('/', siteRouter);
+}
 
-router.get('/login', managerController.getLogin); // get/post
-router.get('/', managerController.getHome);
-router.get('/search', managerController.getSearch);
-
-module.exports = router;
+module.exports = route;
