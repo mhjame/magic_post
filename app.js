@@ -3,7 +3,7 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const app = express();
 const port = 3000;
-
+const bodyParser = require('body-parser');
 //template engine
 app.engine('hbs', handlebars.engine({
     extname:'.hbs', // định nghĩa extname (đuôi file handlebar)
@@ -11,6 +11,7 @@ app.engine('hbs', handlebars.engine({
 //set view engine is handlebars 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.urlencoded({ extended: true }));
 //route
 /**
  * app.get('/', function (req, res){
