@@ -1,8 +1,9 @@
 const User = require('../models/User');
 const Employee = require('../models/Employee')
 class ManagerController {
+    
     getLogin(req, res) {
-        res.render('home');
+        res.render('login');
     }
 
     getHome(req, res) {
