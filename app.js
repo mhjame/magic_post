@@ -12,6 +12,13 @@ app.engine('hbs', handlebars.engine({
 //set view engine is handlebars 
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+//middlewware for body
+app.use(
+  express.urlencoded({
+      extended: true,
+  }),
+); 
+app.use(express.json());
 //route
 /**
  * app.get('/', function (req, res){
