@@ -6,7 +6,12 @@ const port = 3000;
 const bodyParser = require('body-parser');
 //template engine
 app.engine('hbs', handlebars.engine({
-    extname:'.hbs', // định nghĩa extname (đuôi file handlebar)
+  extname: '.hbs', // định nghĩa extname (đuôi file handlebar)
+  helpers: {
+    eq: function (a, b) {
+      return a === b;
+    }
+  }
 }));
 //set view engine is handlebars 
 app.set('view engine', 'hbs');
@@ -16,9 +21,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const session = require('express-session');
 app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
 }));
 
 //route
@@ -45,5 +50,5 @@ app.listen(port, () => {
 })
 
 //Ctrl + C// close port
-//nodemon: auto listening change in file 
+//nodemon: auto listening change in file
 // npm start

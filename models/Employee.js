@@ -10,7 +10,7 @@ const Employee = new Schema({
     birth: {type: Date},
     role: {type: String, enum: ['StationE', 'StationAd', 'WarehouseAd', 'Manager'], default: 
 'StationE'},
-    avatar: { type: String, default: '/images/avatar.png' },
+    avatar: { type: String, default: 'https://icones.pro/wp-content/uploads/2021/11/icone-vert-de-camion-d-expedition-et-de-livraison.png' },
     email: { type: String, default: '' },
     phoneNumber: { type: String, default: '' },
     address: {type: String},

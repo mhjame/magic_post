@@ -75,7 +75,9 @@ class ManagerController {
     }
 
     getRegister(req, res) {
-        res.render('register');
+        res.render('register', {
+                employee: req.session.employee,
+        });
     }
 
     registerValidate(req, res, next) {
@@ -119,7 +121,7 @@ class ManagerController {
         res.render('profile/view', {
             employee: req.session.employee,
         });
-        //console.log(req.session.employee)
+        console.log(req.session.employee)
     }
 }
 
