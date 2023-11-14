@@ -1,9 +1,50 @@
 const User = require('../models/User');
 const Employee = require('../models/Employee')
+
+const { multipleMongooseToObject } = require('../util/mongoose');
+const { mongooseToObject } = require('../util/mongoose');
+
 class ManagerController {
     
     getLogin(req, res) {
         res.render('login');
+    }
+
+    loginValidate(req, res, next) {
+        if (!req.body.username)
+            return res.json({
+                loginSuccess: false,
+                message: 'Chưa nhập tên đăng nhập'
+            });
+        if (!req.body.password)
+            return res.json({
+                loginSuccess: false,
+                message: 'Chưa nhập mật khẩu'
+            });
+        next();
+    }
+
+    postLogin(req, res, next) {
+        const formData = req.body;
+        Employee.findOne(formData)
+            .then(employee => {
+                if (!employee) return res.json({
+                    loginSuccess: false,
+                    message: 'Tên đăng nhập hoặc mật khẩu không đúng'
+                });
+                req.session.regenerate(err => {
+                    if (err) return err;
+                    req.session.employee = mongooseToObject(employee);
+                    req.session.save(err => {
+                        if (err) return err;
+                        res.json({
+                            loginSuccess: true,
+                            message: 'Đăng nhập thành công'
+                        });
+                    });
+                });
+            })
+            .catch(next);
     }
 
     getHome(req, res) {
@@ -72,6 +113,13 @@ class ManagerController {
                 });
             })
             .catch(next);
+    }
+
+    getProfile(req, res) {
+        res.render('profile/view', {
+            employee: req.session.employee,
+        });
+        //console.log(req.session.employee)
     }
 }
 
