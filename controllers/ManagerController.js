@@ -59,11 +59,12 @@ class ManagerController {
             });
 
 
-        // User.find({}, function (err, users){
-        //     if(!err) res.json(users)
-        //     else res.json('error')
-        // })
-        // res.json('hallo');
+        // // User.find({}, function (err, users){
+        // //     if(!err) res.json(users)
+        // //     else res.json('error')
+        // // })
+        // // res.json('hallo');
+        res.render('home');
     }
 
     getSearch(req, res) {
