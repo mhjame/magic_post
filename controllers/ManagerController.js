@@ -122,11 +122,40 @@ class ManagerController {
         res.render('profile/view', {
             employee: req.session.employee,
         });
-        console.log(req.session.employee)
+        // console.log(req.session.employee)
     }
 
     getForgotPassword(req, res) {
         res.render('forgotPassword');
+    }
+
+    humanResource(req, res, next) {
+        try {
+            // res.render('supervisor/humanResource')
+            // console.log(Employee.countDocumentsDeleted())
+            // res.render(Employee.countDocumentsDeleted())
+            const userRole = req.session.employee.role;
+            if (userRole == 'Manager') {
+                Promise.all([Employee.find({}), Employee.find({ deleted: true }).countDocuments()])
+                    .then(
+                        ([employees, deleteCount]) => {
+
+                        
+                        res.render('supervisor/humanResource', {
+                            // user: req.session.user,
+                            deleteCount,
+                            employees: multipleMongooseToObject(employees)
+                        })
+                        console.log("employee:", employees)
+                    }
+                    )
+                    .catch(next)
+            } else {
+                res.json('Bạn không có quyền truy cập chức năng này');
+            }
+        } catch (e) {
+            res.render('error');
+        }
     }
 }
 

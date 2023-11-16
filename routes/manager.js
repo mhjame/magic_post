@@ -14,4 +14,5 @@ router.post('/register', managerController.registerValidate, managerController.p
 router.get('/profile/view', managerController.getProfile);
 
 router.get('/forgotPassword', managerController.getForgotPassword);
+router.get('/supervisor/humanResource', managerController.humanResource);
 module.exports = router;
