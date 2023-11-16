@@ -123,6 +123,10 @@ class ManagerController {
         });
         console.log(req.session.employee)
     }
+
+    getForgotPassword(req, res) {
+        res.render('forgotPassword');
+    }
 }
 
 module.exports = new ManagerController;
