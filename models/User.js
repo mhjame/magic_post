@@ -9,7 +9,7 @@ const User = new Schema({
     password: { type: String },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
-    // avatar: { type: String, default: '/img/default_avatar.jpg' },
+    avatar: { type: String, default: '/images/avatar.png' },
     email: { type: String, default: '' },
     phoneNumber: { type: String, default: '' },
     address: {type: String},

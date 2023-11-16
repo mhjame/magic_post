@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Employee = new Schema({
+    employeeId: {type: String},
     username: { type: String },
     password: { type: String },
     firstName: { type: String, default: '' },
@@ -9,7 +10,7 @@ const Employee = new Schema({
     birth: {type: Date},
     role: {type: String, enum: ['StationE', 'StationAd', 'WarehouseAd', "WarehouseE", 'Manager'], default: 
 'StationE'},
-    // avatar: { type: String, default: '/img/default_avatar.jpg' },
+    avatar: { type: String, default: 'https://icones.pro/wp-content/uploads/2021/11/icone-vert-de-camion-d-expedition-et-de-livraison.png' },
     email: { type: String, default: '' },
     phoneNumber: { type: String, default: '' },
     address: {type: String},
