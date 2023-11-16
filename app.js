@@ -44,6 +44,7 @@ app.engine('hbs', handlebars.engine({
       }
     }
 
+
 }));
 //set view engine is handlebars 
 app.set('view engine', 'hbs');
@@ -79,6 +80,11 @@ app.use(userRouter);
 //localhost: 127.0.0.1
 const db = require('./config/db');
 db.connect();
+
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).render('error', { error: err });
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
