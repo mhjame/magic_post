@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const Post = new Schema({
     name: { type: String },
     genre: { type: String },
-    weigh: { type: Number},
+    weight: { type: Number},
     cost: {type: Number},
     payState: {type: String, enum: ['done', 'not'], default: 'not'},
     senderName: {type: String},
@@ -15,10 +15,15 @@ const Post = new Schema({
     receiverPhoneNumber: {type: String},
     senderId: {type: String},
     receiverId: {type: String},
-    stationId: {type: String},
-    stationEId: {type: String},
-    Status: {type:String, enum: ['received', 'in process'], default: 'in process'},
-    timeReceive: {type: Date}
+    senderStationEId: {type: String},
+    senderStationId: {type: String},
+    receiverStationId: {type: String},
+    status: {type:String, enum: ['received', 'on way to reveiver', 'at rStation', 'on way to rStation', 'at rWarehouse', 
+            'on way to rWarehourse', 'at sWarehouse', 'on way to sWarehouse', 'at sStation'], default: 'in process'},
+    timeReceived: {type: Date},
+    id: {type: String}
 }, { timestamps: true });
 
 module.exports = mongoose.model('Post', Post);
+
+

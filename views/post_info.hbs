@@ -1,0 +1,69 @@
+<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1e1e86;">
+
+  <div class="container">
+    <a class="navbar-brand magic-post-text" href="">Magic Post</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+      </ul>
+      <div class="nav-item dropdown" style="color:white;">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Nguyễn Văn A
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#">Quản lý đơn hàng</a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+        </ul>
+        <div>
+        </div>
+      </div>
+
+</nav>
+
+<h3 class="fw-semibold fst-italic" style="margin-left: 1rem; margin-top: 5rem">Các đơn hàng bạn đã gửi: </h3>
+
+<div class="table-responsive">
+  <table class="table table-warning table-hover table-posts">
+    <thead>
+      <tr class="table-primary" style="vertical-align: middle;">
+        <th scope="col">Đơn hàng</th>
+        <th scope="col">Tên hàng</th>
+        <th scope="col">Tình trạng</th>
+        <th scope="col">Lộ trình</th>
+        <th scope="col">Trọng lượng</th>
+        <th scope="col">Cước phí</th>
+        <th scope="col">Đã nộp cước?</th>
+        <th scope="col">Người nhận</th>
+        <th scope="col">SĐT người nhận</th>
+        <th scope="col">Địa chỉ người nhận</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      {{#each posts}}
+      <tr style="vertical-align: middle;">
+        <th scope="row">{{this.id}}</th>
+        <td>{{this.name}}</td>
+        <td>{{renderStatus this.status}}</td>
+        <td>{{this.senderStationId}} - {{this.receiverStationId}}</td>
+        <td>{{this.weight}}</td>
+        <td>{{this.cost}}</td>
+        <td>{{renderPayState this.payState}}</td>
+        <td>{{this.receiverName}}</td>
+        <td>{{this.receiverPhoneNumber}}</td>
+        <td>{{this.receiverAddress}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
