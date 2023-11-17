@@ -26,12 +26,17 @@ class ManagerController {
 
     postLogin(req, res, next) {
         const formData = req.body;
+        console.log(formData)
         Employee.findOne(formData)
             .then(employee => {
-                if (!employee) return res.json({
-                    loginSuccess: false,
-                    message: 'Tên đăng nhập hoặc mật khẩu không đúng'
-                });
+                if (!employee) {
+                    console.log("success")
+                    return res.json({
+                        loginSuccess: false,
+                        message: 'Tên đăng nhập hoặc mật khẩu không đúng'
+                    });
+                }
+                console.log("error"),
                 req.session.regenerate(err => {
                     if (err) return err;
                     req.session.employee = mongooseToObject(employee);
