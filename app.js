@@ -41,6 +41,13 @@ app.engine('hbs', handlebars.engine({
         } else {
           return 'Chưa đóng cước';
         }
+      },
+      formatDate: (date) => {
+        if (date === null) {
+          return 'Chưa nhận được';
+        } else {
+        return new Date(date).toLocaleDateString("vi-VN");
+        }
       }
     }
 
