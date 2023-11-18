@@ -7,6 +7,51 @@ const port = 3000;
 //template engine
 app.engine('hbs', handlebars.engine({
     extname:'.hbs', // định nghĩa extname (đuôi file handlebar)
+    helpers: {
+      sum: (a, b) => a + b,
+      eq: function (a, b) {
+        return a === b;
+      },
+      renderStatus: (status) => {
+        switch (status) {
+          case 'received':
+            return 'Đã nhận';
+          case 'on way to receiver':
+            return 'Đang chuyển đến người nhận';
+          case 'at rStation':
+            return 'Đã đến điểm giao dịch đích';
+          case 'on way to rStation':
+            return 'Đang chuyển đến điểm giao dịch đích';
+          case 'at rWarehouse':
+            return 'Đã đến điểm tập kết đích';
+          case 'on way to rWarehouse':
+            return 'Đang chuyển đến điểm tập kết đích';
+          case 'at sWarehouse':
+            return 'Đang ở điểm tập kết đầu'
+          case 'on way to sWarehouse':
+            return 'Đang chuyển đến điểm tập kết đầu'
+          case 'at sStation':
+            return 'Đang ở điểm giao dịch đầu';
+        }
+      },
+      renderPayState: (state) => {
+        if (state === 'done') {
+          return 'Đã đóng cước';
+        } else {
+          return 'Chưa đóng cước';
+        }
+      },
+
+      formatDate: (date) => {
+        if (date === null) {
+          return 'Chưa nhận được';
+        } else {
+        return new Date(date).toLocaleDateString("vi-VN");
+        }
+      }
+    }
+
+
 }));
 //set view engine is handlebars 
 app.set('view engine', 'hbs');

@@ -15,10 +15,13 @@ const Post = new Schema({
     receiverPhoneNumber: {type: String},
     senderId: {type: String},
     receiverId: {type: String},
-    stationId: {type: String},
-    stationEId: {type: String},
-    Status: {type:String, enum: ['received', 'in process'], default: 'in process'},
-    timeReceive: {type: Date}
+    senderStationEId: {type: String},
+    senderStationId: {type: String},
+    receiverStationId: {type: String},
+    status: {type:String, enum: ['received', 'on way to receiver', 'at rStation', 'on way to rStation', 'at rWarehouse', 
+            'on way to rWarehourse', 'at sWarehouse', 'on way to sWarehouse', 'at sStation'], default: 'at sStation'},
+    timeReceived: {type: Date},
+    id: {type: String}
 }, { timestamps: true });
 
 module.exports = mongoose.model('Post', Post);
