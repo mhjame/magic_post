@@ -15,8 +15,6 @@ const Employee = new Schema({
     phoneNumber: { type: String, default: '' },
     address: {type: String},
     workAddress: {type: String},
-    resetToken: {type: String, default: ''},
-    resetTokenExpiration: {type: Date, default: 0},
 }, { timestamps: true });
 
 module.exports = mongoose.model('Employee', Employee);
