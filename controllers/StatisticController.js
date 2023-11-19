@@ -14,17 +14,19 @@ class StatisticController {
 
     
     getPostStatisticsStation(req, res) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
+        // const today = new Date();
+        // today.setHours(0, 0, 0, 0);
+        // const tomorrow = new Date(today);
+        // tomorrow.setDate(today.getDate() + 1);
 
-        const sendstationID = SSID1;
+        // const sendstationID = SSID1;
 
-        Post.countDocuments( {senderStationId: sendstationID, status: 'at sStation'} )
-            .then(count => {
-                console.log(count)
-            })
+        // Post.countDocuments( {senderStationId: sendstationID, status: 'at sStation'} )
+        //     .then(count => {
+        //         console.log(count)
+        //     })
+
+        console.log("hi")
 
     }
 
