@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const managerController = require('../controllers/ManagerController');
-const passwordController = require('../controllers/PasswordController')
+const passwordController = require('../controllers/PasswordController');
 const statisticController = require('../controllers/StatisticController');
 
 router.get('/login', managerController.getLogin); // get/post
@@ -22,5 +22,5 @@ router.post('/reset-password/', passwordController.postResetPassword)
 router.get('/statistic', statisticController.getPostStatisticsStation)
 
 
-router.get('/supervisor/humanResource', managerController.humanResource);
+// router.get('/supervisor/humanResource', managerController.humanResource);
 module.exports = router;
