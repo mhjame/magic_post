@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const managerController = require('../controllers/ManagerController');
 const passwordController = require('../controllers/PasswordController')
+const statisticController = require('../controllers/StatisticController');
 
 router.get('/login', managerController.getLogin); // get/post
 router.post('/login', managerController.loginValidate, managerController.postLogin);
@@ -17,6 +18,8 @@ router.get('/forgotPassword', passwordController.getForgotPassword);
 router.post('/forgotPassword', passwordController.postForgotPassword);
 router.get('/reset-password/:token', passwordController.getResetPassword)
 router.post('/reset-password/', passwordController.postResetPassword)
+
+router.get('/statistic', statisticController.getPostStatisticsStation)
 
 
 router.get('/supervisor/humanResource', managerController.humanResource);

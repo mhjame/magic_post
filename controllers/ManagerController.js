@@ -130,10 +130,6 @@ class ManagerController {
         // console.log(req.session.employee)
     }
 
-    getForgotPassword(req, res) {
-        res.render('forgotPassword');
-    }
-
     humanResource(req, res, next) {
         try {
             // res.render('supervisor/humanResource')
