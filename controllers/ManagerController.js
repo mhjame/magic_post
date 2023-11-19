@@ -26,12 +26,17 @@ class ManagerController {
 
     postLogin(req, res, next) {
         const formData = req.body;
+        // console.log(formData)
         Employee.findOne(formData)
             .then(employee => {
-                if (!employee) return res.json({
-                    loginSuccess: false,
-                    message: 'Tên đăng nhập hoặc mật khẩu không đúng'
-                });
+                if (!employee) {
+                    // console.log("success")
+                    return res.json({
+                        loginSuccess: false,
+                        message: 'Tên đăng nhập hoặc mật khẩu không đúng'
+                    });
+                }
+                // console.log("error"),
                 req.session.regenerate(err => {
                     if (err) return err;
                     req.session.employee = mongooseToObject(employee);
@@ -158,6 +163,160 @@ class ManagerController {
             res.render('error');
         }
     }
+
+    oldBinEmployees(req, res, next) {
+        try {
+            const userRole = req.session.employee.role;
+            if (userRole == 'Manager') {
+                Employee.findDeleted({})
+                    .then((employees) =>
+                        res.render('supervisor/oldBin', {
+                            // user: req.session.user,
+                            employees: multipleMongooseToObject(employees),
+                        }),
+                    )
+                    .catch(next)
+            } else {
+                res.json('Bạn không có quyền truy cập chức năng này')
+            }
+        } catch (e) {
+            res.render('error');
+        }
+    }
+
+    edit(req, res, next) {
+        try {
+            const userRole = req.session.employee.role;
+            if (userRole != 'Manager') {
+                res.json('Bạn không có quyền truy cập chức năng này');
+                return;
+            }
+
+            Employee.findById(req.params.id)
+                .then(employee => res.render('profile/edit', {
+                    employee: mongooseToObject(employee)
+                }))
+                .catch(next);
+        } catch (e) {
+            res.render('error')
+        }
+    }
+
+    update(req, res, next) {
+        try {
+            const userRole = req.session.employee.role;
+            if (userRole != 'Manager') {
+                res.json('Bạn không có quyền truy cập chức năng này');
+                return;
+            }
+
+            Employee.updateOne({ _id: req.params.id }, req.body)
+                .then(() => res.redirect('supervisor/humanResource'))
+                .catch(next);
+        } catch (e) {
+            res.render('error')
+        }
+
+    }
+
+    destroy(req, res, next) {
+        try {
+            const userRole = req.session.employee.role;
+            if (userRole != 'Manager') {
+                res.json('Bạn không có quyền truy cập chức năng này');
+                return;
+            }
+
+            /*sofe delete*/
+            Employee.delete({ _id: req.params.id })
+                .then(() => res.redirect('back'))
+                .catch(next);
+        } catch (e) {
+            res.render('error');
+        }
+
+    }
+
+    //DELETE /product/:id/force
+    forceDestroy(req, res, next) {
+        try {
+            const userRole = req.session.employee.role;
+            if (userRole != 'Manager') {
+                res.json('Bạn không có quyền truy cập chức năng này');
+                return;
+            }
+
+            Employee.deleteOne({ _id: req.params.id })
+                .then(() => res.redirect('back'))
+                .catch(next);
+        } catch (e) {
+            res.render('error')
+        }
+    }
+
+    restore(req, res, next) {
+        try {
+            const userRole = req.session.employee.role;
+            if (userRole != 'Manager') {
+                res.json('Bạn không có quyền truy cập chức năng này');
+                return;
+            }
+            Employee.restore({ _id: req.params.id })
+                .then(() => res.redirect('back'))
+                .catch(next);
+        } catch (e) {
+            res.render('error')
+        }
+
+    }
+
+    handleFormActions(req, res, next) {
+        try {
+            // const userRole = req.session.user.role;
+            // if (userRole != 'Manager') {
+            //     res.json('Bạn không có quyền truy cập chức năng này');
+            //     return;
+            // }
+
+            switch (req.body.action) {
+                case 'delete':
+                    Employee.delete({ _id: { $in: req.body.employeeIds } })
+                        .then(() => res.redirect('back'))
+                        .catch(next);
+                    break;
+                default:
+                    res.json({ message: 'Tính năng chưa được mở khóa' });
+            }
+        } catch (e) {
+            res.render(e.message)
+        }
+    }   
+    
+    // handleFormActions(req, res, next) {
+    //     try {
+    //         // const userRole = req.session.user.role;
+    //         // if (userRole != 'Manager') {
+    //         //     res.json('Bạn không có quyền truy cập chức năng này');
+    //         //     return;
+    //         // }
+
+    //         switch (req.body.action) {
+    //             case 'delete':
+    //                 console.log("mannyId", req.body)
+    //                 Employee.updateMany(
+    //                     { _id: { $in: req.body.employeeIds } },
+    //                     { $set: { deleted: true } }
+    //                 )
+    //                     .then(() => res.redirect('back'))
+    //                     .catch(next);
+    //                 break;
+    //             default:
+    //                 return res.json({ message: 'Tính năng chưa được mở khóa' });
+    //         }
+    //     } catch (e) {
+    //         res.render(e.message)
+    //     }
+    // }   
 }
 
 module.exports = new ManagerController;

@@ -22,5 +22,6 @@ router.post('/reset-password/', passwordController.postResetPassword)
 router.get('/statistic', statisticController.getPostStatisticsStation)
 
 
-// router.get('/supervisor/humanResource', managerController.humanResource);
+router.get('/supervisor/humanResource', managerController.humanResource);
+router.post('/employees/handle-form-actions', managerController.handleFormActions);
 module.exports = router;

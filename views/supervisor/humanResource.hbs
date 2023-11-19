@@ -1,9 +1,9 @@
 <div class="container-sm">
-<form name="container-form" class="mt-4" method="POST" action="/products/handle-form-actions">
+<form name="container-form" class="mt-4" method="POST" action="/employees/handle-form-actions">
   <div>
-    <h3> Danh sách các sản phẩm </h3>
+    <h3> Danh sách nhân viên </h3>
     {{!-- {{#if deletedCount}}  --}}
-    <a href = "/oldBin"> Danh sách sản phẩm đã ngừng bán</a>
+    <a href = "/oldBin"> Danh sách nhân viên đã nghỉ việc</a>
 
     {{!-- {{/if}} --}}
 
@@ -48,7 +48,7 @@
       {{#each employees}}
       <tr>
         <td>
-          <input class="form-check-input" type="checkbox" name="employeeId[]" value="{{this._id}}" id="">
+          <input class="form-check-input" type="checkbox" name="employeeIds[]" value="{{this._id}}" id="">
         </td>
 
         <th scope="row">{{sum @index 1}}</th> <!-- sum(index, 1)-->
@@ -58,15 +58,15 @@
         <td>{{this.workAddress}}</td>
         <td>
           <a href="/products/{{this._id}}/edit" class="btn btn-link">Sửa</button>
-          {{!-- <button class="btn btn-link" data-toggle="modal" data-target="#delete-product-modal" data-id = "{{this._id}}">Xóa</button> --}}
+          {{!-- <button class="btn btn-link" data-toggle="modal" data-target="#delete-employee-modal" data-id = "{{this._id}}">Xóa</button> --}}
         </td>
       </tr>
 
       {{else}}
       <tr>
         <td colspan="5" class="text-center">
-          Chưa có sản phẩm nào.
-          <a href="/products/create"> Tạo sản phẩm </a>
+          Chưa có nhân viên nào.
+          <a href="/register"> Đăng ký tài khoản cho nhân viên </a>
         </td>
       </tr>
       {{/each}}
@@ -78,20 +78,20 @@
 <!-- Confirm delete product fdsgdsgdsg
 -->
 
-<div class="modal" id="delete-product-modal" tabindex="-1" role="dialog">
+<div class="modal" id="delete-employee-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"> Xóa sản phẩm?</h5>
+        <h5 class="modal-title"> Xóa tài khoản nhân viên này?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p> Bạn chắc chắn muốn xóa sản phẩm này? </p>
+        <p> Bạn chắc chắn muốn xóa tài khoản của nhân viên này? </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" id="btn-delete-product"> Xóa bỏ </button>
+        <button type="button" class="btn btn-danger" id="btn-delete-employee"> Xóa bỏ </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal"> Hủy </button>
       </div>
     </div>
@@ -100,7 +100,7 @@
 
 <!-- Delete hidden form -->
 
-<form name="delete-product-form" method="post" action = "/products/{{this._id}}/delete">
+<form name="delete-employee-form" method="post" action = "/products/{{this._id}}/delete">
 
 </form>
 
@@ -110,29 +110,29 @@
 
   // when dialog confirm clicked
   document.addEventListener('DOMContentLoaded', function () {
-    var productId;
-    var deleteForm = document.forms['delete-product-form'];
-    var btnDeleteProduct = document.getElementById('btn-delete-product');
+    var employeeIds;
+    var deleteForm = document.forms['delete-employee-form'];
+    var btnDeleteEmployee = document.getElementById('btn-delete-employee');
     var checkboxAll = $('#checkbox-all');
-    var productItemCheckbox = $('input[name = "employeeId[]"]');
+    var employeeItemCheckbox = $('input[name = "employeeIds[]"]');
     var checkAllSubmitBtn = $('.check-all-submit-btn');
     // var containerForm = document.forms['container-form'];
     var containerForm = $('form[name="container-form"]');
 
     //console.log(containerForm);
 
-    $('#delete-product-modal').on('show.bs.modal', function (event) {
+    $('#delete-employee-modal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget); // Button that triggered the modal
       var id = button.data('id'); // Extract info from data-* attributes
-      productId = id;
+      employeeIds = id;
       console.log("BUTTON CLICK");
     });
 
     // khi ấn xác định xóa
 
-    btnDeleteProduct.onclick = function () {
+    btnDeleteEmployee.onclick = function () {
       //alert(productId);
-      deleteForm.action = '/products/' + productId + '?_method=DELETE';
+      deleteForm.action = '/employees/' + employeeIds + '?_method=DELETE';
       deleteForm.submit();
     }
 
@@ -143,26 +143,26 @@
       var isCheckedAll = $(this).prop('checked');
       /*
       if(isCheckedAll) {
-        productItemCheckbox.prop('checked', true); // neu checkboxAll dc check thi checked all 
+        employeeItemCheckbox.prop('checked', true); // neu checkboxAll dc check thi checked all 
       } else {
-        productItemCheckbox.prop('checked', false);
+        employeeItemCheckbox.prop('checked', false);
       }*/
       /*viet ngan hon*/
-      productItemCheckbox.prop('checked', isCheckedAll);
+      employeeItemCheckbox.prop('checked', isCheckedAll);
     });
 
 
-    // productItemCheckbox changed
-    productItemCheckbox.change(function () {
-      var isCheckedAll_ = productItemCheckbox.length === $('input[name="employeeId[]"]:checked').length;
+    // employeeItemCheckbox changed
+    employeeItemCheckbox.change(function () {
+      var isCheckedAll_ = employeeItemCheckbox.length === $('input[name="employeeIds[]"]:checked').length;
       checkboxAll.prop('checked', isCheckedAll_);
     });
 
 
     // rerender check all submit button
     /*
-    productItemCheckbox.change(function(){
-      var checkedCount = $('input[name="employeeId[]"]:checked').length;
+    employeeItemCheckbox.change(function(){
+      var checkedCount = $('input[name="employeeIds[]"]:checked').length;
       if(checkedCount > 0) {
           checkAllSubmitBtn.attr('disabled', false);
       }
