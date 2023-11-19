@@ -5,31 +5,6 @@ const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 
 class ManagerController {
-
-    getResetPassword(req, res) {
-        // Lấy token từ đường dẫn
-        const token = req.params.token;
-        console.log("getreset" + token)
-    
-        // Tìm người dùng với token tương ứng và kiểm tra xem token có hiệu lực không
-        // const employee = Employee.find((employee) => employee.resetToken === token && employee.resetTokenExpiration > Date.now());
-    
-        Employee.findOne({ resetToken: token })
-          .then(employee => {
-    
-            if (!employee) {
-              return res.status(401).send('Invalid or expired token');
-            }
-    
-            console.log("getreset2" + (employee.resetToken || 'No resetToken found'));
-    
-            console.log(employee)
-            // Hiển thị form để người dùng đặt lại mật khẩu
-            res.render('resetPassword', {
-              token: token
-            });
-          })
-}
     
     getLogin(req, res) {
         res.render('login');
@@ -73,15 +48,15 @@ class ManagerController {
     }
 
     getHome(req, res) {
-        // User.find({})
-        //     .then((result) => {
-        //         res.json(result);
-        //         // Handle the query result here
-        //     })
-        //     .catch((error) => {
-        //         res.json(error);
-        //         // Handle any errors here
-        //     });
+        User.find({})
+            .then((result) => {
+                res.json(result);
+                // Handle the query result here
+            })
+            .catch((error) => {
+                res.json(error);
+                // Handle any errors here
+            });
 
 
         // // User.find({}, function (err, users){
@@ -152,6 +127,36 @@ class ManagerController {
 
     getForgotPassword(req, res) {
         res.render('forgotPassword');
+    }
+
+    humanResource(req, res, next) {
+        try {
+            // res.render('supervisor/humanResource')
+            // console.log(Employee.countDocumentsDeleted())
+            // res.render(Employee.countDocumentsDeleted())
+
+            // const userRole = req.session.employee.role;
+            // if (userRole == 'Manager') {
+                Promise.all([Employee.find({}), Employee.find({ deleted: true }).countDocuments()])
+                    .then(
+                        ([employees, deleteCount]) => {
+
+                        
+                        res.render('supervisor/humanResource', {
+                            // user: req.session.user,
+                            deleteCount,
+                            employees: multipleMongooseToObject(employees)
+                        })
+                        console.log("employee:", employees)
+                    }
+                    )
+                    .catch(next)
+        //     } else {
+        //         res.json('Bạn không có quyền truy cập chức năng này');
+        //     }
+        } catch (e) {
+            res.render('error');
+        }
     }
 }
 
