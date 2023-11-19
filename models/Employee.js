@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseDelete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const Employee = new Schema({
@@ -17,6 +18,13 @@ const Employee = new Schema({
     workAddress: {type: String},
     resetToken: {type: String, default: ''},
     resetTokenExpiration: {type: Date, default: 0},
+    createdAt: { type: Date },
+    updatedAt: { type: Date },
+    slug: { type: String },
 }, { timestamps: true });
 
+Employee.plugin(mongooseDelete, {
+    deletedAt: true,
+    overrideMethods: 'all',
+});
 module.exports = mongoose.model('Employee', Employee);
