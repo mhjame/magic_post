@@ -167,26 +167,6 @@ class ManagerController {
         }
     }
 
-    oldBinEmployees(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole == 'Manager') {
-                Employee.findDeleted({})
-                    .then((employees) =>
-                        res.render('supervisor/oldBin', {
-                            // user: req.session.user,
-                            employees: multipleMongooseToObject(employees),
-                        }),
-                    )
-                    .catch(next)
-        //     } else {
-        //         res.json('Bạn không có quyền truy cập chức năng này');
-        //     }
-        } catch (e) {
-            res.render('error');
-        }
-    }
-
     oldHR(req, res, next) {
         // try {
         //     const userRole = req.session.employee.role;
@@ -257,59 +237,6 @@ class ManagerController {
         } catch (e) {
             res.render('error');
         }
-    }
-
-    edit(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
-                res.json('Bạn không có quyền truy cập chức năng này');
-                return;
-            }
-
-            Employee.findById(req.params.id)
-                .then(employee => res.render('profile/edit', {
-                    employee: mongooseToObject(employee)
-                }))
-                .catch(next);
-        } catch (e) {
-            res.render('error')
-        }
-    }
-
-    update(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
-                res.json('Bạn không có quyền truy cập chức năng này');
-                return;
-            }
-
-            Employee.updateOne({ _id: req.params.id }, req.body)
-                .then(() => res.redirect('supervisor/humanResource'))
-                .catch(next);
-        } catch (e) {
-            res.render('error')
-        }
-
-    }
-
-    destroy(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
-                res.json('Bạn không có quyền truy cập chức năng này');
-                return;
-            }
-
-            /*sofe delete*/
-            Employee.delete({ _id: req.params.id })
-                .then(() => res.redirect('back'))
-                .catch(next);
-        } catch (e) {
-            res.render('error');
-        }
-
     }
 
     //DELETE /product/:id/force
