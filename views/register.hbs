@@ -1,0 +1,200 @@
+<div class="register">
+    <div class="container-sm">
+        <div class="row py-5 px-3">
+            <div class="col-0 col-lg-1 col-xl-2"></div>
+            <div class="col-12 col-sm-12 col-lg-10 col-xl-8">
+                <h2 class="mt-4">Đăng kí tài khoản</h2>
+                <div class="message mt-3">
+                    {{#if message}}{{message}}{{/if}}
+                </div>
+                <form id="register-form" method="post" action="/register">
+                    <table class="table table-borderless align-middle">
+                        <tr>
+                            <th><label for="lastName">Họ:</label></th>
+                            <td><input type="text" class="form-control" id="lastName" name="lastName"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="firstName">Tên:</label></th>
+                            <td><input type="text" class="form-control" id="firstName" name="firstName"></td>
+                        </tr>
+
+                        <tr>
+                            <th><label for="birth">Ngày sinh:</label></th>
+                            <td><input type="date" class="form-control" id="birth" name="birth"></td>
+                        </tr>
+
+                        {{!-- <tr>
+                            <th><label for="firstName">Tên:</label></th>
+                            <td><input type="text" class="form-control" id="firstName" name="firstName"></td>
+                        </tr> --}}
+
+                        <tr>
+                            <th><label for="email">Email:</label></th>
+                            <td><input type="text" class="form-control" id="email" name="email"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="phoneNumber">Số điện thoại:</label></th>
+                            <td><input type="text" class="form-control" id="phoneNumber" name="phoneNumber"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="username">Tên đăng nhập:</label></th>
+                            <td><input type="text" class="form-control" id="username" name="username"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="password">Mật khẩu:</label></th>
+                            <td><input type="password" class="form-control" id="password" name="password"></td>
+                        </tr>
+
+                        <tr>
+                            <th><label for="retype">Nhập lại mật khẩu:</label></th>
+                            <td><input type="password" class="form-control" id="retype" name="retype"></td>
+                        </tr>
+
+                        {{!-- <tr>
+                            <th><label for="workplace">Địa điểm làm việc:</label></th>
+                            <td><input type="text" class="form-control" id="workplace" name="workplace"></td>
+                        </tr> --}}
+
+                        <tr>
+                            <th><label for="address">Địa chỉ:</label></th>
+                            <td><input type="text" class="form-control" id="address" name="address"></td>
+                        </tr>
+
+                        <tr>
+                            <th><label for="workAddress">Địa điểm làm việc:</label></th>
+                            <td>
+                                <select id="workAddress" name="workAddress"
+                                    class="table table-borderless align-middle form-select">
+                                    <option value="1">An Giang</option>
+                                    <option value="2">Bà Rịa – Vũng Tàu</option>
+                                    <option value="3">Bắc Giang</option>
+                                    <option value="4">Bắc Kạn</option>
+                                    <option value="5">Bạc Liêu</option>
+                                    <option value="6">Bắc Ninh</option>
+                                    <option value="7">Bến Tre</option>
+                                    <option value="8">Bình Định</option>
+                                    <option value="9">Bình Dương</option>
+                                    <option value="10">Bình Phước</option>
+                                    <option value="11">Bình Thuận</option>
+                                    <option value="12">Cà Mau</option>
+                                    <option value="13">Cần Thơ</option>
+                                    <option value="14">Cao Bằng</option>
+                                    <option value="15">Đà Nẵng</option>
+                                    <option value="16">Đắk Lắk</option>
+                                    <option value="17">Đắk Nông</option>
+                                    <option value="18">Điện Biên</option>
+                                    <option value="19">Đồng Nai</option>
+                                    <option value="20">Đồng Tháp</option>
+                                    <option value="21">Gia Lai</option>
+                                    <option value="22">Hà Giang</option>
+                                    <option value="23">Hà Nam</option>
+                                    <option value="24">Hà Nội</option>
+                                    <option value="25">Hà Tĩnh</option>
+                                    <option value="26">Hải Dương</option>
+                                    <option value="27">Hải Phòng</option>
+                                    <option value="28">Hậu Giang</option>
+                                    <option value="29">Hòa Bình</option>
+                                    <option value="30">Hưng Yên</option>
+                                    <option value="31">Khánh Hòa</option>
+                                    <option value="32">Kiên Giang</option>
+                                    <option value="33">Kon Tum</option>
+                                    <option value="34">Lai Châu</option>
+                                    <option value="35">Lâm Đồng</option>
+                                    <option value="36">Lạng Sơn</option>
+                                    <option value="37">Lào Cai</option>
+                                    <option value="38">Long An</option>
+                                    <option value="39">Nam Định</option>
+                                    <option value="40">Nghệ An</option>
+                                    <option value="41">Ninh Bình</option>
+                                    <option value="42">Ninh Thuận</option>
+                                    <option value="43">Phú Thọ</option>
+                                    <option value="44">Phú Yên</option>
+                                    <option value="45">Quảng Bình</option>
+                                    <option value="46">Quảng Nam</option>
+                                    <option value="47">Quảng Ngãi</option>
+                                    <option value="48">Quảng Ninh</option>
+                                    <option value="49">Quảng Trị</option>
+                                    <option value="50">Sóc Trăng</option>
+                                    <option value="51">Sơn La</option>
+                                    <option value="52">Tây Ninh</option>
+                                    <option value="53">Thái Bình</option>
+                                    <option value="54">Thái Nguyên</option>
+                                    <option value="55">Thanh Hóa</option>
+                                    <option value="56">Thừa Thiên Huế</option>
+                                    <option value="57">Tiền Giang</option>
+                                    <option value="58">TP Hồ Chí Minh</option>
+                                    <option value="59">Trà Vinh</option>
+                                    <option value="60">Tuyên Quang</option>
+                                    <option value="61">Vĩnh Long</option>
+                                    <option value="62">Vĩnh Phúc</option>
+                                    <option value="63">Yên Bái</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th><label for="employeeId">Mã nhân viên:</label></th>
+                            <td><input type="text" class="form-control" id="employeeId" name="employeeId"></td>
+                        </tr>
+
+                        <tr>
+                            <th><label for="role">Chức vụ:</label></th>
+                            <td>
+                                <select id="role" name="role" class="table table-borderless align-middle form-select">
+                                    {{#if (eq employee.role 'StationAd')}}
+                                    <option value="StationE">StationE</option>
+                                    {{else if (eq employee.role 'WarehouseAd')}}
+                                    <option value="StationAd">Station Admin</option>
+                                    {{else if (eq employee.role 'Manager')}}
+                                    <option value="WarehouseAd">Warehouse Admin</option>
+                                    {{/if}}
+                                    {{!-- <option value="Manager">Manager</option> --}}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <button type="submit" class="btn btn-primary mt-3 me-3">Đăng kí</button>
+                                <a class="btn btn-secondary mt-3 ms-3" href="/login" role="button">Hủy</a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Thông báo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p class="modal-message"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#register-form').on('submit', event => {
+        event.preventDefault();
+        fetch(event.target.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(event.target))
+        })
+            .then(response => response.json())
+            .then(json => {
+                $('#modal').modal('toggle');
+                $('.modal-message').html(json.message);
+                if (json.registerSuccess) $('.modal-button').html('<a type="button" class="btn btn-primary" href="/login">Đăng nhập</a>');
+                else $('.modal-button').html('<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>');
+            });
+    });
+</script>
