@@ -21,10 +21,10 @@ const Employee = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
     slug: { type: String },
-    createdAt: { type: Date },
-    updatedAt: { type: Date },
-    slug: { type: String },
+  
     // deleted: {type: Boolean, default: false}
+    workPlaceId: {type: String},
+    
 }, { timestamps: true });
 
 Employee.plugin(mongooseDelete, {

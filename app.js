@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const handlebars = require('express-handlebars');
+
+
 const app = express();
 const port = 3000;
 const bodyParser = require('body-parser');
@@ -83,6 +85,12 @@ app.use(managerRouter);
 
 const userRouter = require('./routes/user');
 app.use(userRouter);
+
+
+const employeeRouter = require('./routes/employee');
+app.use(employeeRouter);
+
+
 
 //localhost: 127.0.0.1
 const db = require('./config/db');
