@@ -20,5 +20,8 @@ router.post('/reset-password/', passwordController.postResetPassword)
 
 
 router.get('/supervisor/humanResource', managerController.humanResource);
+router.get('/supervisor/oldHR', managerController.oldHR);
 router.post('/employees/handle-form-actions', managerController.handleFormActions);
+router.post('/employees/:id/restore', managerController.restore);
+router.delete('/employees/:id/force',managerController.forceDestroy);
 module.exports = router;

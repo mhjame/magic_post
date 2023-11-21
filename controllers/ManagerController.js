@@ -164,24 +164,24 @@ class ManagerController {
         }
     }
 
-    oldBinEmployees(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole == 'Manager') {
+    oldHR(req, res, next) {
+        // try {
+        //     const userRole = req.session.employee.role;
+        //     if (userRole == 'Manager') {
                 Employee.findDeleted({})
                     .then((employees) =>
-                        res.render('supervisor/oldBin', {
+                        res.render('supervisor/oldHR', {
                             // user: req.session.user,
                             employees: multipleMongooseToObject(employees),
                         }),
                     )
                     .catch(next)
-            } else {
-                res.json('Bạn không có quyền truy cập chức năng này')
-            }
-        } catch (e) {
-            res.render('error');
-        }
+        //     } else {
+        //         res.json('Bạn không có quyền truy cập chức năng này')
+        //     }
+        // } catch (e) {
+        //     res.render('error');
+        //}
     }
 
     edit(req, res, next) {
@@ -256,16 +256,16 @@ class ManagerController {
 
     restore(req, res, next) {
         try {
-            const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
-                res.json('Bạn không có quyền truy cập chức năng này');
-                return;
-            }
+            // const userRole = req.session.employee.role;
+            // if (userRole != 'Manager') {
+            //     res.json('Bạn không có quyền truy cập chức năng này');
+            //     return;
+            // }
             Employee.restore({ _id: req.params.id })
                 .then(() => res.redirect('back'))
                 .catch(next);
         } catch (e) {
-            res.render('error')
+            res.json(e.message);
         }
 
     }
