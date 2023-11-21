@@ -1,0 +1,155 @@
+<div class="container-sm">
+    <div class="mt-4">
+        <h3> Danh sách nhân sự từng hoạt động </h3>
+        <a href="/supervior/oldHR"> Danh sách nhân sự hiện tại </a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"> First Name </th>
+                    <th scope="col"> Last Name </th>
+                    <th scope="col"> Role </th>
+                    <th scope="col"> Work Address</th>
+                    <th scope="col"> Thời gian xóa </th>
+                    <th scope="col" colspan='2'></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each employees}}
+                <tr>
+                    <th scope="row">{{sum @index 1}}</th> <!-- sum(index, 1)-->
+                    <td> {{this.firstName}}</td>
+                    <td> {{this.lastName}}</td>
+                    <td> {{this.role}}</td>
+                    <td>{{this.workAddress}}</td>
+                    <td> {{this.deletedAt}}</td>
+                    <td>
+                        <a href="" class="btn btn-link btn-restore" data-id={{this._id}}> Khôi phục </a>
+                        <a href="" class="btn btn-link btn-delete-employee" data-id={{this._id}}> Xóa vĩnh viễn </a>
+                        {{!-- <a href="" class="btn btn-link btn-delete-employee" data-toggle="modal"
+                            data-target="#delete-employee-modal" data-id={{this._id}}>
+                            Xóa vĩnh viễn
+                        </a> --}}
+                    </td>
+                </tr>
+
+                {{else}}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        Không có nhân sự cũ. 
+                        <a href="/supervior/oldHR"> Danh sách nhân sự hiện tại </a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Confirm delete employee 
+-->
+{{!-- // temporary
+<div class="modal fade" id="delete-employee-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Xóa vĩnh viễn? </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> Hành động này không thể khổi phục. Bạn chắc chắn muốn xóa vĩnh viễn sản phẩm này? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-delete-employee"> Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+{{!-- <div class="modal" id="delete-employee-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> Xóa vĩnh viễn?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> Hành động này không thể khổi phục. Bạn chắc chắn muốn xóa vĩnh viễn sản phẩm này? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btn-delete-employee"> Xóa bỏ </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Hủy </button>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<!-- Restore hidden form -->
+
+<form name="restore-employee-form" method="post">
+
+</form>
+
+{{!-- <form name="delete-employee-form" method="post">
+
+</form> --}}
+
+<form name="delete-employee-form" method="post">
+
+</form>
+
+<script>
+
+    // when dialog confirm clicked
+    document.addEventListener('DOMContentLoaded', function () {
+        var employeeId;
+        var restoreForm = document.forms['restore-employee-form'];
+        var deleteForm = document.forms['delete-employee-form'];
+
+        var btnDeleteEmployee = $('.btn-delete-employee');
+        var restoreBtn = $('.btn-restore');
+
+
+        //$('#delete-employee-modal').on('show.bs.modal', function (event) {
+        //  var button = $(event.relatedTarget); // Button that triggered the modal
+        //var id = button.data('id'); // Extract info from data-* attributes
+        //employeeId = id;
+        //});
+
+        // khi ấn xác định xóa
+
+        //btnDeleteemployee.onclick = function() {
+        //alert(employeeId);
+        //deleteForm.action = '/employees/' + employeeId + '/force?_method=DELETE';
+        //deleteForm.submit();
+        //}
+
+        // restoreBtn click
+        restoreBtn.click(function (e) {
+            e.preventDefault();  // xóa bỏ hành vi mặc định của thẻ đang được click
+            var employeeId = $(this).data('id');
+            //console.log($(this).data('id'));
+
+            restoreForm.action = '/employees/' + employeeId + '/restore?_method=PATCH';
+            restoreForm.submit();
+        })
+
+        btnDeleteEmployee.click(function (e) {
+            e.preventDefault();  // xóa bỏ hành vi mặc định của thẻ đang được click
+            var employeeId = $(this).data('id');
+            //console.log($(this).data('id'));
+
+            deleteForm.action = '/employees/' + employeeId + '/force?_method=DELETE';
+            deleteForm.submit();
+        })
+    });
+
+</script>
