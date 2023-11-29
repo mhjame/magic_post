@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const managerController = require('../controllers/ManagerController');
-const passwordController = require('../controllers/PasswordController')
+const passwordController = require('../controllers/PasswordController');
 const statisticController = require('../controllers/StatisticController');
 
 router.get('/login', managerController.getLogin); // get/post
@@ -25,4 +25,8 @@ router.get('/statistic_manager', statisticController.getStatisticManager)
 
 
 router.get('/supervisor/humanResource', managerController.humanResource);
+router.get('/supervisor/oldHR', managerController.oldHR);
+router.post('/employees/handle-form-actions', managerController.handleFormActions);
+router.post('/employees/:id/restore', managerController.restore);
+router.post('/employees/:id/force',managerController.forceDestroy);
 module.exports = router;

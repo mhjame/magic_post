@@ -1,18 +1,43 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
-const Station = require('../models/Station');
-const Warehouse = require('../models/Warehouse');
+
 
 
 
 class UserController {
 
 
+    searchPost(req, res, next) {
+        const value = req.query.searchValue;
+        Post.findOne({ id: value }).lean()
+            .then((post) => {
+                if (!post) {
+                  
+                  
+                    // Back lại trang cũ
+                    res.render('post_info', {
+                        message: 'post not found'
+                    });
+
+                } else {
+
+                    res.render('search_post', {
+                        post: post,
+
+
+                    });
+                }
+
+            })
+            .catch(next);
+    }
+
+
     searchPostInfo(req, res, next) {
-    
+
 
         // Tìm kiếm người dùng theo ID
-        User.findOne({ id: "123" }).lean()
+        User.findOne({_id: '65523b6b821170c9c1bc7a21'}).lean()
             .then((user) => {
                 // Nếu người dùng không tồn tại
                 if (!user) {
@@ -23,12 +48,12 @@ class UserController {
                 // Lấy các ID của các post của người dùng
                 const postIds = user.posts;
 
-                let sStation, sWarehouse, rStation, rWarehouse;
 
-                
+
+
 
                 // Tạo một mảng trống để chứa các post
-                const posts = [], route = [];
+                const posts = [];
 
 
                 // Lặp qua từng ID của post
@@ -44,8 +69,8 @@ class UserController {
                             // Thêm post vào mảng posts
                             posts.push(post);
 
-                            
-                            
+
+
                         })
                         .catch((err) => {
                             // Xử lý lỗi
@@ -57,13 +82,13 @@ class UserController {
                 // Render trang post_info
                 res.render('post_info', {
                     posts: posts,
-                   
-                
+                    user: user,
+
                 });
             })
             .catch(next);
     }
-    
+
 }
 
 module.exports = new UserController;

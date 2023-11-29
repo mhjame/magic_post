@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="public/css/app.css">
 </head>
 <body>
+    {{#if noHeader}}
+    {{else}}
+    <div class="header" style="height: 56px;">
+        {{> header}}
+    </div>
+    {{/if}}
     {{{body}}}
     
 </body>

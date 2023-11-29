@@ -21,10 +21,10 @@ class StatisticController {
     }
 
     getPostStatisticsStation(req, res) {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const tomorrow = new Date(today);
-        tomorrow.setDate(today.getDate() + 1);
+        // const today = new Date();
+        // today.setHours(0, 0, 0, 0);
+        // const tomorrow = new Date(today);
+        // tomorrow.setDate(today.getDate() + 1);
 
         const startOfMonth = new Date();
         startOfMonth.setDate(1);
