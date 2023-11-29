@@ -5,7 +5,7 @@ const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 
 class ManagerController {
-    
+
     getLogin(req, res) {
         res.render('login');
     }
@@ -70,7 +70,7 @@ class ManagerController {
         // //     else res.json('error')
         // // })
         // // res.json('hallo');
-        res.render('home');
+        res.render('test');
     }
 
     getSearch(req, res) {
@@ -83,7 +83,7 @@ class ManagerController {
 
     getRegister(req, res) {
         res.render('register', {
-                employee: req.session.employee,
+            employee: req.session.employee,
         });
     }
 
@@ -94,7 +94,7 @@ class ManagerController {
                 registerSuccess: false,
                 message: 'Vui lòng nhập đầy đủ thông tin'
             });
-    
+
         // Check if both password and retype exist before comparing
         if (req.body.password && req.body.password !== req.body.retype) {
             return res.json({
@@ -102,7 +102,7 @@ class ManagerController {
                 message: 'Mật khẩu nhập không khớp'
             });
         }
-    
+
         next();
     }
 
