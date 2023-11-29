@@ -53,9 +53,10 @@ class ManagerController {
     }
 
     getHome(req, res) {
-        User.find({})
+        Employee.findOne({_id:'65599ec015476e96d3c953ff'})
             .then((result) => {
-                res.json(result);
+                console.log(result);
+                console.log('success to find');
                 // Handle the query result here
             })
             .catch((error) => {
@@ -151,7 +152,7 @@ class ManagerController {
 
                         
                         res.render('supervisor/humanResource', {
-                            // user: req.session.user,
+                            employee: req.session.employee,
                             deleteCount,
                             employees: multipleMongooseToObject(employees)
                         })
@@ -174,7 +175,7 @@ class ManagerController {
                 Employee.findDeleted({})
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
-                            // user: req.session.user,
+                            employee: req.session.employee,
                             employees: multipleMongooseToObject(employees),
                         }),
                     )
