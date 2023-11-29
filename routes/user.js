@@ -4,5 +4,6 @@ const userController = require('../controllers/UserController');
 
 
 router.get('/post_info', userController.searchPostInfo); 
+router.get('/search_post', userController.searchPost); 
 
 module.exports = router;

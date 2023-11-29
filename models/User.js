@@ -14,7 +14,7 @@ const User = new Schema({
     phoneNumber: { type: String, default: '' },
     address: {type: String},
     posts: { type: Array},
-}, { timestamps: true, _id: false });
+}, { timestamps: true });
 
 
 
