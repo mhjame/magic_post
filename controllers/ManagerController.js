@@ -5,7 +5,7 @@ const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 
 class ManagerController {
-    
+
     getLogin(req, res) {
         res.render('login');
     }
@@ -37,31 +37,31 @@ class ManagerController {
                     });
                 }
                 console.log("error"),
-                req.session.regenerate(err => {
-                    if (err) return err;
-                    req.session.employee = mongooseToObject(employee);
-                    req.session.save(err => {
+                    req.session.regenerate(err => {
                         if (err) return err;
-                        res.json({
-                            loginSuccess: true,
-                            message: 'Đăng nhập thành công'
+                        req.session.employee = mongooseToObject(employee);
+                        req.session.save(err => {
+                            if (err) return err;
+                            res.json({
+                                loginSuccess: true,
+                                message: 'Đăng nhập thành công'
+                            });
                         });
                     });
-                });
             })
             .catch(next);
     }
 
     getHome(req, res) {
-        User.find({})
-            .then((result) => {
-                res.json(result);
-                // Handle the query result here
-            })
-            .catch((error) => {
-                res.json(error);
-                // Handle any errors here
-            });
+        // User.find({})
+        //     .then((result) => {
+        //         res.json(result);
+        //         // Handle the query result here
+        //     })
+        //     .catch((error) => {
+        //         res.json(error);
+        //         // Handle any errors here
+        //     });
 
 
         // // User.find({}, function (err, users){
@@ -69,7 +69,7 @@ class ManagerController {
         // //     else res.json('error')
         // // })
         // // res.json('hallo');
-        res.render('home');
+        res.render('test');
     }
 
     getSearch(req, res) {
@@ -82,7 +82,7 @@ class ManagerController {
 
     getRegister(req, res) {
         res.render('register', {
-                employee: req.session.employee,
+            employee: req.session.employee,
         });
     }
 
@@ -93,7 +93,7 @@ class ManagerController {
                 registerSuccess: false,
                 message: 'Vui lòng nhập đầy đủ thông tin'
             });
-    
+
         // Check if both password and retype exist before comparing
         if (req.body.password && req.body.password !== req.body.retype) {
             return res.json({
@@ -101,7 +101,7 @@ class ManagerController {
                 message: 'Mật khẩu nhập không khớp'
             });
         }
-    
+
         next();
     }
 
@@ -141,14 +141,14 @@ class ManagerController {
                     .then(
                         ([employees, deleteCount]) => {
 
-                        
-                        res.render('supervisor/humanResource', {
-                            // user: req.session.user,
-                            deleteCount,
-                            employees: multipleMongooseToObject(employees)
-                        })
-                        console.log("employee:", employees)
-                    }
+
+                            res.render('supervisor/humanResource', {
+                                // user: req.session.user,
+                                deleteCount,
+                                employees: multipleMongooseToObject(employees)
+                            })
+                            console.log("employee:", employees)
+                        }
                     )
                     .catch(next)
             } else {

@@ -1,0 +1,449 @@
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet">
+
+<body class="bg-default">
+    <div class="main-content">
+
+    </div>
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+
+        <div class="header">
+            <h1 style="padding: 10px; font-size: 30px;  font-weight: bold;">Tổng quan</h1>
+            <div class="button-container">
+                <button class="button">Trong ngày</button>
+                <button class="button">Trong tuần</button>
+                <button class="button">Trong tháng</button>
+                <button class="button">Trong tháng</button>
+            </div>
+            <style>
+                .header {
+
+                    font-family: inherit;
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                .button-container {
+                    margin-bottom: 25px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .button {
+                    padding: 10px 30px;
+                    margin: 5px;
+                    font-size: 16px;
+                    background-color: #3498db;
+                    color: #fff;
+                    border: none;
+                    border-radius: 25px;
+                    cursor: pointer;
+                }
+
+                .button:hover {
+                    background-color: #2980b9;
+                }
+            </style>
+        </div>
+        <div class="container-fluid">
+            {{!-- <h2 class="mb-5 text-white">Stats Card</h2> --}}
+            <div class="header-body">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-6">
+                        <div class="card card-stats mb-4 mb-xl-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
+                                        <span class="h2 font-weight-bold mb-0">350,897</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                            <i class="fas fa-chart-bar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-muted text-sm">
+                                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6">
+                        <div class="card card-stats mb-4 mb-xl-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
+                                        <span class="h2 font-weight-bold mb-0">2,356</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                            <i class="fas fa-chart-pie"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-muted text-sm">
+                                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                                    <span class="text-nowrap">Since last week</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6">
+                        <div class="card card-stats mb-4 mb-xl-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
+                                        <span class="h2 font-weight-bold mb-0">924</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-muted text-sm">
+                                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                                    <span class="text-nowrap">Since yesterday</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6">
+                        <div class="card card-stats mb-4 mb-xl-0">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
+                                        <span class="h2 font-weight-bold mb-0">49,65%</span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                                            <i class="fas fa-percent"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-3 mb-0 text-muted text-sm">
+                                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                                    <span class="text-nowrap">Since last month</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            h2,
+            h5,
+            .h2,
+            .h5 {
+                font-family: inherit;
+                font-weight: 600;
+                line-height: 1.5;
+                margin-bottom: .5rem;
+                color: #32325d;
+            }
+
+            h5,
+            .h5 {
+                font-size: .8125rem;
+            }
+
+            @media (min-width: 992px) {
+
+                .col-lg-6 {
+                    max-width: 50%;
+                    flex: 0 0 50%;
+                }
+            }
+
+            @media (min-width: 1200px) {
+
+                .col-xl-3 {
+                    max-width: 25%;
+                    flex: 0 0 25%;
+                }
+
+                .col-xl-6 {
+                    max-width: 50%;
+                    flex: 0 0 50%;
+                }
+            }
+
+
+            .bg-danger {
+                background-color: #f5365c !important;
+            }
+
+
+
+            @media (min-width: 1200px) {
+
+                .justify-content-xl-between {
+                    justify-content: space-between !important;
+                }
+            }
+
+
+            .pt-5 {
+                padding-top: 3rem !important;
+            }
+
+            .pb-8 {
+                padding-bottom: 8rem !important;
+            }
+
+            @media (min-width: 768px) {
+
+                .pt-md-8 {
+                    padding-top: 8rem !important;
+                }
+            }
+
+            @media (min-width: 1200px) {
+
+                .mb-xl-0 {
+                    margin-bottom: 0 !important;
+                }
+            }
+
+
+
+
+            .font-weight-bold {
+                font-weight: 600 !important;
+            }
+
+
+            a.text-success:hover,
+            a.text-success:focus {
+                color: #24a46d !important;
+            }
+
+            .text-warning {
+                color: #fb6340 !important;
+            }
+
+            a.text-warning:hover,
+            a.text-warning:focus {
+                color: #fa3a0e !important;
+            }
+
+            .text-danger {
+                color: #f5365c !important;
+            }
+
+            a.text-danger:hover,
+            a.text-danger:focus {
+                color: #ec0c38 !important;
+            }
+
+            .text-white {
+                color: #fff !important;
+            }
+
+            a.text-white:hover,
+            a.text-white:focus {
+                color: #e6e6e6 !important;
+            }
+
+            .text-muted {
+                color: #8898aa !important;
+            }
+
+            @media print {
+
+                *,
+                *::before,
+                *::after {
+                    box-shadow: none !important;
+                    text-shadow: none !important;
+                }
+
+                a:not(.btn) {
+                    text-decoration: underline;
+                }
+
+                p,
+                h2 {
+                    orphans: 3;
+                    widows: 3;
+                }
+
+                h2 {
+                    page-break-after: avoid;
+                }
+
+                @ page {
+                    size: a3;
+                }
+
+                body {
+                    min-width: 992px !important;
+                }
+            }
+
+            figcaption,
+            main {
+                display: block;
+            }
+
+            main {
+                overflow: hidden;
+            }
+
+            .bg-yellow {
+                background-color: #ffd600 !important;
+            }
+
+            .icon {
+                width: 3rem;
+                height: 3rem;
+            }
+
+            .icon i {
+                font-size: 2.25rem;
+            }
+
+            .icon-shape {
+                display: inline-flex;
+                padding: 12px;
+                text-align: center;
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+        <div class="chartStatt">
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+            <script>
+                $(document).ready(function () {
+                    var ctx = $("#chart-line");
+                    var myLineChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ["Giao hàng thành công", "Không giao thành công"],
+                            datasets: [{
+                                data: [{{ stationDailyInCount }}, {{ stationDailyOutCount }}],
+                        backgroundColor: ["rgba(255, 0, 0, 0.5)", "rgba(100, 255, 0, 0.5)"]
+                    }]
+            },
+                    options: {
+                    title: {
+                        display: true,
+                        text: 'Thống kê '
+                    }
+                }
+        });
+    });
+            </script>
+            <div class="page-content page-container mx-auto" id="page-content">
+                <div class="padding">
+                    <div class="row">
+                        <div class="container-fluid d-flex justify-content-center mx-auto">
+                            <div class="col-sm-8 col-md-6">
+                                <div class="card">
+                                    <div class="card-header">Đơn hàng</div>
+                                    <div class="card-body" style="height: 420px">
+                                        <div class="chartjs-size-monitor"
+                                            style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                            <div class="chartjs-size-monitor-expand"
+                                                style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                <div
+                                                    style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                </div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink"
+                                                style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                                </div>
+                                            </div>
+                                        </div> <canvas id="chart-line" width="299" height="200"
+                                            class="chartjs-render-monitor"
+                                            style="display: block; width: 299px; height: 200px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                body {
+
+                    background-color: #f9f9fa
+                }
+
+                .flex {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1 1 auto;
+                    flex: 1 1 auto
+                }
+
+                @media (max-width:991.98px) {
+                    .padding {
+                        padding: 1.5rem
+                    }
+                }
+
+                @media (max-width:767.98px) {
+                    .padding {
+                        padding: 1rem
+                    }
+                }
+
+                .padding {
+                    padding: 5rem
+                }
+
+                .card {
+                    background: #fff;
+                    border-width: 0;
+                    border-radius: .25rem;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+                    margin-bottom: 1.5rem
+                }
+
+                .card {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 0;
+                    word-wrap: break-word;
+                    background-color: #fff;
+                    background-clip: border-box;
+                    border: 1px solid rgba(19, 24, 44, .125);
+                    border-radius: .25rem
+                }
+
+                .card-header {
+                    padding: .75rem 1.25rem;
+                    margin-bottom: 0;
+                    background-color: rgba(19, 24, 44, .03);
+                    border-bottom: 1px solid rgba(19, 24, 44, .125)
+                }
+
+                .card-header:first-child {
+                    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+                }
+
+                card-footer,
+                .card-header {
+                    background-color: transparent;
+                    border-color: rgba(160, 175, 185, .15);
+                    background-clip: padding-box
+                }
+            </style>
+        </div>
+    </div>
+
+    <!-- Page content -->
+
+    </div>
+
+</body>
