@@ -90,6 +90,45 @@ class EmployeeController {
     }
 
     postShipToWarehouseOrder(req, res, next) {
+
+        let postIds = req.body.postIds;
+        if (Array.isArray(postIds)) {
+            for (let i = 0; i < postIds.length; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[1] = new Date();
+                    }
+                });
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+                    if (post.statusUpdateTime) {
+
+                        post.statusUpdateTime[3] = new Date();
+                    }
+                });
+                
+            };
+        } else {
+            Post.findOneAndUpdate({ id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                if (post) {
+                    
+                    post.statusUpdateTime[1] = new Date();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+            Post.findOneAndUpdate({ id: postIds, status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[3] = new Date();
+                }
+            });
+        }
+
+
+
+
+
         const container = new Container({
             employeeId: req.body.employeeId,
             type: req.body.typeOfOrder,
