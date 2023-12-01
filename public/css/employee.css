@@ -4,7 +4,7 @@
 .readonly {
   color: grey; }
 
-#order-to-warehouse-form {
+form {
   background-color: #fff;
   max-width: 800px;
   margin: 50px auto;

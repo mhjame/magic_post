@@ -1,12 +1,21 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
+
 
 <link rel="stylesheet" href="/css/employee.css">
+
+
+
+
 
 
 {{!-- <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1e1e86;">
@@ -47,8 +56,8 @@
 
 <div class="row justify-content-center align-items-center">
     <div class="col-lg-12 col-sm-9">
-        <form id="order-to-warehouse-form" action="/stored/to_wh_order" method="post">
-            <h4 class="form-title">Đơn chuyển hàng đến điểm tập kết</h4>
+        <form id="order-to-station-form" action="/stored/to_station_order" method="post">
+            <h4 class="form-title">Đơn chuyển hàng đến điểm giao dịch đích</h4>
             <div class="input-control">
                 <label for="name" id="label-name">
                     Người tạo đơn
@@ -78,45 +87,19 @@
                 <input type="hidden" name="senderAddressId" value="{{workPlace.id}}">
             </div>
 
-            {{#if desWarehouse}}
-            <input type="hidden" name="typeOfOrder" value="station-warehouse">
+        
+
+    
+            <input type="hidden" name="typeOfOrder" value="warehouse-station">
 
             <div class="input-control">
-                <label for="fixedDesWarehouse" id="label-fixedDesWarehouse">
-                    Điểm tập kết
+                <label for="desStation" id="label-desStation">
+                    Điểm giao dịch đích
                 </label>
 
-                <input class="readonly" type="text" id="fixedDesWarehouse"
-                    value="{{desWarehouse.id}} - {{desWarehouse.name}}" readonly />
-
-                <input type="hidden" name="receiverAddressId" value="{{desWarehouse.id}}">
-            </div>
-
-            <div class="input-control">
-                <label>Các mã hàng sẽ chuyển đến điểm tập kết</label>
-                {{#unless posts}}
-                <textarea placeholder="Hiện không có mã hàng nào cần chuyển đến điểm tập kết!" readonly></textarea>
-                {{/unless}}
-
-                {{#each posts}}
-                <label>
-                    <input type="checkbox" name="postIds" value="{{this.id}}"> {{this.id}} - {{this.name}}</input></label>
-                {{/each}}
-
-            </div>
-            {{/if}}
-
-            {{#unless desWarehouse}}
-            <input type="hidden" name="typeOfOrder" value="warehouse-warehouse">
-
-            <div class="input-control">
-                <label for="desWarehouse" id="label-desWarehouse">
-                    Điểm tập kết đích
-                </label>
-
-                <select name="receiverAddressId" id="desWarehouse" required autofocus>
-                    <option value="none" selected disabled hidden>Chọn một điểm tập kết</option>
-                    {{#each desWarehouses}}
+                <select name="receiverAddressId" id="desStation" required autofocus>
+                    <option value="none" selected disabled hidden>Chọn một điểm giao dịch</option>
+                    {{#each desStations}}
                     <option value="{{this.id}}">{{this.id}} - {{this.name}}</option>
                     {{/each}}
 
@@ -126,9 +109,9 @@
 
 
             <div class="input-control">
-                <label>Các mã hàng sẽ chuyển đến điểm tập kết đích</label>
+                <label>Các mã hàng sẽ chuyển đến điểm giao dịch đích</label>
                 {{#unless posts}}
-                <textarea placeholder="Hiện không có mã hàng nào cần chuyển đến các điểm tập kết đích!"
+                <textarea placeholder="Hiện không có mã hàng nào cần chuyển đến các điểm giao dịch đích!"
                     readonly></textarea>
                 {{/unless}}
 
@@ -136,14 +119,14 @@
                 <div id="no-posts"></div>
 
                 {{#each posts}}
-                <div class="post-checkbox-container" data-rwarehouseid="{{this.receiverWarehouseId}}"
+                <div class="post-checkbox-container" data-rstationid="{{this.receiverStationId}}"
                     data-postid="{{this.id}}" data-postname="{{this.name}}">
 
                 </div>
                 {{/each}}
                 {{/if}}
             </div>
-            {{/unless}}
+      
 
 
 
@@ -181,7 +164,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn chắc chắn muốn tạo đơn chuyển lô hàng gồm <span id="numOfPosts">0</span> mã hàng đến điểm tập kết
+                Bạn chắc chắn muốn tạo đơn chuyển lô hàng gồm <span id="numOfPosts">0</span> mã hàng đến điểm giao dịch
                 đích chứ?
             </div>
             <div class="modal-footer">
@@ -197,48 +180,29 @@
 <script>
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
     btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('order-to-warehouse-form').submit();
+        document.getElementById('order-to-station-form').submit();
     });
 
     const numOfPosts = document.querySelector('#numOfPosts');
 
-    const checkboxList = document.querySelectorAll('input[type="checkbox"]');
-
     const submitButton = document.querySelector('#submit-button');
 
-    let checkedCount = 0;
-    document.querySelector('#total-posts').value = checkedCount;
+    
 
-    for (const checkbox of checkboxList) {
-        checkbox.addEventListener('change', () => {
-            checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-            document.querySelector('#total-posts').value = checkedCount;
-            numOfPosts.innerHTML = checkedCount;
-
-            if (checkedCount !== 0) {
-                submitButton.disabled = false;
-            } else {
-                submitButton.disabled = true;
-            }
-
-        });
-    }
-
-
-    const desWarehouseSelect = document.getElementById('desWarehouse');
+    const desStationSelect = document.getElementById('desStation');
     const postCheckboxContainers = document.querySelectorAll('.post-checkbox-container');
 
-    desWarehouseSelect.addEventListener('change', (event) => {
+    desStationSelect.addEventListener('change', (event) => {
 
 
-        let selectedWarehouseId = event.target.value;
+        let selectedStationId = event.target.value;
 
 
         for (const checkboxContainer of postCheckboxContainers) {
-            let receiverWarehouseId = checkboxContainer.dataset.rwarehouseid;
+            let receiverStationId = checkboxContainer.dataset.rstationid;
 
 
-            if (receiverWarehouseId === selectedWarehouseId) {
+            if (receiverStationId === selectedStationId) {
 
                 let postId = checkboxContainer.dataset.postid;
                 let postName = checkboxContainer.dataset.postname;
@@ -253,7 +217,7 @@
         const postsCount = document.querySelectorAll('input[type="checkbox"]').length;
 
         if (postsCount === 0) {
-            document.querySelector('#no-posts').innerHTML = `<textarea placeholder="Hiện không có mã hàng nào cần chuyển đến điểm tập kết đã chọn!" readonly></textarea>`;
+            document.querySelector('#no-posts').innerHTML = `<textarea placeholder="Hiện không có mã hàng nào cần chuyển đến điểm giao dịch đã chọn!" readonly></textarea>`;
         } else {
             document.querySelector('#no-posts').innerHTML = '';
         }
