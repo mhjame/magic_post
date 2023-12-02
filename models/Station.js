@@ -6,6 +6,7 @@ const Station = new Schema({
     address: {type: String},
     adminId: {type: String},
     warehouseId: {type: String},
+    id: {type: String},
 }, {timestamps: true})
 
 module.exports = mongoose.model('Station', Station);

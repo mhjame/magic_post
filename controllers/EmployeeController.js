@@ -38,7 +38,7 @@ class EmployeeController {
                                             .then((posts) => {
 
 
-                                                res.render('create_to_wh_order', {
+                                                res.render('create_order/create_to_wh_order', {
                                                     employee: employee,
                                                     workPlace: station,
                                                     desWarehouse: warehouse,
@@ -64,7 +64,7 @@ class EmployeeController {
                                         Post.find({ senderWarehouseId: warehouse.id, status: 'at sWarehouse' }).lean()
                                             .then((posts) => {
 
-                                                res.render('create_to_wh_order', {
+                                                res.render('create_order/create_to_wh_order', {
                                                     employee: employee,
                                                     workPlace: warehouse,
                                                     desWarehouses: desWarehouses,
@@ -136,7 +136,7 @@ class EmployeeController {
             postIds: req.body.postIds
         });
         container.save()
-            .then(() => res.redirect(200, '/create_to_wh_order'))
+            .then(() => res.redirect(200, '/create_order/create_to_wh_order'))
             .catch(next);
     }
 
@@ -168,7 +168,7 @@ class EmployeeController {
                                     Post.find({ receiverWarehouseId: warehouse.id, status: 'at rWarehouse' }).lean()
                                         .then((posts) => {
 
-                                            res.render('create_to_station_order', {
+                                            res.render('create_order/create_to_station_order', {
                                                 employee: employee,
                                                 workPlace: warehouse,
                                                 desStations: desStations,
@@ -232,7 +232,93 @@ class EmployeeController {
             postIds: req.body.postIds
         });
         container.save()
-            .then(() => res.redirect(200, '/create_to_station_order'))
+            .then(() => res.redirect(200, '/create_order/create_to_station_order'))
+            .catch(next);
+    }
+
+
+
+
+
+
+    createShipToReceiverOrder(req, res, next) {
+
+        Employee.findOne({ employeeId: "HN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Station.findOne({ id: employee.workPlaceId }).lean()
+                        .then((station) => {
+                            if (!station) {
+                                res.status(404).send({ message: 'Station not found' });
+                                return;
+                            }
+
+                            console.log(station.id)
+                            Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean()
+                                .then((posts) => {
+
+
+                                    res.render('create_order/create_to_receiver_order', {
+                                        employee: employee,
+                                        workPlace: station,
+                                        posts: posts
+                                    });
+                                })
+
+
+                        })
+
+
+
+                }
+
+            })
+            .catch(next);
+    }
+
+    postShipToReceiverOrder(req, res, next) {
+        let postIds = req.body.postIds;
+        if (Array.isArray(postIds)) {
+            for (let i = 0; i < postIds.length; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[7] = new Date();
+                        console.log(post.statusUpdateTime);
+                    }
+                });
+
+
+            };
+        } else {
+            Post.findOneAndUpdate({ id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[7] = new Date();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+
+        const container = new Container({
+            employeeId: req.body.employeeId,
+            type: req.body.typeOfOrder,
+            status: 'in process',
+            timeReceived: null,
+            receiverAddressId: req.body.receiverAddressId,
+            senderAddressId: req.body.senderAddressId,
+            postIds: req.body.postIds
+        });
+        container.save()
+            .then(() => res.redirect(200, '/create_order/create_to_receiver_order'))
             .catch(next);
     }
 
