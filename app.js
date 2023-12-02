@@ -50,6 +50,19 @@ app.engine('hbs', handlebars.engine({
         } else {
         return new Date(date).toLocaleDateString("vi-VN");
         }
+      },
+      transformToUniqueArray: (arr) => {
+        const uniqueArray = new Set();
+        if (Array.isArray(arr)) {
+
+          for (let i = 0; i < arr.length; i++) {
+            uniqueArray.add(arr[i].receiverAddress);
+          }
+        } else {
+          uniqueArray.add(arr.receiverAddress);
+        }
+        
+        return uniqueArray;
       }
     }
 
