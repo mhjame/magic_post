@@ -375,6 +375,11 @@ class ManagerController {
     //         res.render(e.message)
     //     }
     // }   
+
+
+    getReceipt(req, res, next) {
+        res.render('receipt');
+    }
 }
 
 module.exports = new ManagerController;
