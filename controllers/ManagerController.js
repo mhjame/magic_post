@@ -1,5 +1,6 @@
 const User = require('../models/User');
-const Employee = require('../models/Employee')
+const Employee = require('../models/Employee');
+const Post = require('../models/Post');
 
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
@@ -377,8 +378,23 @@ class ManagerController {
     // }   
 
 
+    postReceipt(req, res, next) {
+        const { retype, ...formData } = req.body;
+        try {
+            console.log(formData);
+            const postCreate = new Post(formData);
+                postCreate.save();
+                res.json({
+                    receiptSuccess: true,
+                    message: 'Tạo biên nhận thành công'
+                });
+        }
+        catch(e) {
+            res.render(e.message);
+        }
+    }
     getReceipt(req, res, next) {
-        res.render('receipt');
+        res.render('createReceipt');
     }
 }
 

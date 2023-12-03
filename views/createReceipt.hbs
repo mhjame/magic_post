@@ -1,0 +1,305 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+{{!--
+<link rel="stylesheet" href="/css/style.css" type="text/css"> --}}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="/css/receipt.css">
+<div class="container">
+    <div class="col-md-12">
+        <div class="receipt">
+            <!-- begin invoice-company -->
+            <div class="invoice-company text-inverse f-w-600">
+                <span class="pull-right hidden-print">
+                    {{!-- <a href="javascript:;" class="btn btn-sm btn-white m-b-10 p-l-5"><i
+                            class="fa fa-file t-plus-1 text-danger fa-fw fa-lg"></i> Export as PDF</a> --}}
+                    {{!-- <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i
+                            class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a> --}}
+                </span>
+            </div>
+            <!-- end invoice-company -->
+            <!-- begin invoice-header -->
+            <h2>MAGIC POST</h2>
+
+            <form id="createReceipt-form" method="post" action="/createReceipt">
+
+                <table>
+                    <tr>
+                        <td colspan="3">
+                            <div>
+                                <b>1. Họ tên địa chỉ người gửi:</b> </br>
+
+                                <label for="senderName">Họ tên người gửi:
+                                    <input type="text" class="form-control" id="senderName" name="senderName"
+                                        placeholder="Nguyen A">
+                                </label>
+                                </br>
+                                <label for="senderAddress"> Địa chỉ người gửi
+                                    <input type="text" class="form-control" id="senderAddress" name="senderAddress"
+                                        placeholder="Dịch vọng Hậu cầu giấy HN- P.Dịch Vọng Hậu - Q.Cầu Giấy - TP Hà Nội">
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="senderPhoneNumber"> <b>Điện thoại: </b>
+                                    <input type="tel" class="form-control" id="senderPhoneNumber"
+                                        name="senderPhoneNumber" placeholder="123456789">
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="senderId"> <b>Mã khách hàng:</b>
+                                    <input type="text" class="form-control" id="senderId" name="senderId"
+                                        placeholder="123456789">
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="senderStationId"> <b>Mã bưu chính:</b>
+                                    <input type="text" class="form-control" id="senderStationId" name="senderStationId"
+                                        placeholder="123456789">
+                                </label>
+                            </div>
+
+                        </td>
+                        <td colspan="3">
+                            <b>2. Họ tên địa chỉ người nhận:</b> </br>
+                            <label for="receiverName">Họ tên người nhận:
+                                <input type="text" class="form-control" id="receiverName" name="receiverName"
+                                    placeholder="Nguyen A">
+                            </label>
+
+                            <div>
+                                <b>Mã ĐH:</b>
+                                123456789
+                            </div>
+
+                            <div>
+                                <label for="receiverPhoneNumber"> <b>Điện thoại: </b>
+                                    <input type="tel" class="form-control" id="receiverPhoneNumber"
+                                        name="receiverPhoneNumber" placeholder="123456789">
+                                </label>
+                            </div>
+
+                            <div>
+                                <label for="receiverStationId"> <b>Mã bưu chính:</b>
+                                    <input type="text" class="form-control" id="receiverStationId"
+                                        name="receiverStationId" placeholder="123456789">
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="3">
+                            <b>3. Loại hàng gửi:</b> </br>
+                            <div>
+                                <label> Tài liệu
+                                    <input type="checkbox" name="genre" value="tailieu">
+                                </label>
+
+                                <label> Hàng hóa
+                                    <input type="checkbox" name="genre" value="hanghoa">
+                                </label>
+                            </div>
+
+                            <div>
+                                <b>4. Nội dung trị giá bưu gửi:</b>
+                                <table>
+                                    <tr>
+                                        <th>Nội dung</th>
+                                        <th>Số lượng</th>
+                                        <th>Trị giá</th>
+                                        <th>Giấy tờ đính kèm</th>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        <td colspan="2"> <b>9. Cước:</b> </br>
+                            <div>
+                                a. Cước chính: </br>
+                                b. Phụ phí: <br>
+                                c.Cước GTGT: <br>
+                                d.Tổng cước (gồm VAT): <br>
+                                e.Thu khác: <br>
+                                <b>f.Tổng thu:</b>
+                            </div>
+
+                        </td>
+                        <td colspan="1">
+                            <b>10. Khối lượng (kg):</b>
+                            <div>
+                                <label for="actualWeight">Khối lượng thực tế:
+                                    <input type="number" class="form-control" id="actualWeight" name="actualWeight"
+                                        placeholder="1">
+                                </label>
+                            </div>
+
+
+                            <div>
+                                <label for="actualWeight"> Khối lượng quy đổi:
+                                    <input type="number" class="form-control" id="convertedVolume"
+                                        name="convertedVolume" placeholder="0">
+                                </label>
+                            </div>
+
+        </div>
+        </td>
+        </tr>
+        <tr>
+            <td colspan="1"><b>5. Dịch vụ đặc biệt/Cộng thêm:</b>
+
+                <div>
+                    <label for="specialServices">
+                        {{!-- <input type="textare" class="form-control" id="specialServices" name="specialServices"
+                            placeholder=""> --}}
+                        <textarea class="form-control" id="specialServices" name="specialServices" rows="4"
+                            cols="70"></textarea>
+                    </label>
+                </div>
+
+                <div>
+                    Mã hợp đồng EMSC/PPA
+                </div>
+            </td>
+
+            <td colspan="2"><b>11. Tổng thu của người nhận:</b>
+
+                <div>
+                    <label for="COD"> COD:
+                        <input type="number" class="form-control" id="COD" name="COD" placeholder="0">
+                    </label>
+                </div>
+
+                <div>
+                    <label for="othersPay"> Thu khác:
+                        <input type="number" class="form-control" id="othersPay" name="othersPay" placeholder="0">
+                    </label>
+                </div>
+            </td>
+
+            <td colspan="3" rowspan="2"><b>12. Chú dẫn nghiệp vụ:</b>
+                <div>
+                    <label for="serviceNotes">
+                        {{!-- <input type="textare" class="form-control" id="specialServices" name="specialServices"
+                            placeholder=""> --}}
+                        <textarea class="form-control" id="serviceNotes" name="serviceNotes" rows="10"></textarea>
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><b>6. Chỉ dẫn của người gửi khi không phát được bưu gửi</b>: <br>
+
+                <label>
+                    Chuyển hoàn ngay
+                    <input type="checkbox" name="guidePending" , value="Chuyển hoàn ngay">
+                </label>
+
+                <label>
+                    Gọi điện cho người gửi BC gửi
+                    <input type="checkbox" name="guidePending" , value="Gọi điện cho người gửi BC gửi">
+                </label>
+
+                <label>
+                    Hủy
+                    <input type="checkbox" name="guidePending" , value="Hủy">
+                </label>
+
+                <label>
+                    Chuyển hoàn trước ngày
+                    <input type="checkbox" name="guidePending" , value="Chuyển hoàn trước ngày">
+                </label>
+
+                <label>
+                    Chuyển hoàn khi hết thời gian lưu trữ
+                    <input type="checkbox" name="guidePending" , value="Chuyển hoàn khi hết thời gian lưu trữ">
+                </label>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div><b>7. Cam kết của người gửi:</b>
+                    Tôi chấp nhận các điều khoản tại mặt sau phiếu gửi và
+                    cam đoan bưu gửi này không chứa những mặt hàng nguy hiểm, cấm gửi.
+                    Trường hợp không phát được hãy thực hiện chỉ dẫn tại mục 6, tôi sẽ trả cước chuyển hoàn.
+                </div>
+                <div>
+                    <span>
+                        <b>
+                            8.Ngày giờ gửi: <br>
+                            <input type="datetime-local" id="timeSending" name="timeSending">
+                        </b>
+                    </span>
+                </div>
+            </td>
+            <td colspan="2">
+                <b>13. Bưu cục chấp nhận</b>
+                <div>
+                    <label for="senderStationEId"> Giao dịch viên chấp nhận
+                        <input type="text" class="form-control" id="senderStationEId" name="senderStationEId" value="0">
+                    </label>
+                </div>
+            </td>
+            <td colspan="2">
+                <b>14. Ngày giờ nhận:</b>
+                <input type="datetime-local" id="timeReceived" name="timeReceived">
+            </td>
+        </tr>
+        </table>
+
+        <button type="submit" class="btn btn-primary mt-3 me-3">Ghi nhận</button>
+
+        </form>
+    </div>
+
+    <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông báo</h5>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $('#createReceipt').on('submit', event => {
+        event.preventDefault();
+        fetch(even.target.action, {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(event.target))
+        })
+            .then(response => response.json())
+            .then(json => {
+                $('#modal').modal('toggle');
+                $('.modal-message').html(json.message);
+
+                if (json.receiptSuccess) $('.modal-button').html('<a type="button" class="btn btn-primary" href="/receipt">Xem và in biên gửi</a>');
+                else $('.modal-button').html('<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>');
+            });
+    })
+</script>
