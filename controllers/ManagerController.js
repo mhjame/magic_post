@@ -53,16 +53,16 @@ class ManagerController {
     }
 
     getHome(req, res) {
-        Employee.findOne({_id:'65599ec015476e96d3c953ff'})
-            .then((result) => {
-                console.log(result);
-                console.log('success to find');
-                // Handle the query result here
-            })
-            .catch((error) => {
-                res.json(error);
-                // Handle any errors here
-            });
+        // Employee.findOne({_id:'65599ec015476e96d3c953ff'})
+        //     .then((result) => {
+        //         console.log(result);
+        //         console.log('success to find');
+        //         // Handle the query result here
+        //     })
+        //     .catch((error) => {
+        //         res.json(error);
+        //         // Handle any errors here
+        //     });
 
 
         // // User.find({}, function (err, users){
@@ -70,7 +70,7 @@ class ManagerController {
         // //     else res.json('error')
         // // })
         // // res.json('hallo');
-        res.render('home');
+        res.render('test');
     }
 
     getSearch(req, res) {
