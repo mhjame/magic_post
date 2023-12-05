@@ -30,5 +30,5 @@ router.post('/employees/handle-form-actions', managerController.handleFormAction
 router.post('/employees/:id/restore', managerController.restore);
 router.post('/employees/:id/force',managerController.forceDestroy);
 router.post('/createReceipt', managerController.postReceipt);
-router.get('/receipt', managerController.getReceipt);
+router.get('/createReceipt', managerController.getCreateReceipt);
 module.exports = router;

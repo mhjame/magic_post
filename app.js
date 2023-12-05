@@ -15,6 +15,10 @@ app.engine('hbs', handlebars.engine({
       eq: function (a, b) {
         return a === b;
       },
+
+      contain: function(a, b) {
+        return a.includes(b);
+      },
       renderStatus: (status) => {
         switch (status) {
           case 'received':

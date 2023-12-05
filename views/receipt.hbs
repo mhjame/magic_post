@@ -27,35 +27,37 @@
          <!-- begin invoice-header -->
          <h2>MAGIC POST</h2>
 
+         {{#if post}}
          <table>
             <tr>
                <td colspan="3"> <b>1. Họ tên địa chỉ người gửi:</b> </br>
                   <div>
-                     Nguyễn văn A </br>
-                     Dịch vọng Hậu cầu giấy HN- P.Dịch Vọng Hậu - Q.Cầu Giấy - TP Hà Nội
+                     {{post.senderName}} </br>
+                     {{post.senderAddress}}
+                     {{!-- Dịch vọng Hậu cầu giấy HN- P.Dịch Vọng Hậu - Q.Cầu Giấy - TP Hà Nội --}}
                   </div>
 
                   <div>
                      <b>Điện thoại:</b>
-                     123456789
+                     {{post.senderPhoneNumber}}
                   </div>
 
                   <div>
                      <b>Mã khách hàng:</b>
-                     123456789
+                     {{post.senderId}}
                   </div>
 
                   <div>
                      <b>Mã bưu chính:</b>
-                     123456789
+                     {{post.senderStationEId}}
                   </div>
 
                </td>
                <td colspan="3">
                   <b>2. Họ tên địa chỉ người nhận:</b> </br>
                   <div>
-                     Nguyễn văn A </br>
-                     Dịch vọng Hậu cầu giấy HN- P.Dịch Vọng Hậu - Q.Cầu Giấy - TP Hà Nội
+                     {{post.receiverName}} </br>
+                     {{post.receiverAddress}}
                   </div>
 
                   <div>
@@ -65,12 +67,12 @@
 
                   <div>
                      <b>Điện thoại:</b>
-                     123456789
+                     {{post.receiverPhoneNumber}}
                   </div>
 
                   <div>
                      <b>Mã bưu chính:</b>
-                     123456789
+                     {{post.receiverStationId}}
                   </div>
                </td>
             </tr>
@@ -79,13 +81,27 @@
                <td colspan="3">
                   <b>3. Loại hàng gửi:</b> </br>
                   <div>
+                     {{#if (contain post.genre 'tailieu')}}
+                     <label> Tài liệu
+                        <input type="checkbox" checked>
+                     </label>
+                     {{else}}
                      <label> Tài liệu
                         <input type="checkbox">
                      </label>
+                     {{/if}}
 
+                     {{#if (contain post.genre 'hanghoa')}}
+                     <label> Hàng hóa
+                        <input type="checkbox" checked>
+                     </label>
+                     {{else}}
                      <label> Hàng hóa
                         <input type="checkbox">
                      </label>
+                     {{/if}}
+
+
                   </div>
 
                   <div>
@@ -118,20 +134,19 @@
 
                </td>
                <td colspan="1">
-                  <b>10. Khối lượng (kg):</b>
+                  <b>10. Khối lượng (kg):</b> 
                   <div>
-                     Khối lượng thực tế:
+                     Khối lượng thực tế:{{post.actualWeight}}
                   </div>
                   <div>
-                     Khối lượng quy đổi:
+                     Khối lượng quy đổi: {{post.convertedVolume}}
                   </div>
                </td>
             </tr>
             <tr>
                <td colspan="1"><b>5. Dịch vụ đặc biệt/Cộng thêm:</b>
                   <div>
-                     ..........................................................
-                     ..........................................................
+                     {{post.specialServices}}
                   </div>
                   <div>
                      Mã hợp đồng EMSC/PPA
@@ -140,49 +155,84 @@
 
                <td colspan="2"><b>11. Tổng thu của người nhận:</b>
                   <div>
-                     COD:
+                     COD: {{post.COD}}
                   </div>
                   <div>
-                     Thu khác:
+                     Thu khác: {{post.othersPay}}
                   </div>
                   <div>
-                     Tổng thu:
+                     Tổng thu: {{sum post.COD post.othersPay}}
                   </div>
                </td>
 
                <td colspan="3" rowspan="2"><b>12. Chú dẫn nghiệp vụ:</b>
                   <div>
-                     1
+                     {{post.serviceNotes}}
                   </div>
                </td>
             </tr>
             <tr>
                <td colspan="3"><b>6. Chỉ dẫn của người gửi khi không phát được bưu gửi</b>: <br>
 
+                  {{#if (contain post.guidePending 'Chuyển hoàn ngay')}}
                   <label>
                      Chuyển hoàn ngay
-                     <input type="checkbox">
+                     <input type="checkbox" checked>
                   </label>
+                  {{else}}
+                  <label>
+                     Chuyển hoàn ngay
+                     <input type="checkbox" checked>
+                  </label>
+                  {{/if}}
 
+                  {{#if (contain post.guidePending 'Gọi điện cho người gửi BC gửi')}}
+                  <label>
+                     Gọi điện cho người gửi BC gửi
+                     <input type="checkbox" checked>
+                  </label>
+                  {{else}}
                   <label>
                      Gọi điện cho người gửi BC gửi
                      <input type="checkbox">
                   </label>
+                  {{/if}}
 
+                  {{#if (contain post.guidePending 'Hủy')}}
+                  <label>
+                     Hủy
+                     <input type="checkbox" checked>
+                  </label>
+                  {{else}}
                   <label>
                      Hủy
                      <input type="checkbox">
                   </label>
+                  {{/if}}
 
+                  {{#if (contain post.guidePending 'Chuyển hoàn trước ngày')}}
+                  <label>
+                     Chuyển hoàn trước ngày
+                     <input type="checkbox" checked>
+                  </label>
+                  {{else}}
                   <label>
                      Chuyển hoàn trước ngày
                      <input type="checkbox">
                   </label>
+                  {{/if}}
 
+                  {{#if (contain post.guidePending 'Chuyển hoàn khi hết thời gian lưu trữ')}}
+                  <label>
+                     Chuyển hoàn khi hết thời gian lưu trữ
+                     <input type="checkbox" checked>
+                  </label>
+                  {{else}}
                   <label>
                      Chuyển hoàn khi hết thời gian lưu trữ
                      <input type="checkbox">
                   </label>
+                  {{/if}}
             </tr>
             <tr>
                <td colspan="2">
@@ -193,10 +243,10 @@
                   </div>
                   <div>
                      <span>
-                     <b>
-                        8.Ngày giờ gửi: <br>
-                         7h30 xx/xx/20xx
-                     </b>
+                        <b>
+                           8.Ngày giờ gửi: <br>
+                           {{this.timeSending}}
+                        </b>
                      </span>
                      <span>
                         <b>Chữ ký người gửi</b>
@@ -211,9 +261,10 @@
                </td>
                <td colspan="2">
                   <b>14. Ngày giờ nhận:</b>
-                  <div>.....h/..../..../20</div>
+                  <div>{{this.timeReceived}}</div>
                   <div>Người nhận/ Người được ủy quyền nhận (Ký, ghi rõ họ tên)</div>
                </td>
             </tr>
          </table>
+         {{/if}}
       </div>

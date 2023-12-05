@@ -381,19 +381,19 @@ class ManagerController {
     postReceipt(req, res, next) {
         const { retype, ...formData } = req.body;
         try {
-            console.log(formData);
+            // console.log(formData);
             const postCreate = new Post(formData);
                 postCreate.save();
-                res.json({
-                    receiptSuccess: true,
-                    message: 'Tạo biên nhận thành công'
-                });
+                res.render('receipt', {
+                    post: mongooseToObject(postCreate),
+                })
+                // console.log(postCreate);
         }
         catch(e) {
-            res.render(e.message);
+            res.status(500).json({ error: e.message });
         }
     }
-    getReceipt(req, res, next) {
+    getCreateReceipt(req, res, next) {
         res.render('createReceipt');
     }
 }
