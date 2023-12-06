@@ -9,6 +9,7 @@ router.get('/create_order/create_to_station_order', employeeController.createShi
 router.post('/stored/to_station_order', employeeController.postShipToStationOrder); 
 router.get('/create_order/create_to_receiver_order', employeeController.createShipToReceiverOrder);
 router.post('/stored/to_receiver_order', employeeController.postShipToReceiverOrder); 
-
+router.get('/profile/update', employeeController.getUpdateProfile);
+router.post('/profile/update/:id', employeeController.postUpdateProfile);
 
 module.exports = router;

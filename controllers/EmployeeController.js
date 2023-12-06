@@ -6,7 +6,6 @@ const Warehouse = require('../models/Warehouse');
 
 
 
-
 class EmployeeController {
 
 
@@ -322,6 +321,29 @@ class EmployeeController {
             .catch(next);
     }
 
+    getUpdateProfile(req, res) {
+        res.render('profile/update', {
+            employee: req.session.employee
+        });
+    }
+
+    postUpdateProfile(req, res, nex) {
+        Employee.updateOne({ _id: req.params.id }, req.body)
+        .then(() => Employee.findOne({ _id: req.params.id }).lean())
+        .then(employee => {
+            req.session.regenerate(err => {
+                if (err) return next(err);
+                req.session.employee = employee;
+                req.session.save(err => {
+                    if (err) return next(err);
+                    res.redirect('/profile/view');
+                });
+            });
+        })
+        .catch(err=> {
+            console.log(err.message);
+        });
+    }
 }
 
 module.exports = new EmployeeController;
