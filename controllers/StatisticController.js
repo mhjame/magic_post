@@ -17,178 +17,225 @@ class StatisticController {
     }
 
     getStatisticManager(req, res) {
-        res.render('statistic/statistic_manager')
+
+        res.render('statistic/statistic_manager', {
+            message: "bodyManager"
+        });
     }
 
-    getPostStatisticsStation(req, res) {
-        // const today = new Date();
-        // today.setHours(0, 0, 0, 0);
-        // const tomorrow = new Date(today);
-        // tomorrow.setDate(today.getDate() + 1);
+
+    //-------------------------------------------------------------------
+    //Quản lý toàn quốc theo ngày
+    postStatisticManagerDailyNationWide(req, res) {
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        let dailyInCount = 0;
+        let dailyOutCount = 0;
+
+
+        // Đếm số hàng vào trong ngày tại điểm giao dịch
+
+        //do khách gửi tại điểm giao dịch
+        let dailyCustomerReceivedCount = 0;
+        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.1': { $gte: today, $lte: tomorrow } })
+            .then(_dailyCustomerReceivedCount => {
+                dailyCustomerReceivedCount = _dailyCustomerReceivedCount;
+                console.log(_dailyCustomerReceivedCount);
+            })
+
+
+        dailyInCount = dailyCustomerReceivedCount
+
+        // Đếm số hàng ra trong ngày tại điểm giao dịch
+
+        //giao cho khách
+        let dailySentToCustomerCount = 0;
+        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
+            .then(_dailySentToCustomerCount => {
+                dailySentToCustomerCount += _dailySentToCustomerCount;
+                console.log(_dailySentToCustomerCount);
+            })
+
+        dailyOutCount = dailySentToCustomerCount;
+
+        //thống kê hàng gửi thành công/không thành công
+
+
+        res.render('statistic/statistic_manager', {
+            message: "bodyManagerNationWide",
+            title: "Thống kê toàn quốc theo ngày",
+            today,
+            tomorrow,
+            dailyInCount: 2,
+            dailyOutCount: 3,
+            weekInCount: false,
+            monthInCount: false,
+            yearInCount: false,
+
+        });
+    }
+
+    //---------------------------
+    //Quản lý toàn quốc theo tháng
+    postStatisticManagerMonthNationWide(req, res) {
 
         const startOfMonth = new Date();
         startOfMonth.setDate(1);
         const endOfMonth = new Date();
         endOfMonth.setMonth(startOfMonth.getMonth() + 1);
 
+        let monthInCount = 0;
+        let monthOutCount = 0;
+
+        // Đếm số hàng vào trong tháng tại điểm giao dịch
+
+        //do khách gửi tại điểm giao dịch
+        let monthCustomerReceivedCount = 0;
+        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.1': { $gte: startOfMonth, $lte: endOfMonth } })
+            .then(_monthCustomerReceivedCount => {
+                monthCustomerReceivedCount = _monthCustomerReceivedCount;
+                console.log(_monthCustomerReceivedCount);
+            })
+
+        monthInCount = monthCustomerReceivedCount;
+        // Đếm số hàng ra trong tháng tại điểm giao dịch
+
+        //giao cho khách
+        let monthSentToCustomerCount = 0;
+        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
+            .then(_monthSentToCustomerCount => {
+                monthSentToCustomerCount += _monthSentToCustomerCount;
+                console.log(_monthSentToCustomerCount);
+            })
+
+        monthOutCount = monthSentToCustomerCount;
+
+        res.render('statistic/statistic_manager', {
+            message: "bodyManagerNationWide",
+            title: "Thống kê toàn quốc theo tháng",
+            startOfMonth,
+            endOfMonth,
+            dailyInCount: false,
+            weekInCount: false,
+            monthInCount: 3,
+            monthOutCount: 4,
+            yearInCount: false,
+        });
+    }
+
+    //Quản lý toàn quốc theo tuần
+    postStatisticManagerWeekNationWide(req, res) {
+
+        const today = new Date();
+        const startOfWeek = new Date(today);
+        startOfWeek.setUTCHours(0, 0, 0, 0);
+        startOfWeek.setUTCDate(today.getUTCDate() - today.getUTCDay());
+
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+        let weekInCount = 0;
+        let weekOutCount = 0;
+
+        // Đếm số hàng vào trong ngày tại điểm giao dịch
+
+        //do khách gửi tại điểm giao dịch
+        let weekCustomerReceivedCount = 0;
+        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.1': { $gte: startOfWeek, $lte: endOfWeek } })
+            .then(_weekCustomerReceivedCount => {
+                weekCustomerReceivedCount = _weekCustomerReceivedCount;
+                console.log(_weekCustomerReceivedCount);
+            })
+
+
+        weekInCount = weekCustomerReceivedCount;
+
+        // Đếm số hàng ra trong ngày tại điểm giao dịch
+
+        //giao cho khách
+        let weekSentToCustomerCount = 0;
+        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
+            .then(_weekSentToCustomerCount => {
+                weekSentToCustomerCount += _weekSentToCustomerCount;
+                console.log(_weekSentToCustomerCount);
+            })
+
+        weekOutCount = weekSentToCustomerCount;
+
+        //thống kê hàng gửi thành công/không thành công
+
+
+        res.render('statistic/statistic_manager', {
+            message: "bodyManagerNationWide",
+            title: "Thống kê toàn quốc theo tuần",
+            startOfWeek,
+            endOfWeek,
+            weekInCount: 8,
+            weekOutCount: 9,
+            dailyInCount: false,
+            monthInCount: false,
+            yearInCount: false,
+
+        });
+    }
+
+    //Quản lý toàn quốc theo năm
+    postStatisticManagerYearNationWide(req, res) {
+
         const startOfYear = new Date(new Date().getFullYear(), 0, 1);
         const endOfYear = new Date(new Date().getFullYear() + 1, 0, 1);
 
-        let stationDailyInCount = 0;
-        let stationDailyOutCount = 0;
-        let stationMonthInCount = 0;
-        let stationMonthOutCount = 0;
-        let stationYearInCount = 0;
-        let stationYearOutCount = 0;
+        let yearInCount = 0;
+        let yearOutCount = 0;
 
-        const sendstationID = "SSID1";
-        const receiverstationID = "RSID1";
 
-        Post.findOne({ 'statusCode.1': { $gte: 0, $lte: 2 } })
-            .then(post => {
-                console.log(post)
+        // Đếm số hàng vào trong ngày tại điểm giao dịch
+
+        //do khách gửi tại điểm giao dịch
+        let yearCustomerReceivedCount = 0;
+        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.1': { $gte: startOfYear, $lte: endOfYear } })
+            .then(_yearCustomerReceivedCount => {
+                yearCustomerReceivedCount = _yearCustomerReceivedCount;
+                console.log(_yearCustomerReceivedCount);
             })
 
-// Đếm số hàng vào trong ngày tại điểm giao dịch
-            
-            //do khách gửi tại điểm giao dịch
-        let stationDailyCustomerReceivedCount = 0;
-        Post.countDocuments({ senderStationId: sendstationID, status: 'at sStation', 'statusUpdateTime.1': { $gte: today, $lte: tomorrow } })
-            .then(_stationDailyCustomerReceivedCount => {
-                stationDailyCustomerReceivedCount = _stationDailyCustomerReceivedCount;
-                console.log(_stationDailyCustomerReceivedCount);
+
+        yearInCount = yearCustomerReceivedCount
+
+        // Đếm số hàng ra trong ngày tại điểm giao dịch
+
+        //giao cho khách
+        let yearSentToCustomerCount = 0;
+        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+            .then(_yearSentToCustomerCount => {
+                yearSentToCustomerCount += _yearSentToCustomerCount;
+                console.log(_yearSentToCustomerCount);
             })
 
-            //do nhận về từ điểm tập kết
-        let stationDailyWarehouseReceivedCount = 0;
-        Post.countDocuments({ receiverStationId: receiverstationID, status: 'at rStation', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
-            .then(_stationDailyWarehouseReceivedCount => {
-                stationDailyWarehouseReceivedCount = _stationDailyWarehouseReceivedCount;
-                console.log(_stationDailyWarehouseReceivedCount);
-            })
+        yearOutCount = yearSentToCustomerCount;
 
-        stationDailyInCount = stationDailyCustomerReceivedCount + stationDailyWarehouseReceivedCount;
-// Đếm số hàng ra trong ngày tại điểm giao dịch
-            
-            //gửi đi điểm tập kết
-        let stationDailySendtoWarehouseCount = 0;
-        Post.countDocuments({ senderStationId: sendstationID, status: 'on way to sWarehouse', 'statusUpdateTime.2': { $gte: today, $lte: tomorrow } })
-            .then(_stationDailySendtoWarehouseCount => {
-                stationDailySendtoWarehouseCount = _stationDailySendtoWarehouseCount;
-                console.log(_stationDailySendtoWarehouseCount);
-            })
-            //giao cho khách
-        let stationDailySentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationId: receiverstationID, status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
-            .then(_stationDailySentToCustomerCount => {
-                stationDailySentToCustomerCount += _stationDailySentToCustomerCount;
-                console.log(_stationDailySentToCustomerCount);
-            })
-        
-        stationDailyOutCount = stationDailySendtoWarehouseCount + stationDailySentToCustomerCount;
-
-//----------------------------------------------------------------------------------------------------------------------------------------------//
-        
-// Đếm số hàng vào trong tháng tại điểm giao dịch
-            
-            //do khách gửi tại điểm giao dịch
-            let stationMonthCustomerReceivedCount = 0;
-            Post.countDocuments({ senderStationId: sendstationID, status: 'at sStation', 'statusUpdateTime.1': { $gte: startOfMonth, $lte: endOfMonth } })
-                .then(_stationMonthCustomerReceivedCount => {
-                    stationMonthCustomerReceivedCount = _stationMonthCustomerReceivedCount;
-                    console.log(_stationMonthCustomerReceivedCount);
-                })
-    
-                //do nhận về từ điểm tập kết
-            let stationMonthWarehouseReceivedCount = 0;
-            Post.countDocuments({ receiverStationId: receiverstationID, status: 'at rStation', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
-                .then(_stationMonthWarehouseReceivedCount => {
-                    stationMonthWarehouseReceivedCount = _stationMonthWarehouseReceivedCount;
-                    console.log(_stationMonthWarehouseReceivedCount);
-                })
-    
-            stationMonthInCount = stationMonthCustomerReceivedCount + stationMonthWarehouseReceivedCount;
- // Đếm số hàng ra trong tháng tại điểm giao dịch
-                
-                //gửi đi điểm tập kết
-            let stationMonthSendtoWarehouseCount = 0;
-            Post.countDocuments({ senderStationId: sendstationID, status: 'on way to sWarehouse', 'statusUpdateTime.2': { $gte: startOfMonth, $lte: endOfMonth } })
-                .then(_stationMonthSendtoWarehouseCount => {
-                    stationMonthSendtoWarehouseCount = _stationMonthSendtoWarehouseCount;
-                    console.log(_stationMonthSendtoWarehouseCount);
-                })
-                //giao cho khách
-            let stationMonthSentToCustomerCount = 0;
-            Post.countDocuments({ receiverStationId: receiverstationID, status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
-                .then(_stationMonthSentToCustomerCount => {
-                    stationMonthSentToCustomerCount += _stationMonthSentToCustomerCount;
-                    console.log(_stationMonthSentToCustomerCount);
-                })
-            
-            stationMonthOutCount = stationMonthSendtoWarehouseCount + stationMonthSentToCustomerCount;
-
-//----------------------------------------------------------------------------------------------------------------------------------------------//
-        
-// Đếm số hàng vào trong năm tại điểm giao dịch
-            
-            //do khách gửi tại điểm giao dịch
-            let stationYearCustomerReceivedCount = 0;
-            Post.countDocuments({ senderStationId: sendstationID, status: 'at sStation', 'statusUpdateTime.1': { $gte: startOfYear, $lte: endOfYear } })
-                .then(_stationYearCustomerReceivedCount => {
-                    stationYearCustomerReceivedCount = _stationYearCustomerReceivedCount;
-                    console.log(_stationYearCustomerReceivedCount);
-                })
-    
-                //do nhận về từ điểm tập kết
-            let stationYearWarehouseReceivedCount = 0;
-            Post.countDocuments({ receiverStationId: receiverstationID, status: 'at rStation', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
-                .then(_stationYearWarehouseReceivedCount => {
-                    stationYearWarehouseReceivedCount = _stationYearWarehouseReceivedCount;
-                    console.log(_stationYearWarehouseReceivedCount);
-                })
-    
-            stationMonthInCount = stationMonthCustomerReceivedCount + stationMonthWarehouseReceivedCount;
- // Đếm số hàng ra trong năm tại điểm giao dịch
-                
-                //gửi đi điểm tập kết
-            let stationYearSendtoWarehouseCount = 0;
-            Post.countDocuments({ senderStationId: sendstationID, status: 'on way to sWarehouse', 'statusUpdateTime.2': { $gte: startOfYear, $lte: endOfYear } })
-                .then(_stationYearSendtoWarehouseCount => {
-                    stationYearSendtoWarehouseCount = _stationYearSendtoWarehouseCount;
-                    console.log(_stationYearSendtoWarehouseCount);
-                })
-                //giao cho khách
-            let stationYearSentToCustomerCount = 0;
-            Post.countDocuments({ receiverStationId: receiverstationID, status: 'on way to reveiver', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
-                .then(_stationYearSentToCustomerCount => {
-                    stationYearSentToCustomerCount += _stationYearSentToCustomerCount;
-                    console.log(_stationYearSentToCustomerCount);
-                })
-            
-            stationYearOutCount = stationYearSendtoWarehouseCount + stationYearSentToCustomerCount;
+        //thống kê hàng gửi thành công/không thành công
 
 
-
-//Số hàng đang còn trong kho
-
-        // stationDailyReceivedCount = 10;
-        // stationDailySentCount = 10;
-        res.render('statistic/statistic_stationAd', {
-            today,
-            tomorrow,
-            startOfMonth,
-            endOfMonth,
+        res.render('statistic/statistic_manager', {
+            message: "bodyManagerNationWide",
+            title: "Thống kê toàn quốc theo năm",
             startOfYear,
             endOfYear,
-            stationDailyInCount,
-            stationDailyOutCount,
-            stationMonthInCount,
-            stationMonthOutCount,
-            stationYearInCount,
-            stationYearOutCount
-        });
+            yearInCount: 44,
+            yearOutCount: 3,
+            weekInCount: false,
+            monthInCount: false,
+            dailyInCount: false,
 
+        });
     }
+
+
 
     getPostStatisticsWareHouse(req, res) {
 

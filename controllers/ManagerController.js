@@ -70,7 +70,7 @@ class ManagerController {
         // //     else res.json('error')
         // // })
         // // res.json('hallo');
-        res.render('test');
+        res.render('home');
     }
 
     getSearch(req, res) {
