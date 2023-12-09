@@ -1,2 +1,280 @@
-{{>home/headerHome}}
-{{>home/footerHome}}
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            /* Set width to 100% */
+            min-height: 200px;
+        }
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+    </style>
+
+    {{>home/headerHome}}
+
+    <div class="container" style="margin-top: 150px;">
+        <div class="row">
+            <div class="col-sm-8">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="https://placehold.it/800x400?text=IMAGE" alt="Image">
+                            <div class="carousel-caption">
+                                <h3>Sell $</h3>
+                                <p>Money Money.</p>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <img src="https://placehold.it/800x400?text=Another Image Maybe" alt="Image">
+                            <div class="carousel-caption">
+                                <h3>More Sell $</h3>
+                                <p>Lorem ipsum...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn"><i class="fa fa-searchengin"></i>TRA CỨU ĐƠN HÀNG</button>
+                <button class="btn"><i class="fa fa-cloud"></i>ĐĂNG KÝ SHOP | ĐĂNG NHẬP</button>
+                <button class="btn"> <i class="glyphicon glyphicon-user"></i> ỨNG TUYỂN GIAO HÀNG</button>
+                <style>
+                    .btn {
+                        width: 100%;
+                        margin-bottom: 3px;
+                        padding: 15px;
+                        text-align: left;
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #fff;
+                        background-color: #ef4330;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.3s, box-shadow 0.3s;
+                        /* Hiệu ứng hover và box-shadow */
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        /* Viền nổi */
+                    }
+
+                    button:hover {
+                        background-color: #2980b9;
+                        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+                        /* Hiệu ứng hover cho viền nổi */
+                    }
+
+                    button i {
+                        margin-right: 5px;
+                    }
+                </style>
+            </div>
+        </div>
+    </div>
+    <hr>
+    </div>
+
+    <div class="container text-center mymap" style="margin-top: 50px; background-color: #f0f0f0">
+        <h3 class="titlemap">BƯU CỤC <span style="color: #ef4330;">MAGIC POST</span></h3>
+        <br>
+        <div class="map" style="margin-top: 40px; ">
+            <div class="map1" style="background-color: #f4f4f4">
+                <select id="province" class="form-select" aria-label="Default select example" style="color: black;">
+                    <option selected>Chọn tỉnh/thành phố</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hải Phòng">Hải Phòng</option>
+                    <option value="Kiên Giang">Kiên Giang</option>
+                </select>
+                <div id="result" style="background-color: #ffffff">
+                    <style>
+
+                    </style>
+                </div>
+                <button class="mapbtn" onclick="searchStation()">Tra cứu bưu cục</button>
+            </div>
+            <div class="map2">
+                <iframe src="https://www.google.com/maps/d/u/0/embed?mid=13vG4ePDoyQfb9z2lnAWTQQCwka3-bbE&ehbc=2E312F"
+                    width="640" height="480"></iframe>
+            </div>
+            <style>
+                .map {
+                    display: flex;
+                }
+
+                .map1 {
+                    width: 100%;
+                    height: 200px;
+                    margin-right: 10px;
+                    text-align: center;
+                    color: #fff;
+                    background-color: #fbfcfc;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    flex: 2;
+                }
+
+                .map2 {
+                    flex: 3;
+                }
+
+                .form-select,
+                .mapbtn {
+                    margin: 20px;
+                    width: 300px;
+                    height: 30px;
+                }
+
+                .mapbtn {
+                    background-color: #174a8c;
+                    height: 40px;
+                    text-align: center;
+                }
+            </style>
+            <script>
+                function searchStation() {
+                    document.querySelector('.map1').style.height = "500px";
+
+                    console.log("ok")
+                    const stationProvince = document.getElementById('province').value;
+                    if (!stationProvince) {
+                        alert("Vui lòng chọn tỉnh/thành phố.");
+                        return;
+                    }
+                    console.log(stationProvince)
+                    fetch('/postSearchStation', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ stationProvince }),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data);
+                            // Hiển thị kết quả trên trang web
+                            const resultDiv = document.getElementById('result');
+                            if (data.message) {
+                                resultDiv.innerHTML = `<p>${data.message}</p>`;
+                            } else {
+                                const resultHTML = data.map(station => `
+                                                <div>
+                                                    <p class="resultName" style="font-weight: bold; font-family: 'Arial', sans-serif; text-align: left; font-size: 11px; line-height: 1.3;">Name: ${station.name}</p>
+                                                    <p style="margin-bottom: 5px; text-align: left; font-size: 11px; line-height: 1.3;">Station Code: ${station.stationCode}</p>
+                                                    <p style="margin-bottom: 5px; text-align: left; font-size: 11px; line-height: 1.3;">Detail Address: ${station.detailAddress}</p>
+                                                    <p style="margin-bottom: 5px; text-align: left; font-size: 11px; line-height: 1.3;">Thời gian hoạt động: 08h00-18h00 (Thứ Hai - Chủ Nhật)</p>
+                                                    <a href="#" onclick="showTheWay('${station.detailAddress}')" style="margin-bottom: 5px; text-align: left; font-size: 11px; line-height: 1.3;"><i class="fas fa-directions"></i>Chỉ đường</a>
+                                                    <br><br>
+                                                </div>
+                                            `).join('');
+
+                                resultDiv.innerHTML = resultHTML;
+                                resultDiv.style.color = 'black';
+                                resultDiv.style.margin = "30px";
+                                resultDiv.style.padding = "20px";
+
+                                // Thiết lập border cho div
+                                resultDiv.style.border = "1px solid #ccc";
+                            }
+                            console.log("success")
+                        })
+                        .catch(error => {
+                            console.error('Lỗi yêu cầu AJAX:', error);
+                        });
+
+
+
+                    const address = "926 Đ. Kim Giang, Thanh Liệt, Thanh Trì, Hà Nội, Việt Nam"
+                    console.log("ok2")
+
+                    //window.open(`https://www.google.com/maps/place/${encodeURIComponent(address)}`);
+
+                }
+                function showTheWay(address) {
+                    console.log("showWay" + address);
+                    window.open(`https://www.google.com/maps/place/${encodeURIComponent(address)}`);
+                }
+
+            </script>
+        </div>
+        <hr>
+        <style>
+            .titlemap {
+                margin-top: 20px;
+                font-size: 30px;
+                font-weight: bold;
+                color: #174a8c;
+            }
+        </style>
+    </div>
+
+    <div class="container text-center">
+        <h3>Our Partners</h3>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+                <p>Partner 1</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+                <p>Partner 2</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+                <p>Partner 3</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+                <p>Partner 4</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+                <p>Partner 5</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+                <p>Partner 6</p>
+            </div>
+        </div>
+    </div><br>
+
+    {{>home/footerHome}}
+
+</body>

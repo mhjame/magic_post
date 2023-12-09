@@ -5,6 +5,9 @@ const Schema = mongoose.Schema;
 const stationSchema = new Schema({
     name: { type: String },
     address: { type: String },
+    stationCode: { type: String },
+    address: { type: String },
+    detailAddress: { type: String },
     adminId: { type: String }
 }, { timestamps: true });
 
