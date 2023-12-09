@@ -6,7 +6,6 @@ const Warehouse = require('../models/Warehouse');
 
 
 
-
 class EmployeeController {
 
 
@@ -38,7 +37,7 @@ class EmployeeController {
                                             .then((posts) => {
 
 
-                                                res.render('create_to_wh_order', {
+                                                res.render('create_order/create_to_wh_order', {
                                                     employee: employee,
                                                     workPlace: station,
                                                     desWarehouse: warehouse,
@@ -64,7 +63,7 @@ class EmployeeController {
                                         Post.find({ senderWarehouseId: warehouse.id, status: 'at sWarehouse' }).lean()
                                             .then((posts) => {
 
-                                                res.render('create_to_wh_order', {
+                                                res.render('create_order/create_to_wh_order', {
                                                     employee: employee,
                                                     workPlace: warehouse,
                                                     desWarehouses: desWarehouses,
@@ -90,6 +89,42 @@ class EmployeeController {
     }
 
     postShipToWarehouseOrder(req, res, next) {
+
+        let postIds = req.body.postIds;
+        if (Array.isArray(postIds)) {
+            for (let i = 0; i < postIds.length; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[1] = new Date();
+                    }
+                });
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+                    if (post.statusUpdateTime) {
+
+                        post.statusUpdateTime[3] = new Date();
+                    }
+                });
+
+            };
+        } else {
+            Post.findOneAndUpdate({ id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[1] = new Date();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+            Post.findOneAndUpdate({ id: postIds, status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[3] = new Date();
+                }
+            });
+        }
+
+
         const container = new Container({
             employeeId: req.body.employeeId,
             type: req.body.typeOfOrder,
@@ -100,10 +135,215 @@ class EmployeeController {
             postIds: req.body.postIds
         });
         container.save()
-            .then(() => res.redirect(200, '/create_to_wh_order'))
+            .then(() => res.redirect(200, '/create_order/create_to_wh_order'))
             .catch(next);
     }
 
+
+
+    createShipToStationOrder(req, res, next) {
+
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Station.find({ warehouseId: warehouse.id }).lean()
+                                .then((desStations) => {
+                                    if (!desStations) {
+                                        res.status(404).send({ message: 'Stations belong to this warehouse not found' });
+                                        return;
+                                    }
+                                    Post.find({ receiverWarehouseId: warehouse.id, status: 'at rWarehouse' }).lean()
+                                        .then((posts) => {
+
+                                            res.render('create_order/create_to_station_order', {
+                                                employee: employee,
+                                                workPlace: warehouse,
+                                                desStations: desStations,
+                                                posts: posts
+                                            });
+
+                                        })
+
+
+
+
+                                })
+
+                        })
+
+
+
+
+                }
+
+            })
+            .catch(next);
+    }
+
+
+
+    postShipToStationOrder(req, res, next) {
+
+        let postIds = req.body.postIds;
+        if (Array.isArray(postIds)) {
+            for (let i = 0; i < postIds.length; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[5] = new Date();
+                        console.log(post.statusUpdateTime);
+                    }
+                });
+
+
+            };
+        } else {
+            Post.findOneAndUpdate({ id: postIds, status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[5] = new Date();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+
+        const container = new Container({
+            employeeId: req.body.employeeId,
+            type: req.body.typeOfOrder,
+            status: 'in process',
+            timeReceived: null,
+            receiverAddressId: req.body.receiverAddressId,
+            senderAddressId: req.body.senderAddressId,
+            postIds: req.body.postIds
+        });
+        container.save()
+            .then(() => res.redirect(200, '/create_order/create_to_station_order'))
+            .catch(next);
+    }
+
+
+
+
+
+
+    createShipToReceiverOrder(req, res, next) {
+
+        Employee.findOne({ employeeId: "HN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Station.findOne({ id: employee.workPlaceId }).lean()
+                        .then((station) => {
+                            if (!station) {
+                                res.status(404).send({ message: 'Station not found' });
+                                return;
+                            }
+
+                            console.log(station.id)
+                            Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean()
+                                .then((posts) => {
+
+
+                                    res.render('create_order/create_to_receiver_order', {
+                                        employee: employee,
+                                        workPlace: station,
+                                        posts: posts
+                                    });
+                                })
+
+
+                        })
+
+
+
+                }
+
+            })
+            .catch(next);
+    }
+
+    postShipToReceiverOrder(req, res, next) {
+        let postIds = req.body.postIds;
+        if (Array.isArray(postIds)) {
+            for (let i = 0; i < postIds.length; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[7] = new Date();
+                        console.log(post.statusUpdateTime);
+                    }
+                });
+
+
+            };
+        } else {
+            Post.findOneAndUpdate({ id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[7] = new Date();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+
+        const container = new Container({
+            employeeId: req.body.employeeId,
+            type: req.body.typeOfOrder,
+            status: 'in process',
+            timeReceived: null,
+            receiverAddressId: req.body.receiverAddressId,
+            senderAddressId: req.body.senderAddressId,
+            postIds: req.body.postIds
+        });
+        container.save()
+            .then(() => res.redirect(200, '/create_order/create_to_receiver_order'))
+            .catch(next);
+    }
+
+    getUpdateProfile(req, res) {
+        res.render('profile/update', {
+            employee: req.session.employee
+        });
+    }
+
+    postUpdateProfile(req, res, nex) {
+        Employee.updateOne({ _id: req.params.id }, req.body)
+        .then(() => Employee.findOne({ _id: req.params.id }).lean())
+        .then(employee => {
+            req.session.regenerate(err => {
+                if (err) return next(err);
+                req.session.employee = employee;
+                req.session.save(err => {
+                    if (err) return next(err);
+                    res.redirect('/profile/view');
+                });
+            });
+        })
+        .catch(err=> {
+            console.log(err.message);
+        });
+    }
 }
 
 module.exports = new EmployeeController;

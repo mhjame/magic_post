@@ -2,9 +2,6 @@
 .magic-post-text {
   color: white; }
 
-body {
-  background: #d1d5db; }
-
 .height {
   margin-bottom: 25px; }
 
@@ -315,18 +312,17 @@ body {
 .event-schedule-area-two .tab-content .table tbody tr.inner-box {
   border-bottom: 1px solid #dee2e6; }
 
-.event-schedule-area-two .tab-content .table tbody tr th {
-  border: 0;
-  padding: 30px 20px;
-  vertical-align: middle; }
 
-.event-schedule-area-two .tab-content .table tbody tr th .event-date {
+
+.event-schedule-area-two .tab-content .table tbody tr td .event-date {
   color: #252525;
   text-align: center; }
 
-.event-schedule-area-two .tab-content .table tbody tr th .event-date .order-id {
+.event-schedule-area-two .tab-content .table tbody tr td .event-date .order-id {
   font-size: 20px;
-  text-align: center; }
+  text-align: center; 
+  font-weight: bold;
+}
 
 .event-schedule-area-two .tab-content .table tbody tr td {
   padding: 30px 20px;

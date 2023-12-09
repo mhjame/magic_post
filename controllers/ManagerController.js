@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const Employee = require('../models/Employee')
 const Station = require('../models/Station')
+const Employee = require('../models/Employee');
+const Post = require('../models/Post');
 
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
@@ -423,6 +425,26 @@ class ManagerController {
     //         res.render(e.message)
     //     }
     // }   
+
+
+    postReceipt(req, res, next) {
+        const { retype, ...formData } = req.body;
+        try {
+            // console.log(formData);
+            const postCreate = new Post(formData);
+                postCreate.save();
+                res.render('receipt', {
+                    post: mongooseToObject(postCreate),
+                })
+                // console.log(postCreate);
+        }
+        catch(e) {
+            res.status(500).json({ error: e.message });
+        }
+    }
+    getCreateReceipt(req, res, next) {
+        res.render('createReceipt');
+    }
 }
 
 module.exports = new ManagerController;

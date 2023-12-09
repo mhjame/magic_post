@@ -15,6 +15,10 @@ app.engine('hbs', handlebars.engine({
       eq: function (a, b) {
         return a === b;
       },
+
+      contain: function(a, b) {
+        return a.includes(b);
+      },
       renderStatus: (status) => {
         switch (status) {
           case 'received':
@@ -50,6 +54,19 @@ app.engine('hbs', handlebars.engine({
         } else {
         return new Date(date).toLocaleDateString("vi-VN");
         }
+      },
+      transformToUniqueArray: (arr) => {
+        const uniqueArray = new Set();
+        if (Array.isArray(arr)) {
+
+          for (let i = 0; i < arr.length; i++) {
+            uniqueArray.add(arr[i].receiverAddress);
+          }
+        } else {
+          uniqueArray.add(arr.receiverAddress);
+        }
+        
+        return uniqueArray;
       }
     }
 
