@@ -1,13 +1,48 @@
 const User = require('../models/User');
 const Employee = require('../models/Employee')
+const Station = require('../models/Station')
 
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
 
 class ManagerController {
-    
+
     getLogin(req, res) {
         res.render('login');
+    }
+
+    getMaps(req, res) {
+        res.render('map');
+    }
+
+    postSearchStation(req, res) {
+        const address = req.body.stationProvince;
+        console.log("postS0" + req.body)
+        console.log("postS" + req.body.stationProvince);
+        console.log("postS" + address);
+
+        Station.find({ address: address})
+            .then(stations => {
+                console.log("find" + address +"+"+ stations)
+                if (!stations || stations.length === 0) {
+                    return res.json({
+                        message: 'Magic post hiện chưa có bưu cục nào ở vị trí này!'
+                    });
+                }
+
+                const result = stations.map(station => ({
+                    name: station.name,
+                    stationCode: station.stationCode,
+                    detailAddress: station.detailAddress
+                }));
+
+                return res.json(result);
+            })
+            .catch(error => {
+                console.error('Lỗi truy vấn database:', error);
+                res.status(500).json({ error: 'Internal Server Error' });
+            });
+
     }
 
     loginValidate(req, res, next) {
@@ -53,6 +88,7 @@ class ManagerController {
     }
 
     getHome(req, res) {
+<<<<<<< HEAD
         // Employee.findOne({_id:'65599ec015476e96d3c953ff'})
         //     .then((result) => {
         //         console.log(result);
@@ -63,6 +99,18 @@ class ManagerController {
         //         res.json(error);
         //         // Handle any errors here
         //     });
+=======
+        Employee.findOne({ _id: '65599ec015476e96d3c953ff' })
+            .then((result) => {
+                console.log(result);
+                console.log('success to find');
+                // Handle the query result here
+            })
+            .catch((error) => {
+                res.json(error);
+                // Handle any errors here
+            });
+>>>>>>> nnlinh
 
 
         // // User.find({}, function (err, users){
@@ -83,7 +131,7 @@ class ManagerController {
 
     getRegister(req, res) {
         res.render('register', {
-                employee: req.session.employee,
+            employee: req.session.employee,
         });
     }
 
@@ -94,7 +142,7 @@ class ManagerController {
                 registerSuccess: false,
                 message: 'Vui lòng nhập đầy đủ thông tin'
             });
-    
+
         // Check if both password and retype exist before comparing
         if (req.body.password && req.body.password !== req.body.retype) {
             return res.json({
@@ -102,7 +150,7 @@ class ManagerController {
                 message: 'Mật khẩu nhập không khớp'
             });
         }
-    
+
         next();
     }
 
@@ -147,27 +195,27 @@ class ManagerController {
             const userRole = req.session.employee.role;
             const userWorkPlace = req.session.employee.workAddress;
             if (userRole == 'Manager') {
-                Promise.all([Employee.find({ role: { $in: ['StationAd', 'WarehouseAd']}}), Employee.find({ deleted: true, role: { $in: ['StationAd', 'WarehouseAd'] } }).countDocuments()])
+                Promise.all([Employee.find({ role: { $in: ['StationAd', 'WarehouseAd'] } }), Employee.find({ deleted: true, role: { $in: ['StationAd', 'WarehouseAd'] } }).countDocuments()])
                     .then(
                         ([employees, deleteCount]) => {
 
-                        
-                        res.render('supervisor/humanResource', {
-                            employee: req.session.employee,
-                            deleteCount,
-                            employees: multipleMongooseToObject(employees)
-                        })
-                        console.log("employee:", employees)
-                    }
+
+                            res.render('supervisor/humanResource', {
+                                employee: req.session.employee,
+                                deleteCount,
+                                employees: multipleMongooseToObject(employees)
+                            })
+                            console.log("employee:", employees)
+                        }
                     )
                     .catch(next)
-             } else if (userRole == 'StationAd') {
-               
-                    Promise.all([Employee.find({ role: { $in: ['StationE']}, workAddress: userWorkPlace}), Employee.find({ deleted: true, role: { $in: ['StationE'] } }).countDocuments()])
-                        .then(
-                            ([employees, deleteCount]) => {
-    
-                            
+            } else if (userRole == 'StationAd') {
+
+                Promise.all([Employee.find({ role: { $in: ['StationE'] }, workAddress: userWorkPlace }), Employee.find({ deleted: true, role: { $in: ['StationE'] } }).countDocuments()])
+                    .then(
+                        ([employees, deleteCount]) => {
+
+
                             res.render('supervisor/humanResource', {
                                 employee: req.session.employee,
                                 deleteCount,
@@ -175,15 +223,15 @@ class ManagerController {
                             })
                             console.log("employee:", employees)
                         }
-                        )
-                        .catch(next)
-                 
-             } else if (userRole == 'WarehouseAd') {
-                Promise.all([Employee.find({ role: { $in: ['WarehouseE']}, workAddress: userWorkPlace}), Employee.find({ deleted: true, role: { $in: ['WarehouseE'] } }).countDocuments()])
-                        .then(
-                            ([employees, deleteCount]) => {
-    
-                            
+                    )
+                    .catch(next)
+
+            } else if (userRole == 'WarehouseAd') {
+                Promise.all([Employee.find({ role: { $in: ['WarehouseE'] }, workAddress: userWorkPlace }), Employee.find({ deleted: true, role: { $in: ['WarehouseE'] } }).countDocuments()])
+                    .then(
+                        ([employees, deleteCount]) => {
+
+
                             res.render('supervisor/humanResource', {
                                 employee: req.session.employee,
                                 deleteCount,
@@ -191,10 +239,10 @@ class ManagerController {
                             })
                             console.log("employee:", employees)
                         }
-                        )
-                        .catch(next)
-             }
-             else {
+                    )
+                    .catch(next)
+            }
+            else {
                 res.json('Bạn không có quyền truy cập chức năng này');
             }
         } catch (e) {
@@ -206,7 +254,7 @@ class ManagerController {
         try {
             const userRole = req.session.employee.role;
             if (userRole == 'Manager') {
-                Employee.findDeleted({ role: { $in: ['StationAd', 'WarehouseAd']}})
+                Employee.findDeleted({ role: { $in: ['StationAd', 'WarehouseAd'] } })
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
                             employee: req.session.employee,
@@ -214,8 +262,8 @@ class ManagerController {
                         }),
                     )
                     .catch(next)
-            } else if(userRole == 'StationAd') {
-                Employee.findDeleted({ role: { $in: ['StationE']}})
+            } else if (userRole == 'StationAd') {
+                Employee.findDeleted({ role: { $in: ['StationE'] } })
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
                             employee: req.session.employee,
@@ -224,8 +272,8 @@ class ManagerController {
                     )
                     .catch(next)
 
-            } else if(userRole == 'WarehouseAd') {
-                Employee.findDeleted({ role: { $in: ['WarehouseE']}})
+            } else if (userRole == 'WarehouseAd') {
+                Employee.findDeleted({ role: { $in: ['WarehouseE'] } })
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
                             employee: req.session.employee,
@@ -348,8 +396,8 @@ class ManagerController {
         } catch (e) {
             res.render(e.message)
         }
-    }   
-    
+    }
+
     // handleFormActions(req, res, next) {
     //     try {
     //         // const userRole = req.session.user.role;

@@ -22,6 +22,8 @@ const Post = new Schema({
     receiverWarehouseId: {type: String},
     status: {type:String, enum: ['received', 'on way to reveiver', 'at rStation', 'on way to rStation', 'at rWarehouse', 
             'on way to rWarehourse', 'at sWarehouse', 'on way to sWarehouse', 'at sStation'], default: 'in process'},
+    statusCode: {type: [Number], default: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
+    statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
     timeReceived: {type: Date},
     id: {type: String}
 }, { timestamps: true });

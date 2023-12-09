@@ -60,6 +60,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.json());
 
 const session = require('express-session');
 app.use(session({
