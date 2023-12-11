@@ -380,6 +380,57 @@ class EmployeeController {
             .catch(next);
 
     }
+
+
+    getConfirmEachOrderFromWarehouseToStation(req, res, next) {
+        Employee.findOne({ employeeId: "HN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Station.findOne({ id: employee.workPlaceId }).lean()
+                        .then((station) => {
+                            if (!station) {
+                                res.status(404).send({ message: 'Station not found' });
+                                return;
+                            }
+                            Warehouse.findOne({ id: station.warehouseId }).lean()
+                                .then((warehouse) => {
+                                    Container.findOne({ containerCode: req.params.containerCode }).lean()
+                                        .then((container) => {
+                                            const posts = [];
+                                            if (Array.isArray(container.postIds)) {
+                                                for (let i = 0; i < container.postIds.length; i++) {
+                                                    Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                        posts.push(post);
+                                                    });
+                                                };
+                                            } else {
+                                                Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                    posts.push(post)
+                                                });
+                                            }
+
+                                            res.render('confirm_order/confirm_each_order_wh_station', {
+                                                desStation: station,
+                                                originWarehouse: warehouse,
+                                                container: container,
+                                                posts: posts
+                                            });
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+
+    }
 }
 
 module.exports = new EmployeeController;

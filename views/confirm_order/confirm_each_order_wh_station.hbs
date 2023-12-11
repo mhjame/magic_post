@@ -9,32 +9,32 @@
     <div class="table-responsive">
         <table class="table table-responsive caption-top text-center" style="vertical-align: middle;">
             <caption style="font-size: 1.1rem;"><strong>Xác nhận <span
-                        style="color: brown;">{{desStation.name}}</span> đã nhận được các lô hàng gửi về từ
+                        style="color: brown;">{{desStation.name}}</span> đã nhận được các mã hàng trong lô hàng <span
+                        style="color: brown">{{container.containerCode}}</span> gửi về từ
                     <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></caption>
             <thead>
                 <tr style="background-color: #eeeeee;">
-                    <th class="border-0" scope="col" width="16%">Mã lô hàng</th>
-                    <th class="border-0" scope="col" width="1%">Ngày gửi</th>
-                    <th class="border-0" scope="col" width="18%">Mã GDV gửi</th>
-                    <th class="border-0" scope="col" width="17%">Số mã hàng</th>
-                    <th class="border-0" scope="col" width="32%">Tình trạng</th>
-                    <th class="border-0" scope="col" width="16%"><span>Hành động</span></th>
+                    <th class="border-0" scope="col" width="12%">Mã hàng</th>
+                    <th class="border-0" scope="col" width="13%">Tên hàng</th>
+                    <th class="border-0" scope="col" width="17%">Loại hàng</th>
+                    <th class="border-0" scope="col" width="15%">Trọng lượng</th>
+                    <th class="border-0" scope="col" width="27%">Tình trạng</th>
+                    <th class="border-0" scope="col" width="16%"><label class="confirm-checkbox"><input class="form-check-input" type="checkbox"> Xác nhận</label></th>
                 </tr>
             </thead>
             <tbody>
-                {{#each containers}}
+                {{#each posts}}
                 <tr>
-                    <td >{{this.containerCode}}</td>
-                    <td>{{formatDate this.createdAt}}</td>
-                    <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> {{this.employeeId}}</td>
-                    <td>{{this.postIds.length}}</td>
+                    <td >{{this.id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.genre}}</td>
+                    <td>{{this.weight}}</td>
                     <td><span class="rounded-pill align-items-center"
                             style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
                                 style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
                                 style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>
                     </td>
-                    <td><a class="fw-bolder confirm-link" href="/confirm_order/{{this.containerCode}}/confirm_each_order_wh_station">Xác
-                            nhận từng mã hàng</a>
+                    <td><label class="confirm-checkbox"><input class="form-check-input" type="checkbox"><strong style="color: rgb(27, 178, 27);"> Đã nhận</strong></label>
                     </td>
                 </tr>
                 {{/each}}
@@ -43,3 +43,4 @@
     </div>
 
 </div>
+

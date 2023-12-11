@@ -12,5 +12,6 @@ router.post('/stored/to_receiver_order', employeeController.postShipToReceiverOr
 router.get('/profile/update', employeeController.getUpdateProfile);
 router.post('/profile/update/:id', employeeController.postUpdateProfile);
 router.get('/confirm_order/confirm_from_wh_to_station', employeeController.getConfirmFromWarehouseToStation); 
+router.get('/confirm_order/:containerCode/confirm_each_order_wh_station', employeeController.getConfirmEachOrderFromWarehouseToStation); 
 
 module.exports = router;
