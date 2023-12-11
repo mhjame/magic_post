@@ -11,5 +11,6 @@ router.get('/create_order/create_to_receiver_order', employeeController.createSh
 router.post('/stored/to_receiver_order', employeeController.postShipToReceiverOrder); 
 router.get('/profile/update', employeeController.getUpdateProfile);
 router.post('/profile/update/:id', employeeController.postUpdateProfile);
+router.get('/confirm_order/confirm_from_wh_to_station', employeeController.getConfirmFromWarehouseToStation); 
 
 module.exports = router;

@@ -8,7 +8,8 @@ const Container = new Schema({
     timeReceived: {type: Date},
     receiverAddressId: {type: String},
     senderAddressId: {type: String},
-    postIds: {type: Array, default: []}
+    postIds: {type: Array, default: []},
+    containerCode: {type: String}
 }, { timestamps: true });
 
 module.exports = mongoose.model('Container', Container);

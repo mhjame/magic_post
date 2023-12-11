@@ -329,20 +329,56 @@ class EmployeeController {
 
     postUpdateProfile(req, res, nex) {
         Employee.updateOne({ _id: req.params.id }, req.body)
-        .then(() => Employee.findOne({ _id: req.params.id }).lean())
-        .then(employee => {
-            req.session.regenerate(err => {
-                if (err) return next(err);
-                req.session.employee = employee;
-                req.session.save(err => {
+            .then(() => Employee.findOne({ _id: req.params.id }).lean())
+            .then(employee => {
+                req.session.regenerate(err => {
                     if (err) return next(err);
-                    res.redirect('/profile/view');
+                    req.session.employee = employee;
+                    req.session.save(err => {
+                        if (err) return next(err);
+                        res.redirect('/profile/view');
+                    });
                 });
+            })
+            .catch(err => {
+                console.log(err.message);
             });
-        })
-        .catch(err=> {
-            console.log(err.message);
-        });
+    }
+
+    getConfirmFromWarehouseToStation(req, res, next) {
+        Employee.findOne({ employeeId: "HN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Station.findOne({ id: employee.workPlaceId }).lean()
+                        .then((station) => {
+                            if (!station) {
+                                res.status(404).send({ message: 'Station not found' });
+                                return;
+                            }
+                            Warehouse.findOne({ id: station.warehouseId }).lean()
+                                .then((warehouse) => {
+                                    Container.find({ receiverAddressId: station.id, type: 'warehouse-station' }).lean()
+                                        .then((containers) => {
+                                            res.render('confirm_order/confirm_from_wh_to_station', {
+                                                desStation: station,
+                                                originWarehouse: warehouse,
+                                                containers: containers
+                                            });
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+
     }
 }
 

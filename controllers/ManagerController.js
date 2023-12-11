@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const Employee = require('../models/Employee')
 const Station = require('../models/Station')
-const Employee = require('../models/Employee');
 const Post = require('../models/Post');
 
 const { multipleMongooseToObject } = require('../util/mongoose');
@@ -90,7 +89,6 @@ class ManagerController {
     }
 
     getHome(req, res) {
-<<<<<<< HEAD
         // Employee.findOne({_id:'65599ec015476e96d3c953ff'})
         //     .then((result) => {
         //         console.log(result);
@@ -101,7 +99,6 @@ class ManagerController {
         //         res.json(error);
         //         // Handle any errors here
         //     });
-=======
         Employee.findOne({ _id: '65599ec015476e96d3c953ff' })
             .then((result) => {
                 console.log(result);
@@ -112,7 +109,6 @@ class ManagerController {
                 res.json(error);
                 // Handle any errors here
             });
->>>>>>> nnlinh
 
 
         // // User.find({}, function (err, users){
