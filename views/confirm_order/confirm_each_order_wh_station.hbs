@@ -8,9 +8,9 @@
 <div class="container mt-5 px-2">
     <div class="table-responsive">
         <table class="table table-responsive caption-top text-center" style="vertical-align: middle;">
-            <caption style="font-size: 1.1rem;"><strong>Xác nhận <span
-                        style="color: brown;">{{desStation.name}}</span> đã nhận được các mã hàng trong lô hàng <span
-                        style="color: brown">{{container.containerCode}}</span> gửi về từ
+            <caption style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desStation.name}}</span>
+                    đã nhận được các mã hàng trong lô hàng <span style="color: brown">{{container.containerCode}}</span>
+                    gửi về từ
                     <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></caption>
             <thead>
                 <tr style="background-color: #eeeeee;">
@@ -19,13 +19,14 @@
                     <th class="border-0" scope="col" width="17%">Loại hàng</th>
                     <th class="border-0" scope="col" width="15%">Trọng lượng</th>
                     <th class="border-0" scope="col" width="27%">Tình trạng</th>
-                    <th class="border-0" scope="col" width="16%"><label class="confirm-checkbox"><input class="form-check-input" type="checkbox"> Xác nhận</label></th>
+                    <th class="border-0" scope="col" width="16%"><label class="confirm-checkbox all"><input
+                                class="form-check-input" type="checkbox"> Xác nhận</label></th>
                 </tr>
             </thead>
             <tbody>
                 {{#each posts}}
                 <tr>
-                    <td >{{this.id}}</td>
+                    <td>{{this.id}}</td>
                     <td>{{this.name}}</td>
                     <td>{{this.genre}}</td>
                     <td>{{this.weight}}</td>
@@ -34,7 +35,8 @@
                                 style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
                                 style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>
                     </td>
-                    <td><label class="confirm-checkbox"><input class="form-check-input" type="checkbox"><strong style="color: rgb(27, 178, 27);"> Đã nhận</strong></label>
+                    <td><label class="confirm-checkbox"><input class="form-check-input" type="checkbox"><strong
+                                class="confirm-text"> Đã nhận</strong></label>
                     </td>
                 </tr>
                 {{/each}}
@@ -44,3 +46,44 @@
 
 </div>
 
+<script>
+    let checkList = document.querySelectorAll('tbody tr td .confirm-checkbox');
+    let checkAll = document.querySelector('.confirm-checkbox.all');
+    let checkboxAll = document.querySelector('input[type=checkbox]');
+
+    function checkListMouseListener(item) {
+        item.addEventListener("mouseover", (e) => {
+            item.classList.add('mouse-over');
+        });
+        item.addEventListener("mouseout", (e) => {
+            item.classList.remove('mouse-over');
+        });
+    }
+
+    checkList.forEach((item) => {
+        checkListMouseListener(item);
+        item.addEventListener("click", (e) => {
+            let isCheckAll = true;
+            for (const i of checkList) {
+                if (!i.querySelector('input[type=checkbox]').checked) {
+                    isCheckAll = false;
+                    break;
+                }
+            }
+            checkAll.querySelector('input[type=checkbox]').checked = isCheckAll;
+
+        })
+    });
+
+    checkListMouseListener(checkAll);
+
+    checkAll.addEventListener("click", (e) => {
+        checkList.forEach((item) => {
+            item.querySelector('input[type=checkbox]').checked = checkboxAll.checked;
+        });
+    });
+
+
+
+    
+</script>
