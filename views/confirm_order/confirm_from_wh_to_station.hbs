@@ -5,20 +5,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
+</script>
+
 <div class="container mt-5 px-2">
     <div class="table-responsive">
-        <table class="table table-responsive caption-top text-center" style="vertical-align: middle;">
-            <caption style="font-size: 1.1rem;"><strong>Xác nhận <span
+        <p style="font-size: 1.1rem;"><strong>Xác nhận <span
                         style="color: brown;">{{desStation.name}}</span> đã nhận được các lô hàng gửi về từ
-                    <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></caption>
+                    <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></p>
+        <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
             <thead>
-                <tr style="background-color: #eeeeee;">
-                    <th class="border-0" scope="col" width="16%">Mã lô hàng</th>
-                    <th class="border-0" scope="col" width="1%">Ngày gửi</th>
-                    <th class="border-0" scope="col" width="18%">Mã GDV gửi</th>
-                    <th class="border-0" scope="col" width="17%">Số mã hàng</th>
-                    <th class="border-0" scope="col" width="32%">Tình trạng</th>
-                    <th class="border-0" scope="col" width="16%"><span>Hành động</span></th>
+                <tr style="background-color: #eeeeee; vertical-align: middle;">
+                    <th class="border-0 text-center" scope="col" width="17%">Mã lô hàng</th>
+                    <th class="border-0 text-center" scope="col" width="1%">Ngày gửi</th>
+                    <th class="border-0 text-center" scope="col" width="18%">Mã GDV gửi</th>
+                    <th class="border-0 text-center" scope="col" width="14%">Số mã hàng</th>
+                    <th class="border-0 text-center" scope="col" width="33%">Tình trạng</th>
+                    <th class="border-0 text-center" scope="col" width="17%"><span>Hành động</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -42,3 +48,7 @@
         </table>
     </div>
 </div>
+
+<script>
+    $('#sortedTable').DataTable();
+</script>

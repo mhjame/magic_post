@@ -5,21 +5,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
+</script>
+
 <div class="container mt-5 px-2">
     <div class="table-responsive">
-        <table class="table table-responsive caption-top text-center" style="vertical-align: middle;">
-            <caption style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desStation.name}}</span>
-                    đã nhận được các mã hàng trong lô hàng <span style="color: brown">{{container.containerCode}}</span>
-                    gửi về từ
-                    <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></caption>
+        <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desStation.name}}</span>
+                đã nhận được các mã hàng trong lô hàng <span style="color: brown">{{container.containerCode}}</span>
+                gửi về từ
+                <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></p>
+        <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
             <thead>
-                <tr style="background-color: #eeeeee;">
-                    <th class="border-0" scope="col" width="12%">Mã hàng</th>
-                    <th class="border-0" scope="col" width="13%">Tên hàng</th>
-                    <th class="border-0" scope="col" width="17%">Loại hàng</th>
-                    <th class="border-0" scope="col" width="15%">Trọng lượng</th>
-                    <th class="border-0" scope="col" width="27%">Tình trạng</th>
-                    <th class="border-0" scope="col" width="16%"><label class="confirm-checkbox all"><input
+                <tr style="background-color: #eeeeee; vertical-align: middle;">
+                    <th class="border-0 text-center" scope="col" width="12%">Mã hàng</th>
+                    <th class="border-0 text-center" scope="col" width="12%">Tên hàng</th>
+                    <th class="border-0 text-center" scope="col" width="15%">Loại hàng</th>
+                    <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
+                    <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
+                    <th class="border-0 text-center" scope="col" width="19%"><label class="confirm-checkbox all"><input
                                 class="form-check-input" type="checkbox"> Xác nhận</label></th>
                 </tr>
             </thead>
@@ -43,7 +49,7 @@
             </tbody>
         </table>
     </div>
-
+    <button type="button" class="btn btn-success fw-bold mt-5 d-grid gap-2 col-4 mx-auto">Xác nhận</button>
 </div>
 
 <script>
@@ -83,7 +89,8 @@
         });
     });
 
+</script>
 
-
-    
+<script>
+    $('#sortedTable').DataTable();
 </script>
