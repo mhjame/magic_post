@@ -90,17 +90,17 @@ class EmployeeController {
 
     postShipToWarehouseOrder(req, res, next) {
 
-        let postIds = req.body.postIds;
+        const postIds = req.body.postIds;
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).lean().then((post) => {
                     if (post) {
 
                         post.statusUpdateTime[1] = new Date();
                     }
                 });
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).lean().then((post) => {
                     if (post.statusUpdateTime) {
 
                         post.statusUpdateTime[3] = new Date();
@@ -109,14 +109,14 @@ class EmployeeController {
 
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+            Post.findOneAndUpdate({ id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).lean().then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[1] = new Date();
                     console.log(post.statusUpdateTime);
                 }
             });
-            Post.findOneAndUpdate({ id: postIds, status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+            Post.findOneAndUpdate({ id: postIds, status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).lean().then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[3] = new Date();
@@ -196,11 +196,11 @@ class EmployeeController {
 
     postShipToStationOrder(req, res, next) {
 
-        let postIds = req.body.postIds;
+        const postIds = req.body.postIds;
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at rWarehouse' }, { status: 'on way to rStation' }).lean().then((post) => {
                     if (post) {
 
                         post.statusUpdateTime[5] = new Date();
@@ -211,7 +211,7 @@ class EmployeeController {
 
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
+            Post.findOneAndUpdate({ id: postIds, status: 'at rWarehouse' }, { status: 'on way to rStation' }).lean().then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[5] = new Date();
@@ -282,11 +282,11 @@ class EmployeeController {
     }
 
     postShipToReceiverOrder(req, res, next) {
-        let postIds = req.body.postIds;
+        const postIds = req.body.postIds;
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).lean().then((post) => {
                     if (post) {
 
                         post.statusUpdateTime[7] = new Date();
@@ -297,7 +297,7 @@ class EmployeeController {
 
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+            Post.findOneAndUpdate({ id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).lean().then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[7] = new Date();
@@ -363,7 +363,7 @@ class EmployeeController {
                             }
                             Warehouse.findOne({ id: station.warehouseId }).lean()
                                 .then((warehouse) => {
-                                    Container.find({ receiverAddressId: station.id, type: 'warehouse-station' }).lean()
+                                    Container.find({ receiverAddressId: station.id, type: 'warehouse-station', status: 'in process' }).lean()
                                         .then((containers) => {
                                             res.render('confirm_order/confirm_from_wh_to_station', {
                                                 desStation: station,
@@ -429,8 +429,53 @@ class EmployeeController {
 
             })
             .catch(next);
-
     }
+
+    postConfirmPostsWarehouseToStation(req, res, next) {
+        const postIds = req.body.postIds;
+        const containerCode = req.body.containerCode;
+        let postIdsLength;
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+            for (let i = 0; i < postIdsLength; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to rStation' }, { status: 'at rStation' }).lean().then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[6] = new Date();
+                        console.log(post.statusUpdateTime);
+                    }
+                });
+
+
+            };
+        } else {
+            postIdsLength = 1;
+            Post.findOneAndUpdate({ id: postIds, status: 'on way to rStation' }, { status: 'at rStation' }).lean().then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[6] = new Date();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+        Container.findOne({ containerCode: containerCode }).lean().then((container) => {
+            if (!container) {
+                res.status(404).send({ message: 'Container not found' });
+                return;
+            }
+            if (postIdsLength === container.postIds.length) {
+                container.status = 'received';
+                res.redirect(200, '/confirm_order/confirm_from_wh_to_station');
+                
+            } else {
+                res.redirect(200, '/confirm_order/:${containerCode}/confirm_each_order_wh_station');
+            }
+            
+        }).catch(next);
+    }
+
 }
 
 module.exports = new EmployeeController;

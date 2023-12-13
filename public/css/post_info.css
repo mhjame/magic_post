@@ -463,3 +463,7 @@ p {
   text-align: center;
   vertical-align: middle;
 }
+
+.pagination {
+  background-color: transparent;
+}
