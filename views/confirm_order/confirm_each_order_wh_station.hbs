@@ -34,26 +34,32 @@
                                 class="form-check-input" type="checkbox"> Xác nhận</label></th>
                 </tr>
             </thead>
-            <form id="confirm-posts-wh-station-form" action="/stored/confirm_posts_wh_station" method="post"></form>
-            <input type="hidden" name="containerCode" value="{{container.containerCode}}">
-            <tbody>
-                {{#each posts}}
-                <tr>
-                    <td>{{this.id}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.genre}}</td>
-                    <td>{{this.weight}}</td>
-                    <td><span class="rounded-pill align-items-center"
-                            style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
-                                style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
-                                style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>
-                    </td>
-                    <td><label class="confirm-checkbox"><input class="form-check-input" type="checkbox" name="postIds"
-                                value="{{this.id}}"><strong class="confirm-text"> Đã nhận</strong></label>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
+            <form id="confirm-posts-wh-station-form" action="/stored/confirm_posts_wh_station" method="post">
+                <input type="hidden" name="containerCode" value="{{container.containerCode}}">
+                <tbody>
+                    {{#each posts}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.genre}}</td>
+                        <td>{{this.weight}}</td>
+                        <td><span class="rounded-pill align-items-center"
+                                style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
+                                    style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
+                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>
+                        </td>
+                        <td>
+
+                            <label class="confirm-checkbox">
+                                <input class="form-check-input" type="checkbox" name="postIds"
+                                    value="{{this.id}}"><strong class="confirm-text"> Đã
+                                    nhận</strong>
+                            </label>
+
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
             </form>
         </table>
     </div>

@@ -11,7 +11,7 @@ class EmployeeController {
 
     createShipToWarehouseOrder(req, res, next) {
 
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
+        Employee.findOne({ employeeId: "TN001" }).lean()
             .then((employee) => {
                 if (!employee) {
                     res.status(404).send({ message: 'Employee not found' });
@@ -98,12 +98,14 @@ class EmployeeController {
                     if (post) {
 
                         post.statusUpdateTime[1] = new Date();
+                        post.save();
                     }
                 });
                 Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).lean().then((post) => {
                     if (post.statusUpdateTime) {
 
                         post.statusUpdateTime[3] = new Date();
+                        post.save();
                     }
                 });
 
@@ -113,6 +115,7 @@ class EmployeeController {
                 if (post) {
 
                     post.statusUpdateTime[1] = new Date();
+                    post.save();
                     console.log(post.statusUpdateTime);
                 }
             });
@@ -120,6 +123,7 @@ class EmployeeController {
                 if (post) {
 
                     post.statusUpdateTime[3] = new Date();
+                    post.save();
                 }
             });
         }
@@ -204,6 +208,7 @@ class EmployeeController {
                     if (post) {
 
                         post.statusUpdateTime[5] = new Date();
+                        post.save();
                         console.log(post.statusUpdateTime);
                     }
                 });
@@ -215,6 +220,7 @@ class EmployeeController {
                 if (post) {
 
                     post.statusUpdateTime[5] = new Date();
+                    post.save();
                     console.log(post.statusUpdateTime);
                 }
             });
@@ -290,6 +296,7 @@ class EmployeeController {
                     if (post) {
 
                         post.statusUpdateTime[7] = new Date();
+                        post.save();
                         console.log(post.statusUpdateTime);
                     }
                 });
@@ -301,6 +308,7 @@ class EmployeeController {
                 if (post) {
 
                     post.statusUpdateTime[7] = new Date();
+                    post.save();
                     console.log(post.statusUpdateTime);
                 }
             });
@@ -435,6 +443,9 @@ class EmployeeController {
         const postIds = req.body.postIds;
         const containerCode = req.body.containerCode;
         let postIdsLength;
+
+        console.log(req.body);
+        console.log(req.body.postIds);
         if (Array.isArray(postIds)) {
             postIdsLength = postIds.length;
             for (let i = 0; i < postIdsLength; i++) {
@@ -444,6 +455,7 @@ class EmployeeController {
 
                         post.statusUpdateTime[6] = new Date();
                         console.log(post.statusUpdateTime);
+                        post.save();
                     }
                 });
 
@@ -455,6 +467,7 @@ class EmployeeController {
                 if (post) {
 
                     post.statusUpdateTime[6] = new Date();
+                    post.save();
                     console.log(post.statusUpdateTime);
                 }
             });
@@ -465,12 +478,14 @@ class EmployeeController {
                 res.status(404).send({ message: 'Container not found' });
                 return;
             }
+            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length);
             if (postIdsLength === container.postIds.length) {
                 container.status = 'received';
+                post.save();
                 res.redirect(200, '/confirm_order/confirm_from_wh_to_station');
                 
             } else {
-                res.redirect(200, '/confirm_order/:${containerCode}/confirm_each_order_wh_station');
+                res.redirect(200, '/confirm_order/' + containerCode + '/confirm_each_order_wh_station');
             }
             
         }).catch(next);
