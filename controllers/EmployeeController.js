@@ -478,16 +478,18 @@ class EmployeeController {
                 res.status(404).send({ message: 'Container not found' });
                 return;
             }
-            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length);
-            if (postIdsLength === container.postIds.length) {
+            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length + '; posts received: ' + container.postsReceived.length);
+            container.postsReceived = container.postsReceived.concat(postIds);
+            if (container.postsReceived.length === container.postIds.length) {
                 container.status = 'received';
                 container.save();
                 res.redirect(200, '/confirm_order/confirm_from_wh_to_station');
-                
+
             } else {
+                container.save();
                 res.redirect(200, '/confirm_order/' + containerCode + '/confirm_each_order_wh_station');
             }
-            
+
         }).catch(next);
     }
 

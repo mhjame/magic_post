@@ -9,6 +9,7 @@ const Container = new Schema({
     receiverAddressId: {type: String},
     senderAddressId: {type: String},
     postIds: {type: Array, default: []},
+    postsReceived: {type: Array, default: []},
     containerCode: {type: String}
 }, { timestamps: true });
 
