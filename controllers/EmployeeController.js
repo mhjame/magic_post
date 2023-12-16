@@ -493,6 +493,41 @@ class EmployeeController {
         }).catch(next);
     }
 
+    getOriginWarehouses(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Warehouse.find({}).lean()
+                                .then((originWarehouses) => {
+                                    Container.find({ receiverAddressId: warehouse.id, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                        .then((containers) => {
+                                            res.render('confirm_order/get_origin_warehouses_need_confirm', {
+                                                desWarehouse: warehouse,
+                                                originWarehouses: originWarehouses,
+                                                containers: containers
+                                            });
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
 }
 
 module.exports = new EmployeeController;
