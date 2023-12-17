@@ -11,7 +11,7 @@ class EmployeeController {
 
     createShipToWarehouseOrder(req, res, next) {
 
-        Employee.findOne({ employeeId: "TKHCM001" }).lean()
+        Employee.findOne({ employeeId: "HN001" }).lean()
             .then((employee) => {
                 if (!employee) {
                     res.status(404).send({ message: 'Employee not found' });
@@ -759,6 +759,110 @@ class EmployeeController {
 
             })
             .catch(next);
+    }
+
+    getConfirmEachOrderStationToWarehouse(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+
+                            Container.findOne({ containerCode: req.params.containerCode }).lean()
+                                .then((container) => {
+                                    Station.findOne({ id: req.params.originStationId }).lean()
+                                        .then((originStation) => {
+                                            const posts = [];
+                                            if (Array.isArray(container.postIds)) {
+                                                for (let i = 0; i < container.postIds.length; i++) {
+                                                    Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                        posts.push(post);
+                                                    });
+                                                };
+                                            } else {
+                                                Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                    posts.push(post)
+                                                });
+                                            }
+
+                                            res.render('confirm_order/confirm_each_order_station_wh', {
+                                                thisWarehouse: warehouse,
+                                                originStation,
+                                                container,
+                                                posts
+                                            });
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
+    postConfirmPostsStationToWarehouse(req, res, next) {
+        const postIds = req.body.postIds;
+        const containerCode = req.body.containerCode;
+        const originStationId = req.body.originStationId;
+        let postIdsLength;
+
+        console.log(req.body);
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+            for (let i = 0; i < postIdsLength; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to sWarehouse' }, { status: 'at sWarehouse' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[2] = new Date();
+                        console.log(post.statusUpdateTime);
+                        post.save();
+                    }
+                });
+
+
+            };
+        } else {
+            postIdsLength = 1;
+            Post.findOneAndUpdate({ id: postIds, status: 'on way to sWarehouse' }, { status: 'at sWarehouse' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[2] = new Date();
+                    post.save();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+        Container.findOne({ containerCode: containerCode }).then((container) => {
+            if (!container) {
+                res.status(404).send({ message: 'Container not found' });
+                return;
+            }
+            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length + '; posts received: ' + container.postsReceived.length);
+            container.postsReceived = container.postsReceived.concat(postIds);
+            if (container.postsReceived.length === container.postIds.length) {
+                container.status = 'received';
+                container.save();
+                res.redirect(200, '/confirm_order/' + originStationId + '/confirm_station_wh');
+
+            } else {
+                container.save();
+                res.redirect(200, '/confirm_order/' + originStationId + '/' + containerCode + '/confirm_each_order_station_wh');
+            }
+
+        }).catch(next);
     }
 
 }
