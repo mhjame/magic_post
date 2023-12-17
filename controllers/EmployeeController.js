@@ -11,7 +11,7 @@ class EmployeeController {
 
     createShipToWarehouseOrder(req, res, next) {
 
-        Employee.findOne({ employeeId: "TN001" }).lean()
+        Employee.findOne({ employeeId: "TKHCM001" }).lean()
             .then((employee) => {
                 if (!employee) {
                     res.status(404).send({ message: 'Employee not found' });
@@ -511,16 +511,31 @@ class EmployeeController {
                             }
                             Warehouse.find({}).lean()
                                 .then((originWarehouses) => {
-                                    Container.find({ receiverAddressId: warehouse.id, type: 'warehouse-warehouse', status: 'in process' }).lean()
-                                        .then((containers) => {
-                                            res.render('confirm_order/get_origin_warehouses_need_confirm', {
-                                                desWarehouse: warehouse,
-                                                originWarehouses: originWarehouses,
-                                                containers: containers
-                                            });
-                                        })
-                                })
+                                    const totalContainersFromWarehouse = {};
+                                    const originWarehousesNeedConfirm = [];
+                                    for (const originWarehouse of originWarehouses) {
+                                        const originWarehouseId = originWarehouse.id;
+                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouseId, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                            .then((containers) => {
+                                                if (containers) {
 
+
+                                                    totalContainersFromWarehouse[originWarehouseId] = containers.length;
+                                                    originWarehousesNeedConfirm.push(originWarehouse);
+                                                    console.log(containers)
+                                                    console.log(totalContainersFromWarehouse);
+                                                }
+                                            })
+                                    }
+
+
+                                    res.render('confirm_order/get_origin_warehouses_need_confirm', {
+                                        desWarehouse: warehouse,
+                                        originWarehousesNeedConfirm: originWarehousesNeedConfirm,
+                                        totalContainersFromWarehouse: totalContainersFromWarehouse,
+                                    });
+
+                                })
                         })
                 }
 

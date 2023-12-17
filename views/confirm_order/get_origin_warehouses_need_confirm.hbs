@@ -6,21 +6,21 @@
 
 <div class="container">
     <div class="row text-center mx-auto">
-        {{#each originWarehouses}}
-        <div class="col-md-4 col-lg-3 col-sm-6 mb-3">
-            <div class="warehouse-card card mb-3">
-                <div class="card-header">
+        {{#each originWarehousesNeedConfirm}}
+        <div class="col-md-4 col-lg-3 col-sm-6 mb-3" >
+            <div class="warehouse-card card mb-3 h-100 w-100">
+                <div class="card-header h-100">
                     <h5 class="mb-1">{{this.name}}</h5>
                     <div class="small text-muted">Mã: {{this.id}}</div>
                 </div>
                 <div class="card-body">
                     <div class="number-round">
-                        <h1 class="card-title">0</h1>
+                        <h1 class="card-title">{{lookup ../totalContainersFromWarehouse this.id}}</h1>
                     </div>
 
                     <p class="card-text small text-muted">lô hàng đang chuyển đến</p>
 
-                    <button type="button" class="btn btn-success">Xác nhận ngay</button>
+                    <button type="button" class="btn btn-success" onclick="window.location.href='/confirm_order/{{this.id}}/confirm_wh_wh'">Xác nhận ngay</button>
 
                 </div>
             </div>
@@ -64,6 +64,7 @@
 
 <script>
     const warehouseCards = document.querySelectorAll('.warehouse-card');
+    const numberRoundList = document.querySelectorAll('.number-round');
 
     for (let i = 0; i < warehouseCards.length; i++) {
         console.log(i % 4)
@@ -82,6 +83,25 @@
                 break;
         }
     }
+
+    for (let i = 0; i < numberRoundList.length; i++) {
+        console.log(i % 4)
+        switch (i % 4) {
+            case 0:
+                numberRoundList[i].classList.add('bg-1');
+                break;
+            case 1: 
+                numberRoundList[i].classList.add('bg-2');
+                break;
+            case 2: 
+                numberRoundList[i].classList.add('bg-3');
+                break;
+            case 3: 
+                numberRoundList[i].classList.add('bg-4');
+                break;
+        }
+    }
+
 </script>
 
 
