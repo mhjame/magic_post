@@ -390,7 +390,7 @@ class EmployeeController {
     }
 
 
-    getConfirmEachOrderFromWarehouseToStation(req, res, next) {
+    getConfirmEachOrderWarehouseToStation(req, res, next) {
         Employee.findOne({ employeeId: "HN001" }).lean()
             .then((employee) => {
                 if (!employee) {
@@ -530,12 +530,96 @@ class EmployeeController {
 
 
                                     res.render('confirm_order/get_origin_warehouses_need_confirm', {
-                                        desWarehouse: warehouse,
                                         originWarehousesNeedConfirm: originWarehousesNeedConfirm,
                                         totalContainersFromWarehouse: totalContainersFromWarehouse,
                                     });
 
                                 })
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
+    getConfirmWarehouseToWarehouse(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Warehouse.findOne({ id: req.params.originWarehouseId }).lean()
+                                .then((originWarehouse) => {
+                                    Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouse.id, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                        .then((containers) => {
+                                            res.render('confirm_order/confirm_wh_wh', {
+                                                desWarehouse: warehouse,
+                                                originWarehouse,
+                                                containers: containers
+                                            });
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
+    getConfirmEachOrderWarehouseToWarehouse(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+
+                            Container.findOne({ containerCode: req.params.containerCode }).lean()
+                                .then((container) => {
+                                    Warehouse.findOne({ id: container.senderAddressId }).lean()
+                                        .then((originWarehouse) => {
+                                            const posts = [];
+                                            if (Array.isArray(container.postIds)) {
+                                                for (let i = 0; i < container.postIds.length; i++) {
+                                                    Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                        posts.push(post);
+                                                    });
+                                                };
+                                            } else {
+                                                Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                    posts.push(post)
+                                                });
+                                            }
+
+                                            res.render('confirm_order/confirm_each_order_wh_wh', {
+                                                desWarehouse: warehouse,
+                                                originWarehouse,
+                                                container,
+                                                posts
+                                            });
+                                        })
+                                })
+
                         })
                 }
 
