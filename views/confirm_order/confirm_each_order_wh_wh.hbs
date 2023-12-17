@@ -17,6 +17,7 @@
 <div class="container mt-5 px-2">
     <form id="confirm-posts-wh-station-form" action="/stored/confirm_posts_wh_wh" method="post">
         <input type="hidden" name="containerCode" value="{{container.containerCode}}">
+        <input type="hidden" name="originWarehouseId" value="{{originWarehouse.id}}">
         <div class="table-responsive">
 
             <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desWarehouse.name}}</span>

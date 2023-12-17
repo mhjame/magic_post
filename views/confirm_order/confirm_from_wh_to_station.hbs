@@ -11,6 +11,15 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
+{{#unless containers}}
+
+
+<div class="alert alert-danger text-center" role="alert">
+    Không có lô hàng nào đang được chuyển đến từ điểm tập kết!
+</div>
+
+{{/unless}}
+
 <div class="container mt-5 px-2">
     <div class="table-responsive">
         <p style="font-size: 1.1rem;"><strong>Xác nhận <span

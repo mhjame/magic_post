@@ -11,6 +11,15 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
+{{#unless containers}}
+
+
+<div class="alert alert-danger text-center" role="alert">
+    Không có lô hàng nào đang được chuyển đến từ điểm tập kết đã chọn!
+</div>
+
+{{/unless}}
+
 <div class="container mt-5 px-2">
     <div class="table-responsive">
         <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desWarehouse.name}}</span> đã nhận
@@ -41,7 +50,7 @@
                                 style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>
                     </td>
                     <td><a class="fw-bolder confirm-link"
-                            href="/confirm_order/{{this.containerCode}}/confirm_each_order_wh_wh">Xác
+                            href="/confirm_order/{{this.senderAddressId}}/{{this.containerCode}}/confirm_each_order_wh_wh">Xác
                             nhận từng mã hàng</a>
                     </td>
                 </tr>

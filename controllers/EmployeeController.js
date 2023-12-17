@@ -517,9 +517,7 @@ class EmployeeController {
                                         const originWarehouseId = originWarehouse.id;
                                         Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouseId, type: 'warehouse-warehouse', status: 'in process' }).lean()
                                             .then((containers) => {
-                                                if (containers) {
-
-
+                                                if (containers.length !== 0) {
                                                     totalContainersFromWarehouse[originWarehouseId] = containers.length;
                                                     originWarehousesNeedConfirm.push(originWarehouse);
                                                     console.log(containers)
@@ -626,6 +624,61 @@ class EmployeeController {
             })
             .catch(next);
     }
+
+    postConfirmPostsWarehouseToWarehouse(req, res, next) {
+        const postIds = req.body.postIds;
+        const containerCode = req.body.containerCode;
+        const originWarehouseId = req.body.originWarehouseId;
+        let postIdsLength;
+
+        console.log(req.body);
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+            for (let i = 0; i < postIdsLength; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to rWarehouse' }, { status: 'at rWarehouse' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[4] = new Date();
+                        console.log(post.statusUpdateTime);
+                        post.save();
+                    }
+                });
+
+
+            };
+        } else {
+            postIdsLength = 1;
+            Post.findOneAndUpdate({ id: postIds, status: 'on way to rWarehouse' }, { status: 'at rWarehouse' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[4] = new Date();
+                    post.save();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+        Container.findOne({ containerCode: containerCode }).then((container) => {
+            if (!container) {
+                res.status(404).send({ message: 'Container not found' });
+                return;
+            }
+            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length + '; posts received: ' + container.postsReceived.length);
+            container.postsReceived = container.postsReceived.concat(postIds);
+            if (container.postsReceived.length === container.postIds.length) {
+                container.status = 'received';
+                container.save();
+                res.redirect(200, '/confirm_order/'  + originWarehouseId + '/confirm_wh_wh');
+
+            } else {
+                container.save();
+                res.redirect(200, '/confirm_order/' + originWarehouseId + '/' + containerCode + '/confirm_each_order_wh_wh');
+            }
+
+        }).catch(next);
+    }
+
 
 }
 
