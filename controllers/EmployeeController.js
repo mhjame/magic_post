@@ -670,7 +670,7 @@ class EmployeeController {
             if (container.postsReceived.length === container.postIds.length) {
                 container.status = 'received';
                 container.save();
-                res.redirect(200, '/confirm_order/'  + originWarehouseId + '/confirm_wh_wh');
+                res.redirect(200, '/confirm_order/' + originWarehouseId + '/confirm_wh_wh');
 
             } else {
                 container.save();
@@ -680,6 +680,86 @@ class EmployeeController {
         }).catch(next);
     }
 
+    getOriginStations(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Station.find({ warehouseId: warehouse.id }).lean()
+                                .then((originStations) => {
+                                    const totalContainersFromStation = {};
+                                    const originStationsNeedConfirm = [];
+                                    for (const originStation of originStations) {
+                                        const originStationId = originStation.id;
+                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStationId, type: 'station-warehouse', status: 'in process' }).lean()
+                                            .then((containers) => {
+                                                if (containers.length !== 0) {
+                                                    totalContainersFromStation[originStationId] = containers.length;
+                                                    originStationsNeedConfirm.push(originStation);
+                                                    console.log(totalContainersFromStation);
+                                                }
+                                            })
+                                    }
+
+                                    res.render('confirm_order/get_origin_stations_need_confirm', {
+                                        thisWarehouse: warehouse,
+                                        originStationsNeedConfirm,
+                                        totalContainersFromStation,
+                                    });
+
+                                })
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
+    getConfirmStationToWarehouse(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+
+
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Station.findOne({ id: req.params.originStationId }).lean()
+                                .then((originStation) => {
+                                    Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStation.id, type: 'station-warehouse', status: 'in process' }).lean()
+                                        .then((containers) => {
+                                            res.render('confirm_order/confirm_station_wh', {
+                                                thisWarehouse: warehouse,
+                                                originStation,
+                                                containers,
+                                            });
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+    }
 
 }
 

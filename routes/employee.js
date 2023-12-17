@@ -18,5 +18,7 @@ router.get('/confirm_order/get_origin_warehouses_need_confirm', employeeControll
 router.get('/confirm_order/:originWarehouseId/confirm_wh_wh', employeeController.getConfirmWarehouseToWarehouse);
 router.get('/confirm_order/:originWarehouseId/:containerCode/confirm_each_order_wh_wh', employeeController.getConfirmEachOrderWarehouseToWarehouse);
 router.post('/stored/confirm_posts_wh_wh', employeeController.postConfirmPostsWarehouseToWarehouse);
+router.get('/confirm_order/get_origin_stations_need_confirm', employeeController.getOriginStations);
+router.get('/confirm_order/:originStationId/confirm_station_wh', employeeController.getConfirmStationToWarehouse);
 
 module.exports = router;
