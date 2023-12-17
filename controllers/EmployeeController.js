@@ -528,6 +528,7 @@ class EmployeeController {
 
 
                                     res.render('confirm_order/get_origin_warehouses_need_confirm', {
+                                        thisWarehouse: warehouse,
                                         originWarehousesNeedConfirm: originWarehousesNeedConfirm,
                                         totalContainersFromWarehouse: totalContainersFromWarehouse,
                                     });
