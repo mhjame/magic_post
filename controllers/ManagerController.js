@@ -154,12 +154,19 @@ class ManagerController {
 
     postRegister(req, res, next) {
         const { retype, ...formData } = req.body;
-        Employee.findOne({ username: formData.username })
-            .then(employee => {
+        Promise.all([Employee.findOne({ username: formData.username }), Employee.find({workAddress: formData.workAddress, role: formData.role}).countDocuments()])
+            .then(([employee, countEmployee]) => {
                 if (employee) return res.json({
                     registerSuccess: false,
                     message: 'Tên đăng nhập đã tồn tại'
                 });
+
+                const userRole = req.session.employee.role;
+                if(userRole == 'Manager' && countEmployee > 0) return res.json({
+                    registerSuccess: false,
+                    message: 'Chức vụ này đã có người nắm giữ'
+                });
+
                 const employeeCreate = new Employee(formData);
                 employeeCreate.save();
                 res.json({
