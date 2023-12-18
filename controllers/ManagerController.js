@@ -341,7 +341,7 @@ class ManagerController {
         }
     }
 
-    //DELETE /product/:id/force
+    //DELETE /employee/:id/force
     forceDestroy(req, res, next) {
         try {
             const userRole = req.session.employee.role;
@@ -430,14 +430,11 @@ class ManagerController {
             const postCreate = new Post(formData);
             postCreate.save();
 
-            Post.findOne(formData)
-                .then (post => {
-                    res.render('receipt', {
-                        post: mongooseToObject(post),
-                    })
-                })
-                .catch(next);
-            // console.log(postCreate);
+            //console.log(postCreate);
+            res.render('receipt', {
+                post: mongooseToObject(postCreate)
+            })
+            
         }
         catch (e) {
             res.status(500).json({ error: e.message });

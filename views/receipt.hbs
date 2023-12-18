@@ -11,6 +11,27 @@
    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="/css/receipt.css">
+
+<style>
+   #imgBox {
+      width: 200px;
+      border-radius: 5px;
+     max-height: 300px;
+    margin: 10px auto;
+    border: 1px solid #d1d1d1;
+   }
+
+   #imgBox img {
+      width: 100%;
+      padding: 10px;
+
+   }
+   #imgBox.show-img{
+    max-height: 300px;
+    margin: 10px auto;
+    border: 1px solid #d1d1d1;
+}
+</style>
 <div class="container">
    <div class="col-md-12">
       <div class="receipt">
@@ -28,6 +49,17 @@
          <h2>MAGIC POST</h2>
 
          {{#if post}}
+         <div id="imgBox">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:3000/post_info/{{post._id}}" id="qrImage">
+         </div>
+
+         {{!-- <script>
+               let imgBox = document.getElementById("imgBox");
+               let qrImage = document.getElementById("qrImage");
+               qrImage = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://localhost:3000/post_info/" + {{post._id}}
+               imgBox.classList.add("show-img");
+            </script> --}}
+
          <table>
             <tr>
                <td colspan="3"> <b>1. Họ tên địa chỉ người gửi:</b> </br>
@@ -83,21 +115,21 @@
                   <div>
                      {{#if (contain post.genre 'tailieu')}}
                      <label> Tài liệu
-                        <input type="checkbox" checked>
+                        <input type="checkbox" checked disabled>
                      </label>
                      {{else}}
                      <label> Tài liệu
-                        <input type="checkbox">
+                        <input type="checkbox" disabled>
                      </label>
                      {{/if}}
 
                      {{#if (contain post.genre 'hanghoa')}}
                      <label> Hàng hóa
-                        <input type="checkbox" checked>
+                        <input type="checkbox" checked disabled>
                      </label>
                      {{else}}
                      <label> Hàng hóa
-                        <input type="checkbox">
+                        <input type="checkbox" disabled>
                      </label>
                      {{/if}}
 
@@ -134,7 +166,7 @@
 
                </td>
                <td colspan="1">
-                  <b>10. Khối lượng (kg):</b> 
+                  <b>10. Khối lượng (kg):</b>
                   <div>
                      Khối lượng thực tế:{{post.actualWeight}}
                   </div>
@@ -177,60 +209,60 @@
                   {{#if (contain post.guidePending 'Chuyển hoàn ngay')}}
                   <label>
                      Chuyển hoàn ngay
-                     <input type="checkbox" checked>
+                     <input type="checkbox" checked disabled>
                   </label>
                   {{else}}
                   <label>
                      Chuyển hoàn ngay
-                     <input type="checkbox" checked>
+                     <input type="checkbox" checked disabled>
                   </label>
                   {{/if}}
 
                   {{#if (contain post.guidePending 'Gọi điện cho người gửi BC gửi')}}
                   <label>
                      Gọi điện cho người gửi BC gửi
-                     <input type="checkbox" checked>
+                     <input type="checkbox" checked disabled>
                   </label>
                   {{else}}
                   <label>
                      Gọi điện cho người gửi BC gửi
-                     <input type="checkbox">
+                     <input type="checkbox" disabled>
                   </label>
                   {{/if}}
 
                   {{#if (contain post.guidePending 'Hủy')}}
                   <label>
                      Hủy
-                     <input type="checkbox" checked>
+                     <input type="checkbox" checked disabled>
                   </label>
                   {{else}}
                   <label>
                      Hủy
-                     <input type="checkbox">
+                     <input type="checkbox" disabled>
                   </label>
                   {{/if}}
 
                   {{#if (contain post.guidePending 'Chuyển hoàn trước ngày')}}
                   <label>
                      Chuyển hoàn trước ngày
-                     <input type="checkbox" checked>
+                     <input type="checkbox" checked disabled>
                   </label>
                   {{else}}
                   <label>
                      Chuyển hoàn trước ngày
-                     <input type="checkbox">
+                     <input type="checkbox" disabled>
                   </label>
                   {{/if}}
 
                   {{#if (contain post.guidePending 'Chuyển hoàn khi hết thời gian lưu trữ')}}
                   <label>
                      Chuyển hoàn khi hết thời gian lưu trữ
-                     <input type="checkbox" checked>
+                     <input type="checkbox" checked disabled>
                   </label>
                   {{else}}
                   <label>
                      Chuyển hoàn khi hết thời gian lưu trữ
-                     <input type="checkbox">
+                     <input type="checkbox" disabled>
                   </label>
                   {{/if}}
             </tr>

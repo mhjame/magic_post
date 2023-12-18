@@ -6,6 +6,30 @@ const Post = require('../models/Post');
 
 class UserController {
 
+    getPost(req, res, next) {
+        Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            if (!post) {
+              
+              
+             
+                res.render('search_post', {
+                    message: 'post not found',
+                    previousValue: value
+                });
+
+            } else {
+
+                res.render('search_post', {
+                    post: post,
+                    previousValue: value
+
+                });
+            }
+
+        })
+        .catch(next);
+    }
 
     searchPost(req, res, next) {
         const value = req.query.searchValue;
