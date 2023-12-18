@@ -32,6 +32,9 @@ router.post('/statistic_manager/year', statisticController.postStatisticManagerY
 router.get('/map', managerController.getMaps)
 router.post('/postSearchStation', managerController.postSearchStation)
 
+//qr
+router.get('/createQRCode', managerController.getQRCode);
+
 router.get('/supervisor/humanResource', managerController.humanResource);
 router.get('/supervisor/oldHR', managerController.oldHR);
 router.post('/employees/handle-form-actions', managerController.handleFormActions);

@@ -15,6 +15,17 @@ class ManagerController {
     getMaps(req, res) {
         res.render('map');
     }
+    getQRCode(req, res) {
+        // const newPostData = req.body;
+
+        // // Gọi phương thức tạo mã QR từ mô hình Post
+        // const createdPost = await Post.createQRCodeForNewPost(newPostData);
+
+        // Trả về thông tin mã QR cho client
+        res.json({
+            qrcodeContent: createdPost.qrcodeContent,
+        });
+    }
 
     postSearchStation(req, res) {
         const address = req.body.stationProvince;
