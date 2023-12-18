@@ -11,5 +11,16 @@ router.get('/create_order/create_to_receiver_order', employeeController.createSh
 router.post('/stored/to_receiver_order', employeeController.postShipToReceiverOrder); 
 router.get('/profile/update', employeeController.getUpdateProfile);
 router.post('/profile/update/:id', employeeController.postUpdateProfile);
+router.get('/confirm_order/confirm_from_wh_to_station', employeeController.getConfirmFromWarehouseToStation); 
+router.get('/confirm_order/:containerCode/confirm_each_order_wh_station', employeeController.getConfirmEachOrderWarehouseToStation); 
+router.post('/stored/confirm_posts_wh_station', employeeController.postConfirmPostsWarehouseToStation); 
+router.get('/confirm_order/get_origin_warehouses_need_confirm', employeeController.getOriginWarehouses);
+router.get('/confirm_order/:originWarehouseId/confirm_wh_wh', employeeController.getConfirmWarehouseToWarehouse);
+router.get('/confirm_order/:originWarehouseId/:containerCode/confirm_each_order_wh_wh', employeeController.getConfirmEachOrderWarehouseToWarehouse);
+router.post('/stored/confirm_posts_wh_wh', employeeController.postConfirmPostsWarehouseToWarehouse);
+router.get('/confirm_order/get_origin_stations_need_confirm', employeeController.getOriginStations);
+router.get('/confirm_order/:originStationId/confirm_station_wh', employeeController.getConfirmStationToWarehouse);
+router.get('/confirm_order/:originStationId/:containerCode/confirm_each_order_station_wh', employeeController.getConfirmEachOrderStationToWarehouse);
+router.post('/stored/confirm_posts_station_wh', employeeController.postConfirmPostsStationToWarehouse);
 
 module.exports = router;

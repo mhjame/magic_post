@@ -14,16 +14,17 @@ class UserController {
                 if (!post) {
                   
                   
-                    // Back lại trang cũ
-                    res.render('post_info', {
-                        message: 'post not found'
+                 
+                    res.render('search_post', {
+                        message: 'post not found',
+                        previousValue: value
                     });
 
                 } else {
 
                     res.render('search_post', {
                         post: post,
-
+                        previousValue: value
 
                     });
                 }

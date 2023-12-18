@@ -1,0 +1,249 @@
+<div class="header">
+    <div class="title" style="display: flex; align-items: center; justify-content: space-between;">
+        <button id="btnAll">Trên toàn quốc</button>
+        <div class="dropdown-container">
+            <div class="dropdown show" style="margin-right: 20px;">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Các tùy chọn khác
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#" id="showPopup1">Điểm giao dịch cụ thể</a>
+                    <a class="dropdown-item" href="#" id="showPopup2">Điểm tập kết cụ thể</a>
+
+                </div>
+
+                <div class="overlay" id="overlay1">
+                    <div class="popup">
+                        <p>This is a message1</p>
+                        <div>
+                            <form method="POST" action="" class="formPopup">
+                                <label class="lbPopup" for="">Mã điểm giao dịch</label>
+                                <input class="ipPopup" type="text" placeholder="Nhập mã điểm giao dịch">
+                                <button class="btnPopup" type="submit">Tìm kiếm</button>
+                            </form>
+                            <a data-toggle="collapse" class="aPopup" href="#collapseExample" role="button">Tìm kiếm theo
+                                bộ lọc<i class="fa fa-angle-down"></i></a>
+                            <div class="collapse">
+                                <input type="text" placeholder="Tỉnh/thành phố">
+                                <input type="text" placeholder="Chịu chết">
+                            </div>
+                            <style>
+                                .formPopup {
+                                    max-width: 700px;
+                                    margin: 20px auto;
+                                    padding: 20px;
+                                    display: flex;
+                                    flex-direction: column;
+                                }
+
+                                .lbPopup {
+                                    margin-bottom: 10px;
+                                    font-weight: bold;
+                                }
+
+                                .ipPopup {
+                                    width: 100%;
+                                    padding: 10px;
+                                    margin-bottom: 15px;
+                                    box-sizing: border-box;
+                                }
+
+                                .btnPopup {
+                                    background-color: #3498db;
+                                    color: #fff;
+                                    padding: 10px 15px;
+                                    border: none;
+                                    border-radius: 4px;
+                                    width: 160px;
+                                    height: 45px;
+                                    cursor: pointer;
+                                }
+
+                                .btnPopup:hover {
+                                    background-color: #2980b9;
+                                }
+
+                                .aPopup {
+                                    margin-top: 15px;
+                                    text-decoration: none;
+                                    color: #3498db;
+                                    cursor: pointer;
+                                }
+
+                                .collapse {
+                                    display: none;
+                                    margin-top: 10px;
+                                }
+
+                                .collapse input {
+                                    width: calc(50% - 5px);
+                                    padding: 10px;
+                                    box-sizing: border-box;
+                                    margin-bottom: 10px;
+                                }
+
+                                .fa {
+                                    margin-left: 5px;
+                                }
+                            </style>
+
+                        </div>
+                        <button onclick="closePopup1()">Đóng</button>
+                    </div>
+
+                </div>
+                <div class="overlay" id="overlay2">
+                    <div class="popup">
+                        <p>This is a message2</p>
+                        <button onclick="closePopup2()">Đóng</button>
+                    </div>
+
+                </div>
+
+                <style>
+                    .overlay {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.5);
+                        display: flex;
+                        justify-content: center;
+                        visibility: hidden;
+                        z-index: 999;
+                    }
+
+                    .popup {
+                        background: #fff;
+                        padding: 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                        max-width: 400px;
+                        text-align: center;
+                        z-index: 1000;
+                    }
+
+                    .popup p {
+                        margin: 0 0 15px;
+                    }
+
+                    button {
+                        background: #3498db;
+                        color: #fff;
+                        border: none;
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        border-radius: 4px;
+                    }
+                </style>
+                <script>
+                    document.getElementById('showPopup1').addEventListener('click', function (event) {
+                        showPopup1();
+                    });
+                    document.getElementById('showPopup2').addEventListener('click', function (event) {
+                        showPopup2();
+                    });
+
+                    function showPopup1() {
+                        document.getElementById('overlay1').style.visibility = 'visible';
+                    }
+                    function showPopup2() {
+                        document.getElementById('overlay2').style.visibility = 'visible';
+                    }
+
+                    function closePopup1() {
+                        document.getElementById('overlay1').style.visibility = 'hidden';
+                    }
+                    function closePopup2() {
+                        document.getElementById('overlay2').style.visibility = 'hidden';
+                    }
+
+                </script>
+            </div>
+        </div>
+        <style>
+            #btnAll,
+            #dropdownMenuLink {
+                display: inline-block;
+                margin-left: 20px;
+                margin-right: 20px;
+                margin-bottom: 50px;
+                padding: 10px 80px;
+                font-size: 16px;
+                font-weight: bold;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+                border: 1px solid #ccc;
+                border-radius: 25px;
+                background-color: #f5f5f5;
+                color: #333;
+                transition: background-color 0.3s ease;
+            }
+
+            #btnAll:hover,
+            #dropdownMenuLink:hover {
+                background-color: #e0e0e0;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    </div>
+    <div class="button-container">
+        <form method="POST" action="/statistic_manager/daily">
+            <button class="button" type="submit">Trong ngày</button>
+        </form>
+        <form method="POST" action="/statistic_manager/week">
+            <button class="button" type="submit">Trong tuần</button>
+        </form>
+        <form method="POST" action="/statistic_manager/month">
+            <button class="button" type="submit">Trong tháng</button>
+        </form>
+        <form method="POST" action="/statistic_manager/year">
+            <button class="button" type="submit">Trong năm</button>
+        </form>
+        <style>
+            .header {
+
+                font-family: inherit;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .button-container {
+                margin-bottom: 25px;
+                display: flex;
+                justify-content: center;
+            }
+
+            .button {
+                padding: 8px 30px;
+                margin: 5px;
+                font-size: 16px;
+                background-color: #3498db;
+                color: #fff;
+                border: none;
+                border-radius: 25px;
+                cursor: pointer;
+            }
+
+            .button:hover {
+                background-color: #2980b9;
+            }
+        </style>
+        
+    </div>
+
+
+</div>
