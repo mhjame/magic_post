@@ -383,13 +383,18 @@ class ManagerController {
         try {
             // console.log(formData);
             const postCreate = new Post(formData);
-                postCreate.save();
-                res.render('receipt', {
-                    post: mongooseToObject(postCreate),
+            postCreate.save();
+
+            Post.findOne(formData)
+                .then (post => {
+                    res.render('receipt', {
+                        post: mongooseToObject(post),
+                    })
                 })
-                // console.log(postCreate);
+                .catch(next);
+            // console.log(postCreate);
         }
-        catch(e) {
+        catch (e) {
             res.status(500).json({ error: e.message });
         }
     }
