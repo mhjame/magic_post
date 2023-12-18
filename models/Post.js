@@ -28,7 +28,7 @@ const Post = new Schema({
     serviceNotes: {type: String},
     guidePending: {type: String},
     status: {type:String, enum: ['received', 'on way to reveiver', 'at rStation', 'on way to rStation', 'at rWarehouse', 
-            'on way to rWarehouse', 'at sWarehouse', 'on way to sWarehouse', 'at sStation', 'in process'], default: 'in process'},
+            'on way to rWarehouse', 'at sWarehouse', 'on way to sWarehouse', 'at sStation'], default: 'at sStation'},
     statusCode: {type: [Number], default: [0, 1, 2, 3, 4, 5, 6, 7, 8]},
     statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
     timeSending: {type:Date},
