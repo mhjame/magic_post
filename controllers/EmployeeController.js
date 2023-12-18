@@ -939,6 +939,59 @@ class EmployeeController {
             .catch(next);
     }
 
+    postConfirmPostsStationToReceivers(req, res, next) {
+        const postIds = req.body.postIds;
+        const containerCode = req.body.containerCode;
+        let postIdsLength;
+
+        console.log(req.body);
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+            for (let i = 0; i < postIdsLength; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to receiver' }, { status: 'received' }).then((post) => {
+                    if (post) {
+
+                        post.statusUpdateTime[8] = new Date();
+                        console.log(post.statusUpdateTime);
+                        post.save();
+                    }
+                });
+
+
+            };
+        } else {
+            postIdsLength = 1;
+            Post.findOneAndUpdate({ id: postIds, status: 'on way to receiver' }, { status: 'received' }).then((post) => {
+                if (post) {
+
+                    post.statusUpdateTime[8] = new Date();
+                    post.save();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+        Container.findOne({ containerCode: containerCode }).then((container) => {
+            if (!container) {
+                res.status(404).send({ message: 'Container not found' });
+                return;
+            }
+            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length + '; posts received: ' + container.postsReceived.length);
+            container.postsReceived = container.postsReceived.concat(postIds);
+            if (container.postsReceived.length === container.postIds.length) {
+                container.status = 'received';
+                container.save();
+                res.redirect(200, '/confirm_order/confirm_station_receivers');
+
+            } else {
+                container.save();
+                res.redirect(200, '/confirm_order/' + containerCode + '/confirm_each_order_station_receivers');
+            }
+
+        }).catch(next);
+    }
+
 
 }
 

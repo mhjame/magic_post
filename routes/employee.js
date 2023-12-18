@@ -24,5 +24,6 @@ router.get('/confirm_order/:originStationId/:containerCode/confirm_each_order_st
 router.post('/stored/confirm_posts_station_wh', employeeController.postConfirmPostsStationToWarehouse);
 router.get('/confirm_order/confirm_station_receivers', employeeController.getConfirmStationToReceivers);
 router.get('/confirm_order/:containerCode/confirm_each_order_station_receivers', employeeController.getConfirmEachOrderStationToReceivers); 
+router.post('/stored/confirm_posts_station_receivers', employeeController.postConfirmPostsStationToReceivers); 
 
 module.exports = router;
