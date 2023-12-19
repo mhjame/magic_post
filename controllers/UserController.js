@@ -6,6 +6,30 @@ const Post = require('../models/Post');
 
 class UserController {
 
+    getPost(req, res, next) {
+        Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            if (!post) {
+              
+              
+             
+                res.render('search_post', {
+                    message: 'post not found',
+                    previousValue: value
+                });
+
+            } else {
+
+                res.render('search_post', {
+                    post: post,
+                    previousValue: value
+
+                });
+            }
+
+        })
+        .catch(next);
+    }
 
     searchPost(req, res, next) {
         const value = req.query.searchValue;
@@ -14,16 +38,17 @@ class UserController {
                 if (!post) {
                   
                   
-                    // Back lại trang cũ
-                    res.render('post_info', {
-                        message: 'post not found'
+                 
+                    res.render('search_post', {
+                        message: 'post not found',
+                        previousValue: value
                     });
 
                 } else {
 
                     res.render('search_post', {
                         post: post,
-
+                        previousValue: value
 
                     });
                 }
@@ -33,7 +58,7 @@ class UserController {
     }
 
 
-    searchPostInfo(req, res, next) {
+    getPostInfo(req, res, next) {
 
 
         // Tìm kiếm người dùng theo ID
@@ -87,6 +112,10 @@ class UserController {
                 });
             })
             .catch(next);
+    }
+
+    userSearchPost(req, res, next) {
+        res.render('user_search_post');
     }
 
 }

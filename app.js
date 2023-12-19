@@ -15,6 +15,10 @@ app.engine('hbs', handlebars.engine({
       eq: function (a, b) {
         return a === b;
       },
+
+      contain: function(a, b) {
+        return a.includes(b);
+      },
       renderStatus: (status) => {
         switch (status) {
           case 'received':
@@ -73,6 +77,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.json());
 
 const session = require('express-session');
 app.use(session({
