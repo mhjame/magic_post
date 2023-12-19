@@ -58,7 +58,7 @@ class UserController {
     }
 
 
-    searchPostInfo(req, res, next) {
+    getPostInfo(req, res, next) {
 
 
         // Tìm kiếm người dùng theo ID
@@ -112,6 +112,10 @@ class UserController {
                 });
             })
             .catch(next);
+    }
+
+    userSearchPost(req, res, next) {
+        res.render('user_search_post');
     }
 
 }

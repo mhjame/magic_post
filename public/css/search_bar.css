@@ -1,0 +1,32 @@
+body {
+  height: 100vh;
+  background-image: url(/images/searchPostBackground1.png);
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  margin-top: 35vh;
+}
+
+.search-form {
+  position: relative;
+}
+
+.fa-search {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #9ca3af;
+}
+
+.form-input {
+  height: 55px;
+  text-indent: 33px;
+  border-radius: 10px;
+}
+
+.form-input:focus {
+  box-shadow: none;
+  border: none;
+}
