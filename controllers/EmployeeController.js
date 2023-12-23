@@ -482,6 +482,7 @@ class EmployeeController {
             container.postsReceived = container.postsReceived.concat(postIds);
             if (container.postsReceived.length === container.postIds.length) {
                 container.status = 'received';
+                container.timeReceived = new Date();
                 container.save();
                 res.redirect(200, '/confirm_order/confirm_from_wh_to_station');
 
@@ -669,6 +670,7 @@ class EmployeeController {
             container.postsReceived = container.postsReceived.concat(postIds);
             if (container.postsReceived.length === container.postIds.length) {
                 container.status = 'received';
+                container.timeReceived = new Date();
                 container.save();
                 res.redirect(200, '/confirm_order/' + originWarehouseId + '/confirm_wh_wh');
 
@@ -854,6 +856,7 @@ class EmployeeController {
             container.postsReceived = container.postsReceived.concat(postIds);
             if (container.postsReceived.length === container.postIds.length) {
                 container.status = 'received';
+                container.timeReceived = new Date();
                 container.save();
                 res.redirect(200, '/confirm_order/' + originStationId + '/confirm_station_wh');
 
@@ -940,34 +943,55 @@ class EmployeeController {
     }
 
     postConfirmPostsStationToReceivers(req, res, next) {
-        const postIds = req.body.postIds;
+        const receivedPostIds = req.body.receivedPostIds;
+        const failedPostIds = req.body.failedPostIds;
         const containerCode = req.body.containerCode;
-        let postIdsLength;
+        let receivedPostIdsLength;
+        let failedPostIdsLength;
 
         console.log(req.body);
-        if (Array.isArray(postIds)) {
-            postIdsLength = postIds.length;
-            for (let i = 0; i < postIdsLength; i++) {
-                console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to receiver' }, { status: 'received' }).then((post) => {
-                    if (post) {
 
+        if (Array.isArray(receivedPostIds)) {
+            receivedPostIdsLength = receivedPostIds.length;
+            for (let i = 0; i < receivedPostIdsLength; i++) {
+                Post.findOneAndUpdate({ id: receivedPostIds[i], status: 'on way to receiver' }, { status: 'received' }).then((post) => {
+                    if (post) {
                         post.statusUpdateTime[8] = new Date();
-                        console.log(post.statusUpdateTime);
+                        console.log(post.statusUpdateTime[8]);
                         post.save();
                     }
                 });
-
-
             };
         } else {
-            postIdsLength = 1;
-            Post.findOneAndUpdate({ id: postIds, status: 'on way to receiver' }, { status: 'received' }).then((post) => {
+            receivedPostIdsLength = 1;
+            Post.findOneAndUpdate({ id: receivedPostIds, status: 'on way to receiver' }, { status: 'received' }).then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[8] = new Date();
                     post.save();
-                    console.log(post.statusUpdateTime);
+                    console.log(post.statusUpdateTime[8]);
+                }
+            });
+        }
+
+        if (Array.isArray(failedPostIds)) {
+            failedPostIdsLength = failedPostIds.length;
+            for (let i = 0; i < failedPostIdsLength; i++) {
+                Post.findOneAndUpdate({ id: failedPostIds[i], status: 'on way to receiver' }, { status: 'returned' }).then((post) => {
+                    if (post) {
+                        post.statusUpdateTime[9] = new Date();
+                        console.log(post.statusUpdateTime[9]);
+                        post.save();
+                    }
+                });
+            };
+        } else {
+            failedPostIdsLength = 1;
+            Post.findOneAndUpdate({ id: failedPostIds, status: 'on way to receiver' }, { status: 'returned' }).then((post) => {
+                if (post) {
+                    post.statusUpdateTime[9] = new Date();
+                    post.save();
+                    console.log(post.statusUpdateTime[9]);
                 }
             });
         }
@@ -977,10 +1001,18 @@ class EmployeeController {
                 res.status(404).send({ message: 'Container not found' });
                 return;
             }
-            console.log(postIdsLength + '; length of posts in container: ' + container.postIds.length + '; posts received: ' + container.postsReceived.length);
-            container.postsReceived = container.postsReceived.concat(postIds);
-            if (container.postsReceived.length === container.postIds.length) {
+            console.log('received: ' + receivedPostIds + '; failed: ' + failedPostIds + '; length of posts in container: ' + container.postIds.length + '; posts received: ' + container.postsReceived.length);
+            if (receivedPostIds) {
+                container.postsReceived = container.postsReceived.concat(receivedPostIds);
+            }
+
+            if (failedPostIds) {
+                container.postsReturned = container.postsReturned.concat(failedPostIds);
+            }
+
+            if (container.postsReceived.length + container.postsReturned.length === container.postIds.length) {
                 container.status = 'received';
+                container.timeReceived = new Date();
                 container.save();
                 res.redirect(200, '/confirm_order/confirm_station_receivers');
 
