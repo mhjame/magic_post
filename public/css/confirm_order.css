@@ -5,6 +5,10 @@ body {
     font-weight: 600;
 }
 
+.confirm-link:hover {
+    color: rgb(125, 144, 252);
+}
+
 .confirm-text.success {
     color: rgb(27, 178, 27);
 }

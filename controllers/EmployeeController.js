@@ -956,6 +956,7 @@ class EmployeeController {
             for (let i = 0; i < receivedPostIdsLength; i++) {
                 Post.findOneAndUpdate({ id: receivedPostIds[i], status: 'on way to receiver' }, { status: 'received' }).then((post) => {
                     if (post) {
+                        post.timeReceived = new Date();
                         post.statusUpdateTime[8] = new Date();
                         console.log(post.statusUpdateTime[8]);
                         post.save();
@@ -966,7 +967,7 @@ class EmployeeController {
             receivedPostIdsLength = 1;
             Post.findOneAndUpdate({ id: receivedPostIds, status: 'on way to receiver' }, { status: 'received' }).then((post) => {
                 if (post) {
-
+                    post.timeReceived = new Date();
                     post.statusUpdateTime[8] = new Date();
                     post.save();
                     console.log(post.statusUpdateTime[8]);
