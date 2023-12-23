@@ -5,17 +5,21 @@ body {
     font-weight: 600;
 }
 
-
-.confirm-link:hover {
-    color: rgb(110, 110, 249);
-}
-
-.confirm-text {
+.confirm-text.success {
     color: rgb(27, 178, 27);
 }
 
-.confirm-checkbox.mouse-over .confirm-text {
+.confirm-text.fail {
+    color: brown;
+}
+
+.confirm-checkbox.mouse-over .confirm-text.success {
     color: rgb(169, 206, 169) !important;
+    cursor: pointer;
+}
+
+.confirm-checkbox.mouse-over .confirm-text.fail {
+    color: rgb(215, 183, 154) !important;
     cursor: pointer;
 }
 
