@@ -21,8 +21,10 @@ app.engine('hbs', handlebars.engine({
     },
     renderStatus: (status) => {
       switch (status) {
+        case 'returned':
+          return 'Giao không thành công, trả lại điểm giao dịch';
         case 'received':
-          return 'Đã nhận';
+          return 'Giao hàng thành công';
         case 'on way to receiver':
           return 'Đang chuyển đến người nhận';
         case 'at rStation':
@@ -75,6 +77,15 @@ app.engine('hbs', handlebars.engine({
         return arr;
       }
     },
+    renderPhoneNumber: (phoneNumber) => {
+      return phoneNumber.toString().slice(0, 2) + '*****' + phoneNumber.toString().slice(-3);
+    },
+    renderCost: (cost) => {
+      return cost.toLocaleString('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+      });
+    }
   }
 
 

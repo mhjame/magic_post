@@ -107,11 +107,13 @@
                                 <thead class="thead-light">
                                     <tr>
 
-                                        <th scope="col" class="text-center">Mã đơn hàng</th>
-                                        <th class="text-center" scope="col" style="vertical-align: middle;">Tên hàng
+                                        <th class="text-center" scope="col" width="13%">Mã đơn hàng</th>
+                                        <th class="text-center" scope="col" width="11%" style="vertical-align: middle;">
+                                            Tên hàng
                                         </th>
-                                        <th scope="col" style="vertical-align: middle;">Thông tin</th>
-                                        <th class="text-center" scope="col" style="vertical-align: middle;">Tình trạng
+                                        <th scope="col" width="28%" style="vertical-align: middle;">Thông tin</th>
+                                        <th class="text-center" scope="col" width="48%" style="vertical-align: middle;">
+                                            Tình trạng
                                         </th>
                                     </tr>
                                 </thead>
@@ -139,18 +141,18 @@
                                                         gửi:</strong> {{post.senderAddress}}
                                                 </p>
                                                 <p><i class="fa fa-phone"></i><strong> SĐT người gửi:</strong>
-                                                    {{post.senderPhoneNumber}}</p>
+                                                    {{renderPhoneNumber post.senderPhoneNumber}}</p>
                                                 <p><i class="fa fa-user"></i><strong> Người nhận:</strong>
                                                     {{post.receiverName}}</p>
                                                 <p><i class="fa fa-address-book"></i><strong> Địa chỉ người
                                                         nhận:</strong>
                                                     {{post.receiverAddress}}</p>
                                                 <p><i class="fa fa-phone"></i><strong> SĐT người nhận:</strong>
-                                                    {{post.receiverPhoneNumber}}</p>
+                                                    {{renderPhoneNumber post.receiverPhoneNumber}}</p>
                                                 <p><i class="fa fa-cube"></i><strong> Trọng lượng:</strong>
-                                                    {{post.weight}} kg</p>
+                                                    {{post.actualWeight}} kg</p>
                                                 <p><i class="fa fa-money"></i><strong> Cước phí:</strong>
-                                                    {{post.cost}} VNĐ ({{renderPayState
+                                                    {{renderCost post.cost}} ({{renderPayState
                                                     post.payState}})</p>
 
                                             </div>
@@ -167,22 +169,23 @@
                                                 </strong>{{formatDate
                                                 post.timeReceived}}</p>
 
-
-
                                             <div class="track">
-                                                <div class="step active"> <span class="icon"> <i
-                                                            class="fa fa-first-order"></i> </span> <span class="text">Đã
-                                                        xác nhận</span> </div>
-                                                <div class="transship step" data-status='{{post.status}}'> <span
+                                                <div class="sender-station step" data-status='{{post.status}}'> <span
+                                                        class="icon"> <i class="fa fa-first-order"></i> </span> <span
+                                                        class="text">{{senderStation.name}}</span> </div>
+                                                <div class="sender-warehouse step" data-status='{{post.status}}'> <span
                                                         class="icon"> <i class="fa fa-truck"></i> </span> <span
-                                                        class="text">Đang trung chuyển</span> </div>
-                                                <div class="shipment step" data-status='{{post.status}}'> <span
+                                                        class="text">{{senderWarehouse.name}}</span> </div>
+                                                <div class="receiver-warehouse step" data-status='{{post.status}}'>
+                                                    <span class="icon"> <i class="fa fa-cubes"></i> </span> <span
+                                                        class="text">{{receiverWarehouse.name}}</span>
+                                                </div>
+                                                <div class="receiver-station step" data-status='{{post.status}}'> <span
+                                                        class="icon"> <i class="fa fa-archive"></i> </span> <span
+                                                        class="text">{{receiverStation.name}}</span> </div>
+                                                <div class="receiver step" data-status='{{post.status}}'> <span
                                                         class="icon"> <i class="fa fa-user"></i> </span> <span
-                                                        class="text">
-                                                        Đang giao </span> </div>
-                                                <div class="received step" data-status='{{post.status}}'> <span
-                                                        class="icon"> <i class="fa fa-check"></i> </span> <span
-                                                        class="text">Đã nhận hàng</span> </div>
+                                                        class="text">Người nhận</span> </div>
                                             </div>
 
                                         </td>
@@ -204,39 +207,62 @@
 <script>
 
 
-    const transshipSteps = document.querySelectorAll(".transship");
-    const shipSteps = document.querySelectorAll(".shipment");
-    const receivedSteps = document.querySelectorAll(".received");
-
-
-
-    for (const step of transshipSteps) {
-        const status = step.dataset.status;
-
-        if (status !== 'at sStation') {
-            step.classList.add('active');
-        }
+    const senderStationStep = document.querySelector(".sender-station.step");
+    const senderWarehouseStep = document.querySelector(".sender-warehouse.step");
+    const receiverWarehouseStep = document.querySelector(".receiver-warehouse.step");
+    const receiverStationStep = document.querySelector(".receiver-station.step");
+    const receiverStep = document.querySelector(".receiver.step");
+    const postStatus = senderStationStep.dataset.status;
+    switch (postStatus) {
+        case 'at sStation':
+            senderStationStep.classList.add('half-active');
+            break;
+        case 'on way to sWarehouse':
+            senderStationStep.classList.add('active');
+            break;
+        case 'at sWarehouse':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('half-active');
+            break;
+        case 'on way to rWarehouse':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            break;
+        case 'at rWarehouse':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            receiverWarehouseStep.classList.add('half-active');
+            break;
+        case 'on way to rStation':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            receiverWarehouseStep.classList.add('active');
+            break;
+        case 'at rStation':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            receiverWarehouseStep.classList.add('active');
+            receiverStationStep.classList.add('half-active');
+            break;
+        case 'on way to receiver':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            receiverWarehouseStep.classList.add('active');
+            receiverStationStep.classList.add('active');
+            break;
+        case 'received':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            receiverWarehouseStep.classList.add('active');
+            receiverStationStep.classList.add('active');
+            receiverStep.classList.add('active');
+            break;
+        case 'returned':
+            senderStationStep.classList.add('active');
+            senderWarehouseStep.classList.add('active');
+            receiverWarehouseStep.classList.add('active');
+            receiverStationStep.classList.add('active');
+            break;
     }
-
-    for (const step of shipSteps) {
-        const status = step.dataset.status;
-
-
-        if (status === 'received' || status === 'on way to receiver') {
-            step.classList.add('active');
-        }
-    }
-
-
-    for (const step of receivedSteps) {
-        const status = step.dataset.status;
-
-        if (status === 'received') {
-            step.classList.add('active');
-        }
-    }
-
-
-
 
 </script>

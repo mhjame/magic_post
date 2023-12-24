@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const Post = new Schema({
     name: { type: String },
     genre: { type: [String] },
-    weight: { type: Number},
     cost: {type: Number},
     payState: {type: String, enum: ['done', 'not'], default: 'not'},
     senderName: {type: String},

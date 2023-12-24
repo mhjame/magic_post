@@ -61,10 +61,10 @@
                 <thead class="thead-light">
                   <tr>
 
-                    <th scope="col" class="text-center">Mã đơn hàng</th>
-                    <th class="text-center" scope="col" style="vertical-align: middle;">Tên hàng</th>
-                    <th scope="col" style="vertical-align: middle;">Thông tin</th>
-                    <th class="text-center" scope="col" style="vertical-align: middle;">Tình trạng</th>
+                    <th class="text-center" scope="col" width="14%">Mã đơn hàng</th>
+                    <th class="text-center" scope="col" width="13%" style="vertical-align: middle;">Tên hàng</th>
+                    <th scope="col" width="28%" style="vertical-align: middle;">Thông tin</th>
+                    <th class="text-center" scope="col" width="45%" style="vertical-align: middle;">Tình trạng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -90,13 +90,13 @@
                         <p><i class="fa fa-user"></i><strong> Người gửi:</strong> {{this.senderName}}</p>
                         <p><i class="fa fa-address-book"></i><strong> Địa chỉ người gửi:</strong> {{this.senderAddress}}
                         </p>
-                        <p><i class="fa fa-phone"></i><strong> SĐT người gửi:</strong> {{this.senderPhoneNumber}}</p>
+                        <p><i class="fa fa-phone"></i><strong> SĐT người gửi:</strong> {{renderPhoneNumber this.senderPhoneNumber}}</p>
                         <p><i class="fa fa-user"></i><strong> Người nhận:</strong> {{this.receiverName}}</p>
                         <p><i class="fa fa-address-book"></i><strong> Địa chỉ người nhận:</strong>
                           {{this.receiverAddress}}</p>
-                        <p><i class="fa fa-phone"></i><strong> SĐT người nhận:</strong> {{this.receiverPhoneNumber}}</p>
-                        <p><i class="fa fa-cube"></i><strong> Trọng lượng:</strong> {{this.weight}} kg</p>
-                        <p><i class="fa fa-money"></i><strong> Cước phí:</strong> {{this.cost}} VNĐ ({{renderPayState
+                        <p><i class="fa fa-phone"></i><strong> SĐT người nhận:</strong> {{renderPhoneNumber this.receiverPhoneNumber}}</p>
+                        <p><i class="fa fa-cube"></i><strong> Trọng lượng:</strong> {{this.actualWeight}} kg</p>
+                        <p><i class="fa fa-money"></i><strong> Cước phí:</strong> {{renderCost this.cost}} ({{renderPayState
                           this.payState}})</p>
 
                       </div>
@@ -162,7 +162,7 @@
     const status = step.dataset.status;
 
 
-    if (status === 'received' || status === 'on way to receiver') {
+    if (status === 'received' || status === 'on way to receiver' || status === 'returned') {
       step.classList.add('active');
     }
   }
