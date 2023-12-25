@@ -93,6 +93,7 @@ class UserController {
 
                 // Tạo một mảng trống để chứa các post
                 const posts = [];
+                const postRoutine = {};
 
 
                 // Lặp qua từng ID của post
@@ -107,8 +108,20 @@ class UserController {
 
                             // Thêm post vào mảng posts
                             posts.push(post);
-
-
+                            const routine = {};
+                            Station.findOne({id: post.senderStationId}).lean().then((senderStation) => {
+                                routine['senderStation'] = senderStation;
+                            })
+                            Warehouse.findOne({id: post.senderWarehouseId}).lean().then((senderWarehouse) => {
+                                routine['senderWarehouse'] = senderWarehouse;
+                            })
+                            Warehouse.findOne({id: post.receiverWarehouseId}).lean().then((receiverWarehouse) => {
+                                routine['receiverWarehouse'] = receiverWarehouse;
+                            })
+                            Station.findOne({id: post.receiverStationId}).lean().then((receiverStation) => {
+                                routine['receiverStation'] = receiverStation;
+                            })
+                            postRoutine[post.id] = routine;
 
                         })
                         .catch((err) => {
@@ -122,7 +135,7 @@ class UserController {
                 res.render('post_info', {
                     posts: posts,
                     user: user,
-
+                    postRoutine
                 });
             })
             .catch(next);
