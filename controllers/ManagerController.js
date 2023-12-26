@@ -15,6 +15,16 @@ class ManagerController {
     getMaps(req, res) {
         res.render('map');
     }
+
+    getPriceList(req, res) {
+        res.render('home_page/priceList')
+    }
+    getRecruitment(req, res) {
+        res.render('home_page/recruitment')
+    }
+    getServiceHome(req, res) {
+        res.render('home_page/service')
+    }
     getQRCode(req, res) {
         // const newPostData = req.body;
 
@@ -27,6 +37,9 @@ class ManagerController {
         });
     }
 
+    getSearchStation(req, res) {
+        res.render('searchStation');
+    }
     postSearchStation(req, res) {
         const address = req.body.stationProvince;
         console.log("postS0" + req.body)

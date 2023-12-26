@@ -33,7 +33,8 @@
                             </style>
                             <button class="mb-0 phone"><span class="fa fa-phone"></span> <a href="#"> Hotline 0 1234
                                     567</a></button>
-                            <button class="mb-0 phone"><span class="fa fa-phone"></span> <a href="#"> Bưu cục MagicPost
+                            <button class="mb-0 phone"><span class="fa fa-phone"></span> <a href="/searchStation">
+                                    Bưu cục MagicPost
                                     toàn quốc</a></button>
                         </div>
                         <div class="col d-flex justify-content-end">
@@ -110,8 +111,8 @@
                     </button>
                     <div class="collapse navbar-collapse" id="ftco-nav">
                         <ul class="navbar-nav m-auto" style="background-color: #fcfbfb;!important">
-                            <li class="nav-item "><a href="#" class="nav-link">Trang chủ</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">Dịch vụ</a></li>
+                            <li class="nav-item"><a class="nav-link" id="homeLink">Trang chủ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link" id="serviceLink">Dịch vụ</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Giới thiệu</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Thông tin</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Hỗ trợ</a></li>
@@ -124,6 +125,14 @@
                                     background-color: var(--orange-color);
                                 }
                             </style>
+                            <script>
+                                document.getElementById("homeLink").addEventListener("click", function () {
+                                    window.location.href = "/home";
+                                });
+                                document.getElementById("serviceLink").addEventListener("click", function () {
+                                    window.location.href = "/home/service";
+                                });
+                            </script>
                         </ul>
                     </div>
                 </div>
