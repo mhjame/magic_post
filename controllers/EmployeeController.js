@@ -272,7 +272,8 @@ class EmployeeController {
             status: 'in process',
             receiverAddressId: req.body.receiverAddressId,
             senderAddressId: req.body.senderAddressId,
-            postIds: req.body.postIds
+            postIds: req.body.postIds,
+            containerCode: req.body.containerCode
         });
         container.save()
             .then(() => res.redirect(200, '/create_order/' + req.body.receiverAddressId + '/create_wh_to_wh'))
@@ -295,7 +296,7 @@ class EmployeeController {
                                 res.status(404).send({ message: 'Warehouse not found' });
                                 return;
                             }
-                            Station.find({warehouseId: warehouse.id}).lean()
+                            Station.find({ warehouseId: warehouse.id }).lean()
                                 .then((desStations) => {
                                     const totalPostsFromStation = {};
                                     const desStationsHavePosts = [];
@@ -404,7 +405,6 @@ class EmployeeController {
                 console.log(postIds[i])
                 Post.findOneAndUpdate({ id: postIds[i], status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
                     if (post) {
-
                         post.statusUpdateTime[5] = new Date();
                         post.save();
                     }
@@ -415,7 +415,6 @@ class EmployeeController {
         } else {
             Post.findOneAndUpdate({ id: postIds, status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
                 if (post) {
-
                     post.statusUpdateTime[5] = new Date();
                     post.save();
                 }
@@ -429,98 +428,105 @@ class EmployeeController {
             status: 'in process',
             receiverAddressId: req.body.receiverAddressId,
             senderAddressId: req.body.senderAddressId,
-            postIds: req.body.postIds
+            postIds: req.body.postIds,
+            containerCode: req.body.containerCode
         });
         container.save()
             .then(() => res.redirect(200, '/create_order/' + req.body.receiverAddressId + '/create_wh_to_station'))
             .catch(next);
     }
 
-
-
-
-
-
-    createShipToReceiverOrder(req, res, next) {
+    createShipStationToReceiver(req, res, next) {
 
         Employee.findOne({ employeeId: "HN001" }).lean()
             .then((employee) => {
                 if (!employee) {
                     res.status(404).send({ message: 'Employee not found' });
                     return;
-
                 } else {
-
-
                     Station.findOne({ id: employee.workPlaceId }).lean()
                         .then((station) => {
                             if (!station) {
                                 res.status(404).send({ message: 'Station not found' });
                                 return;
                             }
-
                             console.log(station.id)
                             Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean()
                                 .then((posts) => {
-
-
-                                    res.render('create_order/create_to_receiver_order', {
-                                        employee: employee,
+                                    res.render('create_order/create_station_to_receiver', {
+                                        employee,
                                         workPlace: station,
                                         posts: posts
                                     });
                                 })
-
-
                         })
-
-
-
                 }
 
             })
             .catch(next);
     }
 
-    postShipToReceiverOrder(req, res, next) {
+    createStationToReceiverOrderForm(req, res, next) {
+        const employeeId = req.body.employeeId;
+        const employeeName = req.body.employeeName;
+        const receiverStationId = req.body.receiverStationId;
+        const receiverStationName = req.body.receiverStationName;
+        const postIds = req.body.postIds;
+        let postIdsLength = 1;
+        let isArray = false;
+        const containerCode = receiverStationId + 'rcv' + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+        console.log(Date.now().toString().slice(-5));
+        console.log(Math.random().toString(16).slice(-7));
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+            isArray = true;
+        }
+
+        res.render('create_order/create_station_to_receiver_order_form', {
+            employeeId,
+            employeeName,
+            receiverStationId,
+            receiverStationName,
+            postIds,
+            postIdsLength,
+            containerCode,
+            isArray
+        });
+
+    }
+
+    postShipStationToReceiverOrder(req, res, next) {
         const postIds = req.body.postIds;
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
                 Post.findOneAndUpdate({ id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
                     if (post) {
-
                         post.statusUpdateTime[7] = new Date();
                         post.save();
-                        console.log(post.statusUpdateTime);
                     }
                 });
-
-
             };
         } else {
             Post.findOneAndUpdate({ id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
                 if (post) {
-
                     post.statusUpdateTime[7] = new Date();
                     post.save();
-                    console.log(post.statusUpdateTime);
                 }
             });
         }
-
 
         const container = new Container({
             employeeId: req.body.employeeId,
             type: req.body.typeOfOrder,
             status: 'in process',
-            timeReceived: null,
             receiverAddressId: req.body.receiverAddressId,
             senderAddressId: req.body.senderAddressId,
-            postIds: req.body.postIds
+            postIds: req.body.postIds,
+            containerCode: req.body.containerCode
         });
         container.save()
-            .then(() => res.redirect(200, '/create_order/create_to_receiver_order'))
+            .then(() => res.redirect(200, '/create_order/create_station_to_receiver'))
             .catch(next);
     }
 
