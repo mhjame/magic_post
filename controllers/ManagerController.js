@@ -16,6 +16,30 @@ class ManagerController {
         res.render('map');
     }
 
+    getPriceList(req, res) {
+        res.render('home_page/priceList')
+    }
+    getRecruitment(req, res) {
+        res.render('home_page/recruitment')
+    }
+    getServiceHome(req, res) {
+        res.render('home_page/service')
+    }
+    getQRCode(req, res) {
+        // const newPostData = req.body;
+
+        // // Gọi phương thức tạo mã QR từ mô hình Post
+        // const createdPost = await Post.createQRCodeForNewPost(newPostData);
+
+        // Trả về thông tin mã QR cho client
+        res.json({
+            qrcodeContent: createdPost.qrcodeContent,
+        });
+    }
+
+    getSearchStation(req, res) {
+        res.render('searchStation');
+    }
     postSearchStation(req, res) {
         const address = req.body.stationProvince;
         console.log("postS0" + req.body)
@@ -89,16 +113,6 @@ class ManagerController {
     }
 
     getHome(req, res) {
-        // Employee.findOne({_id:'65599ec015476e96d3c953ff'})
-        //     .then((result) => {
-        //         console.log(result);
-        //         console.log('success to find');
-        //         // Handle the query result here
-        //     })
-        //     .catch((error) => {
-        //         res.json(error);
-        //         // Handle any errors here
-        //     });
         Employee.findOne({ _id: '65599ec015476e96d3c953ff' })
             .then((result) => {
                 console.log(result);
@@ -116,7 +130,7 @@ class ManagerController {
         // //     else res.json('error')
         // // })
         // // res.json('hallo');
-        res.render('test');
+        res.render('home');
     }
 
     getSearch(req, res) {

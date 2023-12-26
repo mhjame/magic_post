@@ -1,3 +1,10 @@
+<style>
+    :root {
+        --blue-color: #174a8c;
+        --orange-color: #ef6030;
+    }
+</style>
+
 <body>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -29,7 +36,7 @@
 
     {{>home/headerHome}}
 
-    <div class="container" style="margin-top: 150px;">
+    <div class="container" style="margin-top: 50px;">
         <div class="row">
             <div class="col-sm-8">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -43,18 +50,18 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item active">
-                            <img src="https://placehold.it/800x400?text=IMAGE" alt="Image">
+                            <img src="https://file.hstatic.net/200000472237/file/chang-ngai-bao-sale-giao-nhanh-toan-quoc_f4c19bba05e94310af0726772b7d6677.jpg"
+                                alt="Image">
                             <div class="carousel-caption">
-                                <h3>Sell $</h3>
-                                <p>Money Money.</p>
+
                             </div>
                         </div>
 
                         <div class="item">
-                            <img src="https://placehold.it/800x400?text=Another Image Maybe" alt="Image">
+                            <img src="https://file.hstatic.net/200000472237/file/s7v_2577__1__09ccd44357b84f98a93ce009d926eea7_1024x1024.jpg"
+                                alt="Image">
                             <div class="carousel-caption">
-                                <h3>More Sell $</h3>
-                                <p>Lorem ipsum...</p>
+
                             </div>
                         </div>
                     </div>
@@ -71,11 +78,17 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <button class="btn"><i class="fa fa-searchengin"></i>TRA CỨU ĐƠN HÀNG</button>
-                <button class="btn"><i class="fa fa-cloud"></i>ĐĂNG KÝ SHOP | ĐĂNG NHẬP</button>
-                <button class="btn"> <i class="glyphicon glyphicon-user"></i> ỨNG TUYỂN GIAO HÀNG</button>
+                <button class="btn" id="btnOption1"><i class="fa fa-searchengin"></i>TRA CỨU ĐƠN HÀNG</button>
+                <button class="btn" id="btnOption2"><i class="fa fa-cloud"></i>ĐĂNG KÝ SHOP | ĐĂNG NHẬP</button>
+                <button class="btn" id="btnOption3"> <i class="glyphicon glyphicon-user"></i> ỨNG TUYỂN GIAO
+                    HÀNG</button>
+                <button class="btn" id="btnOption4"> <i class="glyphicon glyphicon-user"></i> BẢNG GIÁ</button>
+
                 <style>
-                    .btn {
+                    #btnOption1,
+                    #btnOption2,
+                    #btnOption3,
+                    #btnOption4 {
                         width: 100%;
                         margin-bottom: 3px;
                         padding: 15px;
@@ -83,7 +96,7 @@
                         font-size: 16px;
                         font-weight: bold;
                         color: #fff;
-                        background-color: #ef4330;
+                        background-color: var(--orange-color);
                         border: none;
                         border-radius: 5px;
                         cursor: pointer;
@@ -93,28 +106,160 @@
                         /* Viền nổi */
                     }
 
-                    button:hover {
-                        background-color: #2980b9;
+                    #btnOption1:hover,
+                    #btnOption2:hover,
+                    #btnOption3:hover,
+                    #btnOption4:hover {
+                        background-color: var(--blue-color);
                         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
                         /* Hiệu ứng hover cho viền nổi */
                     }
 
-                    button i {
+                    #btnOption1 i,
+                    #btnOption2 i,
+                    #btnOption3 i,
+                    #btnOption4 i {
                         margin-right: 5px;
                     }
                 </style>
+                <script>
+                    document.getElementById("btnOption4").addEventListener("click", function () {
+                        window.location.href = "home/priceList";
+                    });
+                    document.getElementById("btnOption3").addEventListener("click", function () {
+                        window.location.href = "home/recruitment";
+                    });
+                </script>
             </div>
         </div>
     </div>
     <hr>
     </div>
-
-    <div class="container text-center mymap" style="margin-top: 50px; background-color: #f0f0f0">
-        <h3 class="titlemap">BƯU CỤC <span style="color: #ef4330;">MAGIC POST</span></h3>
+    <div class="container2" style="margin-top: 50px;">
+        <h3 class="title" style="text-align: center;">MAGIC POST GIAO NHANH HƠN 6 TIẾNG</span></h3>
         <br>
-        <div class="map" style="margin-top: 40px; ">
+        <p style="text-align: center;">Magic Post giúp bạn giao hàng đến người nhận nhanh hơn 6 tiếng so với các đơn vị
+            vận chuyển khác.</p>
+        <br> <br>
+        <video width="100%" height="auto" controls>
+            <source src="https://file.hstatic.net/1000376681/file/1920x900_d8d881b358674809a162eb6b6069ff10.mp4"
+                type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <style>
+
+        </style>
+    </div>
+
+    <section class="section section-policy">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-policy">
+                    <div class="box-policy">
+                        <div class="ic-policy">
+                            <img width="50" height="50" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/icon-app1_small.png?v=564"
+                                alt="Top c&#244;ng ty giao &lt;br&gt;nhận h&#224;ng đầu VN" />
+                        </div>
+                        <div class="desc-policy">
+                            <p>Top công ty giao <br>nhận hàng đầu VN</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6 col-policy">
+                    <div class="box-policy">
+                        <div class="ic-policy">
+                            <img width="50" height="50" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/icon-app2_small.png?v=564"
+                                alt="Mạng lưới phủ s&#243;ng &lt;br&gt; 100% 63 tỉnh th&#224;nh" />
+                        </div>
+                        <div class="desc-policy">
+                            <p>Mạng lưới phủ sóng <br> 100% 63 tỉnh thành</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6 col-policy">
+                    <div class="box-policy">
+                        <div class="ic-policy">
+                            <img width="50" height="50" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/icon-app3_small.png?v=564"
+                                alt="Giao h&#224;ng nhanh &lt;br&gt; Tỷ lệ ho&#224;n h&#224;ng thấp" />
+                        </div>
+                        <div class="desc-policy">
+                            <p>Giao hàng nhanh <br> Tỷ lệ hoàn hàng thấp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-6 col-policy">
+                    <div class="box-policy">
+                        <div class="ic-policy">
+                            <img width="50" height="50" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/icon-app4_small.png?v=564"
+                                alt="Hệ thống quản l&#253; &lt;br&gt; trực tuyến 24/7" />
+                        </div>
+                        <div class="desc-policy">
+                            <p>Hệ thống quản lý <br> trực tuyến 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            /* Phần Policy */
+            .section-policy {
+                padding: 20px 0;
+                margin-bottom: 0px;
+                padding-bottom: 0px;
+
+            }
+
+            /* Box Policy */
+            .col-policy {
+
+                margin-bottom: 30px;
+                /* Khoảng cách giữa các box */
+            }
+
+            .box-policy {
+                background-color: white;
+                text-align: center;
+                padding: 20px;
+            }
+
+
+            .ic-policy img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .desc-policy p {
+                margin-top: 10px;
+                /* Khoảng cách giữa hình ảnh và mô tả */
+                font-size: 16px;
+                color: #333;
+            }
+
+            /* Responsive - Dùng để xếp cột dọc trên màn hình nhỏ */
+            @media (max-width: 767px) {
+                .col-policy {
+                    width: 100%;
+                    /* Sử dụng toàn bộ chiều rộng */
+                }
+            }
+        </style>
+    </section>
+
+
+    <div class="container text-center mymap" style="margin-top: 30px; background-color: #f0f0f0">
+        <br> <br>
+        <h3 class="titlemap">BƯU CỤC <span style="color: var(--orange-color);">MAGIC POST</span></h3>
+        <br>
+        <div class="map" style="margin-top: 35px; ">
             <div class="map1" style="background-color: #f4f4f4">
-                <select id="province" class="form-select" aria-label="Default select example" style="color: black;">
+                <select id="province" class="form-select" aria-label="Default select example"
+                    style="color: black; margin-top:50px; border-color: rgb(174, 172, 172);height: 40px; border-radius: 5px;">
                     <option selected>Chọn tỉnh/thành phố</option>
                     <option value="Hà Nội">Hà Nội</option>
                     <option value="Hải Phòng">Hải Phòng</option>
@@ -129,7 +274,7 @@
             </div>
             <div class="map2">
                 <iframe src="https://www.google.com/maps/d/u/0/embed?mid=13vG4ePDoyQfb9z2lnAWTQQCwka3-bbE&ehbc=2E312F"
-                    width="640" height="480"></iframe>
+                    width="100%" height="100%"></iframe>
             </div>
             <style>
                 .map {
@@ -152,6 +297,8 @@
 
                 .map2 {
                     flex: 3;
+                    width: 100%;
+                    height: 450px;
                 }
 
                 .form-select,
@@ -159,12 +306,23 @@
                     margin: 20px;
                     width: 300px;
                     height: 30px;
+                    border-radius: 5px;
                 }
 
                 .mapbtn {
                     background-color: #174a8c;
                     height: 40px;
                     text-align: center;
+                }
+
+                @media (max-width: 1000px) {
+                    .map {
+                        flex-direction: column;
+                    }
+
+                    .map2 {
+                        height: 400px;
+                    }
                 }
             </style>
             <script>
@@ -244,36 +402,178 @@
         </style>
     </div>
 
-    <div class="container text-center">
-        <h3>Our Partners</h3>
+    <div class="container text-center" style="margin-top: 50px; background-color: #f0f0f0">
+        <div id="mydiv">
+            <div id="mydiv1">
+                <div class="img">
+                    <img src="https://theme.hstatic.net/200000472237/1001083717/14/cp_advantages1.png?v=564" alt="">
+                </div>
+                <p style="font-weight: bold; font-size: 18px">MIỄN PHÍ LẤY HÀNG</p> <br>
+                <p>GHN sẽ không thu phí lấy hàng cho các đơn hàng nhân viên giao nhận đến tận nơi để nhận hàng.</p>
+            </div>
+            <div id="mydiv2">
+                <div class="img">
+                    <img src="https://theme.hstatic.net/200000472237/1001083717/14/cp_advantages3.png?v=564" alt="">
+                </div>
+                <p style="font-weight: bold; font-size: 18px">MIỄN PHÍ GIAO LẠI</p> <br>
+                <p>Trong trường hợp giao hàng lần đầu không thành công, GHN sẽ miễn phí giao lại 2 lần tiếp theo trước
+                    khi hoàn trả hàng cho người gửi.</p>
+            </div>
+            <div id="mydiv3">
+                <div class="img">
+                    <img src="https://theme.hstatic.net/200000472237/1001083717/14/cp_advantages1.png?v=564" alt="">
+                </div>
+                <p style="font-weight: bold; font-size: 18px">ƯU ĐÃI KHI ĐĂNG KÝ</p> <br>
+                <p>Là hình thức ưu đãi hoàn tiền lên đến 6% số tiền khi là thành viên của MagicPost. Hãy tham gia ngay
+                    để có thể tận hưởng nhiều ưu đãi</p>
+            </div>
+
+        </div>
+
+        <style>
+            .img {
+                width: 50px;
+                height: 50px;
+                background-color: rgb(218, 241, 250);
+                border-radius: 10px;
+
+                margin-bottom: 20px;
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            #mydiv {
+                width: 100% - 20px;
+                display: flex;
+                justify-content: space-evenly;
+                background-color: #f0f0f0;
+                border-radius: 10px;
+                color: #555;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            #mydiv1,
+            #mydiv2,
+            #mydiv3 {
+                height: 300px;
+                margin-left: 70px;
+                margin-right: 70px;
+                flex: 1;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+                border-radius: 50px;
+                margin: 10px;
+            }
+
+            #mydiv1:hover,
+            #mydiv2:hover,
+            #mydiv3:hover {
+                background-color: var(--blue-color);
+                color: white;
+            }
+
+            @media (max-width: 900px) {
+                #mydiv {
+                    flex-direction: column;
+                }
+            }
+
+            p {
+                margin-right: 30px;
+                margin-left: 30px;
+                font-size: 15px;
+                text-align: center;
+            }
+
+            .title {
+                margin-top: 20px;
+                font-size: 30px;
+                font-weight: bold;
+                color: #174a8c;
+            }
+        </style>
+
+    </div>
+
+    <div class="container3 text-center">
+        <h3 class="happy">Happy Customer</h3>
         <br>
-        <div class="row">
+        <div class="rowhappy">
             <div class="col-sm-2">
-                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-                <p>Partner 1</p>
+                <img src="https://giaohangtietkiem.vn/wp-content/uploads/2018/05/haravan-02.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Haravan</p>
             </div>
             <div class="col-sm-2">
-                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-                <p>Partner 2</p>
+                <img src="https://giaohangtietkiem.vn/wp-content/uploads/2018/05/sapo-02.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Sapo</p>
             </div>
             <div class="col-sm-2">
-                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-                <p>Partner 3</p>
+                <img src="https://giaohangtietkiem.vn/wp-content/uploads/2023/07/tiktok.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Tiktok</p>
             </div>
             <div class="col-sm-2">
-                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-                <p>Partner 4</p>
+                <img src="https://giaohangtietkiem.vn/wp-content/uploads/2018/05/vascara-02.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Vascara</p>
             </div>
             <div class="col-sm-2">
-                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-                <p>Partner 5</p>
+                <img src="https://giaohangtietkiem.vn/wp-content/uploads/2018/05/pham-gia.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Pham Gia</p>
             </div>
             <div class="col-sm-2">
-                <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-                <p>Partner 6</p>
+                <img src="https://giaohangtietkiem.vn/wp-content/uploads/2023/07/elise.png" class="img-responsive"
+                    style="width:100%" alt="Image">
+                <p>Elise</p>
             </div>
         </div>
+        <style>
+            .rowhappy{
+                margin-left: 50px;
+                margin-right: 50px;
+   
+                justify-content: space-evenly;
+            }
+            /* Style for the container */
+            .container3 {
+                margin-top: 20px;
+                margin-bottom: 140px;
+                padding: 20px 0 45px; 
+            }
+            .happy {
+                font-weight: bold;
+                font-size: 30px;
+                color: var(--blue-color);
+            }
+
+            /* Style for the images */
+            .img-responsive {
+                margin: 20px;
+                border-radius: 50%;
+                /* Makes the images circular */
+            }
+
+            /* Style for the paragraphs */
+            p {
+                font-weight: bold;
+            }
+        </style>
     </div><br>
+
+    
 
     {{>home/footerHome}}
 

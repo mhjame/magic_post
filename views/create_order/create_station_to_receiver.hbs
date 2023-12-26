@@ -12,31 +12,39 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
+{{#unless posts}}
+
+<div class="alert alert-danger text-center" role="alert">
+    Hiện không có mã hàng nào đang cần chuyển đến người nhận!
+</div>
+
+{{/unless}}
 
 
 <div class="container mt-5 px-2">
-    <form id="confirm-posts-station-wh-form" action="/stored/confirm_posts_station_wh" method="post">
-        <input type="hidden" name="containerCode" value="{{container.containerCode}}">
-        <input type="hidden" name="originStationId" value="{{originStation.id}}">
+    <form id="create-station-to-receiver-form" action="/create_order/create_station_to_receiver_order_form" method="post">
+        <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
+        <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
+        <input type="hidden" name="receiverStationId" value="{{workPlace.id}}">
+        <input type="hidden" name="receiverStationName" value="{{workPlace.name}}">
         <div class="table-responsive">
 
-            <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{thisWarehouse.name}}</span>
-                    đã nhận được các mã hàng trong lô hàng <span style="color: brown">{{container.containerCode}}</span>
-                    gửi về từ
-                    <span style="color: brown;">{{originStation.name}}</span>:</strong></p>
+            <p style="font-size: 1.1rem;"><strong>Chọn các mã hàng để tạo đơn chuyển lô hàng từ <span
+                        style="color: brown;">{{workPlace.name}}</span> đến
+                    <span style="color: brown;">người nhận</span>:</strong></p>
 
             <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
                 <thead>
                     <tr
                         style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <th class="border-0 text-center" scope="col" width="12%">Mã hàng</th>
-                        <th class="border-0 text-center" scope="col" width="12%">Tên hàng</th>
-                        <th class="border-0 text-center" scope="col" width="15%">Loại hàng</th>
-                        <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
-                        <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
-                        <th class="border-0 text-center" scope="col" width="19%"><label
-                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Xác
-                                nhận</label></th>
+                        <th class="border-0 text-center" scope="col" width="9%">Mã hàng</th>
+                        <th class="border-0 text-center" scope="col" width="10%">Tên hàng</th>
+                        <th class="border-0 text-center" scope="col" width="14%">Người nhận</th>
+                        <th class="border-0 text-center" scope="col" width="12%">SĐT người nhận</th>
+                        <th class="border-0 text-center" scope="col" width="19%">Địa chỉ người nhận</th>
+                        <th class="border-0 text-center" scope="col" width="21%">Tình trạng</th>
+                        <th class="border-0 text-center" scope="col" width="15%"><label
+                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Thêm vào lô hàng</label></th>
                     </tr>
                 </thead>
 
@@ -45,21 +53,18 @@
                     <tr>
                         <td>{{this.id}}</td>
                         <td>{{this.name}}</td>
-                        <td>{{renderArray this.genre}}</td>
-                        <td>{{this.actualWeight}} kg</td>
+                        <td>{{this.receiverName}}</td>
+                        <td>{{this.receiverPhoneNumber}}</td>
+                        <td>{{this.receiverAddress}}</td>
                         <td>
                             <span class="post-status" data-status="{{this.status}}">
 
                             </span>
-
-
                         </td>
                         <td>
-
                             <label class="confirm-checkbox">
                                 <input class="form-check-input" type="checkbox" name="postIds"
-                                    value="{{this.id}}"><strong class="confirm-text success"> Đã
-                                    nhận</strong>
+                                    value="{{this.id}}"><strong class="confirm-text success"> Thêm</strong>
                             </label>
 
                         </td>
@@ -71,31 +76,7 @@
 
         </div>
     </form>
-    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
-        data-bs-toggle="modal" data-bs-target="#confirm-submit" disabled>Xác nhận</button>
-</div>
-
-
-<div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Xác nhận đã nhận hàng</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Bạn chắc chắn xác nhận <span style="color: brown;">{{thisWarehouse.name}}</span> đã nhận <span
-                    style="color: brown" id="numOfPosts">0</span> mã hàng của lô hàng
-                <span style="color: brown">{{container.containerCode}}</span> gửi về từ <span
-                    style="color: brown;">{{originStation.name}}</span>
-                chứ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bỏ lệnh</button>
-                <button id="confirm-submit-button" type="button" class="btn btn-primary">Xác nhận</button>
-            </div>
-        </div>
-    </div>
+    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto" disabled>Tạo đơn</button>
 </div>
 
 
@@ -106,31 +87,22 @@
     const checkboxAll = checkAll.querySelector('input[type=checkbox]');
     const allCheckbox = document.querySelectorAll('input[type=checkbox]');
     const submitButton = document.querySelector('#submit-button');
-    const numOfPosts = document.querySelector('#numOfPosts');
-    const btnConfirmSubmit = document.getElementById('confirm-submit-button');
     const tableBodyRows = document.querySelectorAll('tbody tr');
     let checkedCount;
 
-    btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('confirm-posts-station-wh-form').submit();
+    submitButton.addEventListener('click', () => {
+        document.getElementById('create-station-to-receiver-form').submit();
     });
 
     for (const row of tableBodyRows) {
         const postStatus = row.querySelector('.post-status');
         const status = postStatus.dataset.status;
         let htmlContent;
-        if (status === 'on way to sWarehouse') {
+        if (status === 'at rStation') {
             htmlContent = `<span class="rounded-pill align-items-center"
                                 style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
                                     style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
-                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>`
-        } else if (status === 'at sWarehouse') {
-            htmlContent = `<span class="rounded-pill align-items-center"
-                                    style="background-color: rgb(189, 242, 200); padding: 1px 15px"><i
-                                        class="fa fa-circle" style="font-size: 11px; color: rgb(5, 144, 22)"></i><span
-                                        class="ms-1" style="color: rgb(27, 178, 27); font-weight: bold;">Đã nhận</span></span>`
-            const checkbox = row.querySelector('.confirm-checkbox');
-            checkbox.innerHTML = '';
+                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang ở điểm giao dịch đích</span></span>`
         }
         postStatus.innerHTML = htmlContent;
     }
@@ -177,13 +149,6 @@
             console.log(checkedCount);
             if (checkedCount !== 0) {
                 submitButton.disabled = false;
-                if (checkboxAll.checked) {
-                    const totalPosts = checkedCount - 1;
-                    numOfPosts.innerHTML = 'tất cả ' + totalPosts;
-                } else {
-                    numOfPosts.innerHTML = checkedCount;
-                }
-
             } else {
                 submitButton.disabled = true;
             }

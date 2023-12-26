@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
+const QRCode = require('qrcode');
 const Schema = mongoose.Schema;
 
 const Post = new Schema({
     name: { type: String },
     genre: { type: [String] },
-    weight: { type: Number},
     cost: {type: Number},
     payState: {type: String, enum: ['done', 'not'], default: 'not'},
     senderName: {type: String},
@@ -27,14 +27,16 @@ const Post = new Schema({
     othersPay: {type: Number},
     serviceNotes: {type: String},
     guidePending: {type: [String]},
-    status: {type:String, enum: ['received', 'on way to receiver', 'at rStation', 'on way to rStation', 'at rWarehouse', 
+    status: {type:String, enum: ['returned' ,'received', 'on way to receiver', 'at rStation', 'on way to rStation', 'at rWarehouse', 
             'on way to rWarehouse', 'at sWarehouse', 'on way to sWarehouse', 'at sStation'], default: 'at sStation'},
-    statusCode: {type: [Number], default: [0, 1, 2, 3, 4, 5, 6, 7, 8]},
-    statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
+    statusCode: {type: [Number], default: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
+    statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
     timeSending: {type:Date},
-    timeReceived: {type: Date},
+    timeReceived: {type: Date, default: null},
     id: {type: String}
 }, { timestamps: true });
+
+
 
 module.exports = mongoose.model('Post', Post);
 

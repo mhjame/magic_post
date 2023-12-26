@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
+const Station = require('../models/Station');
+const Warehouse = require('../models/Warehouse');
 
 
 
@@ -8,37 +10,11 @@ class UserController {
 
     getPost(req, res, next) {
         Post.findOne({ _id: req.params.id })
-        .then((post) => {
-            if (!post) {
-              
-              
-             
-                res.render('search_post', {
-                    message: 'post not found',
-                    previousValue: value
-                });
-
-            } else {
-
-                res.render('search_post', {
-                    post: post,
-                    previousValue: value
-
-                });
-            }
-
-        })
-        .catch(next);
-    }
-
-    searchPost(req, res, next) {
-        const value = req.query.searchValue;
-        Post.findOne({ id: value }).lean()
             .then((post) => {
                 if (!post) {
-                  
-                  
-                 
+
+
+
                     res.render('search_post', {
                         message: 'post not found',
                         previousValue: value
@@ -57,12 +33,50 @@ class UserController {
             .catch(next);
     }
 
+    searchPost(req, res, next) {
+        const value = req.query.searchValue;
+        Post.findOne({ id: value }).lean()
+            .then((post) => {
+                if (!post) {
+                    res.render('search_post', {
+                        message: 'post not found',
+                        previousValue: value
+                    });
+
+                } else {
+                    Station.findOne({ id: post.senderStationId }).lean()
+                        .then((senderStation) => {
+                            Station.findOne({ id: post.receiverStationId }).lean()
+                                .then((receiverStation) => {
+                                    Warehouse.findOne({ id: post.senderWarehouseId }).lean()
+                                        .then((senderWarehouse) => {
+                                            Warehouse.findOne({ id: post.receiverWarehouseId }).lean()
+                                                .then((receiverWarehouse) => {
+                                                    res.render('search_post', {
+                                                        post: post,
+                                                        previousValue: value,
+                                                        senderStation,
+                                                        senderWarehouse,
+                                                        receiverStation,
+                                                        receiverWarehouse
+                                                    });
+                                                })
+                                        })
+                                })
+                        })
+
+                }
+
+            })
+            .catch(next);
+    }
+
 
     getPostInfo(req, res, next) {
 
 
         // Tìm kiếm người dùng theo ID
-        User.findOne({_id: '65523b6b821170c9c1bc7a21'}).lean()
+        User.findOne({ _id: '65523b6b821170c9c1bc7a21' }).lean()
             .then((user) => {
                 // Nếu người dùng không tồn tại
                 if (!user) {
@@ -79,6 +93,7 @@ class UserController {
 
                 // Tạo một mảng trống để chứa các post
                 const posts = [];
+                const postRoutine = {};
 
 
                 // Lặp qua từng ID của post
@@ -93,8 +108,20 @@ class UserController {
 
                             // Thêm post vào mảng posts
                             posts.push(post);
-
-
+                            const routine = {};
+                            Station.findOne({id: post.senderStationId}).lean().then((senderStation) => {
+                                routine['senderStation'] = senderStation;
+                            })
+                            Warehouse.findOne({id: post.senderWarehouseId}).lean().then((senderWarehouse) => {
+                                routine['senderWarehouse'] = senderWarehouse;
+                            })
+                            Warehouse.findOne({id: post.receiverWarehouseId}).lean().then((receiverWarehouse) => {
+                                routine['receiverWarehouse'] = receiverWarehouse;
+                            })
+                            Station.findOne({id: post.receiverStationId}).lean().then((receiverStation) => {
+                                routine['receiverStation'] = receiverStation;
+                            })
+                            postRoutine[post.id] = routine;
 
                         })
                         .catch((err) => {
@@ -108,7 +135,7 @@ class UserController {
                 res.render('post_info', {
                     posts: posts,
                     user: user,
-
+                    postRoutine
                 });
             })
             .catch(next);

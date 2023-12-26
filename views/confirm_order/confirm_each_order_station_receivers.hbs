@@ -28,15 +28,20 @@
                 <thead>
                     <tr
                         style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <th class="border-0 text-center" scope="col" width="10%">Mã hàng</th>
+                        <th class="border-0 text-center" scope="col" width="8%">Mã hàng</th>
                         <th class="border-0 text-center" scope="col" width="10%">Tên hàng</th>
-                        <th class="border-0 text-center" scope="col" width="14%">Người nhận</th>
-                        <th class="border-0 text-center" scope="col" width="13%">SĐT người nhận</th>
-                        <th class="border-0 text-center" scope="col" width="21%">Địa chỉ người nhận</th>
-                        <th class="border-0 text-center" scope="col" width="16%">Tình trạng</th>
-                        <th class="border-0 text-center" scope="col" width="16%"><label
-                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Xác
-                                nhận</label></th>
+                        <th class="border-0 text-center" scope="col" width="13%">Người nhận</th>
+                        <th class="border-0 text-center" scope="col" width="12%">SĐT người nhận</th>
+                        <th class="border-0 text-center" scope="col" width="19%">Địa chỉ người nhận</th>
+                        <th class="border-0 text-center" scope="col" width="15%">Tình trạng</th>
+                        <th class="border-0 text-center" scope="col" width="11%"><label
+                                class="confirm-checkbox all success"><input class="form-check-input" type="checkbox">
+                                Chọn tất cả</label>
+                        </th>
+                        <th class="border-0 text-center" scope="col" width="12%"><label
+                                class="confirm-checkbox all fail"><input class="form-check-input" type="checkbox"> Chọn
+                                tất cả</label>
+                        </th>
                     </tr>
                 </thead>
 
@@ -50,13 +55,19 @@
                         <td>{{this.receiverAddress}}</td>
                         <td>
                             <span class="post-status" data-status="{{this.status}}">
-
+                                
                             </span>
                         </td>
                         <td>
-                            <label class="confirm-checkbox">
-                                <input class="form-check-input" type="checkbox" name="postIds"
-                                    value="{{this.id}}"><strong class="confirm-text"> Đã giao</strong>
+                            <label class="confirm-checkbox success">
+                                <input class="form-check-input" type="checkbox" name="receivedPostIds"
+                                    value="{{this.id}}"><strong class="confirm-text success"> Đã giao</strong>
+                            </label>
+                        </td>
+                        <td>
+                            <label class="confirm-checkbox fail">
+                                <input class="form-check-input" type="checkbox" name="failedPostIds"
+                                    value="{{this.id}}"><strong class="confirm-text fail"> Giao thất bại</strong>
                             </label>
                         </td>
                     </tr>
@@ -80,9 +91,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Bạn chắc chắn xác nhận tình trạng giao hàng của <span style="color: brown"
-                    id="numOfPosts">0</span> mã hàng thuộc lô hàng <span
-                    style="color: brown">{{container.containerCode}}</span> chứ?
+                Bạn chắc chắn xác nhận tình trạng giao hàng của <span style="color: brown" id="numOfPosts">0</span> mã
+                hàng thuộc lô hàng <span style="color: brown">{{container.containerCode}}</span> chứ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bỏ lệnh</button>
@@ -95,9 +105,12 @@
 
 
 <script>
-    const checkList = document.querySelectorAll('tbody tr td .confirm-checkbox');
-    const checkAll = document.querySelector('.confirm-checkbox.all');
-    const checkboxAll = checkAll.querySelector('input[type=checkbox]');
+    const checkSuccessList = document.querySelectorAll('tbody tr td .confirm-checkbox.success');
+    const checkSuccessAll = document.querySelector('.confirm-checkbox.all.success');
+    const checkboxSuccessAll = checkSuccessAll.querySelector('input[type=checkbox]');
+    const checkFailList = document.querySelectorAll('tbody tr td .confirm-checkbox.fail');
+    const checkFailAll = document.querySelector('.confirm-checkbox.all.fail');
+    const checkboxFailAll = checkFailAll.querySelector('input[type=checkbox]');
     const allCheckbox = document.querySelectorAll('input[type=checkbox]');
     const submitButton = document.querySelector('#submit-button');
     const numOfPosts = document.querySelector('#numOfPosts');
@@ -112,6 +125,7 @@
     for (const row of tableBodyRows) {
         const postStatus = row.querySelector('.post-status');
         const status = postStatus.dataset.status;
+        const checkboxs = row.querySelectorAll('.confirm-checkbox');
         let htmlContent;
         if (status === 'on way to receiver') {
             htmlContent = `<span class="rounded-pill align-items-center"
@@ -123,13 +137,23 @@
                                     style="background-color: rgb(189, 242, 200); padding: 1px 13px"><i
                                         class="fa fa-circle" style="font-size: 11px; color: rgb(5, 144, 22)"></i><span
                                         class="ms-1" style="color: rgb(27, 178, 27); font-weight: bold;">Giao thành công</span></span>`
-            const checkbox = row.querySelector('.confirm-checkbox');
-            checkbox.innerHTML = '';
+
+            for (const checkbox of checkboxs) {
+                checkbox.innerHTML = '';
+            }
+        } else if (status === 'returned') {
+            htmlContent = `<span class="rounded-pill align-items-center"
+                                    style="background-color: rgb(248, 160, 160); padding: 1px 24px"><i
+                                        class="fa fa-circle" style="font-size: 11px; color: rgb(220, 4, 4)"></i><span
+                                        class="ms-1" style="color: rgb(162, 4, 4); font-weight: bold;">Giao thất bại</span></span>`
+            for (const checkbox of checkboxs) {
+                checkbox.innerHTML = '';
+            }
         }
         postStatus.innerHTML = htmlContent;
     }
 
-    function checkListMouseListener(item) {
+    function mouseListener(item) {
         item.addEventListener("mouseover", (e) => {
             item.classList.add('mouse-over');
         });
@@ -138,28 +162,85 @@
         });
     }
 
-    checkList.forEach((item) => {
-        checkListMouseListener(item);
+    checkSuccessList.forEach((item) => {
+        mouseListener(item);
         item.addEventListener("click", (e) => {
             let isCheckAll = true;
-            for (const i of checkList) {
+            for (const i of checkSuccessList) {
 
                 if (i.querySelector('input[type=checkbox]') && !i.querySelector('input[type=checkbox]').checked) {
                     isCheckAll = false;
                     break;
                 }
             }
-            checkboxAll.checked = isCheckAll;
+            checkboxSuccessAll.checked = isCheckAll;
 
+            const failCheckbox = item.parentNode.parentNode.querySelector('.confirm-checkbox.fail input[type=checkbox]');
+            if (failCheckbox.checked) {
+                failCheckbox.checked = false;
+                if (checkboxFailAll.checked) {
+                    checkboxFailAll.checked = false;
+                }
+            }
         })
     });
 
-    checkListMouseListener(checkAll);
+    checkFailList.forEach((item) => {
+        mouseListener(item);
+        item.addEventListener("click", (e) => {
+            let isCheckAll = true;
+            for (const i of checkFailList) {
+                if (i.querySelector('input[type=checkbox]') && !i.querySelector('input[type=checkbox]').checked) {
+                    isCheckAll = false;
+                    break;
+                }
+            }
+            checkboxFailAll.checked = isCheckAll;
 
-    checkAll.addEventListener("click", (e) => {
-        checkList.forEach((item) => {
+            const successCheckbox = item.parentNode.parentNode.querySelector('.confirm-checkbox.success input[type=checkbox]');
+            if (successCheckbox.checked) {
+                successCheckbox.checked = false;
+                if (checkboxSuccessAll.checked) {
+                    checkboxSuccessAll.checked = false;
+                }
+            }
+        })
+    });
+
+    mouseListener(checkSuccessAll);
+
+    checkSuccessAll.addEventListener("click", (e) => {
+        checkSuccessList.forEach((item) => {
             if (item.querySelector('input[type=checkbox]')) {
-                item.querySelector('input[type=checkbox]').checked = checkboxAll.checked;
+                item.querySelector('input[type=checkbox]').checked = checkboxSuccessAll.checked;
+            }
+
+        });
+        if (checkboxFailAll.checked) {
+            checkboxFailAll.checked = false;
+        }
+        checkFailList.forEach((item) => {
+            if (item.querySelector('input[type=checkbox]')) {
+                item.querySelector('input[type=checkbox]').checked = false;
+            }
+
+        });
+    });
+
+    mouseListener(checkFailAll);
+
+    checkFailAll.addEventListener("click", (e) => {
+        checkFailList.forEach((item) => {
+            if (item.querySelector('input[type=checkbox]')) {
+                item.querySelector('input[type=checkbox]').checked = checkboxFailAll.checked;
+            }
+        });
+        if (checkboxSuccessAll.checked) {
+            checkboxSuccessAll.checked = false;
+        }
+        checkSuccessList.forEach((item) => {
+            if (item.querySelector('input[type=checkbox]')) {
+                item.querySelector('input[type=checkbox]').checked = false;
             }
 
         });
@@ -168,12 +249,13 @@
     allCheckbox.forEach((item) => {
         item.addEventListener("change", (e) => {
             checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
-            console.log(checkedCount);
             if (checkedCount !== 0) {
                 submitButton.disabled = false;
-                if (checkboxAll.checked) {
+                if (checkboxSuccessAll.checked || checkboxFailAll.checked) {
                     const totalPosts = checkedCount - 1;
                     numOfPosts.innerHTML = 'tất cả ' + totalPosts;
+                } else if (checkedCount === checkSuccessList.length) {
+                    numOfPosts.innerHTML = 'tất cả ' + checkedCount;
                 } else {
                     numOfPosts.innerHTML = checkedCount;
                 }

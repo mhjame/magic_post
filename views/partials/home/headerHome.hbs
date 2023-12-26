@@ -1,73 +1,138 @@
-<nav style="background-color: #dfdfdf; position: fixed; top: 0; left: 0; right: 0; z-index: 1000;">
+<style>
+    :root {
+        --blue-color: #174a8c;
+        --orange-color: #ef5330;
+    }
+</style>
+<nav style="background-color: #dfdfdf; position: sticky; position: -webkit-sticky; top: 0; z-index: 1000;">
 
     <body>
         <section class="ftco-section" style="padding: 0;">
 
-            <div class="wrap">
+            <div class="wrap" style="background-color: #d3d3d3;!important">
                 <div class="container">
                     <div class="row justify-content-between">
                         <div class="col">
-                            <p class="mb-0 phone"><span class="fa fa-phone"></span> <a href="#">+00 1234 567</a></p>
+                            <style>
+                                .mb-0.phone {
+                                    background-color: var(--blue-color);
+                                    color: white;
+                                    border: 1px solid white;
+                                    border-radius: 15px;
+                                    padding: 5px 10px;
+                                    margin-top: 5px;
+                                    text-decoration: none;
+                                    font-weight: bold;
+                                    transition: background-color 0.3s, color 0.3s;
+                                }
+
+                                .mb-0.phone:hover {
+                                    background-color: var(--orange-color);
+                                    color: white;
+                                }
+                            </style>
+                            <button class="mb-0 phone"><span class="fa fa-phone"></span> <a href="#"> Hotline 0 1234
+                                    567</a></button>
+                            <button class="mb-0 phone"><span class="fa fa-phone"></span> <a href="/searchStation">
+                                    Bưu cục MagicPost
+                                    toàn quốc</a></button>
                         </div>
                         <div class="col d-flex justify-content-end">
                             <div class="social-media">
                                 <p class="mb-0 d-flex">
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-                                    <a href="#" class="d-flex align-items-center justify-content-center"><span
-                                            class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center "
+                                        id="aicon"><span class="fa fa-facebook"><i
+                                                class="sr-only">Facebook</i></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center "
+                                        id="aicon"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center"
+                                        id="aicon"><span class="fa fa-instagram"><i
+                                                class="sr-only">Instagram</i></span></a>
+                                    <a href="#" class="d-flex align-items-center justify-content-center "
+                                        id="aicon"><span class="fa fa-dribbble"><i
+                                                class="sr-only">Dribbble</i></span></a>
+                                    <style>
+                                        #aicon {
+                                            background-color: var(--blue-color);
+                                            !important
+                                        }
+
+                                        #aicon:hover {
+                                            background-color: var(--orange-color);
+                                            !important
+                                        }
+                                    </style>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light ftco_navbar bg-light ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
                     <a class="navbar-brand" href="index.html">Magic Post <span>Hãy nói theo cách của bạn</span></a>
-                    <form action="#" class="searchform order-sm-start order-lg-last">
+                    <form action="/login" method="GET" class="searchform order-sm-start order-lg-last">
                         <div class="form-group d-flex">
-                            <input type="text" class="form-control pl-3" placeholder="Search">
-                            <button type="submit" placeholder class="form-control search"><span
-                                    class="fa fa-search"></span></button>
+                            <button id="btnLogin">ĐĂNG NHẬP</button>
+                            <style>
+                                #btnLogin {
+                                    width: 100%;
+                                    padding: 15px;
+                                    margin-top: 2px;
+                                    padding-top: 10px;
+                                    text-align: center;
+                                    font-size: 16px;
+                                    font-weight: bold;
+                                    color: #fff;
+                                    background-color: var(--orange-color);
+                                    border: none;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    transition: background-color 0.3s, box-shadow 0.3s;
+                                    /* Hiệu ứng hover và box-shadow */
+                                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                    /* Viền nổi */
+                                }
+
+                                #btnLogin:hover {
+                                    background-color: var(--blue-color);
+                                    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+                                    /* Hiệu ứng hover cho viền nổi */
+                                }
+                            </style>
                         </div>
                     </form>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+                    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                        data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false"
+                        aria-label="Toggle navigation">
                         <span class="fa fa-bars"></span> Menu
                     </button>
                     <div class="collapse navbar-collapse" id="ftco-nav">
-                        <ul class="navbar-nav m-auto">
-                            <li class="nav-item active"><a href="#" class="nav-link">Trang chủ</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">Dịch vụ</a>
-                                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                                    <a class="dropdown-item" href="#">Giao hàng nhanh</a>
-                                    <a class="dropdown-item" href="#">Giao hàng tiết kiệm</a>
-                                    <a class="dropdown-item" href="#">Giao hàng hỏa tốc</a>
-                                    <a class="dropdown-item" href="#">Kho bãi</a>
-                                    <style>
-                                        .dropdown-item:hover {
-                                            background-color: #ef4330;
-                                            !important
-                                        }
-                                    </style>
-                                </div>
-                            </li>
+                        <ul class="navbar-nav m-auto" style="background-color: #fcfbfb;!important">
+                            <li class="nav-item"><a class="nav-link" id="homeLink">Trang chủ</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link" id="serviceLink">Dịch vụ</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Giới thiệu</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Thông tin</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">Hỗ trợ</a></li>
                             <style>
-                                .nav-item:hover {
-                                    background-color: #ef4330;
-                                    !important
+                                #ftco-nav .navbar-nav .nav-item a.nav-link {
+                                    border-bottom: 2px solid var(--orange-color);
+                                }
+
+                                #ftco-nav .navbar-nav .nav-item:hover a.nav-link {
+                                    background-color: var(--orange-color);
                                 }
                             </style>
+                            <script>
+                                document.getElementById("homeLink").addEventListener("click", function () {
+                                    window.location.href = "/home";
+                                });
+                                document.getElementById("serviceLink").addEventListener("click", function () {
+                                    window.location.href = "/home/service";
+                                });
+                            </script>
                         </ul>
                     </div>
                 </div>
@@ -253,7 +318,7 @@
             }
 
             a:hover {
-                color: #0056b3;
+                color: var(--blue-color);
                 text-decoration: underline;
             }
 
@@ -3081,8 +3146,8 @@
 
             .btn-success:hover {
                 color: #fff;
-                background-color: #218838;
-                border-color: #1e7e34;
+                background-color: var(--orange-color);
+                border-color: var(--orange-color);
             }
 
             .btn-success:focus,
@@ -3396,8 +3461,8 @@
 
             .btn-outline-success:hover {
                 color: #fff;
-                background-color: #28a745;
-                border-color: #28a745;
+                background-color: var(--orange-color);
+                border-color: var(--orange-color);
             }
 
             .btn-outline-success:focus,
@@ -12157,4 +12222,5 @@
             data-cf-beacon='{"rayId":"82dad4ef5aed1091","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
             crossorigin="anonymous"></script>
     </body>
+
 </nav>
