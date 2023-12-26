@@ -102,9 +102,15 @@ class EmployeeController {
         const senderWarehouseName = req.body.senderWarehouseName;
         const postIds = req.body.postIds;
         let postIdsLength = 1;
+        let isArray = false;
+        const containerCode = senderStationId + senderWarehouseId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+        console.log(Date.now().toString().slice(-5));
+        console.log(Math.random().toString(16).slice(-7));
         if (Array.isArray(postIds)) {
             postIdsLength = postIds.length;
+            isArray = true;
         }
+        
         res.render('create_order/create_station_to_wh_order_form', {
             employeeId,
             employeeName,
@@ -113,12 +119,52 @@ class EmployeeController {
             senderWarehouseId,
             senderWarehouseName,
             postIds,
-            postIdsLength
+            postIdsLength,
+            containerCode,
+            isArray
         });
         
     }
 
-    postShipToWarehouseOrder(req, res, next) {
+    postShipStationToWarehouseOrder(req, res, next) {
+
+        const postIds = req.body.postIds;
+        console.log(postIds)
+        if (Array.isArray(postIds)) {
+            for (let i = 0; i < postIds.length; i++) {
+                console.log(postIds[i])
+                Post.findOneAndUpdate({ id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                    if (post) {
+                        post.statusUpdateTime[1] = new Date();
+                        post.save();
+                    }
+                });
+            };
+        } else {
+            Post.findOneAndUpdate({ id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                if (post) {
+                    post.statusUpdateTime[1] = new Date();
+                    post.save();
+                    console.log(post.statusUpdateTime);
+                }
+            });
+        }
+
+        const container = new Container({
+            employeeId: req.body.employeeId,
+            type: req.body.typeOfOrder,
+            status: 'in process',
+            receiverAddressId: req.body.receiverAddressId,
+            senderAddressId: req.body.senderAddressId,
+            postIds: req.body.postIds,
+            containerCode: req.body.containerCode
+        });
+        container.save()
+            .then(() => res.redirect(200, '/create_order/create_station_to_wh'))
+            .catch(next);
+    }
+
+    postShipWarehouseToWarehouseOrder(req, res, next) {
 
         const postIds = req.body.postIds;
         if (Array.isArray(postIds)) {
@@ -132,7 +178,7 @@ class EmployeeController {
                     }
                 });
                 Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
-                    if (post.statusUpdateTime) {
+                    if (post) {
 
                         post.statusUpdateTime[3] = new Date();
                         post.save();
@@ -172,7 +218,6 @@ class EmployeeController {
             .then(() => res.redirect(200, '/create_order/create_to_wh_order'))
             .catch(next);
     }
-
 
 
     createShipToStationOrder(req, res, next) {

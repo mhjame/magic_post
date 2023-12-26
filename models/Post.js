@@ -32,7 +32,7 @@ const Post = new Schema({
     statusCode: {type: [Number], default: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]},
     statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
     timeSending: {type:Date},
-    timeReceived: {type: Date},
+    timeReceived: {type: Date, default: null},
     id: {type: String}
 }, { timestamps: true });
 

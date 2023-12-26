@@ -12,6 +12,13 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
+{{#unless posts}}
+
+<div class="alert alert-danger text-center" role="alert">
+    Hiện không có mã hàng nào đang cần chuyển đến điểm tập kết!
+</div>
+
+{{/unless}}
 
 
 <div class="container mt-5 px-2">
@@ -57,7 +64,7 @@
                         <td>
                             <label class="confirm-checkbox">
                                 <input class="form-check-input" type="checkbox" name="postIds"
-                                    value="{{this.id}}"><strong class="confirm-text"> Thêm</strong>
+                                    value="{{this.id}}"><strong class="confirm-text success"> Thêm</strong>
                             </label>
 
                         </td>
