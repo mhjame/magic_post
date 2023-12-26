@@ -9,83 +9,113 @@ const Warehouse = require('../models/Warehouse');
 class EmployeeController {
 
 
-    createShipToWarehouseOrder(req, res, next) {
+    createShipStationToWarehouse(req, res, next) {
 
-        Employee.findOne({ employeeId: "HN001" }).lean()
+        Employee.findOne({ employeeId: "TN001" }).lean()
             .then((employee) => {
                 if (!employee) {
                     res.status(404).send({ message: 'Employee not found' });
                     return;
 
                 } else {
+                    Station.findOne({ id: employee.workPlaceId }).lean()
+                        .then((station) => {
+                            if (!station) {
+                                res.status(404).send({ message: 'Station not found' });
+                                return;
+                            }
+                            Warehouse.findOne({ id: station.warehouseId }).lean()
+                                .then((warehouse) => {
+                                    if (!warehouse) {
+                                        res.status(404).send({ message: 'Warehouse not found' });
+                                        return;
+                                    }
 
-                    if (employee.role === 'StationE') {
-                        Station.findOne({ id: employee.workPlaceId }).lean()
-                            .then((station) => {
-                                if (!station) {
-                                    res.status(404).send({ message: 'Station not found' });
-                                    return;
-                                }
-                                Warehouse.findOne({ id: station.warehouseId }).lean()
-                                    .then((warehouse) => {
-                                        if (!warehouse) {
-                                            res.status(404).send({ message: 'Warehouse not found' });
-                                            return;
-                                        }
-
-                                        Post.find({ senderStationId: station.id, status: 'at sStation' }).lean()
-                                            .then((posts) => {
-
-
-                                                res.render('create_order/create_to_wh_order', {
-                                                    employee: employee,
-                                                    workPlace: station,
-                                                    desWarehouse: warehouse,
-                                                    posts: posts
-                                                });
-                                            })
+                                    Post.find({ senderStationId: station.id, status: 'at sStation' }).lean()
+                                        .then((posts) => {
+                                            res.render('create_order/create_station_to_wh', {
+                                                employee: employee,
+                                                workPlace: station,
+                                                desWarehouse: warehouse,
+                                                posts: posts
+                                            });
+                                        })
 
 
-                                    })
+                                })
 
 
-                            })
-
-                    } else if (employee.role === 'WarehouseE') {
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                            .then((warehouse) => {
-                                if (!warehouse) {
-                                    res.status(404).send({ message: 'Warehouse not found' });
-                                    return;
-                                }
-                                Warehouse.find({}).lean()
-                                    .then((desWarehouses) => {
-                                        Post.find({ senderWarehouseId: warehouse.id, status: 'at sWarehouse' }).lean()
-                                            .then((posts) => {
-
-                                                res.render('create_order/create_to_wh_order', {
-                                                    employee: employee,
-                                                    workPlace: warehouse,
-                                                    desWarehouses: desWarehouses,
-                                                    posts: posts
-                                                });
-
-                                            })
-
-
-
-
-                                    })
-
-                            })
-                    }
-
-
-
+                        })
                 }
 
             })
             .catch(next);
+    }
+
+    createShipWarehouseToWarehouse(req, res, next) {
+
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+
+                } else {
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Warehouse.find({}).lean()
+                                .then((desWarehouses) => {
+                                    Post.find({ senderWarehouseId: warehouse.id, status: 'at sWarehouse' }).lean()
+                                        .then((posts) => {
+
+                                            res.render('create_order/create_wh_to_wh', {
+                                                employee: employee,
+                                                workPlace: warehouse,
+                                                desWarehouses: desWarehouses,
+                                                posts: posts
+                                            });
+
+                                        })
+
+
+
+
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
+    createStationToWhOrderForm(req, res, next) {
+        const employeeId = req.body.employeeId;
+        const employeeName = req.body.employeeName;
+        const senderStationId = req.body.senderStationId;
+        const senderStationName = req.body.senderStationName;
+        const senderWarehouseId = req.body.senderWarehouseId;
+        const senderWarehouseName = req.body.senderWarehouseName;
+        const postIds = req.body.postIds;
+        let postIdsLength = 1;
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+        }
+        res.render('create_order/create_station_to_wh_order_form', {
+            employeeId,
+            employeeName,
+            senderStationId,
+            senderStationName,
+            senderWarehouseId,
+            senderWarehouseName,
+            postIds,
+            postIdsLength
+        });
+        
     }
 
     postShipToWarehouseOrder(req, res, next) {

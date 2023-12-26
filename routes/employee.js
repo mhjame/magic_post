@@ -3,7 +3,9 @@ const router = express.Router();
 const employeeController = require('../controllers/EmployeeController')
 
 
-router.get('/create_order/create_to_wh_order', employeeController.createShipToWarehouseOrder); 
+router.get('/create_order/create_station_to_wh', employeeController.createShipStationToWarehouse); 
+router.post('/create_order/create_station_to_wh_order_form', employeeController.createStationToWhOrderForm); 
+router.get('/create_order/create_wh_to_wh', employeeController.createShipWarehouseToWarehouse); 
 router.post('/stored/to_wh_order', employeeController.postShipToWarehouseOrder); 
 router.get('/create_order/create_to_station_order', employeeController.createShipToStationOrder);
 router.post('/stored/to_station_order', employeeController.postShipToStationOrder); 
