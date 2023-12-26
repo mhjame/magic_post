@@ -55,6 +55,9 @@
             </tbody>
         </table>
     </div>
+    {{#unless containers}}
+    <button id="return-button" type="button" class="btn btn-secondary fw-bold mt-4 d-grid gap-2 col-4 mx-auto" onclick="window.location.href='/confirm_order/get_origin_stations_need_confirm'">Chọn điểm giao dịch khác</button>
+    {{/unless}}
 </div>
 
 <script>
