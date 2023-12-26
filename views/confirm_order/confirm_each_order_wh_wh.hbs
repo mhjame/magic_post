@@ -1,0 +1,198 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/confirm_order.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
+</script>
+
+
+
+<div class="container mt-5 px-2">
+    <form id="confirm-posts-wh-wh-form" action="/stored/confirm_posts_wh_wh" method="post">
+        <input type="hidden" name="containerCode" value="{{container.containerCode}}">
+        <input type="hidden" name="originWarehouseId" value="{{originWarehouse.id}}">
+        <div class="table-responsive">
+
+            <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desWarehouse.name}}</span>
+                    đã nhận được các mã hàng trong lô hàng <span style="color: brown">{{container.containerCode}}</span>
+                    gửi về từ
+                    <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></p>
+
+            <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
+                <thead>
+                    <tr
+                        style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                        <th class="border-0 text-center" scope="col" width="12%">Mã hàng</th>
+                        <th class="border-0 text-center" scope="col" width="12%">Tên hàng</th>
+                        <th class="border-0 text-center" scope="col" width="15%">Loại hàng</th>
+                        <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
+                        <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
+                        <th class="border-0 text-center" scope="col" width="19%"><label
+                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Xác
+                                nhận</label></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each posts}}
+                    <tr>
+                        <td>{{this.id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{renderArray this.genre}}</td>
+                        <td>{{this.actualWeight}} kg</td>
+                        <td>
+                            <span class="post-status" data-status="{{this.status}}">
+
+                            </span>
+
+
+                        </td>
+                        <td>
+
+                            <label class="confirm-checkbox">
+                                <input class="form-check-input" type="checkbox" name="postIds"
+                                    value="{{this.id}}"><strong class="confirm-text"> Đã
+                                    nhận</strong>
+                                    
+                            </label>
+
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+
+        </div>
+    </form>
+    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
+        data-bs-toggle="modal" data-bs-target="#confirm-submit" disabled>Xác nhận</button>
+</div>
+
+
+<div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận đã nhận hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn chắc chắn xác nhận <span style="color: brown;">{{desWarehouse.name}}</span> đã nhận <span
+                    style="color: brown" id="numOfPosts">0</span> mã hàng của lô hàng
+                <span style="color: brown">{{container.containerCode}}</span> gửi về từ <span
+                    style="color: brown;">{{originWarehouse.name}}</span>
+                chứ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bỏ lệnh</button>
+                <button id="confirm-submit-button" type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const checkList = document.querySelectorAll('tbody tr td .confirm-checkbox');
+    const checkAll = document.querySelector('.confirm-checkbox.all');
+    const checkboxAll = checkAll.querySelector('input[type=checkbox]');
+    const allCheckbox = document.querySelectorAll('input[type=checkbox]');
+    const submitButton = document.querySelector('#submit-button');
+    const numOfPosts = document.querySelector('#numOfPosts');
+    const btnConfirmSubmit = document.getElementById('confirm-submit-button');
+    const tableBodyRows = document.querySelectorAll('tbody tr');
+    let checkedCount;
+
+    btnConfirmSubmit.addEventListener('click', () => {
+        document.getElementById('confirm-posts-wh-wh-form').submit();
+    });
+
+    for (const row of tableBodyRows) {
+        const postStatus = row.querySelector('.post-status');
+        const status = postStatus.dataset.status;
+        let htmlContent;
+        if (status === 'on way to rWarehouse') {
+            htmlContent = `<span class="rounded-pill align-items-center"
+                                style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
+                                    style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
+                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang trung chuyển</span></span>`
+        } else if (status === 'at rWarehouse') {
+            htmlContent = `<span class="rounded-pill align-items-center"
+                                    style="background-color: rgb(189, 242, 200); padding: 1px 15px"><i
+                                        class="fa fa-circle" style="font-size: 11px; color: rgb(5, 144, 22)"></i><span
+                                        class="ms-1" style="color: rgb(27, 178, 27); font-weight: bold;">Đã nhận</span></span>`
+            const checkbox = row.querySelector('.confirm-checkbox');
+            checkbox.innerHTML = '';
+        }
+        postStatus.innerHTML = htmlContent;
+    }
+
+    function checkListMouseListener(item) {
+        item.addEventListener("mouseover", (e) => {
+            item.classList.add('mouse-over');
+        });
+        item.addEventListener("mouseout", (e) => {
+            item.classList.remove('mouse-over');
+        });
+    }
+
+    checkList.forEach((item) => {
+        checkListMouseListener(item);
+        item.addEventListener("click", (e) => {
+            let isCheckAll = true;
+            for (const i of checkList) {
+
+                if (i.querySelector('input[type=checkbox]') && !i.querySelector('input[type=checkbox]').checked) {
+                    isCheckAll = false;
+                    break;
+                }
+            }
+            checkboxAll.checked = isCheckAll;
+
+        })
+    });
+
+    checkListMouseListener(checkAll);
+
+    checkAll.addEventListener("click", (e) => {
+        checkList.forEach((item) => {
+            if (item.querySelector('input[type=checkbox]')) {
+                item.querySelector('input[type=checkbox]').checked = checkboxAll.checked;
+            }
+
+        });
+    });
+
+    allCheckbox.forEach((item) => {
+        item.addEventListener("change", (e) => {
+            checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            console.log(checkedCount);
+            if (checkedCount !== 0) {
+                submitButton.disabled = false;
+                if (checkboxAll.checked) {
+                    const totalPosts = checkedCount - 1;
+                    numOfPosts.innerHTML = 'tất cả ' + totalPosts;
+                } else {
+                    numOfPosts.innerHTML = checkedCount;
+                }
+
+            } else {
+                submitButton.disabled = true;
+            }
+        })
+    });
+
+</script>
+
+<script>
+    $('#sortedTable').DataTable();
+</script>

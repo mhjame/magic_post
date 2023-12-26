@@ -101,7 +101,6 @@ class ManagerController {
             });
 
 
-
         // // User.find({}, function (err, users){
         // //     if(!err) res.json(users)
         // //     else res.json('error')
@@ -145,12 +144,19 @@ class ManagerController {
 
     postRegister(req, res, next) {
         const { retype, ...formData } = req.body;
-        Employee.findOne({ username: formData.username })
-            .then(employee => {
+        Promise.all([Employee.findOne({ username: formData.username }), Employee.find({workAddress: formData.workAddress, role: formData.role}).countDocuments()])
+            .then(([employee, countEmployee]) => {
                 if (employee) return res.json({
                     registerSuccess: false,
                     message: 'Tên đăng nhập đã tồn tại'
                 });
+
+                const userRole = req.session.employee.role;
+                if(userRole == 'Manager' && countEmployee > 0) return res.json({
+                    registerSuccess: false,
+                    message: 'Chức vụ này đã có người nắm giữ'
+                });
+
                 const employeeCreate = new Employee(formData);
                 employeeCreate.save();
                 res.json({
@@ -332,7 +338,7 @@ class ManagerController {
         }
     }
 
-    //DELETE /product/:id/force
+    //DELETE /employee/:id/force
     forceDestroy(req, res, next) {
         try {
             const userRole = req.session.employee.role;
@@ -419,13 +425,15 @@ class ManagerController {
         try {
             // console.log(formData);
             const postCreate = new Post(formData);
-                postCreate.save();
-                res.render('receipt', {
-                    post: mongooseToObject(postCreate),
-                })
-                // console.log(postCreate);
+            postCreate.save();
+
+            //console.log(postCreate);
+            res.render('receipt', {
+                post: mongooseToObject(postCreate)
+            })
+            
         }
-        catch(e) {
+        catch (e) {
             res.status(500).json({ error: e.message });
         }
     }

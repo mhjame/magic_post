@@ -1,0 +1,163 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/css/create_order_form.css">
+
+
+{{!-- <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1e1e86;">
+
+    <div class="container">
+        <a class="navbar-brand magic-post-text" href="">Magic Post</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            </ul>
+            <div class="nav-item dropdown" style="color:white;">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{employee.lastName}} {{employee.firstName}}
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="/create_to_wh_order">Tạo đơn hàng đến điểm tập kết</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                </ul>
+                <div>
+                </div>
+            </div>
+
+</nav> --}}
+
+
+
+<div class="row justify-content-center align-items-center">
+    <div class="col-lg-12 col-sm-9">
+        <form id="station-to-warehouse-order-form" action="/stored/station_to_wh_order" method="post">
+            <h4 class="form-title">Đơn chuyển hàng đến điểm tập kết</h4>
+            <div class="input-control">
+                <label for="name" id="label-name">
+                    Người tạo đơn
+                </label>
+
+                <input class="readonly" type="text" id="name" value="{{employeeName}}" readonly />
+            </div>
+
+            <div class="input-control">
+                <label for="employeeId" id="label-employeeId">
+                    Mã nhân viên
+                </label>
+
+                <input class="readonly" type="text" id="employeeId" name="employeeId" value="{{employeeId}}" readonly />
+            </div>
+
+            <div class="input-control">
+                <label for="containerCode" id="label-containerCode">
+                    Mã lô hàng
+                </label>
+
+                <input class="readonly" type="text" id="containerCode" name="containerCode" value="{{containerCode}}" readonly />
+            </div>
+
+            <div class="input-control">
+                <label for="workPlace" id="label-workPlace">
+                    Điểm giao dịch gửi lô hàng
+                </label>
+
+                <input class="readonly" type="text" id="workPlace" value="{{senderStationId}} - {{senderStationName}}"
+                    readonly />
+
+                <input type="hidden" name="senderAddressId" value="{{senderStationId}}">
+            </div>
+
+            <input type="hidden" name="typeOfOrder" value="station-warehouse">
+
+            <div class="input-control">
+                <label for="desWarehouse" id="label-desWarehouse">
+                    Điểm tập kết lô hàng sẽ được chuyển đến
+                </label>
+
+                <input class="readonly" type="text" id="desWarehouse"
+                    value="{{senderWarehouseId}} - {{senderWarehouseName}}" readonly />
+
+                <input type="hidden" name="receiverAddressId" value="{{senderWarehouseId}}">
+            </div>
+
+            <div class="input-control">
+                <label>Các mã hàng sẽ chuyển đến điểm tập kết</label>
+                <input type="hidden" name="postIds" value="{{postIds}}">
+                <textarea class="readonly" readonly>{{renderArray postIds}}</textarea>
+
+            </div>
+
+            <div class="input-control">
+                <label for="total-posts" id="label-total-posts">
+                    Tổng số hàng trong lô
+
+                </label>
+
+                <input id="total-posts" class="readonly" type="text" value="{{postIdsLength}}" readonly />
+            </div>
+
+            <div class="d-grid gap-3 d-sm-block">
+                <button id="return-button" class="btn btn-secondary col-sm-3 me-sm-4" type="button"
+                    href="./create_station_to_wh">
+                    Quay lại
+                </button>
+
+                <button id="submit-button" class="btn btn-success col-sm-3" type="button" data-bs-toggle="modal"
+                    data-bs-target="#confirm-submit">
+                    Tạo đơn
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận tạo đơn</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn chắc chắn muốn tạo đơn chuyển lô hàng gồm {{postIdsLength}} mã hàng từ {{senderStationName}} đến
+                {{senderWarehouseName}} chứ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bỏ lệnh</button>
+                <button id="confirm-submit-button" type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    const btnConfirmSubmit = document.getElementById('confirm-submit-button');
+    btnConfirmSubmit.addEventListener('click', () => {
+        document.getElementById('station-to-warehouse-order-form').submit();
+    });
+
+</script>

@@ -1,0 +1,56 @@
+body {
+    background-color: #eeeeee;
+}
+
+.number-round {
+    border-radius: 50%;
+    padding: 1rem 1rem;
+    margin: 0.3rem 25%;
+    opacity: 0.8;
+}
+
+.bg-1 {
+    background: #ebd4cb;
+    background: -webkit-linear-gradient(to right, #97e6f1, #78f8a3);
+    background: linear-gradient(to right, #97e6f1, #78f8a3);
+}
+
+.bg-2 {
+    background: #ebd4cb;
+    background: -webkit-linear-gradient(to right, #b9a9f1, #e3aa82);
+    background: linear-gradient(to right, #b9a9f1, #e3aa82);
+}
+
+.bg-3 {
+    background: #ebd4cb;
+    background: -webkit-linear-gradient(to right, #f2a286, #6ff49b);
+    background: linear-gradient(to right, #f2a286, #6ff49b);
+}
+
+.bg-4 {
+    background: #ebd4cb;
+    background: -webkit-linear-gradient(to right, #e4a993, #7ec6ea);
+    background: linear-gradient(to right, #e4a993, #7ec6ea);
+}
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #9ca3af;
+}
+
+.search-input {
+    height: 55px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+.search-input:focus {
+    box-shadow: none;
+    border: none;
+}

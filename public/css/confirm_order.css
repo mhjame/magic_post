@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.confirm-link:hover {
+    color: rgb(125, 144, 252);
+}
+
+.confirm-text.success {
+    color: rgb(27, 178, 27);
+}
+
+.confirm-text.fail {
+    color: brown;
+}
+
+.confirm-checkbox.mouse-over .confirm-text.success {
+    color: rgb(169, 206, 169) !important;
+    cursor: pointer;
+}
+
+.confirm-checkbox.mouse-over .confirm-text.fail {
+    color: rgb(215, 183, 154) !important;
+    cursor: pointer;
+}
+
+.confirm-checkbox.mouse-over {
+    color: rgb(125, 134, 125) !important;
+    cursor: pointer;
+}
+
+.pagination {
+    background-color: transparent;
+}
