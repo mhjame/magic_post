@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const QRCode = require('qrcode');
 const Schema = mongoose.Schema;
 
 const Post = new Schema({
@@ -34,6 +35,8 @@ const Post = new Schema({
     timeReceived: {type: Date},
     id: {type: String}
 }, { timestamps: true });
+
+
 
 module.exports = mongoose.model('Post', Post);
 

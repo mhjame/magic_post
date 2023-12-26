@@ -1,0 +1,169 @@
+<style>
+    :root {
+        --blue-color: #174a8c;
+        --orange-color: #ef4330;
+    }
+</style>
+
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            /* Set width to 100% */
+            min-height: 200px;
+        }
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+    </style>
+
+    {{>home/headerHome}}
+
+    <div class="container text-center" style="margin-top: 50px; background-color: #f0f0f0">
+        <h3 class="title">Làm thế nào để ứng tuyển</h3>
+        <br>
+        <br><br>
+        <div id="mydiv">
+            <div id="mydiv1">
+                <p style="font-weight: bold; font-size: 18px">Chuẩn bị dự tuyển</p>
+                <ul>
+                    <li class="li1">Tìm hiểu công việc</li>
+                    <li class="li1">Đăng kí online</li>
+                    <li class="li1">Hồ sơ phỏng vấn cơ bản:</li>
+                    <ul>
+                        <li class="li2">Sơ yếu lý lịch</li>
+                        <li class="li2">CMND/CCCD</li>
+                        <li class="li2">Sổ hộ khẩu</li>
+                    </ul>
+                </ul>
+            </div>
+            <div id="mydiv2">
+                <p style="font-weight: bold; font-size: 18px">Phỏng vấn trực tiếp</p>
+                <ul>
+                    <li class="li1">Thời gian: Từ thứ 2 – sáng Thứ 7 (08h-17h30)</li>
+                    <li class="li1">Nội dung trao đổi:</li>
+                    <ul>
+                        <li class="li2">Nội dung trao đổi:</li>
+                        <li class="li2">Chế độ, chính sách lương</li>
+                        <li class="li2">Bảo hiểm</li>
+                        <li class="li2">Các phúc lợi khác</li>
+                    </ul>
+                </ul>
+            </div>
+            <div id="mydiv3">
+                <p style="font-weight: bold; font-size: 18px">Chuẩn bị nhận việc</p>
+                <ul>
+                    <li class="li1">Hồ sơ đầy đủ:</li>
+                    <ul>
+                        <li class="li2">Giấy bảo lãnh dân sự</li>
+                        <li class="li2">Giấy xác nhận không tiền án, tiền sự</li>
+                        <li class="li2">Sơ yếu lý lịch</li>
+                        <li class="li2">CMND/CCCD</li>
+                        <li class="li2">Sổ hộ khẩu, Giấy khai sinh</li>
+                        <li class="li2">Giấy khám sức khỏe</li>
+                    </ul>
+                    <li class="li1">Điện thoại Android</li>
+                    <li class="li1">Chuẩn bị ký quỹ</li>
+
+                </ul>
+            </div>
+            <div id="mydiv4">
+                <p style="font-weight: bold; font-size: 18px">Tiếp nhận việc</p>
+                <ul>
+                    <li class="li1">Hoàn thiện thủ tục:</li>
+                    <ul>
+                        <li class="li2">Sơ yếu lý lịch</li>
+                        <li class="li2">CMND/CCCD</li>
+                        <li class="li2">Sổ hộ khẩu</li>
+                    </ul>
+                    <li class="li1">Ký quỹ theo quy định</li>
+                    <li class="li1">Tham gia đào tạo nghiệp vụ</li>
+                </ul>
+            </div>
+        </div>
+
+        <style>
+            #mydiv {
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            #mydiv1,
+            #mydiv2,
+            #mydiv3,
+            #mydiv4 {
+                margin-left: 50px;
+                flex: 1;
+                text-align: center;
+            }
+
+            @media (max-width: 900px) {
+                #mydiv {
+                    flex-direction: column;
+                }
+            }
+            ul {
+                text-align: left;
+                list-style-type: none;
+                padding: 0;
+                font-size: 15px;
+            }
+
+            .li1::before {
+                content: '\2713';
+                color: var(--orange-color);
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+            }
+
+            .li2,
+            .li1 {
+                margin-left: 10px;
+                margin-top: 10px;
+            }
+
+            .li2::before {
+                content: '\2022';
+                color: black;
+                display: inline-block;
+                width: 1em;
+                margin-left: -1em;
+            }
+
+            p {
+                font-size: 15px;
+                text-align: left;
+            }
+
+            .title {
+                margin-top: 20px;
+                font-size: 30px;
+                font-weight: bold;
+                color: #174a8c;
+            }
+        </style>
+
+    </div>
+
+    {{>home/footerHome}}
+
+</body>

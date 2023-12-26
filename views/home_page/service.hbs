@@ -1,0 +1,294 @@
+<style>
+    :root {
+        --blue-color: #174a8c;
+        --orange-color: #ef4330;
+    }
+</style>
+
+<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 25px;
+        }
+
+        .carousel-inner img {
+            width: 100%;
+            /* Set width to 100% */
+            min-height: 200px;
+        }
+
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+        @media (max-width: 600px) {
+            .carousel-caption {
+                display: none;
+            }
+        }
+    </style>
+
+    {{>home/headerHome}}
+
+    <div class="container" style="margin-top: 50px;">
+        <img id="img2"
+            src="https://theme.hstatic.net/200000472237/1001083717/14/banner-sv-chuyenphat.jpg?v=564g"
+            alt="">
+        <style>
+            #img2 {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        </style>
+    </div>
+
+
+    <div class="container text-center" style="margin-top: 50px; background-color: #f0f0f0">
+        <div id="mydiv">
+            <div id="mydiv1">
+                <div class="img">
+                    <img src="https://theme.hstatic.net/200000472237/1001083717/14/cp_advantages1.png?v=564" alt="">
+                </div>
+                <p style="font-weight: bold; font-size: 18px">MIỄN PHÍ LẤY HÀNG</p> <br>
+                <p>GHN sẽ không thu phí lấy hàng cho các đơn hàng nhân viên giao nhận đến tận nơi để nhận hàng.</p>
+            </div>
+            <div id="mydiv2">
+                <div class="img">
+                    <img src="https://theme.hstatic.net/200000472237/1001083717/14/cp_advantages3.png?v=564" alt="">
+                </div>
+                <p style="font-weight: bold; font-size: 18px">MIỄN PHÍ GIAO LẠI</p> <br>
+                <p>Trong trường hợp giao hàng lần đầu không thành công, GHN sẽ miễn phí giao lại 2 lần tiếp theo trước
+                    khi hoàn trả hàng cho người gửi.</p>
+            </div>
+            <div id="mydiv3">
+                <div class="img">
+                    <img src="https://theme.hstatic.net/200000472237/1001083717/14/cp_advantages1.png?v=564" alt="">
+                </div>
+                <p style="font-weight: bold; font-size: 18px">ƯU ĐÃI KHI ĐĂNG KÝ</p> <br>
+                <p>Là hình thức ưu đãi hoàn tiền lên đến 6% số tiền khi là thành viên của MagicPost. Hãy tham gia ngay
+                    để có thể tận hưởng nhiều ưu đãi</p>
+            </div>
+
+        </div>
+
+        <style>
+            .img {
+                width: 50px;
+                height: 50px;
+                background-color: rgb(218, 241, 250);
+                border-radius: 10px;
+
+                margin-bottom: 20px;
+            }
+
+            img {
+                width: 30px;
+                height: 30px;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            #mydiv {
+                width: 100% - 20px;
+                display: flex;
+                justify-content: space-evenly;
+                background-color: #f0f0f0;
+                border-radius: 10px;
+                color: #555;
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            #mydiv1,
+            #mydiv2,
+            #mydiv3 {
+                height: 300px;
+                margin-left: 70px;
+                margin-right: 70px;
+                flex: 1;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+                border-radius: 50px;
+                margin: 10px;
+            }
+
+            #mydiv1:hover,
+            #mydiv2:hover,
+            #mydiv3:hover {
+                background-color: var(--blue-color);
+                color: white;
+            }
+
+            @media (max-width: 900px) {
+                #mydiv {
+                    flex-direction: column;
+                }
+            }
+
+            p {
+                margin-right: 30px;
+                margin-left: 30px;
+                font-size: 15px;
+                text-align: center;
+            }
+
+            .title {
+                margin-top: 20px;
+                font-size: 30px;
+                font-weight: bold;
+                color: #174a8c;
+            }
+        </style>
+
+    </div>
+
+
+
+    <section class="section section-process">
+        <div class="container">
+            <div class="s-title text-center">
+                <h2>Quy trình giao nhận</h2>
+            </div>
+            <div class="s-content">
+                <div class="process-bar">
+
+                    <div class="process-step">
+                        <div class="ic-step">
+                            <img width="40" height="40" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/cp_process2_thumb.png?v=564"
+                                alt="Tạo đơn hàng">
+                        </div>
+                        <div class="title-step">
+                            <h3>Tạo đơn hàng</h3>
+                            <p>Tạo đơn hàng trên app GHN Express / website khachhang.ghn.vn, hoặc ghé hệ thống 2000 điểm
+                                gửi hàng GHN toàn quốc.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="ic-step">
+                            <img width="40" height="40" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/cp_process3_thumb.png?v=564"
+                                alt="Lấy hàng">
+                        </div>
+                        <div class="title-step">
+                            <h3>Lấy hàng</h3>
+                            <p>Bàn giao hàng cần gửi cho tài xế GHN tại địa chỉ người gửi cung cấp.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="ic-step">
+                            <img width="40" height="40" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/cp_process4_thumb.png?v=564"
+                                alt="Theo dõi tình trạng đơn hàng">
+                        </div>
+                        <div class="title-step">
+                            <h3>Theo dõi tình trạng đơn hàng</h3>
+                            <p>Người gửi quản lý và theo dõi tình trạng đơn hàng thông qua app GHN hoặc website
+                                khachhang.ghn.vn.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="ic-step">
+                            <img width="40" height="40" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/cp_process5_thumb.png?v=564"
+                                alt="Giao hàng">
+                        </div>
+                        <div class="title-step">
+                            <h3>Giao hàng</h3>
+                            <p>GHN giao hàng cho người nhận, thu tiền hộ (COD) theo yêu cầu của người gửi.</p>
+                        </div>
+                    </div>
+                    <div class="process-step">
+                        <div class="ic-step">
+                            <img width="40" height="40" class="dt-width-auto"
+                                src="//theme.hstatic.net/200000472237/1001083717/14/cp_process6_thumb.png?v=564"
+                                alt="Nhận tiền thu hộ">
+                        </div>
+                        <div class="title-step">
+                            <h3>Nhận tiền thu hộ</h3>
+                            <p>GHN hoàn trả tiền thu hộ cho người gửi thông qua tài khoản ngân hàng xuyên suốt các ngày
+                                trong tuần.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Phần tiêu đề */
+        .s-title {
+            margin-top: 50px ;
+            margin-bottom: 40px;
+        }
+
+        .s-title h2 {
+            font-size: 36px;
+            color: #174a8c;
+        }
+
+        /* Phần nội dung */
+        .s-content {
+            margin-bottom: 50px;
+        }
+
+        /* Phần thanh tiến trình */
+        .process-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Mỗi bước trong tiến trình */
+        .process-step {
+            flex: 1;
+            /* Cân đối kích thước của mỗi bước */
+            text-align: center;
+            margin: 0 15px;
+        }
+
+        .ic-step {
+            margin-left: 45px;
+            width: 100px;
+            height: 100px;
+            border: solid 4px #174a8c;
+            border-radius: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hình ảnh trong mỗi bước */
+        .ic-step img {
+            margin-top: 30px;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Tiêu đề của mỗi bước */
+        .title-step h3 {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #174a8c;
+        }
+
+        /* Nội dung mô tả của mỗi bước */
+        .title-step p {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+
+    {{>home/footerHome}}
+
+</body>

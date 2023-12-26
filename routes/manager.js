@@ -9,6 +9,7 @@ router.get('/login', managerController.getLogin); // get/post
 router.post('/login', managerController.loginValidate, managerController.postLogin);
 
 router.get('/', managerController.getHome);
+router.get('/home', managerController.getHome);
 
 router.get('/search', managerController.getSearch);
 router.get('/admin', managerController.getAdmin);
@@ -31,6 +32,18 @@ router.post('/statistic_manager/year', statisticController.postStatisticManagerY
 //map
 router.get('/map', managerController.getMaps)
 router.post('/postSearchStation', managerController.postSearchStation)
+
+
+//home
+router.get('/home/priceList', managerController.getPriceList)
+router.get('/home/recruitment', managerController.getRecruitment)
+router.get('/home/service', managerController.getServiceHome)
+
+//searchStation
+router.get('/searchStation', managerController.getSearchStation)
+
+//qr
+router.get('/createQRCode', managerController.getQRCode);
 
 router.get('/supervisor/humanResource', managerController.humanResource);
 router.get('/supervisor/oldHR', managerController.oldHR);
