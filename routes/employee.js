@@ -10,8 +10,10 @@ router.get('/create_order/get_des_warehouses', employeeController.getDesWarehous
 router.get('/create_order/:desWarehouseId/create_wh_to_wh', employeeController.createShipWarehouseToWarehouse);
 router.post('/create_order/:desWarehouseId/create_wh_to_wh_order_form', employeeController.createWhToWhOrderForm);
 router.post('/stored/create_wh_to_wh_order', employeeController.postShipWarehouseToWarehouseOrder); 
-router.get('/create_order/create_to_station_order', employeeController.createShipToStationOrder);
-router.post('/stored/to_station_order', employeeController.postShipToStationOrder); 
+router.get('/create_order/get_des_stations', employeeController.getDesStations);
+router.get('/create_order/:desStationId/create_wh_to_station', employeeController.createShipWarehouseToStation);
+router.post('/create_order/:desStationId/create_wh_to_station_order_form', employeeController.createWhToStationOrderForm);
+router.post('/stored/create_wh_to_station_order', employeeController.postShipWarehouseToStationOrder); 
 router.get('/create_order/create_to_receiver_order', employeeController.createShipToReceiverOrder);
 router.post('/stored/to_receiver_order', employeeController.postShipToReceiverOrder); 
 router.get('/profile/update', employeeController.getUpdateProfile);

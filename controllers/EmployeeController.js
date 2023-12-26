@@ -185,7 +185,7 @@ class EmployeeController {
                                 res.status(404).send({ message: 'Warehouse not found' });
                                 return;
                             }
-                            Warehouse.findOne({id: req.params.desWarehouseId}).lean()
+                            Warehouse.findOne({ id: req.params.desWarehouseId }).lean()
                                 .then((desWarehouse) => {
                                     Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouse.id, status: 'at sWarehouse' }).lean()
                                         .then((posts) => {
@@ -279,9 +279,7 @@ class EmployeeController {
             .catch(next);
     }
 
-
-    createShipToStationOrder(req, res, next) {
-
+    getDesStations(req, res, next) {
         Employee.findOne({ employeeId: "TKHN001" }).lean()
             .then((employee) => {
                 if (!employee) {
@@ -297,34 +295,31 @@ class EmployeeController {
                                 res.status(404).send({ message: 'Warehouse not found' });
                                 return;
                             }
-                            Station.find({ warehouseId: warehouse.id }).lean()
+                            Station.find({warehouseId: warehouse.id}).lean()
                                 .then((desStations) => {
-                                    if (!desStations) {
-                                        res.status(404).send({ message: 'Stations belong to this warehouse not found' });
-                                        return;
+                                    const totalPostsFromStation = {};
+                                    const desStationsHavePosts = [];
+                                    for (const desStation of desStations) {
+                                        const desStationId = desStation.id;
+                                        Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStationId, status: 'at rWarehouse' }).lean()
+                                            .then((posts) => {
+                                                if (posts.length !== 0) {
+                                                    totalPostsFromStation[desStationId] = posts.length;
+                                                    desStationsHavePosts.push(desStation);
+                                                    console.log(totalPostsFromStation);
+                                                }
+                                            })
                                     }
-                                    Post.find({ receiverWarehouseId: warehouse.id, status: 'at rWarehouse' }).lean()
-                                        .then((posts) => {
-
-                                            res.render('create_order/create_to_station_order', {
-                                                employee: employee,
-                                                workPlace: warehouse,
-                                                desStations: desStations,
-                                                posts: posts
-                                            });
-
-                                        })
 
 
-
+                                    res.render('create_order/get_des_stations', {
+                                        thisWarehouse: warehouse,
+                                        desStationsHavePosts,
+                                        totalPostsFromStation
+                                    });
 
                                 })
-
                         })
-
-
-
-
                 }
 
             })
@@ -333,7 +328,75 @@ class EmployeeController {
 
 
 
-    postShipToStationOrder(req, res, next) {
+    createShipWarehouseToStation(req, res, next) {
+        Employee.findOne({ employeeId: "TKHN001" }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
+                } else {
+                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        .then((warehouse) => {
+                            if (!warehouse) {
+                                res.status(404).send({ message: 'Warehouse not found' });
+                                return;
+                            }
+                            Station.findOne({ id: req.params.desStationId }).lean()
+                                .then((desStation) => {
+                                    Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStation.id, status: 'at rWarehouse' }).lean()
+                                        .then((posts) => {
+
+                                            res.render('create_order/create_wh_to_station', {
+                                                employee,
+                                                workPlace: warehouse,
+                                                desStation,
+                                                posts,
+                                            });
+
+                                        })
+                                })
+
+                        })
+                }
+
+            })
+            .catch(next);
+    }
+
+    createWhToStationOrderForm(req, res, next) {
+        const employeeId = req.body.employeeId;
+        const employeeName = req.body.employeeName;
+        const receiverWarehouseId = req.body.receiverWarehouseId;
+        const receiverWarehouseName = req.body.receiverWarehouseName;
+        const receiverStationId = req.body.receiverStationId;
+        const receiverStationName = req.body.receiverStationName;
+        const postIds = req.body.postIds;
+        let postIdsLength = 1;
+        let isArray = false;
+        const containerCode = receiverWarehouseId + receiverStationId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+        console.log(Date.now().toString().slice(-5));
+        console.log(Math.random().toString(16).slice(-7));
+        if (Array.isArray(postIds)) {
+            postIdsLength = postIds.length;
+            isArray = true;
+        }
+
+        res.render('create_order/create_wh_to_station_order_form', {
+            employeeId,
+            employeeName,
+            receiverWarehouseId,
+            receiverWarehouseName,
+            receiverStationId,
+            receiverStationName,
+            postIds,
+            postIdsLength,
+            containerCode,
+            isArray
+        });
+
+    }
+
+    postShipWarehouseToStationOrder(req, res, next) {
 
         const postIds = req.body.postIds;
         if (Array.isArray(postIds)) {
@@ -344,7 +407,6 @@ class EmployeeController {
 
                         post.statusUpdateTime[5] = new Date();
                         post.save();
-                        console.log(post.statusUpdateTime);
                     }
                 });
 
@@ -356,7 +418,6 @@ class EmployeeController {
 
                     post.statusUpdateTime[5] = new Date();
                     post.save();
-                    console.log(post.statusUpdateTime);
                 }
             });
         }
@@ -366,13 +427,12 @@ class EmployeeController {
             employeeId: req.body.employeeId,
             type: req.body.typeOfOrder,
             status: 'in process',
-            timeReceived: null,
             receiverAddressId: req.body.receiverAddressId,
             senderAddressId: req.body.senderAddressId,
             postIds: req.body.postIds
         });
         container.save()
-            .then(() => res.redirect(200, '/create_order/create_to_station_order'))
+            .then(() => res.redirect(200, '/create_order/' + req.body.receiverAddressId + '/create_wh_to_station'))
             .catch(next);
     }
 

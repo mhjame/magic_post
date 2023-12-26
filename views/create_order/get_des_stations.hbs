@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/get_places.css">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+
+<div id="search-failed-alert" style="display: none;">
+    <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 25px;">
+        Không có điểm giao dịch nào tương thích với từ khoá đã nhập!
+    </div>
+</div>
+
+
+<div class="container mt-5">
+    {{#if desStationsHavePosts}}
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <h3>Các điểm giao dịch trực thuộc</h3>
+            <p>Và số mã hàng cần chuyển từ {{thisWarehouse.name}} đến mỗi điểm</p>
+        </div>
+    </div>
+    {{else}}
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <h3>Well, không còn mã hàng nào để tạo đơn</h3>
+            <p>Hiện không có mã hàng nào cần chuyển đến tất cả các điểm giao dịch trực thuộc</p>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="row d-flex justify-content-center align-items-center" style="margin-bottom: 40px;">
+        <div class="col-md-6">
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <input id="search-station" type="search" name="searchValue" class="form-control form-input search-input"
+                    onkeyup="searchStation()" placeholder="Nhập mã hoặc tên điểm giao dịch...">
+            </div>
+        </div>
+    </div>
+
+    <div class="row text-center justify-content-center">
+        {{#each desStationsHavePosts}}
+        <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
+            <div class="station-card card mb-3 h-100 w-100">
+                <div class="card-header h-100">
+                    <h5 class="mb-1">{{this.name}}</h5>
+                    <div class="small text-muted">Mã: {{this.id}}</div>
+                </div>
+                <div class="card-body">
+                    <div class="number-round">
+                        <h1 class="card-title">{{lookup ../totalPostsFromStation this.id}}</h1>
+                    </div>
+
+                    <p class="card-text small text-muted">mã hàng cần chuyển đến</p>
+
+                    <button type="button" class="btn btn-success"
+                        onclick="window.location.href='/create_order/{{this.id}}/create_wh_to_station'">Tạo đơn
+                        chuyển hàng</button>
+
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<script>
+
+    const stationCards = document.querySelectorAll('.station-card');
+    const numberRoundList = document.querySelectorAll('.number-round');
+
+    for (let i = 0; i < stationCards.length; i++) {
+        console.log(i % 4)
+        switch (i % 4) {
+            case 0:
+                stationCards[i].classList.add('border-success');
+                break;
+            case 1:
+                stationCards[i].classList.add('border-info');
+                break;
+            case 2:
+                stationCards[i].classList.add('border-warning');
+                break;
+            case 3:
+                stationCards[i].classList.add('border-primary');
+                break;
+        }
+    }
+
+    for (let i = 0; i < numberRoundList.length; i++) {
+        console.log(i % 4)
+        switch (i % 4) {
+            case 0:
+                numberRoundList[i].classList.add('bg-1');
+                break;
+            case 1:
+                numberRoundList[i].classList.add('bg-2');
+                break;
+            case 2:
+                numberRoundList[i].classList.add('bg-3');
+                break;
+            case 3:
+                numberRoundList[i].classList.add('bg-4');
+                break;
+        }
+    }
+
+    function searchStation() {
+        let searchInput = document.getElementById('search-station').value;
+        searchInput = searchInput.toLowerCase();
+        const cards = document.querySelectorAll('.card-container');
+        const failAlert = document.getElementById('search-failed-alert');
+        let stationMatchCount = 0;
+
+        for (const card of cards) {
+            const stationId = card.dataset.id;
+            const stationName = card.dataset.name;
+            if (!stationId.toLowerCase().includes(searchInput) && !stationName.toLowerCase().includes(searchInput)) {
+                card.style.display = "none";
+            } else {
+                card.style.display = "initial";
+                stationMatchCount++;
+            }
+        }
+        if (stationMatchCount === 0) {
+            failAlert.style.display = "initial";
+        } else {
+            failAlert.style.display = "none";
+        }
+
+        if (searchInput === '') {
+            failAlert.style.display = "none";
+        }
+    }
+
+</script>
