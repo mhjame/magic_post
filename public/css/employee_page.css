@@ -1,0 +1,91 @@
+:root {
+    --blue-color: #174a8c;
+    --orange-color: #ef6030;
+}
+
+footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+}
+
+.carousel-inner img {
+    max-height: 438px;
+    min-height: 350px;
+}
+
+
+@media screen and (min-width: 1001px) and (max-width: 1200px) {
+    .carousel-inner img {
+        max-height: 438px;
+        min-height: 410px;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    .carousel-inner img {
+        max-height: 438px;
+        min-height: 300px;
+    }
+}
+
+@media screen and (min-width: 401) and (max-width: 600px) {
+    .carousel-inner img {
+        max-height: 438px;
+        min-height: 350px;
+    }
+}
+
+@media (max-width: 400px) {
+    .carousel-inner img {
+        max-height: 438px;
+        min-height: 220px;
+    }
+}
+
+
+/* Hide the carousel text when the screen is less than 600 pixels wide */
+
+@media screen and (max-width: 600px) {
+    .carousel-caption {
+        display: none;
+    }
+}
+
+
+
+#btnOption1,
+#btnOption2,
+#btnOption3,
+#btnOption4 {
+    width: 100%;
+    margin-bottom: 3px;
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--orange-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    /* Hiệu ứng hover và box-shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Viền nổi */
+}
+
+#btnOption1:hover,
+#btnOption2:hover,
+#btnOption3:hover,
+#btnOption4:hover {
+    background-color: var(--blue-color);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    /* Hiệu ứng hover cho viền nổi */
+}
+
+#btnOption1 i,
+#btnOption2 i,
+#btnOption3 i,
+#btnOption4 i {
+    margin-right: 5px;
+}

@@ -1255,6 +1255,80 @@ class EmployeeController {
         }).catch(next);
     }
 
+    getStationEmployeePage(req, res, next) {
+        try {
+            const employee = req.session.employee;
+            let numOfsStationPosts = 0; 
+            let numOfrStationPosts = 0; 
+            let numOfTorStationPosts = 0; 
+            let numOfToReceiverPosts = 0;
+            console.log(req.session.employee);
+            if (employee) {
+
+                Station.findOne({ id: employee.workPlaceId }).lean().then((station) => {
+                    Post.find({ senderStationId: station.id, status: 'at sStation' }).lean().then((posts1) => {
+                        if (posts1) {
+                            let count = 0;
+                            for (const post of posts1) {
+                                count++;
+                            }
+                            numOfsStationPosts = count;
+                        } 
+                        console.log(numOfsStationPosts);
+                        Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean().then((posts2) => {
+                            if (posts2) {
+                                let count = 0;
+                                for (const post of posts2) {
+                                    count++;
+                                }
+                                numOfrStationPosts = count;
+                            } 
+                            console.log(numOfrStationPosts);
+                            Post.find({ receiverStationId: station.id, status: 'on way to rStation' }).lean().then((posts3) => {
+                                if (posts1) {
+                                    let count = 0;
+                                    for (const post of posts3) {
+                                        count++;
+                                    }
+                                    numOfTorStationPosts = count;
+                                } 
+                                console.log(numOfTorStationPosts);
+                                Post.find({ receiverStationId: station.id, status: 'on way to receiver' }).lean().then((posts4) => {
+                                    if (posts4) {
+                                        let count = 0;
+                                        for (const post of posts4) {
+                                            count++;
+                                        }
+                                        numOfToReceiverPosts = count;
+                                    } 
+                                    console.log(numOfToReceiverPosts);
+                                    Warehouse.findOne({id: station.warehouseId}).lean().then((warehouse) => {
+                                        res.render('station_employee_page', {
+                                            employee,
+                                            station,
+                                            warehouse,
+                                            numOfsStationPosts,
+                                            numOfrStationPosts,
+                                            numOfTorStationPosts,
+                                            numOfToReceiverPosts,
+                                            noHeader: 'yes'
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            } else {
+                res.json('Bạn không có quyền truy cập chức năng này')
+            }
+
+        } catch (e) {
+            res.json('error')
+        }
+
+    }
+
 
 }
 

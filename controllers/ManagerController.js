@@ -102,10 +102,19 @@ class ManagerController {
                     req.session.employee = mongooseToObject(employee);
                     req.session.save(err => {
                         if (err) return err;
-                        res.json({
-                            loginSuccess: true,
-                            message: 'Đăng nhập thành công'
-                        });
+                        if (employee.role === "StationE") {
+                            res.json({
+                                loginSuccess: true,
+                                message: 'Đăng nhập thành công',
+                                stationE: 'yes'
+                            });
+                        } else {
+                            res.json({
+                                loginSuccess: true,
+                                message: 'Đăng nhập thành công',
+                            });
+                        }
+                        
                     });
                 });
             })
