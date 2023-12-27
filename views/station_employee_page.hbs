@@ -27,7 +27,7 @@
                             src="https://file.hstatic.net/200000472237/file/chang-ngai-bao-sale-giao-nhanh-toan-quoc_f4c19bba05e94310af0726772b7d6677.jpg"
                             alt="Image">
                         <div class="carousel-caption">
-                        
+
                         </div>
                     </div>
 
@@ -52,13 +52,18 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <button class="btn" id="btnOption1"><i class="fa fa-star"></i>{{numOfsStationPosts}} MÃ HÀNG ĐANG CHỜ CHUYỂN ĐẾN ĐIỂM TẬP
+            <button class="btn" id="btnOption1" onclick="window.location = '/create_order/create_station_to_wh'"><i
+                    class="fa fa-star"></i>{{numOfsStationPosts}} MÃ HÀNG ĐANG CHỜ CHUYỂN ĐẾN ĐIỂM TẬP
                 KẾT</button>
-            <button class="btn" id="btnOption2"><i class="fa fa-cloud"></i>{{numOfrStationPosts}} MÃ HÀNG ĐANG CHỜ GIAO ĐẾN NGƯỜI
+            <button class="btn" id="btnOption2"
+                onclick="window.location = '/create_order/create_station_to_receiver'"><i
+                    class="fa fa-cloud"></i>{{numOfrStationPosts}} MÃ HÀNG ĐANG CHỜ GIAO ĐẾN NGƯỜI
                 NHẬN</button>
-            <button class="btn" id="btnOption3"> <i class="fa fa-lightbulb-o"></i>{{numOfTorStationPosts}} MÃ HÀNG ĐANG TRUNG CHUYỂN
+            <button class="btn" id="btnOption3" onclick="window.location = '/confirm_order/confirm_from_wh_to_station'">
+                <i class="fa fa-lightbulb-o"></i>{{numOfTorStationPosts}} MÃ HÀNG ĐANG TRUNG CHUYỂN
                 ĐẾN</button>
-            <button class="btn" id="btnOption4"> <i class="fa fa-bolt"></i>{{numOfToReceiverPosts}} MÃ HÀNG ĐANG GIAO ĐẾN NGƯỜI NHẬN</button>
+            <button class="btn" id="btnOption4" onclick="window.location = '/confirm_order/confirm_station_receivers'">
+                <i class="fa fa-bolt"></i>{{numOfToReceiverPosts}} MÃ HÀNG ĐANG GIAO ĐẾN NGƯỜI NHẬN</button>
         </div>
     </div>
 </div>
