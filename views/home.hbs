@@ -36,6 +36,27 @@
 
     {{>home/headerHome}}
 
+    <script>
+
+        // Tạo một phần tử li mới
+        var newNavItem = document.createElement("li");
+        newNavItem.className = "nav-item";
+
+        // Tạo một phần tử a mới
+        var newNavLink = document.createElement("a");
+        newNavLink.className = "nav-link";
+        newNavLink.href = "#myMap";
+        newNavLink.textContent = "Bưu cục Magic Post";
+
+        // Thêm phần tử a vào phần tử li
+        newNavItem.appendChild(newNavLink);
+
+        // Lấy danh sách ul bằng id và thêm phần tử li mới vào
+        var navbarList = document.getElementById("myNavbar");
+        navbarList.appendChild(newNavItem);
+
+    </script>
+
     <div class="container" style="margin-top: 50px;">
         <div class="row">
             <div class="col-sm-8">
@@ -78,8 +99,10 @@
                 </div>
             </div>
             <div class="col-sm-4">
-                <button class="btn" id="btnOption1" onclick="window.open('/user_search_post')"><i class="fa fa-search"></i>TRA CỨU ĐƠN HÀNG</button>
-                <button class="btn" id="btnOption2"><i class="fa fa-cloud"></i>ĐĂNG KÝ SHOP | ĐĂNG NHẬP</button>
+                <button class="btn" id="btnOption1" onclick="window.open('/user_search_post')"><i
+                        class="fa fa-search"></i>TRA CỨU ĐƠN HÀNG</button>
+                {{!-- <button class="btn" id="btnOption2"><i class="fa fa-cloud"></i>ĐĂNG KÝ SHOP | ĐĂNG NHẬP</button>
+                --}}
                 <button class="btn" id="btnOption3"> <i class="glyphicon glyphicon-user"></i> ỨNG TUYỂN GIAO
                     HÀNG</button>
                 <button class="btn" id="btnOption4"> <i class="glyphicon glyphicon-user"></i> BẢNG GIÁ</button>
@@ -251,8 +274,7 @@
         </style>
     </section>
 
-
-    <div class="container text-center mymap" style="margin-top: 30px; background-color: #f0f0f0">
+    <div class="container text-center mymap" style="margin-top: 30px; background-color: #f0f0f0" id="myMap">
         <br> <br>
         <h3 class="titlemap">BƯU CỤC <span style="color: var(--orange-color);">MAGIC POST</span></h3>
         <br>
@@ -541,18 +563,20 @@
             </div>
         </div>
         <style>
-            .rowhappy{
+            .rowhappy {
                 margin-left: 50px;
                 margin-right: 50px;
-   
+
                 justify-content: space-evenly;
             }
+
             /* Style for the container */
             .container3 {
                 margin-top: 20px;
                 margin-bottom: 140px;
-                padding: 20px 0 45px; 
+                padding: 20px 0 45px;
             }
+
             .happy {
                 font-weight: bold;
                 font-size: 30px;
@@ -573,7 +597,7 @@
         </style>
     </div><br>
 
-    
+
 
     {{>home/footerHome}}
 
