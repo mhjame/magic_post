@@ -10,78 +10,87 @@ class EmployeeController {
 
 
     createShipStationToWarehouse(req, res, next) {
+        if (req.session.employee) {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-        Employee.findOne({ employeeId: "TN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+                    } else {
+                        Station.findOne({ id: employee.workPlaceId }).lean()
+                            .then((station) => {
+                                if (!station) {
+                                    res.status(404).send({ message: 'Station not found' });
+                                    return;
+                                }
+                                Warehouse.findOne({ id: station.warehouseId }).lean()
+                                    .then((warehouse) => {
+                                        if (!warehouse) {
+                                            res.status(404).send({ message: 'Warehouse not found' });
+                                            return;
+                                        }
 
-                } else {
-                    Station.findOne({ id: employee.workPlaceId }).lean()
-                        .then((station) => {
-                            if (!station) {
-                                res.status(404).send({ message: 'Station not found' });
-                                return;
-                            }
-                            Warehouse.findOne({ id: station.warehouseId }).lean()
-                                .then((warehouse) => {
-                                    if (!warehouse) {
-                                        res.status(404).send({ message: 'Warehouse not found' });
-                                        return;
-                                    }
-
-                                    Post.find({ senderStationId: station.id, status: 'at sStation' }).lean()
-                                        .then((posts) => {
-                                            res.render('create_order/create_station_to_wh', {
-                                                employee: employee,
-                                                workPlace: station,
-                                                desWarehouse: warehouse,
-                                                posts: posts
-                                            });
-                                        })
-
-
-                                })
+                                        Post.find({ senderStationId: station.id, status: 'at sStation' }).lean()
+                                            .then((posts) => {
+                                                res.render('create_order/create_station_to_wh', {
+                                                    employee: employee,
+                                                    workPlace: station,
+                                                    desWarehouse: warehouse,
+                                                    posts: posts,
+                                                    noHeader: 'yes'
+                                                });
+                                            })
 
 
-                        })
-                }
+                                    })
 
-            })
-            .catch(next);
+
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     createStationToWhOrderForm(req, res, next) {
-        const employeeId = req.body.employeeId;
-        const employeeName = req.body.employeeName;
-        const senderStationId = req.body.senderStationId;
-        const senderStationName = req.body.senderStationName;
-        const senderWarehouseId = req.body.senderWarehouseId;
-        const senderWarehouseName = req.body.senderWarehouseName;
-        const postIds = req.body.postIds;
-        let postIdsLength = 1;
-        let isArray = false;
-        const containerCode = senderStationId + senderWarehouseId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
-        console.log(Date.now().toString().slice(-5));
-        console.log(Math.random().toString(16).slice(-7));
-        if (Array.isArray(postIds)) {
-            postIdsLength = postIds.length;
-            isArray = true;
-        }
+        if (req.session.employee) {
+            const employeeId = req.body.employeeId;
+            const employeeName = req.body.employeeName;
+            const senderStationId = req.body.senderStationId;
+            const senderStationName = req.body.senderStationName;
+            const senderWarehouseId = req.body.senderWarehouseId;
+            const senderWarehouseName = req.body.senderWarehouseName;
+            const postIds = req.body.postIds;
+            let postIdsLength = 1;
+            let isArray = false;
+            const containerCode = senderStationId + senderWarehouseId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+            console.log(Date.now().toString().slice(-5));
+            console.log(Math.random().toString(16).slice(-7));
+            if (Array.isArray(postIds)) {
+                postIdsLength = postIds.length;
+                isArray = true;
+            }
 
-        res.render('create_order/create_station_to_wh_order_form', {
-            employeeId,
-            employeeName,
-            senderStationId,
-            senderStationName,
-            senderWarehouseId,
-            senderWarehouseName,
-            postIds,
-            postIdsLength,
-            containerCode,
-            isArray
-        });
+            res.render('create_order/create_station_to_wh_order_form', {
+                employeeId,
+                employeeName,
+                senderStationId,
+                senderStationName,
+                senderWarehouseId,
+                senderWarehouseName,
+                postIds,
+                postIdsLength,
+                containerCode,
+                isArray,
+                noHeader: 'yes'
+            });
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
 
     }
 
@@ -441,62 +450,73 @@ class EmployeeController {
     }
 
     createShipStationToReceiver(req, res, next) {
+        if (req.session.employee) {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
+                    } else {
+                        Station.findOne({ id: employee.workPlaceId }).lean()
+                            .then((station) => {
+                                if (!station) {
+                                    res.status(404).send({ message: 'Station not found' });
+                                    return;
+                                }
+                                console.log(station.id)
+                                Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean()
+                                    .then((posts) => {
+                                        Warehouse.findOne({ id: station.warehouseId }).lean().then((warehouse) => {
+                                            res.render('create_order/create_station_to_receiver', {
+                                                employee,
+                                                workPlace: station,
+                                                desWarehouse: warehouse,
+                                                posts: posts,
+                                                noHeader: 'yes'
+                                            });
+                                        })
+                                    })
+                            })
+                    }
 
-        Employee.findOne({ employeeId: "HN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
-                } else {
-                    Station.findOne({ id: employee.workPlaceId }).lean()
-                        .then((station) => {
-                            if (!station) {
-                                res.status(404).send({ message: 'Station not found' });
-                                return;
-                            }
-                            console.log(station.id)
-                            Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean()
-                                .then((posts) => {
-                                    res.render('create_order/create_station_to_receiver', {
-                                        employee,
-                                        workPlace: station,
-                                        posts: posts
-                                    });
-                                })
-                        })
-                }
-
-            })
-            .catch(next);
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     createStationToReceiverOrderForm(req, res, next) {
-        const employeeId = req.body.employeeId;
-        const employeeName = req.body.employeeName;
-        const receiverStationId = req.body.receiverStationId;
-        const receiverStationName = req.body.receiverStationName;
-        const postIds = req.body.postIds;
-        let postIdsLength = 1;
-        let isArray = false;
-        const containerCode = receiverStationId + 'rcv' + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
-        console.log(Date.now().toString().slice(-5));
-        console.log(Math.random().toString(16).slice(-7));
-        if (Array.isArray(postIds)) {
-            postIdsLength = postIds.length;
-            isArray = true;
+        if (req.session.employee) {
+            const employeeId = req.body.employeeId;
+            const employeeName = req.body.employeeName;
+            const receiverStationId = req.body.receiverStationId;
+            const receiverStationName = req.body.receiverStationName;
+            const postIds = req.body.postIds;
+            let postIdsLength = 1;
+            let isArray = false;
+            const containerCode = receiverStationId + 'rcv' + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+            console.log(Date.now().toString().slice(-5));
+            console.log(Math.random().toString(16).slice(-7));
+            if (Array.isArray(postIds)) {
+                postIdsLength = postIds.length;
+                isArray = true;
+            }
+
+            res.render('create_order/create_station_to_receiver_order_form', {
+                employeeId,
+                employeeName,
+                receiverStationId,
+                receiverStationName,
+                postIds,
+                postIdsLength,
+                containerCode,
+                isArray,
+                noHeader: 'yes'
+            });
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
         }
-
-        res.render('create_order/create_station_to_receiver_order_form', {
-            employeeId,
-            employeeName,
-            receiverStationId,
-            receiverStationName,
-            postIds,
-            postIdsLength,
-            containerCode,
-            isArray
-        });
-
     }
 
     postShipStationToReceiverOrder(req, res, next) {
@@ -1258,12 +1278,12 @@ class EmployeeController {
     getStationEmployeePage(req, res, next) {
         try {
             const employee = req.session.employee;
-            let numOfsStationPosts = 0; 
-            let numOfrStationPosts = 0; 
-            let numOfTorStationPosts = 0; 
+            let numOfsStationPosts = 0;
+            let numOfrStationPosts = 0;
+            let numOfTorStationPosts = 0;
             let numOfToReceiverPosts = 0;
             console.log(req.session.employee);
-            if (employee) {
+            if (employee && employee.role === 'StationE') {
 
                 Station.findOne({ id: employee.workPlaceId }).lean().then((station) => {
                     Post.find({ senderStationId: station.id, status: 'at sStation' }).lean().then((posts1) => {
@@ -1273,7 +1293,7 @@ class EmployeeController {
                                 count++;
                             }
                             numOfsStationPosts = count;
-                        } 
+                        }
                         console.log(numOfsStationPosts);
                         Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean().then((posts2) => {
                             if (posts2) {
@@ -1282,7 +1302,7 @@ class EmployeeController {
                                     count++;
                                 }
                                 numOfrStationPosts = count;
-                            } 
+                            }
                             console.log(numOfrStationPosts);
                             Post.find({ receiverStationId: station.id, status: 'on way to rStation' }).lean().then((posts3) => {
                                 if (posts1) {
@@ -1291,7 +1311,7 @@ class EmployeeController {
                                         count++;
                                     }
                                     numOfTorStationPosts = count;
-                                } 
+                                }
                                 console.log(numOfTorStationPosts);
                                 Post.find({ receiverStationId: station.id, status: 'on way to receiver' }).lean().then((posts4) => {
                                     if (posts4) {
@@ -1300,13 +1320,13 @@ class EmployeeController {
                                             count++;
                                         }
                                         numOfToReceiverPosts = count;
-                                    } 
+                                    }
                                     console.log(numOfToReceiverPosts);
-                                    Warehouse.findOne({id: station.warehouseId}).lean().then((warehouse) => {
+                                    Warehouse.findOne({ id: station.warehouseId }).lean().then((warehouse) => {
                                         res.render('station_employee_page', {
                                             employee,
-                                            station,
-                                            warehouse,
+                                            workPlace: station,
+                                            desWarehouse: warehouse,
                                             numOfsStationPosts,
                                             numOfrStationPosts,
                                             numOfTorStationPosts,
