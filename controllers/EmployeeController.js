@@ -692,11 +692,17 @@ class EmployeeController {
                 container.status = 'received';
                 container.timeReceived = new Date();
                 container.save();
-                res.redirect(200, '/confirm_order/confirm_from_wh_to_station');
+                res.json({
+                    noPostLeft: 'yes',
+                    message: 'Tất cả các mã hàng trong lô đã được xác nhận thành công'
+                })
 
             } else {
                 container.save();
-                res.redirect(200, '/confirm_order/' + containerCode + '/confirm_each_order_wh_station');
+                res.json({
+                    noPostLeft: 'no',
+                    message: 'Xác nhận thành công'
+                })
             }
 
         }).catch(next);
@@ -838,7 +844,6 @@ class EmployeeController {
     postConfirmPostsWarehouseToWarehouse(req, res, next) {
         const postIds = req.body.postIds;
         const containerCode = req.body.containerCode;
-        const originWarehouseId = req.body.originWarehouseId;
         let postIdsLength;
 
         console.log(req.body);
@@ -880,11 +885,17 @@ class EmployeeController {
                 container.status = 'received';
                 container.timeReceived = new Date();
                 container.save();
-                res.redirect(200, '/confirm_order/' + originWarehouseId + '/confirm_wh_wh');
+                res.json({
+                    noPostLeft: 'yes',
+                    message: 'Tất cả các mã hàng trong lô đã được xác nhận thành công'
+                })
 
             } else {
                 container.save();
-                res.redirect(200, '/confirm_order/' + originWarehouseId + '/' + containerCode + '/confirm_each_order_wh_wh');
+                res.json({
+                    noPostLeft: 'no',
+                    message: 'Xác nhận thành công'
+                })
             }
 
         }).catch(next);
@@ -1024,7 +1035,6 @@ class EmployeeController {
     postConfirmPostsStationToWarehouse(req, res, next) {
         const postIds = req.body.postIds;
         const containerCode = req.body.containerCode;
-        const originStationId = req.body.originStationId;
         let postIdsLength;
 
         console.log(req.body);
@@ -1066,11 +1076,17 @@ class EmployeeController {
                 container.status = 'received';
                 container.timeReceived = new Date();
                 container.save();
-                res.redirect(200, '/confirm_order/' + originStationId + '/confirm_station_wh');
+                res.json({
+                    noPostLeft: 'yes',
+                    message: 'Tất cả các mã hàng trong lô đã được xác nhận thành công'
+                })
 
             } else {
                 container.save();
-                res.redirect(200, '/confirm_order/' + originStationId + '/' + containerCode + '/confirm_each_order_station_wh');
+                res.json({
+                    noPostLeft: 'no',
+                    message: 'Xác nhận thành công'
+                })
             }
 
         }).catch(next);
@@ -1223,11 +1239,17 @@ class EmployeeController {
                 container.status = 'received';
                 container.timeReceived = new Date();
                 container.save();
-                res.redirect(200, '/confirm_order/confirm_station_receivers');
+                res.json({
+                    noPostLeft: 'yes',
+                    message: 'Tất cả các mã hàng trong lô đã được xác nhận tình trạng giao hàng thành công'
+                })
 
             } else {
                 container.save();
-                res.redirect(200, '/confirm_order/' + containerCode + '/confirm_each_order_station_receivers');
+                res.json({
+                    noPostLeft: 'no',
+                    message: 'Xác nhận tình trạng giao hàng thành công'
+                })
             }
 
         }).catch(next);

@@ -109,10 +109,47 @@
     const numOfPosts = document.querySelector('#numOfPosts');
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
     const tableBodyRows = document.querySelectorAll('tbody tr');
+    const dataForm = document.getElementById('confirm-posts-station-wh-form');
+    const containerCode = dataForm.querySelector("input[name='containerCode']").value;
+    const originStationId = dataForm.querySelector("input[name='originStationId']").value;
     let checkedCount;
 
     btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('confirm-posts-station-wh-form').submit();
+        const postIdsElements = dataForm.querySelectorAll("input[name='postIds']:checked");
+        const postIds = [];
+        for (const element of postIdsElements) {
+            postIds.push(element.value);
+        }
+        fetch("/stored/confirm_posts_station_wh", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                containerCode,
+                postIds
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Xác nhận thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                if (data.noPostLeft === 'yes') {
+                    window.location = '/confirm_order/' + originStationId + '/confirm_station_wh';
+                } else {
+                    location.reload();
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     });
 
     for (const row of tableBodyRows) {
