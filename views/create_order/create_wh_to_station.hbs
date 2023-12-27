@@ -22,7 +22,8 @@
 
 
 <div class="container mt-5 px-2">
-    <form id="create-wh-to-station-form" action="/create_order/{{desStation.id}}/create_wh_to_station_order_form" method="post">
+    <form id="create-wh-to-station-form" action="/create_order/{{desStation.id}}/create_wh_to_station_order_form"
+        method="post">
         <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
         <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
         <input type="hidden" name="receiverWarehouseId" value="{{workPlace.id}}">
@@ -45,7 +46,8 @@
                         <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
                         <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
                         <th class="border-0 text-center" scope="col" width="19%"><label
-                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Thêm vào lô hàng</label></th>
+                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Thêm vào
+                                lô hàng</label></th>
                     </tr>
                 </thead>
 
@@ -77,9 +79,11 @@
         </div>
     </form>
     {{#if posts}}
-    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto" disabled>Tạo đơn</button>
+    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
+        disabled>Tạo đơn</button>
     {{else}}
-    <button id="return-button" type="button" class="btn btn-secondary fw-bold mt-4 d-grid gap-2 col-4 mx-auto" onclick="window.location.href='/create_order/get_des_stations'">Chọn điểm giao dịch khác</button>
+    <button id="return-button" type="button" class="btn btn-secondary fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
+        onclick="window.location.href='/create_order/get_des_stations'">Chọn điểm giao dịch khác</button>
     {{/if}}
 </div>
 
@@ -94,9 +98,11 @@
     const tableBodyRows = document.querySelectorAll('tbody tr');
     let checkedCount;
 
-    submitButton.addEventListener('click', () => {
-        document.getElementById('create-wh-to-station-form').submit();
-    });
+    if (submitButton) {
+        submitButton.addEventListener('click', () => {
+            document.getElementById('create-wh-to-station-form').submit();
+        });
+    }
 
     for (const row of tableBodyRows) {
         const postStatus = row.querySelector('.post-status');

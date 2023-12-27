@@ -77,8 +77,8 @@
                     Điểm tập kết gửi lô hàng
                 </label>
 
-                <input class="readonly" type="text" id="workPlace" value="{{senderWarehouseId}} - {{senderWarehouseName}}"
-                    readonly />
+                <input class="readonly" type="text" id="workPlace"
+                    value="{{senderWarehouseId}} - {{senderWarehouseName}}" readonly />
 
                 <input type="hidden" name="senderAddressId" value="{{senderWarehouseId}}">
             </div>
@@ -165,8 +165,50 @@
 
 <script>
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
+
+    const dataForm = document.getElementById('warehouse-to-warehouse-order-form');
+    const employeeId = dataForm.querySelector("input[name='employeeId']").value;
+    const typeOfOrder = dataForm.querySelector("input[name='typeOfOrder']").value;
+    const senderAddressId = dataForm.querySelector("input[name='senderAddressId']").value;
+    const receiverAddressId = dataForm.querySelector("input[name='receiverAddressId']").value;
+    const containerCode = dataForm.querySelector("input[name='containerCode']").value;
+    const postIdsElements = dataForm.querySelectorAll("input[name='postIds']");
+    const postIds = [];
+    for (const element of postIdsElements) {
+        postIds.push(element.value);
+    }
+
     btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('warehouse-to-warehouse-order-form').submit();
+        fetch("/stored/create_wh_to_wh_order", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                employeeId,
+                typeOfOrder,
+                senderAddressId,
+                receiverAddressId,
+                postIds,
+                containerCode
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Tạo đơn thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                window.location = "/create_order/" + receiverAddressId + "/create_wh_to_wh";
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     });
 
 </script>

@@ -55,7 +55,7 @@
                         <td>{{this.receiverAddress}}</td>
                         <td>
                             <span class="post-status" data-status="{{this.status}}">
-                                
+
                             </span>
                         </td>
                         <td>
@@ -116,10 +116,52 @@
     const numOfPosts = document.querySelector('#numOfPosts');
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
     const tableBodyRows = document.querySelectorAll('tbody tr');
+    const dataForm = document.getElementById('confirm-posts-station-receivers-form');
+    const containerCode = dataForm.querySelector("input[name='containerCode']").value;
     let checkedCount;
 
     btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('confirm-posts-station-receivers-form').submit();
+        const receivedPostIdsElements = dataForm.querySelectorAll("input[name='receivedPostIds']:checked");
+        const failedPostIdsElements = dataForm.querySelectorAll("input[name='failedPostIds']:checked");
+        const receivedPostIds = [];
+        const failedPostIds = [];
+        for (const element of receivedPostIdsElements) {
+            receivedPostIds.push(element.value);
+        }
+        for (const element of failedPostIdsElements) {
+            failedPostIds.push(element.value);
+        }
+        fetch("/stored/confirm_posts_station_receivers", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                containerCode,
+                receivedPostIds,
+                failedPostIds
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Xác nhận thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                if (data.noPostLeft === 'yes') {
+                    window.location = "/confirm_order/confirm_station_receivers";
+                } else {
+                    location.reload();
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     });
 
     for (const row of tableBodyRows) {
