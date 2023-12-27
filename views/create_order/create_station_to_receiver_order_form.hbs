@@ -155,9 +155,52 @@
 
 
 <script>
+
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
+
+    const dataForm = document.getElementById('station-to-receiver-order-form');
+    const employeeId = dataForm.querySelector("input[name='employeeId']").value;
+    const typeOfOrder = dataForm.querySelector("input[name='typeOfOrder']").value;
+    const senderAddressId = dataForm.querySelector("input[name='senderAddressId']").value;
+    const receiverAddressId = dataForm.querySelector("input[name='receiverAddressId']").value;
+    const containerCode = dataForm.querySelector("input[name='containerCode']").value;
+    const postIdsElements = dataForm.querySelectorAll("input[name='postIds']");
+    const postIds = [];
+    for (const element of postIdsElements) {
+        postIds.push(element.value);
+    }
+
     btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('station-to-receiver-order-form').submit();
+        fetch("/stored/create_station_to_receiver_order", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                employeeId,
+                typeOfOrder,
+                senderAddressId,
+                receiverAddressId,
+                postIds,
+                containerCode
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Tạo đơn thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                window.location = "/create_order/create_station_to_receiver";
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     });
 
 </script>
