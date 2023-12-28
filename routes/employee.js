@@ -43,6 +43,7 @@ router.get('/confirm_order/:containerCode/confirm_each_order_station_receivers',
 router.post('/stored/confirm_posts_station_receivers', employeeController.postConfirmPostsStationToReceivers); 
 
 router.get('/station_employee_page', employeeController.getStationEmployeePage);
+router.get('/warehouse_employee_page', employeeController.getWarehouseEmployeePage);
 router.post('/logout', employeeController.logout);
 
 module.exports = router;

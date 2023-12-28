@@ -1404,6 +1404,79 @@ class EmployeeController {
         })
     }
 
+    getWarehouseEmployeePage(req, res, next) {
+        try {
+            const employee = req.session.employee;
+            let numOfsWarehousePosts = 0;
+            let numOfrWarehousePosts = 0;
+            let numOfTorWarehousePosts = 0;
+            let numOfTosWarehousePosts = 0;
+            console.log(req.session.employee);
+            if (employee && employee.role === 'WarehouseE') {
+
+                Warehouse.findOne({ id: employee.workPlaceId }).lean().then((warehouse) => {
+                    Post.find({ senderWarehouseId: warehouse.id, status: 'at sWarehouse' }).lean().then((posts1) => {
+                        if (posts1) {
+                            let count = 0;
+                            for (const post of posts1) {
+                                count++;
+                            }
+                            numOfsWarehousePosts = count;
+                        }
+                        console.log(numOfsWarehousePosts);
+                        Post.find({ receiverWarehouseId: warehouse.id, status: 'at rWarehouse' }).lean().then((posts2) => {
+                            if (posts2) {
+                                let count = 0;
+                                for (const post of posts2) {
+                                    count++;
+                                }
+                                numOfrWarehousePosts = count;
+                            }
+                            console.log(numOfrWarehousePosts);
+                            Post.find({ receiverWarehouseId: warehouse.id, status: 'on way to rWarehouse' }).lean().then((posts3) => {
+                                if (posts1) {
+                                    let count = 0;
+                                    for (const post of posts3) {
+                                        count++;
+                                    }
+                                    numOfTorWarehousePosts = count;
+                                }
+                                console.log(numOfTorWarehousePosts);
+                                Post.find({ senderWarehouseId: warehouse.id, status: 'on way to sWarehouse' }).lean().then((posts4) => {
+                                    if (posts4) {
+                                        let count = 0;
+                                        for (const post of posts4) {
+                                            count++;
+                                        }
+                                        numOfTosWarehousePosts = count;
+                                    }
+                                    console.log(numOfTosWarehousePosts);
+
+                                    res.render('warehouse_employee_page', {
+                                        employee,
+                                        workPlace: warehouse,
+                                        numOfsWarehousePosts,
+                                        numOfrWarehousePosts,
+                                        numOfTorWarehousePosts,
+                                        numOfTosWarehousePosts,
+                                        noHeader: 'yes'
+                                    })
+
+                                })
+                            })
+                        })
+                    })
+                })
+            } else {
+                res.json('Bạn không có quyền truy cập chức năng này')
+            }
+
+        } catch (e) {
+            res.json('error')
+        }
+
+    }
+
 }
 
 module.exports = new EmployeeController;
