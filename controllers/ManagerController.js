@@ -90,46 +90,100 @@ class ManagerController {
 
     postLogin(req, res, next) {
         const formData = req.body;
-        // console.log(formData)
-        Employee.findOne(formData)
-            .then(employee => {
+    
+        // Create promises
+        const findEmployeePromise = Employee.findOne(formData).exec();
+    
+        console.log("formData", formData);
+    
+        // Use Promise.all with an array of promises
+        Promise.all([findEmployeePromise])
+            .then(([employee]) => {
                 if (!employee) {
-                    // console.log("success")
                     return res.json({
                         loginSuccess: false,
                         message: 'Tên đăng nhập hoặc mật khẩu không đúng'
                     });
                 }
-                // console.log("error"),
-                req.session.regenerate(err => {
-                    if (err) return err;
-                    req.session.employee = mongooseToObject(employee);
-                    req.session.save(err => {
-                        if (err) return err;
-                        if (employee.role === "StationE") {
-                            res.json({
-                                loginSuccess: true,
-                                message: 'Đăng nhập thành công',
-                                stationE: 'yes'
+    
+                Station.findOne({ address: employee.workAddress }).exec()
+                    .then(station => {
+                        console.log("employee:", employee);
+                        console.log("station", station);
+    
+                        req.session.regenerate(err => {
+                            if (err) return next(err);
+    
+                            req.session.employee = mongooseToObject(employee);
+                            req.session.station = mongooseToObject(station);
+    
+                            req.session.save(err => {
+                                if (err) return next(err);
+    
+                                let response = {
+                                    loginSuccess: true,
+                                    message: 'Đăng nhập thành công'
+                                };
+    
+                                if (employee.role === 'StationE') {
+                                    response.stationE = 'yes';
+                                } else if (employee.role === 'WarehouseE') {
+                                    response.warehouseE = 'yes';
+                                }
+    
+                                res.json(response);
                             });
-                        } else if (employee.role === "WarehouseE") {
-                            res.json({
-                                loginSuccess: true,
-                                message: 'Đăng nhập thành công',
-                                warehouseE: 'yes'
-                            });
-                        } else {
-                            res.json({
-                                loginSuccess: true,
-                                message: 'Đăng nhập thành công',
-                            });
-                        }
-
-                    });
-                });
+                        });
+                    })
+                    .catch(next);
             })
             .catch(next);
     }
+    
+    
+    // postLogin(req, res, next) {
+    //     const formData = req.body;
+    //     // console.log(formData)
+    //     Promise.all(Employee.findOne(formData), Station.findOne({address: formData.workAddress}))
+    //         .then(([employee, station]) => {
+    //             if (!employee) {
+    //                 // console.log("success")
+    //                 return res.json({
+    //                     loginSuccess: false,
+    //                     message: 'Tên đăng nhập hoặc mật khẩu không đúng'
+    //                 });
+    //             }
+    //             // console.log("error"),
+    //             req.session.regenerate(err => {
+    //                 if (err) return err;
+    //                 req.session.employee = mongooseToObject(employee);
+    //                 req.session.station = mongooseToObject(station);
+    //                 req.session.save(err => {
+    //                     if (err) return err;
+    //                     if (employee.role === "StationE") {
+    //                         res.json({
+    //                             loginSuccess: true,
+    //                             message: 'Đăng nhập thành công',
+    //                             stationE: 'yes'
+    //                         });
+    //                     } else if (employee.role === "WarehouseE") {
+    //                         res.json({
+    //                             loginSuccess: true,
+    //                             message: 'Đăng nhập thành công',
+    //                             warehouseE: 'yes'
+    //                         });
+    //                     } else {
+    //                         res.json({
+    //                             loginSuccess: true,
+    //                             message: 'Đăng nhập thành công',
+    //                         });
+    //                     }
+
+    //                 });
+    //             });
+    //         })
+    //         .catch(next);
+    // }
 
     getHome(req, res) {
         Employee.findOne({ _id: '65599ec015476e96d3c953ff' })
@@ -165,6 +219,7 @@ class ManagerController {
     getRegister(req, res) {
         res.render('register', {
             employee: req.session.employee,
+            station: req.session.station,
         });
     }
 
@@ -215,6 +270,7 @@ class ManagerController {
     getProfile(req, res) {
         res.render('profile/view', {
             employee: req.session.employee,
+            station: req.session.station,
         });
         // console.log(req.session.employee)
     }
@@ -227,6 +283,7 @@ class ManagerController {
                 res.render('supervisor/viewEmployeeProfile', {
                     employee: req.session.employee,
                     employee2: employee2,
+                    station: req.session.station,
                 })
             })
             .catch(next)
@@ -255,6 +312,7 @@ class ManagerController {
 
                             res.render('supervisor/humanResource', {
                                 employee: req.session.employee,
+                                station: req.session.station,
                                 deleteCount,
                                 employees: multipleMongooseToObject(employees)
                             })
@@ -271,6 +329,7 @@ class ManagerController {
 
                             res.render('supervisor/humanResource', {
                                 employee: req.session.employee,
+                                station: req.session.station,
                                 deleteCount,
                                 employees: multipleMongooseToObject(employees)
                             })
@@ -287,6 +346,7 @@ class ManagerController {
 
                             res.render('supervisor/humanResource', {
                                 employee: req.session.employee,
+                                station: req.session.station,
                                 deleteCount,
                                 employees: multipleMongooseToObject(employees)
                             })
@@ -311,6 +371,7 @@ class ManagerController {
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
                             employee: req.session.employee,
+                            station: req.session.station,
                             employees: multipleMongooseToObject(employees),
                         }),
                     )
@@ -320,6 +381,7 @@ class ManagerController {
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
                             employee: req.session.employee,
+                            station: req.session.station,
                             employees: multipleMongooseToObject(employees),
                         }),
                     )
@@ -330,6 +392,7 @@ class ManagerController {
                     .then((employees) =>
                         res.render('supervisor/oldHR', {
                             employee: req.session.employee,
+                            station: req.session.station,
                             employees: multipleMongooseToObject(employees),
                         }),
                     )
