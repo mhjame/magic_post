@@ -262,6 +262,10 @@
             }
         </style>
         <script>
+            document.getElementById('btnAll').addEventListener('click', function (event) {
+                const url = `/statistic_manager`;
+                window.location.href = url;
+            });
             document.getElementById('showPopup1').addEventListener('click', function (event) {
                 showPopup1();
             });
