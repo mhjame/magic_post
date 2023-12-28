@@ -1,0 +1,337 @@
+<div>
+    <div class="button-container" id="button-container">
+    <button class="button" type="submit" onclick="submitWithwarehouseCode1('{{warehouseCode}}')">Trong ngày</button>
+    <button class="button" type="submit" onclick="submitWithwarehouseCode2('{{warehouseCode}}')">Trong tuần</button>
+    <button class="button" type="submit" onclick="submitWithwarehouseCode3('{{warehouseCode}}')">Trong tháng</button>
+    <button class="button" type="submit" onclick="submitWithwarehouseCode4('{{warehouseCode}}')">Trong năm</button>
+    <script>
+    function submitWithwarehouseCode1(warehouseCode) {
+        const url = `/satistic_manager_warehouse/daily/${warehouseCode}`;
+        window.location.href = url;
+    }
+    function submitWithwarehouseCode2(warehouseCode) {
+        const url = `/satistic_manager_warehouse/week/${warehouseCode}`;
+        window.location.href = url;
+    }
+    function submitWithwarehouseCode3(warehouseCode) {
+        const url = `/satistic_manager_warehouse/month/${warehouseCode}`;
+        window.location.href = url;
+    }
+    function submitWithwarehouseCode4(warehouseCode) {
+        const url = `/satistic_manager_warehouse/year/${warehouseCode}`;
+        window.location.href = url;
+    }
+
+</script>
+    <style>
+        .header {
+
+            font-family: inherit;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #button-container {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+        #button-container .button {
+            padding: 8px 30px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        #button-container .button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</div>
+
+
+<div class="container-fluid">
+
+    <div id="titlecode">
+        <h2 class="mb-5 text-black text-uppercase text-muted" style="margin: 15px; font-size: 24px">{{title}}</h2>
+        <h2 class="mb-5 text-black text-uppercase text-muted" style="margin: 15px; font-size: 24px">MÃ ĐIỂM TẬP KẾT: {{warehouseCode}}</h2>
+            
+    </div>
+    <style>
+        #titlecode {
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
+
+    <div class="header-body">
+        <div class="row" id="roww">
+            <div class="col-xl-1 col-lg-6" id="roww1">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Số lượng bưu kiện gửi</h5>
+                                <span class="h2 font-weight-bold mb-0">{{#if dailyInCount }}
+                                                                            {{dailyInCount}}
+                                                                        {{else}}
+                                                                            {{#if weekInCount }}
+                                                                                {{weekInCount}}
+                                                                            {{else}}
+                                                                                {{#if monthInCount }}
+                                                                                    {{monthInCount}}
+                                                                                {{else}}
+                                                                                    {{#if yearInCount }}
+                                                                                        {{yearInCount}}
+                                                                                    {{else}}
+                                                                                        
+                                                                                    {{/if}}
+                                                                                {{/if}}
+                                                                            {{/if}}
+                                                                        {{/if}}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                            <span class="text-nowrap">Since last month</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-1 col-lg-6" id="roww2">
+                <div class="card card-stats mb-4 mb-xl-0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="card-title text-uppercase text-muted mb-0">Số hàng giao cho khách</h5>
+                                <span class="h2 font-weight-bold mb-0">{{#if dailyInCount }}
+                                                                            {{dailyOutCount}}
+                                                                        {{else}}
+                                                                            {{#if weekInCount }}
+                                                                                {{weekOutCount}}
+                                                                            {{else}}
+                                                                                {{#if monthInCount }}
+                                                                                    {{monthOutCount}}
+                                                                                {{else}}
+                                                                                    {{#if yearInCount }}
+                                                                                        {{yearOutCount}}
+                                                                                    {{else}}
+                                                                                        
+                                                                                    {{/if}}
+                                                                                {{/if}}
+                                                                            {{/if}}
+                                                                        {{/if}}</span>
+                            </div>
+                            <div class="col-auto">
+                                <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                            <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                            <span class="text-nowrap">Since last week</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    h2,
+    h5,
+    .h2,
+    .h5 {
+        font-family: inherit;
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: .5rem;
+        color: #32325d;
+    }
+
+    h5,
+    .h5 {
+        font-size: .8125rem;
+    }
+
+    @media (min-width: 992px) {
+
+        .col-lg-6 {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+    }
+
+    @media (min-width: 1200px) {
+
+        .col-xl-3 {
+            max-width: 25%;
+            flex: 0 0 25%;
+        }
+
+        .col-xl-6 {
+            max-width: 50%;
+            flex: 0 0 50%;
+        }
+    }
+
+
+    .bg-danger {
+        background-color: #f5365c !important;
+    }
+
+
+
+    @media (min-width: 1200px) {
+
+        .justify-content-xl-between {
+            justify-content: space-between !important;
+        }
+    }
+
+
+    .pt-5 {
+        padding-top: 3rem !important;
+    }
+
+    .pb-8 {
+        padding-bottom: 8rem !important;
+    }
+
+    @media (min-width: 768px) {
+
+        .pt-md-8 {
+            padding-top: 8rem !important;
+        }
+    }
+
+    @media (min-width: 1200px) {
+
+        .mb-xl-0 {
+            margin-bottom: 0 !important;
+        }
+    }
+
+
+
+
+    .font-weight-bold {
+        font-weight: 600 !important;
+    }
+
+
+    a.text-success:hover,
+    a.text-success:focus {
+        color: #24a46d !important;
+    }
+
+    .text-warning {
+        color: #fb6340 !important;
+    }
+
+    a.text-warning:hover,
+    a.text-warning:focus {
+        color: #fa3a0e !important;
+    }
+
+    .text-danger {
+        color: #f5365c !important;
+    }
+
+    a.text-danger:hover,
+    a.text-danger:focus {
+        color: #ec0c38 !important;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    a.text-white:hover,
+    a.text-white:focus {
+        color: #e6e6e6 !important;
+    }
+
+    .text-muted {
+        color: #8898aa !important;
+    }
+
+    @media print {
+
+        *,
+        *::before,
+        *::after {
+            box-shadow: none !important;
+            text-shadow: none !important;
+        }
+
+        a:not(.btn) {
+            text-decoration: underline;
+        }
+
+        p,
+        h2 {
+            orphans: 3;
+            widows: 3;
+        }
+
+        h2 {
+            page-break-after: avoid;
+        }
+
+        @ page {
+            size: a3;
+        }
+
+        body {
+            min-width: 992px !important;
+        }
+    }
+
+    figcaption,
+    main {
+        display: block;
+    }
+
+    main {
+        overflow: hidden;
+    }
+
+    .bg-yellow {
+        background-color: #ffd600 !important;
+    }
+
+    .icon {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .icon i {
+        font-size: 2.25rem;
+    }
+
+    .icon-shape {
+        display: inline-flex;
+        padding: 12px;
+        text-align: center;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+ 
+</div>

@@ -15,6 +15,7 @@ const Employee = new Schema({
     email: { type: String, default: '' },
     phoneNumber: { type: String, default: '' },
     address: {type: String},
+    workstationCode: {type: String},
     workAddress: {type: String},
     resetToken: {type: String, default: ''},
     resetTokenExpiration: {type: Date, default: 0},

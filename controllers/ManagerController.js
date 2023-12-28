@@ -12,6 +12,10 @@ class ManagerController {
         res.render('login');
     }
 
+    getLogout(req, res) {
+        res.render('home')
+    }
+
     getMaps(req, res) {
         res.render('map');
     }

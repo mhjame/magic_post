@@ -119,6 +119,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const managerRouter = require('./routes/manager');
 app.use(managerRouter);
 
+const statisticRouter = require('./routes/statistic');
+app.use(statisticRouter);
+
 const userRouter = require('./routes/user');
 app.use(userRouter);
 

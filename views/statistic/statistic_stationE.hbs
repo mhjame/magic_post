@@ -1,0 +1,239 @@
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+    :root {
+        --blue-color: #174a8c;
+        --orange-color: #ef6030;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<body class="bg-default">
+    <div class="main-content">
+
+    </div>
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+
+        <div class="header">
+            <h1 style="padding: 10px; font-size: 30px;  font-weight: bold;">{{{title}}}</h1>
+            <div class="button-container">
+                <button class="button" onclick="submitWithStationCode1('{{employeeId}}')">Trong ngày</button>
+                <button class="button" onclick="submitWithStationCode2('{{employeeId}}')">Trong tuần</button>
+                <button class="button" onclick="submitWithStationCode3('{{employeeId}}')">Trong tháng</button>
+                <button class="button" onclick="submitWithStationCode4('{{employeeId}}')">Trong tháng</button>
+            </div>
+            <style>
+                .header {
+
+                    font-family: inherit;
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                }
+
+                .button-container {
+                    margin-bottom: 25px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .button {
+                    padding: 10px 30px;
+                    margin: 5px;
+                    font-size: 16px;
+                    background-color: #3498db;
+                    color: #fff;
+                    border: none;
+                    border-radius: 25px;
+                    cursor: pointer;
+                }
+
+                .button:hover {
+                    background-color: #2980b9;
+                }
+            </style>
+                <script>
+    function submitWithStationCode1(employeeId) {
+        const url = `/statistic_stationE/daily/${employeeId}`;
+        window.location.href = url;
+    }
+    function submitWithStationCode2(employeeId) {
+        const url = `/statistic_stationE/week/${employeeId}`;
+        window.location.href = url;
+    }
+    function submitWithStationCode3(employeeId) {
+        const url = `/statistic_stationE/month/${employeeId}`;
+        window.location.href = url;
+    }
+    function submitWithStationCode4(employeeId) {
+        const url = `/statistic_stationE/year/${employeeId}`;
+        window.location.href = url;
+    }
+
+</script>
+        </div>
+
+        <div class="chartStatt">
+            <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+            <script>
+                $(document).ready(function () {
+                    var ctx = $("#chart-line");
+                    var myLineChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ["Giao hàng thành công", "Không giao thành công"],
+                            datasets: [{ 
+                                                                        {{#if (eq code 1) }}
+                                                                            data: [{{ postSuccess }}, {{ postFail }}],
+                                                                        {{else}}
+                                                                            {{#if (eq code 2) }}
+                                                                                data: [{{ postSuccess }}, {{ postFail }}],
+                                                                            {{else}}
+                                                                                {{#if (eq code 3) }}
+                                                                                    data: [{{ postSuccess }}, {{ postFail }}],
+                                                                                {{else}}
+                                                                                    {{#if (eq code 4) }}
+                                                                                        data: [{{ postSuccess }}, {{ postFail }}],
+                                                                                    {{else}}
+                                                                                        data: [],
+                                                                                    {{/if}}
+                                                                                {{/if}}
+                                                                            {{/if}}
+                                                                        {{/if}}
+                            backgroundColor: ["rgba(255, 0, 0, 0.5)", "rgba(100, 255, 0, 0.5)"]
+        }]
+            },
+                    options: {
+                    title: {
+                        display: true,
+                        text: 'Thống kê '
+                    }
+                }
+        });
+    });
+            </script>
+            <div class="page-content page-container mx-auto" id="page-content">
+                <div class="padding">
+                    <div class="row">
+                        <div class="container-fluid d-flex justify-content-center mx-auto">
+                            <div class="col-sm-8 col-md-6">
+                                <div class="card">
+                                    <div class="card-header">Đơn hàng</div>
+                                    <div class="card-body" style="height: 420px">
+                                        <div class="chartjs-size-monitor"
+                                            style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                            <div class="chartjs-size-monitor-expand"
+                                                style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                <div
+                                                    style="position:absolute;width:1000000px;height:1000000px;left:0;top:0">
+                                                </div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink"
+                                                style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                                <div style="position:absolute;width:200%;height:200%;left:0; top:0">
+                                                </div>
+                                            </div>
+                                        </div> <canvas id="chart-line" width="299" height="200"
+                                            class="chartjs-render-monitor"
+                                            style="display: block; width: 299px; height: 200px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <style>
+                body {
+
+                    background-color: #f9f9fa
+                }
+
+                .flex {
+                    -webkit-box-flex: 1;
+                    -ms-flex: 1 1 auto;
+                    flex: 1 1 auto
+                }
+
+                @media (max-width:991.98px) {
+                    .padding {
+                        padding: 1.5rem
+                    }
+                }
+
+                @media (max-width:767.98px) {
+                    .padding {
+                        padding: 1rem
+                    }
+                }
+
+                .padding {
+                    padding: 5rem
+                }
+
+                .card {
+                    background: #fff;
+                    border-width: 0;
+                    border-radius: .25rem;
+                    box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+                    margin-bottom: 1.5rem
+                }
+
+                .card {
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 0;
+                    word-wrap: break-word;
+                    background-color: #fff;
+                    background-clip: border-box;
+                    border: 1px solid rgba(19, 24, 44, .125);
+                    border-radius: .25rem
+                }
+
+                .card-header {
+                    padding: .75rem 1.25rem;
+                    margin-bottom: 0;
+                    background-color: rgba(19, 24, 44, .03);
+                    border-bottom: 1px solid rgba(19, 24, 44, .125)
+                }
+
+                .card-header:first-child {
+                    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+                }
+
+                card-footer,
+                .card-header {
+                    background-color: transparent;
+                    border-color: rgba(160, 175, 185, .15);
+                    background-clip: padding-box
+                }
+            </style>
+        </div>
+    </div>
+
+    <!-- Page content -->
+
+    </div>
+
+</body>

@@ -19,6 +19,7 @@ const Post = new Schema({
     senderStationId: {type: String},
     senderWarehouseId: {type: String},
     receiverStationId: {type: String},
+    receiverStationCode: {type: String},
     receiverWarehouseId: {type: String},
     convertedVolume:{type: Number},
     actualWeight: {type: Number},

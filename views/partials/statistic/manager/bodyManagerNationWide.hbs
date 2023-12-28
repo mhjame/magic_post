@@ -1,3 +1,50 @@
+<div>
+    <div id="button-container">
+    <form method="POST" action="/statistic_manager/daily">
+        <button class="button" type="submit">Trong ngày</button>
+    </form>
+    <form method="POST" action="/statistic_manager/week">
+        <button class="button" type="submit">Trong tuần</button>
+    </form>
+    <form method="POST" action="/statistic_manager/month">
+        <button class="button" type="submit">Trong tháng</button>
+    </form>
+    <form method="POST" action="/statistic_manager/year">
+        <button class="button" type="submit">Trong năm</button>
+    </form>
+    <style>
+        .header {
+
+            font-family: inherit;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #button-container {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+        }
+
+         #button-container .button {
+            padding: 8px 30px;
+            margin: 5px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+         #button-container .button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+
+</div>
+
 <div class="container-fluid">
 
     <h2 class="mb-5 text-black text-uppercase text-muted" style="margin: 15px; font-size: 24px">{{title}}</h2>

@@ -22,12 +22,7 @@ router.post('/forgotPassword', passwordController.postForgotPassword);
 router.get('/reset-password/:token', passwordController.getResetPassword)
 router.post('/reset-password/', passwordController.postResetPassword)
 
-// router.get('/statistic', statisticController.getPostStatisticsStation)
-router.get('/statistic_manager', statisticController.postStatisticManagerDailyNationWide)
-router.post('/statistic_manager/daily', statisticController.postStatisticManagerDailyNationWide)
-router.post('/statistic_manager/week', statisticController.postStatisticManagerWeekNationWide)
-router.post('/statistic_manager/month', statisticController.postStatisticManagerMonthNationWide)
-router.post('/statistic_manager/year', statisticController.postStatisticManagerYearNationWide)
+
 
 //map
 router.get('/map', managerController.getMaps)
