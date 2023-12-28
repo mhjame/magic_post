@@ -5,6 +5,7 @@ const Post = require('../models/Post');
 
 const { multipleMongooseToObject } = require('../util/mongoose');
 const { mongooseToObject } = require('../util/mongoose');
+const Warehouse = require('../models/Warehouse');
 
 class ManagerController {
 
@@ -106,16 +107,24 @@ class ManagerController {
                     });
                 }
     
-                Station.findOne({ address: employee.workAddress }).exec()
-                    .then(station => {
+                const findStationPromise = Station.findOne({ address: employee.workAddress }).exec();
+                const findWareHousePromise = Warehouse.findOne({ address: employee.workAddress }).exec();
+    
+                Promise.all([findStationPromise, findWareHousePromise])
+                    .then(([station, warehouse]) => {
                         console.log("employee:", employee);
                         console.log("station", station);
+                        console.log("warehouse", warehouse);
     
                         req.session.regenerate(err => {
                             if (err) return next(err);
     
                             req.session.employee = mongooseToObject(employee);
+                            // StationE', 'StationAd', 'WarehouseAd', "WarehouseE", 'Manager'
                             req.session.station = mongooseToObject(station);
+                            if (employee.role === 'WarehouseAd' || employee.role === 'WarehouseE') {
+                                req.session.station = mongooseToObject(warehouse);
+                            }
     
                             req.session.save(err => {
                                 if (err) return next(err);
