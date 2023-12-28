@@ -31,7 +31,7 @@
           name="action">
           {{!-- required> --}}
           <option value="delete"> Xóa </option>
-          <option value="update"> Sửa </option>
+          {{!-- <option value="update"> Sửa </option> --}}
           <option value=""></option>
           <option value=""></option>
         </select>
@@ -68,7 +68,7 @@
           <td> {{this.role}}</td>
           <td>{{this.workAddress}}</td>
           <td>
-            <a href="/products/{{this._id}}/edit" class="btn btn-link">Sửa</button>
+            <a href="/employee/{{this._id}}/view" class="btn btn-link">Xem chi tiết</button>
               {{!-- <button class="btn btn-link" data-toggle="modal" data-target="#delete-employee-modal"
                 data-id="{{this._id}}">Xóa</button> --}}
           </td>
