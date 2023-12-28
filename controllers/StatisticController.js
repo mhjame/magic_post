@@ -19,6 +19,7 @@ class StatisticController {
     getStatisticManager(req, res) {
 
         res.render('statistic/statistic_manager', {
+            employee: req.session.employee,
             message: "bodyManager"
         });
     }
@@ -319,7 +320,7 @@ class StatisticController {
             weekInCount: false,
             monthInCount: false,
             yearInCount: false,
-
+            employee: req.session.employee,
         });
     }
 

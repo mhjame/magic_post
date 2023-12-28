@@ -37,10 +37,16 @@
     <li><a href="/createReceipt">Tạo đơn</a></li>
     {{#if (eq employee.role 'StationAd')}}
     <li><a href="/register">Register</a></li>
+    <li><a href="/statistic_manager_station">Statistic</a></li>
     {{else if (eq employee.role 'WarehouseAd')}}
     <li><a href="/register">Register</a></li>
+    <li><a href="/statistic_manager_warehouse">Statistic</a></li>
     {{else if (eq employee.role 'Manager')}}
     <li><a href="/register">Register</a></li>
+    <li><a href="/statistic_manager">Statistic</a></li>
+    {{else}}
+    <li><a href="//statistic_stationE/{{employee._id}}">Statistic</a></li>
+    
     {{/if}}
 
     {{#if (eq employee.role 'StationAd')}}
