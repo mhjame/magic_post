@@ -35,7 +35,7 @@
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
 
         <div class="header">
-            <h1 style="padding: 10px; font-size: 30px;  font-weight: bold;">{{{title}}}</h1>
+            <h1 style="padding: 10px; font-size: 30px;  font-weight: bold; color:rgb(87, 87, 87); margin-bottom:20px">{{{title}}}</h1>
             <div class="button-container">
                 <button class="button" onclick="submitWithStationCode1('{{employeeId}}')">Trong ngày</button>
                 <button class="button" onclick="submitWithStationCode2('{{employeeId}}')">Trong tuần</button>
@@ -52,7 +52,7 @@
                 }
 
                 .button-container {
-                    margin-bottom: 25px;
+                    margin-bottom: 10px;
                     display: flex;
                     justify-content: center;
                 }
@@ -61,7 +61,7 @@
                     padding: 10px 30px;
                     margin: 5px;
                     font-size: 16px;
-                    background-color: #3498db;
+                    background-color: var(--blue-color);
                     color: #fff;
                     border: none;
                     border-radius: 25px;
@@ -69,7 +69,8 @@
                 }
 
                 .button:hover {
-                    background-color: #2980b9;
+                    background-color: #01263f;
+        
                 }
             </style>
                 <script>
@@ -120,7 +121,7 @@
                                                                                 {{/if}}
                                                                             {{/if}}
                                                                         {{/if}}
-                            backgroundColor: ["rgba(255, 0, 0, 0.5)", "rgba(100, 255, 0, 0.5)"]
+                            backgroundColor: ["#174a8c", "#ef6030"]
         }]
             },
                     options: {
