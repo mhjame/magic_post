@@ -1,5 +1,6 @@
-body {
+.body-container {
     background-color: #eeeeee;
+    height: 100vh
 }
 
 .number-round {

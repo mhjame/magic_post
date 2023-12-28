@@ -16,7 +16,16 @@
 
 <div class="body-container">
 
-    <div class="container mt-5 px-2">
+    <nav class="pt-4" style="--bs-breadcrumb-divider: '>'; margin-left: 25px; font-size: 15px; color: gray"
+        aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/confirm_order/confirm_from_wh_to_station"
+                    style="text-decoration: none;">Các lô hàng cần xác nhận</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Các mã hàng cần xác nhận</li>
+        </ol>
+    </nav>
+
+    <div class="container pt-4 px-2">
         <form id="confirm-posts-wh-station-form" action="/stored/confirm_posts_wh_station" method="post">
             <input type="hidden" name="containerCode" value="{{container.containerCode}}">
             <div class="table-responsive">

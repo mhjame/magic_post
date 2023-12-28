@@ -136,87 +136,100 @@ class EmployeeController {
     }
 
     getDesWarehouses(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
-
-
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Warehouse.find({}).lean()
-                                .then((desWarehouses) => {
-                                    const totalPostsFromWarehouse = {};
-                                    const desWarehousesHavePosts = [];
-                                    for (const desWarehouse of desWarehouses) {
-                                        const desWarehouseId = desWarehouse.id;
-                                        Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouseId, status: 'at sWarehouse' }).lean()
-                                            .then((posts) => {
-                                                if (posts.length !== 0) {
-                                                    totalPostsFromWarehouse[desWarehouseId] = posts.length;
-                                                    desWarehousesHavePosts.push(desWarehouse);
-                                                    console.log(totalPostsFromWarehouse);
-                                                }
-                                            })
-                                    }
+                    } else {
 
 
-                                    res.render('create_order/get_des_warehouses', {
-                                        thisWarehouse: warehouse,
-                                        desWarehousesHavePosts,
-                                        totalPostsFromWarehouse
-                                    });
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Warehouse.find({}).lean()
+                                    .then((desWarehouses) => {
+                                        const totalPostsFromWarehouse = {};
+                                        const desWarehousesHavePosts = [];
+                                        for (const desWarehouse of desWarehouses) {
+                                            const desWarehouseId = desWarehouse.id;
+                                            Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouseId, status: 'at sWarehouse' }).lean()
+                                                .then((posts) => {
+                                                    if (posts.length !== 0) {
+                                                        totalPostsFromWarehouse[desWarehouseId] = posts.length;
+                                                        desWarehousesHavePosts.push(desWarehouse);
+                                                        console.log(totalPostsFromWarehouse);
+                                                    }
+                                                })
+                                        }
 
-                                })
-                        })
-                }
 
-            })
-            .catch(next);
+                                        res.render('create_order/get_des_warehouses', {
+                                            thisWarehouse: warehouse,
+                                            desWarehousesHavePosts,
+                                            totalPostsFromWarehouse,
+
+                                            workPlace: warehouse,
+                                            employee,
+                                            noHeader: 'yes'
+                                        });
+
+                                    })
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     createShipWarehouseToWarehouse(req, res, next) {
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
 
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Warehouse.findOne({ id: req.params.desWarehouseId }).lean()
-                                .then((desWarehouse) => {
-                                    Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouse.id, status: 'at sWarehouse' }).lean()
-                                        .then((posts) => {
+                    } else {
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Warehouse.findOne({ id: req.params.desWarehouseId }).lean()
+                                    .then((desWarehouse) => {
+                                        Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouse.id, status: 'at sWarehouse' }).lean()
+                                            .then((posts) => {
 
-                                            res.render('create_order/create_wh_to_wh', {
-                                                employee: employee,
-                                                workPlace: warehouse,
-                                                desWarehouse,
-                                                posts
-                                            });
+                                                res.render('create_order/create_wh_to_wh', {
+                                                    employee: employee,
+                                                    workPlace: warehouse,
+                                                    desWarehouse,
+                                                    posts,
+                                                    noHeader: 'yes'
+                                                });
 
-                                        })
-                                })
+                                            })
+                                    })
 
-                        })
-                }
+                            })
+                    }
 
-            })
-            .catch(next);
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     createWhToWhOrderForm(req, res, next) {
@@ -247,7 +260,9 @@ class EmployeeController {
             postIds,
             postIdsLength,
             containerCode,
-            isArray
+            isArray,
+
+            noHeader: 'yes'
         });
 
     }
@@ -292,87 +307,100 @@ class EmployeeController {
     }
 
     getDesStations(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
-
-
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Station.find({ warehouseId: warehouse.id }).lean()
-                                .then((desStations) => {
-                                    const totalPostsFromStation = {};
-                                    const desStationsHavePosts = [];
-                                    for (const desStation of desStations) {
-                                        const desStationId = desStation.id;
-                                        Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStationId, status: 'at rWarehouse' }).lean()
-                                            .then((posts) => {
-                                                if (posts.length !== 0) {
-                                                    totalPostsFromStation[desStationId] = posts.length;
-                                                    desStationsHavePosts.push(desStation);
-                                                    console.log(totalPostsFromStation);
-                                                }
-                                            })
-                                    }
+                    } else {
 
 
-                                    res.render('create_order/get_des_stations', {
-                                        thisWarehouse: warehouse,
-                                        desStationsHavePosts,
-                                        totalPostsFromStation
-                                    });
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Station.find({ warehouseId: warehouse.id }).lean()
+                                    .then((desStations) => {
+                                        const totalPostsFromStation = {};
+                                        const desStationsHavePosts = [];
+                                        for (const desStation of desStations) {
+                                            const desStationId = desStation.id;
+                                            Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStationId, status: 'at rWarehouse' }).lean()
+                                                .then((posts) => {
+                                                    if (posts.length !== 0) {
+                                                        totalPostsFromStation[desStationId] = posts.length;
+                                                        desStationsHavePosts.push(desStation);
+                                                        console.log(totalPostsFromStation);
+                                                    }
+                                                })
+                                        }
 
-                                })
-                        })
-                }
 
-            })
-            .catch(next);
+                                        res.render('create_order/get_des_stations', {
+                                            thisWarehouse: warehouse,
+                                            desStationsHavePosts,
+                                            totalPostsFromStation,
+
+                                            workPlace: warehouse,
+                                            employee,
+                                            noHeader: 'yes'
+                                        });
+
+                                    })
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
 
 
     createShipWarehouseToStation(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
-                } else {
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Station.findOne({ id: req.params.desStationId }).lean()
-                                .then((desStation) => {
-                                    Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStation.id, status: 'at rWarehouse' }).lean()
-                                        .then((posts) => {
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
+                    } else {
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Station.findOne({ id: req.params.desStationId }).lean()
+                                    .then((desStation) => {
+                                        Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStation.id, status: 'at rWarehouse' }).lean()
+                                            .then((posts) => {
 
-                                            res.render('create_order/create_wh_to_station', {
-                                                employee,
-                                                workPlace: warehouse,
-                                                desStation,
-                                                posts,
-                                            });
+                                                res.render('create_order/create_wh_to_station', {
+                                                    employee,
+                                                    workPlace: warehouse,
+                                                    desStation,
+                                                    posts,
+                                                    noHeader: 'yes'
+                                                });
 
-                                        })
-                                })
+                                            })
+                                    })
 
-                        })
-                }
+                            })
+                    }
 
-            })
-            .catch(next);
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     createWhToStationOrderForm(req, res, next) {
@@ -403,7 +431,8 @@ class EmployeeController {
             postIds,
             postIdsLength,
             containerCode,
-            isArray
+            isArray,
+            noHeader: 'yes'
         });
 
     }
@@ -748,136 +777,161 @@ class EmployeeController {
     }
 
     getOriginWarehouses(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
-
-
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Warehouse.find({}).lean()
-                                .then((originWarehouses) => {
-                                    const totalContainersFromWarehouse = {};
-                                    const originWarehousesNeedConfirm = [];
-                                    for (const originWarehouse of originWarehouses) {
-                                        const originWarehouseId = originWarehouse.id;
-                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouseId, type: 'warehouse-warehouse', status: 'in process' }).lean()
-                                            .then((containers) => {
-                                                if (containers.length !== 0) {
-                                                    totalContainersFromWarehouse[originWarehouseId] = containers.length;
-                                                    originWarehousesNeedConfirm.push(originWarehouse);
-                                                    console.log(containers)
-                                                    console.log(totalContainersFromWarehouse);
-                                                }
-                                            })
-                                    }
+                    } else {
 
 
-                                    res.render('confirm_order/get_origin_warehouses_need_confirm', {
-                                        thisWarehouse: warehouse,
-                                        originWarehousesNeedConfirm: originWarehousesNeedConfirm,
-                                        totalContainersFromWarehouse: totalContainersFromWarehouse,
-                                    });
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Warehouse.find({}).lean()
+                                    .then((originWarehouses) => {
+                                        const totalContainersFromWarehouse = {};
+                                        const originWarehousesNeedConfirm = [];
+                                        for (const originWarehouse of originWarehouses) {
+                                            const originWarehouseId = originWarehouse.id;
+                                            Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouseId, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                                .then((containers) => {
+                                                    if (containers.length !== 0) {
+                                                        totalContainersFromWarehouse[originWarehouseId] = containers.length;
+                                                        originWarehousesNeedConfirm.push(originWarehouse);
+                                                        console.log(containers)
+                                                        console.log(totalContainersFromWarehouse);
+                                                    }
+                                                })
+                                        }
 
-                                })
-                        })
-                }
 
-            })
-            .catch(next);
+                                        res.render('confirm_order/get_origin_warehouses_need_confirm', {
+                                            thisWarehouse: warehouse,
+                                            originWarehousesNeedConfirm: originWarehousesNeedConfirm,
+                                            totalContainersFromWarehouse: totalContainersFromWarehouse,
+
+                                            workPlace: warehouse,
+                                            employee,
+                                            noHeader: 'yes'
+                                        });
+
+                                    })
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     getConfirmWarehouseToWarehouse(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
+                    } else {
 
 
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Warehouse.findOne({ id: req.params.originWarehouseId }).lean()
-                                .then((originWarehouse) => {
-                                    Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouse.id, type: 'warehouse-warehouse', status: 'in process' }).lean()
-                                        .then((containers) => {
-                                            res.render('confirm_order/confirm_wh_wh', {
-                                                desWarehouse: warehouse,
-                                                originWarehouse,
-                                                containers: containers
-                                            });
-                                        })
-                                })
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Warehouse.findOne({ id: req.params.originWarehouseId }).lean()
+                                    .then((originWarehouse) => {
+                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouse.id, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                            .then((containers) => {
+                                                res.render('confirm_order/confirm_wh_wh', {
+                                                    desWarehouse: warehouse,
+                                                    originWarehouse,
+                                                    containers: containers,
 
-                        })
-                }
+                                                    employee,
+                                                    workPlace: warehouse,
+                                                    noHeader: 'yes'
+                                                });
+                                            })
+                                    })
 
-            })
-            .catch(next);
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     getConfirmEachOrderWarehouseToWarehouse(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
+                    } else {
 
 
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
 
-                            Container.findOne({ containerCode: req.params.containerCode }).lean()
-                                .then((container) => {
-                                    Warehouse.findOne({ id: container.senderAddressId }).lean()
-                                        .then((originWarehouse) => {
-                                            const posts = [];
-                                            if (Array.isArray(container.postIds)) {
-                                                for (let i = 0; i < container.postIds.length; i++) {
-                                                    Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
-                                                        posts.push(post);
+                                Container.findOne({ containerCode: req.params.containerCode }).lean()
+                                    .then((container) => {
+                                        Warehouse.findOne({ id: container.senderAddressId }).lean()
+                                            .then((originWarehouse) => {
+                                                const posts = [];
+                                                if (Array.isArray(container.postIds)) {
+                                                    for (let i = 0; i < container.postIds.length; i++) {
+                                                        Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                            posts.push(post);
+                                                        });
+                                                    };
+                                                } else {
+                                                    Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                        posts.push(post)
                                                     });
-                                                };
-                                            } else {
-                                                Post.findOne({ id: container.postIds }).lean().then((post) => {
-                                                    posts.push(post)
+                                                }
+
+                                                res.render('confirm_order/confirm_each_order_wh_wh', {
+                                                    desWarehouse: warehouse,
+                                                    originWarehouse,
+                                                    container,
+                                                    posts,
+
+                                                    employee,
+                                                    workPlace: warehouse,
+                                                    noHeader: 'yes'
+
                                                 });
-                                            }
+                                            })
+                                    })
 
-                                            res.render('confirm_order/confirm_each_order_wh_wh', {
-                                                desWarehouse: warehouse,
-                                                originWarehouse,
-                                                container,
-                                                posts
-                                            });
-                                        })
-                                })
+                            })
+                    }
 
-                        })
-                }
-
-            })
-            .catch(next);
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     postConfirmPostsWarehouseToWarehouse(req, res, next) {
@@ -941,134 +995,158 @@ class EmployeeController {
     }
 
     getOriginStations(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
+                    } else {
 
 
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Station.find({ warehouseId: warehouse.id }).lean()
-                                .then((originStations) => {
-                                    const totalContainersFromStation = {};
-                                    const originStationsNeedConfirm = [];
-                                    for (const originStation of originStations) {
-                                        const originStationId = originStation.id;
-                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStationId, type: 'station-warehouse', status: 'in process' }).lean()
-                                            .then((containers) => {
-                                                if (containers.length !== 0) {
-                                                    totalContainersFromStation[originStationId] = containers.length;
-                                                    originStationsNeedConfirm.push(originStation);
-                                                    console.log(totalContainersFromStation);
-                                                }
-                                            })
-                                    }
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Station.find({ warehouseId: warehouse.id }).lean()
+                                    .then((originStations) => {
+                                        const totalContainersFromStation = {};
+                                        const originStationsNeedConfirm = [];
+                                        for (const originStation of originStations) {
+                                            const originStationId = originStation.id;
+                                            Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStationId, type: 'station-warehouse', status: 'in process' }).lean()
+                                                .then((containers) => {
+                                                    if (containers.length !== 0) {
+                                                        totalContainersFromStation[originStationId] = containers.length;
+                                                        originStationsNeedConfirm.push(originStation);
+                                                        console.log(totalContainersFromStation);
+                                                    }
+                                                })
+                                        }
 
-                                    res.render('confirm_order/get_origin_stations_need_confirm', {
-                                        thisWarehouse: warehouse,
-                                        originStationsNeedConfirm,
-                                        totalContainersFromStation,
-                                    });
+                                        res.render('confirm_order/get_origin_stations_need_confirm', {
+                                            thisWarehouse: warehouse,
+                                            originStationsNeedConfirm,
+                                            totalContainersFromStation,
 
-                                })
-                        })
-                }
+                                            workPlace: warehouse,
+                                            employee,
+                                            noHeader: 'yes'
+                                        });
 
-            })
-            .catch(next);
+                                    })
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     getConfirmStationToWarehouse(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
+                    } else {
 
 
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
-                            Station.findOne({ id: req.params.originStationId }).lean()
-                                .then((originStation) => {
-                                    Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStation.id, type: 'station-warehouse', status: 'in process' }).lean()
-                                        .then((containers) => {
-                                            res.render('confirm_order/confirm_station_wh', {
-                                                thisWarehouse: warehouse,
-                                                originStation,
-                                                containers,
-                                            });
-                                        })
-                                })
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
+                                Station.findOne({ id: req.params.originStationId }).lean()
+                                    .then((originStation) => {
+                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStation.id, type: 'station-warehouse', status: 'in process' }).lean()
+                                            .then((containers) => {
+                                                res.render('confirm_order/confirm_station_wh', {
+                                                    thisWarehouse: warehouse,
+                                                    originStation,
+                                                    containers,
 
-                        })
-                }
+                                                    workPlace: warehouse,
+                                                    employee,
+                                                    noHeader: 'yes'
+                                                });
+                                            })
+                                    })
 
-            })
-            .catch(next);
+                            })
+                    }
+
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     getConfirmEachOrderStationToWarehouse(req, res, next) {
-        Employee.findOne({ employeeId: "TKHN001" }).lean()
-            .then((employee) => {
-                if (!employee) {
-                    res.status(404).send({ message: 'Employee not found' });
-                    return;
+        if (req.session.employee && req.session.employee.role === 'WarehouseE') {
+            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+                .then((employee) => {
+                    if (!employee) {
+                        res.status(404).send({ message: 'Employee not found' });
+                        return;
 
-                } else {
+                    } else {
 
 
-                    Warehouse.findOne({ id: employee.workPlaceId }).lean()
-                        .then((warehouse) => {
-                            if (!warehouse) {
-                                res.status(404).send({ message: 'Warehouse not found' });
-                                return;
-                            }
+                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                            .then((warehouse) => {
+                                if (!warehouse) {
+                                    res.status(404).send({ message: 'Warehouse not found' });
+                                    return;
+                                }
 
-                            Container.findOne({ containerCode: req.params.containerCode }).lean()
-                                .then((container) => {
-                                    Station.findOne({ id: req.params.originStationId }).lean()
-                                        .then((originStation) => {
-                                            const posts = [];
-                                            if (Array.isArray(container.postIds)) {
-                                                for (let i = 0; i < container.postIds.length; i++) {
-                                                    Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
-                                                        posts.push(post);
+                                Container.findOne({ containerCode: req.params.containerCode }).lean()
+                                    .then((container) => {
+                                        Station.findOne({ id: req.params.originStationId }).lean()
+                                            .then((originStation) => {
+                                                const posts = [];
+                                                if (Array.isArray(container.postIds)) {
+                                                    for (let i = 0; i < container.postIds.length; i++) {
+                                                        Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                            posts.push(post);
+                                                        });
+                                                    };
+                                                } else {
+                                                    Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                        posts.push(post)
                                                     });
-                                                };
-                                            } else {
-                                                Post.findOne({ id: container.postIds }).lean().then((post) => {
-                                                    posts.push(post)
+                                                }
+
+                                                res.render('confirm_order/confirm_each_order_station_wh', {
+                                                    thisWarehouse: warehouse,
+                                                    originStation,
+                                                    container,
+                                                    posts,
+
+                                                    workPlace: warehouse,
+                                                    employee,
+                                                    noHeader: 'yes'
                                                 });
-                                            }
+                                            })
+                                    })
 
-                                            res.render('confirm_order/confirm_each_order_station_wh', {
-                                                thisWarehouse: warehouse,
-                                                originStation,
-                                                container,
-                                                posts
-                                            });
-                                        })
-                                })
+                            })
+                    }
 
-                        })
-                }
-
-            })
-            .catch(next);
+                })
+                .catch(next);
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
     }
 
     postConfirmPostsStationToWarehouse(req, res, next) {
