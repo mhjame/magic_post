@@ -78,9 +78,9 @@
                 </label>
 
                 <input class="readonly" type="text" id="workPlace"
-                    value="{{senderWarehouseId}} - {{senderWarehouseName}}" readonly />
+                    value="{{senderWarehouseCode}} - {{senderWarehouseName}}" readonly />
 
-                <input type="hidden" name="senderAddressId" value="{{senderWarehouseId}}">
+                <input type="hidden" name="senderAddressId" value="{{senderWarehouseCode}}">
             </div>
 
             <input type="hidden" name="typeOfOrder" value="warehouse-warehouse">
@@ -91,9 +91,9 @@
                 </label>
 
                 <input class="readonly" type="text" id="desWarehouse"
-                    value="{{receiverWarehouseId}} - {{receiverWarehouseName}}" readonly />
+                    value="{{receiverWarehouseCode}} - {{receiverWarehouseName}}" readonly />
 
-                <input type="hidden" name="receiverAddressId" value="{{receiverWarehouseId}}">
+                <input type="hidden" name="receiverAddressId" value="{{receiverWarehouseCode}}">
             </div>
 
             <div class="input-control">
@@ -123,7 +123,7 @@
 
             <div class="d-grid gap-3 d-sm-block">
                 <button id="return-button" class="btn btn-secondary col-sm-3 me-sm-4" type="button"
-                    onclick="window.location.href='/create_order/{{receiverWarehouseId}}/create_wh_to_wh'">
+                    onclick="window.location.href='/create_order/{{receiverWarehouseCode}}/create_wh_to_wh'">
                     Quay lại
                 </button>
 

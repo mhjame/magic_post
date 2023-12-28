@@ -31,7 +31,7 @@ class EmployeeController {
                                             return;
                                         }
 
-                                        Post.find({ senderStationId: station.stationCode, status: 'at sStation' }).lean()
+                                        Post.find({ senderStationCode: station.stationCode, status: 'at sStation' }).lean()
                                             .then((posts) => {
                                                 res.render('create_order/create_station_to_wh', {
                                                     employee: employee,
@@ -60,14 +60,14 @@ class EmployeeController {
         if (req.session.employee && req.session.employee.role === 'StationE') {
             const employeeId = req.body.employeeId;
             const employeeName = req.body.employeeName;
-            const senderStationId = req.body.senderStationId;
+            const senderStationCode = req.body.senderStationCode;
             const senderStationName = req.body.senderStationName;
-            const senderWarehouseId = req.body.senderWarehouseId;
+            const senderWarehouseCode = req.body.senderWarehouseCode;
             const senderWarehouseName = req.body.senderWarehouseName;
             const postIds = req.body.postIds;
             let postIdsLength = 1;
             let isArray = false;
-            const containerCode = senderStationId + senderWarehouseId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+            const containerCode = senderStationCode + senderWarehouseCode + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
             console.log(Date.now().toString().slice(-5));
             console.log(Math.random().toString(16).slice(-7));
             if (Array.isArray(postIds)) {
@@ -78,9 +78,9 @@ class EmployeeController {
             res.render('create_order/create_station_to_wh_order_form', {
                 employeeId,
                 employeeName,
-                senderStationId,
+                senderStationCode,
                 senderStationName,
-                senderWarehouseId,
+                senderWarehouseCode,
                 senderWarehouseName,
                 postIds,
                 postIdsLength,
@@ -158,7 +158,7 @@ class EmployeeController {
                                         const desWarehousesHavePosts = [];
                                         for (const desWarehouse of desWarehouses) {
                                             const desWarehouseId = desWarehouse.warehouseCode;
-                                            Post.find({ senderWarehouseId: warehouse.warehouseCode, receiverWarehouseId: desWarehouseId, status: 'at sWarehouse' }).lean()
+                                            Post.find({ senderWarehouseCode: warehouse.warehouseCode, receiverWarehouseCode: desWarehouseId, status: 'at sWarehouse' }).lean()
                                                 .then((posts) => {
                                                     if (posts.length !== 0) {
                                                         totalPostsFromWarehouse[desWarehouseId] = posts.length;
@@ -208,7 +208,7 @@ class EmployeeController {
                                 }
                                 Warehouse.findOne({ warehouseCode: req.params.desWarehouseId }).lean()
                                     .then((desWarehouse) => {
-                                        Post.find({ senderWarehouseId: warehouse.warehouseCode, receiverWarehouseId: desWarehouse.warehouseCode, status: 'at sWarehouse' }).lean()
+                                        Post.find({ senderWarehouseCode: warehouse.warehouseCode, receiverWarehouseCode: desWarehouse.warehouseCode, status: 'at sWarehouse' }).lean()
                                             .then((posts) => {
 
                                                 res.render('create_order/create_wh_to_wh', {
@@ -235,14 +235,14 @@ class EmployeeController {
     createWhToWhOrderForm(req, res, next) {
         const employeeId = req.body.employeeId;
         const employeeName = req.body.employeeName;
-        const senderWarehouseId = req.body.senderWarehouseId;
+        const senderWarehouseCode = req.body.senderWarehouseCode;
         const senderWarehouseName = req.body.senderWarehouseName;
-        const receiverWarehouseId = req.body.receiverWarehouseId;
+        const receiverWarehouseCode = req.body.receiverWarehouseCode;
         const receiverWarehouseName = req.body.receiverWarehouseName;
         const postIds = req.body.postIds;
         let postIdsLength = 1;
         let isArray = false;
-        const containerCode = senderWarehouseId + receiverWarehouseId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+        const containerCode = senderWarehouseCode + receiverWarehouseCode + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
         console.log(Date.now().toString().slice(-5));
         console.log(Math.random().toString(16).slice(-7));
         if (Array.isArray(postIds)) {
@@ -253,9 +253,9 @@ class EmployeeController {
         res.render('create_order/create_wh_to_wh_order_form', {
             employeeId,
             employeeName,
-            senderWarehouseId,
+            senderWarehouseCode,
             senderWarehouseName,
-            receiverWarehouseId,
+            receiverWarehouseCode,
             receiverWarehouseName,
             postIds,
             postIdsLength,
@@ -329,7 +329,7 @@ class EmployeeController {
                                         const desStationsHavePosts = [];
                                         for (const desStation of desStations) {
                                             const desStationId = desStation.stationCode;
-                                            Post.find({ receiverWarehouseId: warehouse.warehouseCode, receiverStationId: desStationId, status: 'at rWarehouse' }).lean()
+                                            Post.find({ receiverWarehouseCode: warehouse.warehouseCode, receiverStationCode: desStationId, status: 'at rWarehouse' }).lean()
                                                 .then((posts) => {
                                                     if (posts.length !== 0) {
                                                         totalPostsFromStation[desStationId] = posts.length;
@@ -379,7 +379,7 @@ class EmployeeController {
                                 }
                                 Station.findOne({ stationCode: req.params.desStationId }).lean()
                                     .then((desStation) => {
-                                        Post.find({ receiverWarehouseId: warehouse.warehouseCode, receiverStationId: desStation.stationCode, status: 'at rWarehouse' }).lean()
+                                        Post.find({ receiverWarehouseCode: warehouse.warehouseCode, receiverStationCode: desStation.stationCode, status: 'at rWarehouse' }).lean()
                                             .then((posts) => {
 
                                                 res.render('create_order/create_wh_to_station', {
@@ -406,14 +406,14 @@ class EmployeeController {
     createWhToStationOrderForm(req, res, next) {
         const employeeId = req.body.employeeId;
         const employeeName = req.body.employeeName;
-        const receiverWarehouseId = req.body.receiverWarehouseId;
+        const receiverWarehouseCode = req.body.receiverWarehouseCode;
         const receiverWarehouseName = req.body.receiverWarehouseName;
-        const receiverStationId = req.body.receiverStationId;
+        const receiverStationCode = req.body.receiverStationCode;
         const receiverStationName = req.body.receiverStationName;
         const postIds = req.body.postIds;
         let postIdsLength = 1;
         let isArray = false;
-        const containerCode = receiverWarehouseId + receiverStationId + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+        const containerCode = receiverWarehouseCode + receiverStationCode + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
         console.log(Date.now().toString().slice(-5));
         console.log(Math.random().toString(16).slice(-7));
         if (Array.isArray(postIds)) {
@@ -424,9 +424,9 @@ class EmployeeController {
         res.render('create_order/create_wh_to_station_order_form', {
             employeeId,
             employeeName,
-            receiverWarehouseId,
+            receiverWarehouseCode,
             receiverWarehouseName,
-            receiverStationId,
+            receiverStationCode,
             receiverStationName,
             postIds,
             postIdsLength,
@@ -472,7 +472,7 @@ class EmployeeController {
             containerCode: req.body.containerCode
         });
         container.save()
-            // .then(() => res.redirect(200, '/create_order/' + req.body.receiverAddressId + '/create_wh_to_station'))
+            
             .then(() => res.json({
                 message: 'Tạo đơn thành công'
             }))
@@ -494,7 +494,7 @@ class EmployeeController {
                                     return;
                                 }
 
-                                Post.find({ receiverStationId: station.stationCode, status: 'at rStation' }).lean()
+                                Post.find({ receiverStationCode: station.stationCode, status: 'at rStation' }).lean()
                                     .then((posts) => {
                                         Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                                             res.render('create_order/create_station_to_receiver', {
@@ -520,12 +520,12 @@ class EmployeeController {
         if (req.session.employee && req.session.employee.role === 'StationE') {
             const employeeId = req.body.employeeId;
             const employeeName = req.body.employeeName;
-            const receiverStationId = req.body.receiverStationId;
+            const receiverStationCode = req.body.receiverStationCode;
             const receiverStationName = req.body.receiverStationName;
             const postIds = req.body.postIds;
             let postIdsLength = 1;
             let isArray = false;
-            const containerCode = receiverStationId + 'rcv' + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+            const containerCode = receiverStationCode + 'rcv' + Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
             console.log(Date.now().toString().slice(-5));
             console.log(Math.random().toString(16).slice(-7));
             if (Array.isArray(postIds)) {
@@ -536,7 +536,7 @@ class EmployeeController {
             res.render('create_order/create_station_to_receiver_order_form', {
                 employeeId,
                 employeeName,
-                receiverStationId,
+                receiverStationCode,
                 receiverStationName,
                 postIds,
                 postIdsLength,
@@ -1406,7 +1406,7 @@ class EmployeeController {
             if (employee && employee.role === 'StationE') {
 
                 Station.findOne({ address: employee.workAddress }).lean().then((station) => {
-                    Post.find({ senderStationId: station.stationCode, status: 'at sStation' }).lean().then((posts1) => {
+                    Post.find({ senderStationCode: station.stationCode, status: 'at sStation' }).lean().then((posts1) => {
                         if (posts1) {
                             let count = 0;
                             for (const post of posts1) {
@@ -1415,7 +1415,7 @@ class EmployeeController {
                             numOfsStationPosts = count;
                         }
                         console.log(numOfsStationPosts);
-                        Post.find({ receiverStationId: station.stationCode, status: 'at rStation' }).lean().then((posts2) => {
+                        Post.find({ receiverStationCode: station.stationCode, status: 'at rStation' }).lean().then((posts2) => {
                             if (posts2) {
                                 let count = 0;
                                 for (const post of posts2) {
@@ -1424,7 +1424,7 @@ class EmployeeController {
                                 numOfrStationPosts = count;
                             }
                             console.log(numOfrStationPosts);
-                            Post.find({ receiverStationId: station.stationCode, status: 'on way to rStation' }).lean().then((posts3) => {
+                            Post.find({ receiverStationCode: station.stationCode, status: 'on way to rStation' }).lean().then((posts3) => {
                                 if (posts1) {
                                     let count = 0;
                                     for (const post of posts3) {
@@ -1433,7 +1433,7 @@ class EmployeeController {
                                     numOfTorStationPosts = count;
                                 }
                                 console.log(numOfTorStationPosts);
-                                Post.find({ receiverStationId: station.stationCode, status: 'on way to receiver' }).lean().then((posts4) => {
+                                Post.find({ receiverStationCode: station.stationCode, status: 'on way to receiver' }).lean().then((posts4) => {
                                     if (posts4) {
                                         let count = 0;
                                         for (const post of posts4) {
@@ -1493,7 +1493,7 @@ class EmployeeController {
             if (employee && employee.role === 'WarehouseE') {
 
                 Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
-                    Post.find({ senderWarehouseId: warehouse.warehouseCode, status: 'at sWarehouse' }).lean().then((posts1) => {
+                    Post.find({ senderWarehouseCode: warehouse.warehouseCode, status: 'at sWarehouse' }).lean().then((posts1) => {
                         if (posts1) {
                             let count = 0;
                             for (const post of posts1) {
@@ -1502,7 +1502,7 @@ class EmployeeController {
                             numOfsWarehousePosts = count;
                         }
                         console.log(numOfsWarehousePosts);
-                        Post.find({ receiverWarehouseId: warehouse.warehouseCode, status: 'at rWarehouse' }).lean().then((posts2) => {
+                        Post.find({ receiverWarehouseCode: warehouse.warehouseCode, status: 'at rWarehouse' }).lean().then((posts2) => {
                             if (posts2) {
                                 let count = 0;
                                 for (const post of posts2) {
@@ -1511,7 +1511,7 @@ class EmployeeController {
                                 numOfrWarehousePosts = count;
                             }
                             console.log(numOfrWarehousePosts);
-                            Post.find({ receiverWarehouseId: warehouse.warehouseCode, status: 'on way to rWarehouse' }).lean().then((posts3) => {
+                            Post.find({ receiverWarehouseCode: warehouse.warehouseCode, status: 'on way to rWarehouse' }).lean().then((posts3) => {
                                 if (posts1) {
                                     let count = 0;
                                     for (const post of posts3) {
@@ -1520,7 +1520,7 @@ class EmployeeController {
                                     numOfTorWarehousePosts = count;
                                 }
                                 console.log(numOfTorWarehousePosts);
-                                Post.find({ senderWarehouseId: warehouse.warehouseCode, status: 'on way to sWarehouse' }).lean().then((posts4) => {
+                                Post.find({ senderWarehouseCode: warehouse.warehouseCode, status: 'on way to sWarehouse' }).lean().then((posts4) => {
                                     if (posts4) {
                                         let count = 0;
                                         for (const post of posts4) {

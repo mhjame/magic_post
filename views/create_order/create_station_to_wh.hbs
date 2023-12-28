@@ -27,9 +27,9 @@
         <form id="create-station-to-wh-form" action="/create_order/create_station_to_wh_order_form" method="post">
             <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
             <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
-            <input type="hidden" name="senderStationId" value="{{workPlace.stationCode}}">
+            <input type="hidden" name="senderStationCode" value="{{workPlace.stationCode}}">
             <input type="hidden" name="senderStationName" value="{{workPlace.name}}">
-            <input type="hidden" name="senderWarehouseId" value="{{desWarehouse.warehouseCode}}">
+            <input type="hidden" name="senderWarehouseCode" value="{{desWarehouse.warehouseCode}}">
             <input type="hidden" name="senderWarehouseName" value="{{desWarehouse.name}}">
             <div class="table-responsive">
 
