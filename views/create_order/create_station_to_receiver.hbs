@@ -11,45 +11,45 @@
 </script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
+
 {{>station_employee/header}}
 
 <div class="body-container">
     {{#unless posts}}
 
     <div class="alert alert-danger text-center" role="alert">
-        Hiện không có mã hàng nào đang cần chuyển đến điểm tập kết!
+        Hiện không có mã hàng nào đang cần chuyển đến người nhận!
     </div>
 
     {{/unless}}
 
 
     <div class="container mt-5 px-2">
-        <form id="create-station-to-wh-form" action="/create_order/create_station_to_wh_order_form" method="post">
+        <form id="create-station-to-receiver-form" action="/create_order/create_station_to_receiver_order_form"
+            method="post">
             <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
             <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
-            <input type="hidden" name="senderStationId" value="{{workPlace.id}}">
-            <input type="hidden" name="senderStationName" value="{{workPlace.name}}">
-            <input type="hidden" name="senderWarehouseId" value="{{desWarehouse.id}}">
-            <input type="hidden" name="senderWarehouseName" value="{{desWarehouse.name}}">
+            <input type="hidden" name="receiverStationId" value="{{workPlace.id}}">
+            <input type="hidden" name="receiverStationName" value="{{workPlace.name}}">
             <div class="table-responsive">
 
                 <p style="font-size: 1.1rem;"><strong>Chọn các mã hàng để tạo đơn chuyển lô hàng từ <span
                             style="color: brown;">{{workPlace.name}}</span> đến
-                        <span style="color: brown;">{{desWarehouse.name}}</span>:</strong></p>
+                        <span style="color: brown;">người nhận</span>:</strong></p>
 
                 <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
                     <thead>
                         <tr
                             style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                            <th class="border-0 text-center" scope="col" width="12%">Mã hàng</th>
-                            <th class="border-0 text-center" scope="col" width="12%">Tên hàng</th>
-                            <th class="border-0 text-center" scope="col" width="15%">Loại hàng</th>
-                            <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
-                            <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
-                            <th class="border-0 text-center" scope="col" width="19%"><label
+                            <th class="border-0 text-center" scope="col" width="9%">Mã hàng</th>
+                            <th class="border-0 text-center" scope="col" width="10%">Tên hàng</th>
+                            <th class="border-0 text-center" scope="col" width="14%">Người nhận</th>
+                            <th class="border-0 text-center" scope="col" width="12%">SĐT người nhận</th>
+                            <th class="border-0 text-center" scope="col" width="19%">Địa chỉ người nhận</th>
+                            <th class="border-0 text-center" scope="col" width="21%">Tình trạng</th>
+                            <th class="border-0 text-center" scope="col" width="15%"><label
                                     class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Thêm
-                                    vào
-                                    lô hàng</label></th>
+                                    vào lô hàng</label></th>
                         </tr>
                     </thead>
 
@@ -58,8 +58,9 @@
                         <tr>
                             <td>{{this.id}}</td>
                             <td>{{this.name}}</td>
-                            <td>{{renderArray this.genre}}</td>
-                            <td>{{this.actualWeight}} kg</td>
+                            <td>{{this.receiverName}}</td>
+                            <td>{{this.receiverPhoneNumber}}</td>
+                            <td>{{this.receiverAddress}}</td>
                             <td>
                                 <span class="post-status" data-status="{{this.status}}">
 
@@ -85,6 +86,8 @@
     </div>
 </div>
 
+
+
 <script>
     const checkList = document.querySelectorAll('tbody tr td .confirm-checkbox');
     const checkAll = document.querySelector('.confirm-checkbox.all');
@@ -95,18 +98,18 @@
     let checkedCount;
 
     submitButton.addEventListener('click', () => {
-        document.getElementById('create-station-to-wh-form').submit();
+        document.getElementById('create-station-to-receiver-form').submit();
     });
 
     for (const row of tableBodyRows) {
         const postStatus = row.querySelector('.post-status');
         const status = postStatus.dataset.status;
         let htmlContent;
-        if (status === 'at sStation') {
+        if (status === 'at rStation') {
             htmlContent = `<span class="rounded-pill align-items-center"
                                 style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
                                     style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
-                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang ở điểm giao dịch đầu</span></span>`
+                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang ở điểm giao dịch đích</span></span>`
         }
         postStatus.innerHTML = htmlContent;
     }

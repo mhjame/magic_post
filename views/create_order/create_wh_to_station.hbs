@@ -11,31 +11,39 @@
 </script>
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
-{{>station_employee/header}}
 
+{{>warehouse_employee/header}}
 <div class="body-container">
+
     {{#unless posts}}
 
     <div class="alert alert-danger text-center" role="alert">
-        Hiện không có mã hàng nào đang cần chuyển đến điểm tập kết!
+        Hiện không có mã hàng nào đang cần chuyển đến điểm giao dịch đã chọn!
     </div>
 
     {{/unless}}
 
+    <nav class="pt-4" style="--bs-breadcrumb-divider: '>'; margin-left: 25px; font-size: 15px; color: gray" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/create_order/get_des_stations" style="text-decoration: none;">Các điểm giao dịch trực thuộc</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Các mã hàng cần chuyển đến</li>
+        </ol>
+    </nav>
 
-    <div class="container mt-5 px-2">
-        <form id="create-station-to-wh-form" action="/create_order/create_station_to_wh_order_form" method="post">
+    <div class="container pt-4 px-2">
+        <form id="create-wh-to-station-form" action="/create_order/{{desStation.id}}/create_wh_to_station_order_form"
+            method="post">
             <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
             <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
-            <input type="hidden" name="senderStationId" value="{{workPlace.id}}">
-            <input type="hidden" name="senderStationName" value="{{workPlace.name}}">
-            <input type="hidden" name="senderWarehouseId" value="{{desWarehouse.id}}">
-            <input type="hidden" name="senderWarehouseName" value="{{desWarehouse.name}}">
+            <input type="hidden" name="receiverWarehouseId" value="{{workPlace.id}}">
+            <input type="hidden" name="receiverWarehouseName" value="{{workPlace.name}}">
+            <input type="hidden" name="receiverStationId" value="{{desStation.id}}">
+            <input type="hidden" name="receiverStationName" value="{{desStation.name}}">
             <div class="table-responsive">
 
                 <p style="font-size: 1.1rem;"><strong>Chọn các mã hàng để tạo đơn chuyển lô hàng từ <span
                             style="color: brown;">{{workPlace.name}}</span> đến
-                        <span style="color: brown;">{{desWarehouse.name}}</span>:</strong></p>
+                        <span style="color: brown;">{{desStation.name}}</span>:</strong></p>
 
                 <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
                     <thead>
@@ -80,10 +88,18 @@
 
             </div>
         </form>
+        {{#if posts}}
         <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
             disabled>Tạo đơn</button>
+        {{else}}
+        <button id="return-button" type="button" class="btn btn-secondary fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
+            onclick="window.location.href='/create_order/get_des_stations'">Chọn điểm giao dịch khác</button>
+        {{/if}}
     </div>
 </div>
+
+
+
 
 <script>
     const checkList = document.querySelectorAll('tbody tr td .confirm-checkbox');
@@ -94,19 +110,21 @@
     const tableBodyRows = document.querySelectorAll('tbody tr');
     let checkedCount;
 
-    submitButton.addEventListener('click', () => {
-        document.getElementById('create-station-to-wh-form').submit();
-    });
+    if (submitButton) {
+        submitButton.addEventListener('click', () => {
+            document.getElementById('create-wh-to-station-form').submit();
+        });
+    }
 
     for (const row of tableBodyRows) {
         const postStatus = row.querySelector('.post-status');
         const status = postStatus.dataset.status;
         let htmlContent;
-        if (status === 'at sStation') {
+        if (status === 'at rWarehouse') {
             htmlContent = `<span class="rounded-pill align-items-center"
                                 style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
                                     style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
-                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang ở điểm giao dịch đầu</span></span>`
+                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang ở điểm tập kết đích</span></span>`
         }
         postStatus.innerHTML = htmlContent;
     }

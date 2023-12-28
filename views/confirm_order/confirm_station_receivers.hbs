@@ -11,48 +11,52 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
-{{#unless containers}}
-<div class="alert alert-danger text-center" role="alert">
-    Không có lô hàng nào đang chuyển đến người nhận!
-</div>
-{{/unless}}
+{{>station_employee/header}}
 
-<div class="container mt-5 px-2">
-    <div class="table-responsive">
-        <p style="font-size: 1.1rem;"><strong>Xác nhận tình trạng các lô hàng chuyển từ <span
-                    style="color: brown;">{{thisStation.name}}</span> đến người nhận:</strong></p>
-        <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
-            <thead>
-                <tr
-                    style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    <th class="border-0 text-center" scope="col" width="14%">Mã lô hàng</th>
-                    <th class="border-0 text-center" scope="col" width="13%">Ngày chuyển</th>
-                    <th class="border-0 text-center" scope="col" width="18%">Mã GDV chuyển</th>
-                    <th class="border-0 text-center" scope="col" width="14%">Số mã hàng</th>
-                    <th class="border-0 text-center" scope="col" width="21%">Tình trạng</th>
-                    <th class="border-0 text-center" scope="col" width="20%"><span>Hành động</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each containers}}
-                <tr>
-                    <td>{{this.containerCode}}</td>
-                    <td>{{formatDate this.createdAt}}</td>
-                    <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> {{this.employeeId}}</td>
-                    <td>{{this.postIds.length}}</td>
-                    <td><span class="rounded-pill align-items-center"
-                            style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
-                                style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
-                                style="color: rgb(231, 162, 14); font-weight: bold;">Đang giao</span></span>
-                    </td>
-                    <td><a class="fw-bolder confirm-link"
-                            href="/confirm_order/{{this.containerCode}}/confirm_each_order_station_receivers">Xác
-                            nhận từng mã hàng</a>
-                    </td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+<div class="body-container">
+    {{#unless containers}}
+    <div class="alert alert-danger text-center" role="alert">
+        Hiện không có lô hàng nào đang chuyển đến người nhận!
+    </div>
+    {{/unless}}
+
+    <div class="container mt-5 px-2">
+        <div class="table-responsive">
+            <p style="font-size: 1.1rem;"><strong>Xác nhận tình trạng các lô hàng chuyển từ <span
+                        style="color: brown;">{{thisStation.name}}</span> đến người nhận:</strong></p>
+            <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
+                <thead>
+                    <tr
+                        style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                        <th class="border-0 text-center" scope="col" width="14%">Mã lô hàng</th>
+                        <th class="border-0 text-center" scope="col" width="13%">Ngày chuyển</th>
+                        <th class="border-0 text-center" scope="col" width="18%">Mã GDV chuyển</th>
+                        <th class="border-0 text-center" scope="col" width="14%">Số mã hàng</th>
+                        <th class="border-0 text-center" scope="col" width="21%">Tình trạng</th>
+                        <th class="border-0 text-center" scope="col" width="20%"><span>Hành động</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each containers}}
+                    <tr>
+                        <td>{{this.containerCode}}</td>
+                        <td>{{formatDate this.createdAt}}</td>
+                        <td><img src="https://i.imgur.com/nmnmfGv.png" width="25"> {{this.employeeId}}</td>
+                        <td>{{this.postIds.length}}</td>
+                        <td><span class="rounded-pill align-items-center"
+                                style="background-color: rgb(251, 242, 178); padding: 1px 9px"><i class="fa fa-circle"
+                                    style="font-size: 11px; color: rgb(243, 183, 31)"></i><span class="ms-1"
+                                    style="color: rgb(231, 162, 14); font-weight: bold;">Đang giao</span></span>
+                        </td>
+                        <td><a class="fw-bolder confirm-link"
+                                href="/confirm_order/{{this.containerCode}}/confirm_each_order_station_receivers">Xác
+                                nhận từng mã hàng</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

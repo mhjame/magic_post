@@ -12,68 +12,80 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
+{{>station_employee/header}}
+
+<div class="body-container">
+
+    <nav class="pt-4" style="--bs-breadcrumb-divider: '>'; margin-left: 25px; font-size: 15px; color: gray"
+        aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/confirm_order/confirm_from_wh_to_station"
+                    style="text-decoration: none;">Các lô hàng cần xác nhận</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Các mã hàng cần xác nhận</li>
+        </ol>
+    </nav>
+
+    <div class="container pt-4 px-2">
+        <form id="confirm-posts-wh-station-form" action="/stored/confirm_posts_wh_station" method="post">
+            <input type="hidden" name="containerCode" value="{{container.containerCode}}">
+            <div class="table-responsive">
+
+                <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desStation.name}}</span>
+                        đã nhận được các mã hàng trong lô hàng <span
+                            style="color: brown">{{container.containerCode}}</span>
+                        gửi về từ
+                        <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></p>
+
+                <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
+                    <thead>
+                        <tr
+                            style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                            <th class="border-0 text-center" scope="col" width="12%">Mã hàng</th>
+                            <th class="border-0 text-center" scope="col" width="12%">Tên hàng</th>
+                            <th class="border-0 text-center" scope="col" width="15%">Loại hàng</th>
+                            <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
+                            <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
+                            <th class="border-0 text-center" scope="col" width="19%"><label
+                                    class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Xác
+                                    nhận</label></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each posts}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{renderArray this.genre}}</td>
+                            <td>{{this.actualWeight}} kg</td>
+                            <td>
+                                <span class="post-status" data-status="{{this.status}}">
+
+                                </span>
 
 
-<div class="container mt-5 px-2">
-    <form id="confirm-posts-wh-station-form" action="/stored/confirm_posts_wh_station" method="post">
-        <input type="hidden" name="containerCode" value="{{container.containerCode}}">
-        <div class="table-responsive">
+                            </td>
+                            <td>
 
-            <p style="font-size: 1.1rem;"><strong>Xác nhận <span style="color: brown;">{{desStation.name}}</span>
-                    đã nhận được các mã hàng trong lô hàng <span style="color: brown">{{container.containerCode}}</span>
-                    gửi về từ
-                    <span style="color: brown;">{{originWarehouse.name}}</span>:</strong></p>
+                                <label class="confirm-checkbox">
+                                    <input class="form-check-input" type="checkbox" name="postIds"
+                                        value="{{this.id}}"><strong class="confirm-text success"> Đã
+                                        nhận</strong>
+                                </label>
 
-            <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
-                <thead>
-                    <tr
-                        style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <th class="border-0 text-center" scope="col" width="12%">Mã hàng</th>
-                        <th class="border-0 text-center" scope="col" width="12%">Tên hàng</th>
-                        <th class="border-0 text-center" scope="col" width="15%">Loại hàng</th>
-                        <th class="border-0 text-center" scope="col" width="15%">Trọng lượng</th>
-                        <th class="border-0 text-center" scope="col" width="27%">Tình trạng</th>
-                        <th class="border-0 text-center" scope="col" width="19%"><label
-                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Xác
-                                nhận</label></th>
-                    </tr>
-                </thead>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
 
-                <tbody>
-                    {{#each posts}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{renderArray this.genre}}</td>
-                        <td>{{this.actualWeight}} kg</td>
-                        <td>
-                            <span class="post-status" data-status="{{this.status}}">
+                </table>
 
-                            </span>
-
-
-                        </td>
-                        <td>
-
-                            <label class="confirm-checkbox">
-                                <input class="form-check-input" type="checkbox" name="postIds"
-                                    value="{{this.id}}"><strong class="confirm-text"> Đã
-                                    nhận</strong>
-                            </label>
-
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-
-            </table>
-
-        </div>
-    </form>
-    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
-        data-bs-toggle="modal" data-bs-target="#confirm-submit" disabled>Xác nhận</button>
+            </div>
+        </form>
+        <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
+            data-bs-toggle="modal" data-bs-target="#confirm-submit" disabled>Xác nhận</button>
+    </div>
 </div>
-
 
 <div class="modal fade" id="confirm-submit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -99,6 +111,7 @@
 
 
 
+
 <script>
     const checkList = document.querySelectorAll('tbody tr td .confirm-checkbox');
     const checkAll = document.querySelector('.confirm-checkbox.all');
@@ -108,10 +121,46 @@
     const numOfPosts = document.querySelector('#numOfPosts');
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
     const tableBodyRows = document.querySelectorAll('tbody tr');
+    const dataForm = document.getElementById('confirm-posts-wh-station-form');
+    const containerCode = dataForm.querySelector("input[name='containerCode']").value;
     let checkedCount;
 
     btnConfirmSubmit.addEventListener('click', () => {
-        document.getElementById('confirm-posts-wh-station-form').submit();
+        const postIdsElements = dataForm.querySelectorAll("input[name='postIds']:checked");
+        const postIds = [];
+        for (const element of postIdsElements) {
+            postIds.push(element.value);
+        }
+        fetch("/stored/confirm_posts_wh_station", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                containerCode,
+                postIds
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Xác nhận thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                if (data.noPostLeft === 'yes') {
+                    window.location = '/confirm_order/confirm_from_wh_to_station';
+                } else {
+                    location.reload();
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     });
 
     for (const row of tableBodyRows) {

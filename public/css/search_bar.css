@@ -1,12 +1,10 @@
 body {
-  height: 100vh;
-  background-image: url(/images/searchPostBackground1.png);
-  background-size: cover;
-  background-position: center;
+  background-image: url(/images/searchPostBackground3.png);
+  background-position: top;
 }
 
 .container {
-  margin-top: 35vh;
+  margin-top: 50vh;
 }
 
 .search-form {

@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="/css/create_order_form.css">
 
+
 {{!-- <nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #1e1e86;">
 
     <div class="container">
@@ -44,7 +45,7 @@
 
 <div class="row justify-content-center align-items-center">
     <div class="col-lg-12 col-sm-9">
-        <form id="station-to-warehouse-order-form" action="/stored/create_station_to_wh_order" method="post">
+        <form id="warehouse-to-warehouse-order-form" action="/stored/create_wh_to_wh_order" method="post">
             <h4 class="form-title">Đơn chuyển hàng đến điểm tập kết</h4>
             <div class="input-control">
                 <label for="name" id="label-name">
@@ -73,16 +74,16 @@
 
             <div class="input-control">
                 <label for="workPlace" id="label-workPlace">
-                    Điểm giao dịch gửi lô hàng
+                    Điểm tập kết gửi lô hàng
                 </label>
 
-                <input class="readonly" type="text" id="workPlace" value="{{senderStationId}} - {{senderStationName}}"
-                    readonly />
+                <input class="readonly" type="text" id="workPlace"
+                    value="{{senderWarehouseId}} - {{senderWarehouseName}}" readonly />
 
-                <input type="hidden" name="senderAddressId" value="{{senderStationId}}">
+                <input type="hidden" name="senderAddressId" value="{{senderWarehouseId}}">
             </div>
 
-            <input type="hidden" name="typeOfOrder" value="station-warehouse">
+            <input type="hidden" name="typeOfOrder" value="warehouse-warehouse">
 
             <div class="input-control">
                 <label for="desWarehouse" id="label-desWarehouse">
@@ -90,13 +91,13 @@
                 </label>
 
                 <input class="readonly" type="text" id="desWarehouse"
-                    value="{{senderWarehouseId}} - {{senderWarehouseName}}" readonly />
+                    value="{{receiverWarehouseId}} - {{receiverWarehouseName}}" readonly />
 
-                <input type="hidden" name="receiverAddressId" value="{{senderWarehouseId}}">
+                <input type="hidden" name="receiverAddressId" value="{{receiverWarehouseId}}">
             </div>
 
             <div class="input-control">
-                <label>Các mã hàng sẽ chuyển đến điểm tập kết</label>
+                <label>Các mã hàng sẽ chuyển đến điểm tập kết đích</label>
 
                 {{#if isArray}}
                 {{#each postIds}}
@@ -122,7 +123,7 @@
 
             <div class="d-grid gap-3 d-sm-block">
                 <button id="return-button" class="btn btn-secondary col-sm-3 me-sm-4" type="button"
-                    onclick="window.location.href='/create_order/create_station_to_wh'">
+                    onclick="window.location.href='/create_order/{{receiverWarehouseId}}/create_wh_to_wh'">
                     Quay lại
                 </button>
 
@@ -149,8 +150,8 @@
             </div>
             <div class="modal-body">
                 Bạn chắc chắn muốn tạo đơn chuyển lô hàng gồm <span style="color: brown;">{{postIdsLength}}</span> mã
-                hàng từ <span style="color: brown;">{{senderStationName}}</span> đến
-                <span style="color: brown;">{{senderWarehouseName}}</span> chứ?
+                hàng từ <span style="color: brown;">{{senderWarehouseName}}</span> đến
+                <span style="color: brown;">{{receiverWarehouseName}}</span> chứ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bỏ lệnh</button>
@@ -165,7 +166,7 @@
 <script>
     const btnConfirmSubmit = document.getElementById('confirm-submit-button');
 
-    const dataForm = document.getElementById('station-to-warehouse-order-form');
+    const dataForm = document.getElementById('warehouse-to-warehouse-order-form');
     const employeeId = dataForm.querySelector("input[name='employeeId']").value;
     const typeOfOrder = dataForm.querySelector("input[name='typeOfOrder']").value;
     const senderAddressId = dataForm.querySelector("input[name='senderAddressId']").value;
@@ -178,7 +179,7 @@
     }
 
     btnConfirmSubmit.addEventListener('click', () => {
-        fetch("/stored/create_station_to_wh_order", {
+        fetch("/stored/create_wh_to_wh_order", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -202,13 +203,12 @@
             })
             .then((data) => {
                 alert(data.message);
-                window.location = "/create_order/create_station_to_wh";
+                window.location = "/create_order/" + receiverAddressId + "/create_wh_to_wh";
 
             })
             .catch((error) => {
                 console.log(error);
             });
     });
-
 
 </script>

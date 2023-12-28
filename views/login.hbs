@@ -12,51 +12,45 @@
 
 <section class="login-block">
   <div class="container">
-	<div class="row">
-		<div class="col-md-4 login-sec">
-		    <h2 class="text-center">Magic Post</h2>
-		
-        <form class="login-form" id="login-form" method="POST" action="/login" >
+    <div class="row">
+      <div class="col-md-4 login-sec">
+        <h2 class="text-center">Magic Post</h2>
+
+        <form class="login-form" id="login-form" method="POST" action="/login">
           <div class="form-group">
             <label for="exampleInputEmail1" style="color: #777575; font-weight: bold;">Tên đăng nhập</label>
-            <input type="text" 
-                  name="username"
-                  class="form-control" 
-                  placeholder="Nhập tên đăng nhập">    
+            <input type="text" name="username" class="form-control" placeholder="Nhập tên đăng nhập">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1" style="color: #777575; font-weight: bold;" >Mật khẩu</label>
-            <input type="password"
-                    name="password" 
-                    class="form-control" 
-                    placeholder="Nhập mật khẩu">
+            <label for="exampleInputPassword1" style="color: #777575; font-weight: bold;">Mật khẩu</label>
+            <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu">
           </div>
-           <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                <small>Ghi nhớ</small>
-              </label>
-              <button type="submit" class="btn btn-login float-right">Đăng nhập</button>
-              <div class="message mt-3">
-                    {{#if message}}{{message}}{{/if}}
-                </div>
-          </div>
-  
-        </form>
-                <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Thông báo</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p class="modal-message"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="modal-button"></div>
-                    </div>
-                </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input">
+              <small>Ghi nhớ</small>
+            </label>
+            <button type="submit" class="btn btn-login float-right">Đăng nhập</button>
+            <div class="message mt-3">
+              {{#if message}}{{message}}{{/if}}
             </div>
+          </div>
+
+        </form>
+        <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+              </div>
+              <div class="modal-body">
+                <p class="modal-message"></p>
+              </div>
+              <div class="modal-footer">
+                <div class="modal-button"></div>
+              </div>
+            </div>
+          </div>
         </div>
 <div class="copy-text"><a href="/forgotPassword">Quên mật khẩu?</a><br>
                 <p>Magic Post luôn đồng hành cùng bạn</p></div>
@@ -114,7 +108,7 @@
     width:100%;
     padding : 50px 0;
     }
-    .banner-sec{background:url(http://localhost:3000/image/imagelogin.jpg)  no-repeat left bottom; background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}
+    .banner-sec{background:url(https://static.pexels.com/photos/33972/pexels-photo.jpg)  no-repeat left bottom; background-size:cover; min-height:500px; border-radius: 0 10px 10px 0; padding:0;}
     .container{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1);}
     .carousel-inner{border-radius:0 10px 10px 0;}
     .carousel-caption{text-align:left; left:5%;}
@@ -131,39 +125,46 @@
     .banner-text p{color:#fff;}
 
 </style>
-    
+
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script>
-    function validateLogin() {
-      var employeeID = document.getElementsByName('employeeID')[0].value;
-      var password = document.getElementsByName('pass')[0].value;
+  function validateLogin() {
+    var employeeID = document.getElementsByName('employeeID')[0].value;
+    var password = document.getElementsByName('pass')[0].value;
 
-      // Thực hiện kiểm tra đơn giản. Bạn cần thay thế bằng logic xác thực thực tế
-      if (employeeID === "" || password === "") {
-        alert("Vui lòng nhập đầy đủ mã nhân viên và mật khẩu.");
-        return false; // Ngăn form submit nếu có lỗi
-      }
-
-      // Thêm logic xác thực tại đây, ví dụ, có thể gửi dữ liệu đăng nhập lên máy chủ để kiểm tra.
-
-      return true; // Cho phép form submit nếu không có lỗi
+    // Thực hiện kiểm tra đơn giản. Bạn cần thay thế bằng logic xác thực thực tế
+    if (employeeID === "" || password === "") {
+      alert("Vui lòng nhập đầy đủ mã nhân viên và mật khẩu.");
+      return false; // Ngăn form submit nếu có lỗi
     }
+
+    // Thêm logic xác thực tại đây, ví dụ, có thể gửi dữ liệu đăng nhập lên máy chủ để kiểm tra.
+
+    return true; // Cho phép form submit nếu không có lỗi
+  }
 </script>
-  
+
 <script>
-    $('#login-form').on('submit', event => {
-        event.preventDefault();
-        fetch(event.target.action, {
-            method: 'POST',
-            body: new URLSearchParams(new FormData(event.target))
-        })
-        .then(response => response.json())
-        .then(json => {
-            $('#modal').modal('toggle');
-            $('.modal-message').html(json.message);
-            if (json.loginSuccess) $('.modal-button').html('<a type="button" class="btn btn-primary" href="/profile/view">Về trang chủ</a>');
-            else $('.modal-button').html('<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>');
-        });
-    });
+  $('#login-form').on('submit', event => {
+    event.preventDefault();
+    fetch(event.target.action, {
+      method: 'POST',
+      body: new URLSearchParams(new FormData(event.target))
+    })
+      .then(response => response.json())
+      .then(json => {
+        $('#modal').modal('toggle');
+        $('.modal-message').html(json.message);
+        if (json.loginSuccess && json.warehouseE) {
+          $('.modal-button').html('<a type="button" class="btn btn-primary" href="/warehouse_employee_page">OK</a>');
+        } else if (json.loginSuccess && json.stationE) {
+          $('.modal-button').html('<a type="button" class="btn btn-primary" href="/station_employee_page">OK</a>');
+        } else if (json.loginSuccess) {
+          $('.modal-button').html('<a type="button" class="btn btn-primary" href="/profile/view">Về trang chủ</a>');
+        } else {
+          $('.modal-button').html('<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>');
+        }
+      });
+  });
 </script>

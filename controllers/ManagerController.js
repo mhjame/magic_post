@@ -50,9 +50,9 @@ class ManagerController {
         console.log("postS" + req.body.stationProvince);
         console.log("postS" + address);
 
-        Station.find({ address: address})
+        Station.find({ address: address })
             .then(stations => {
-                console.log("find" + address +"+"+ stations)
+                console.log("find" + address + "+" + stations)
                 if (!stations || stations.length === 0) {
                     return res.json({
                         message: 'Magic post hiện chưa có bưu cục nào ở vị trí này!'
@@ -106,10 +106,25 @@ class ManagerController {
                     req.session.employee = mongooseToObject(employee);
                     req.session.save(err => {
                         if (err) return err;
-                        res.json({
-                            loginSuccess: true,
-                            message: 'Đăng nhập thành công'
-                        });
+                        if (employee.role === "StationE") {
+                            res.json({
+                                loginSuccess: true,
+                                message: 'Đăng nhập thành công',
+                                stationE: 'yes'
+                            });
+                        } else if (employee.role === "WarehouseE") {
+                            res.json({
+                                loginSuccess: true,
+                                message: 'Đăng nhập thành công',
+                                warehouseE: 'yes'
+                            });
+                        } else {
+                            res.json({
+                                loginSuccess: true,
+                                message: 'Đăng nhập thành công',
+                            });
+                        }
+
                     });
                 });
             })
@@ -172,7 +187,7 @@ class ManagerController {
 
     postRegister(req, res, next) {
         const { retype, ...formData } = req.body;
-        Promise.all([Employee.findOne({ username: formData.username }), Employee.find({workAddress: formData.workAddress, role: formData.role}).countDocuments()])
+        Promise.all([Employee.findOne({ username: formData.username }), Employee.find({ workAddress: formData.workAddress, role: formData.role }).countDocuments()])
             .then(([employee, countEmployee]) => {
                 if (employee) return res.json({
                     registerSuccess: false,
@@ -180,7 +195,7 @@ class ManagerController {
                 });
 
                 const userRole = req.session.employee.role;
-                if(userRole == 'Manager' && countEmployee > 0) return res.json({
+                if (userRole == 'Manager' && countEmployee > 0) return res.json({
                     registerSuccess: false,
                     message: 'Chức vụ này đã có người nắm giữ'
                 });
@@ -459,7 +474,7 @@ class ManagerController {
             res.render('receipt', {
                 post: mongooseToObject(postCreate)
             })
-            
+
         }
         catch (e) {
             res.status(500).json({ error: e.message });

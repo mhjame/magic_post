@@ -4,65 +4,71 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
-<div id="search-failed-alert" style="display: none;">
-    <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 25px;">
-        Không có điểm giao dịch nào tương thích với từ khoá đã nhập!
-    </div>
-</div>
+{{>warehouse_employee/header}}
+<div class="body-container">
 
-
-<div class="container">
-    {{#if originStationsNeedConfirm}}
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <h3>Các điểm giao dịch trực thuộc</h3>
-            <p>Và số lô hàng đang trung chuyển đến {{thisWarehouse.name}}</p>
+    <div id="search-failed-alert" style="display: none;">
+        <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 25px;">
+            Không có điểm giao dịch nào tương thích với từ khoá đã nhập!
         </div>
     </div>
-    {{else}}
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <h3>Well, không còn lô hàng nào cần xác nhận</h3>
-            <p>Hiện không có lô hàng nào đang được trung chuyển đến từ tất cả các điểm giao dịch trực thuộc</p>
-        </div>
-    </div>
-    {{/if}}
 
-    <div class="row d-flex justify-content-center align-items-center" style="margin-bottom: 40px;">
-        <div class="col-md-6">
-            <div class="search-bar">
-                <i class="fa fa-search"></i>
-                <input id="search-station" type="search" name="searchValue" class="form-control form-input search-input"
-                    onkeyup="searchStation()" placeholder="Nhập mã hoặc tên điểm giao dịch...">
+
+    <div class="container pt-5">
+        {{#if originStationsNeedConfirm}}
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h3>Các điểm giao dịch trực thuộc</h3>
+                <p>Và số lô hàng đang trung chuyển đến {{thisWarehouse.name}}</p>
             </div>
         </div>
-    </div>
+        {{else}}
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h3>Well, không còn lô hàng nào cần xác nhận</h3>
+                <p>Hiện không có lô hàng nào đang được trung chuyển đến từ tất cả các điểm giao dịch trực thuộc</p>
+            </div>
+        </div>
+        {{/if}}
 
-    <div class="row text-center justify-content-center">
-        {{#each originStationsNeedConfirm}}
-        <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
-            <div class="station-card card mb-3 h-100 w-100">
-                <div class="card-header h-100">
-                    <h5 class="mb-1">{{this.name}}</h5>
-                    <div class="small text-muted">Mã: {{this.id}}</div>
+        <div class="row d-flex justify-content-center align-items-center" style="margin-bottom: 40px;">
+            <div class="col-md-6">
+                <div class="search-bar">
+                    <i class="fa fa-search"></i>
+                    <input id="search-station" type="search" name="searchValue"
+                        class="form-control form-input search-input" onkeyup="searchStation()"
+                        placeholder="Nhập mã hoặc tên điểm giao dịch...">
                 </div>
-                <div class="card-body">
-                    <div class="number-round">
-                        <h1 class="card-title">{{lookup ../totalContainersFromStation this.id}}</h1>
+            </div>
+        </div>
+
+        <div class="row text-center justify-content-center">
+            {{#each originStationsNeedConfirm}}
+            <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
+                <div class="station-card card mb-3 h-100 w-100">
+                    <div class="card-header h-100">
+                        <h5 class="mb-1">{{this.name}}</h5>
+                        <div class="small text-muted">Mã: {{this.id}}</div>
                     </div>
+                    <div class="card-body">
+                        <div class="number-round">
+                            <h1 class="card-title">{{lookup ../totalContainersFromStation this.id}}</h1>
+                        </div>
 
-                    <p class="card-text small text-muted">lô hàng đang chuyển đến</p>
+                        <p class="card-text small text-muted">lô hàng đang chuyển đến</p>
 
-                    <button type="button" class="btn btn-success"
-                        onclick="window.location.href='/confirm_order/{{this.id}}/confirm_station_wh'">Xác nhận
-                        ngay</button>
+                        <button type="button" class="btn btn-success"
+                            onclick="window.location.href='/confirm_order/{{this.id}}/confirm_station_wh'">Xác nhận
+                            ngay</button>
 
+                    </div>
                 </div>
             </div>
+            {{/each}}
         </div>
-        {{/each}}
     </div>
 </div>
+
 
 <script>
 
