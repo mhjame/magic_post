@@ -10,7 +10,7 @@ class EmployeeController {
 
 
     createShipStationToWarehouse(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
                 .then((employee) => {
                     if (!employee) {
@@ -57,7 +57,7 @@ class EmployeeController {
     }
 
     createStationToWhOrderForm(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             const employeeId = req.body.employeeId;
             const employeeName = req.body.employeeName;
             const senderStationId = req.body.senderStationId;
@@ -451,7 +451,7 @@ class EmployeeController {
     }
 
     createShipStationToReceiver(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
                 .then((employee) => {
                     if (!employee) {
@@ -488,7 +488,7 @@ class EmployeeController {
     }
 
     createStationToReceiverOrderForm(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             const employeeId = req.body.employeeId;
             const employeeName = req.body.employeeName;
             const receiverStationId = req.body.receiverStationId;
@@ -583,7 +583,7 @@ class EmployeeController {
     }
 
     getConfirmFromWarehouseToStation(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
                 .then((employee) => {
                     if (!employee) {
@@ -629,7 +629,7 @@ class EmployeeController {
 
 
     getConfirmEachOrderWarehouseToStation(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
                 .then((employee) => {
                     if (!employee) {
@@ -1132,7 +1132,7 @@ class EmployeeController {
     }
 
     getConfirmStationToReceivers(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
                 .then((employee) => {
                     if (!employee) {
@@ -1175,7 +1175,7 @@ class EmployeeController {
     }
 
     getConfirmEachOrderStationToReceivers(req, res, next) {
-        if (req.session.employee) {
+        if (req.session.employee && req.session.employee.role === 'StationE') {
             Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
                 .then((employee) => {
                     if (!employee) {
@@ -1209,7 +1209,7 @@ class EmployeeController {
                                                 thisStation: station,
                                                 container: container,
                                                 posts: posts,
-        
+
                                                 workPlace: station,
                                                 desWarehouse: warehouse,
                                                 noHeader: 'yes',
@@ -1391,6 +1391,18 @@ class EmployeeController {
 
     }
 
+    logout(req, res, next) {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error logging out');
+            } else {
+                res.json({
+                    message: 'Đăng xuất thành công'
+                })
+            }
+        })
+    }
 
 }
 

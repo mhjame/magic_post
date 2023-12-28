@@ -73,8 +73,8 @@
                             aria-expanded="false"><i class="fa fa-user"></i> {{employee.lastName}}
                             {{employee.firstName}}</button>
                         <ul class="dropdown-menu" aria-labelledby="profileBtn">
-                            <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
-                            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                            <li><a class="dropdown-item" href="/profile/view">Hồ sơ</a></li>
+                            <li><a class="dropdown-item" id="logout">Đăng xuất</a></li>
                         </ul>
                     </div>
                     <style>
@@ -105,13 +105,13 @@
                     </style>
                 </div>
 
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav"
                     aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="fa fa-bars"></span> Menu
                 </button>
                 <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav m-auto" style="background-color: #fcfbfb;!important">
-                        <li class="nav-item"><a href="#" class="nav-link">Ghi nhận hàng gửi</a></li>
+                    <ul class="navbar-nav me-auto" style="background-color: #fcfbfb;!important">
+                        <li class="nav-item"><a href="/createReceipt" class="nav-link">Ghi nhận hàng gửi</a></li>
                         <li class="nav-item dropdown">
                             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"
                                 style="white-space: normal;">Tạo đơn chuyển hàng</a>
@@ -148,6 +148,34 @@
         </nav>
 
     </section>
+    <script>
+        const logoutBtn = document.getElementById('logout');
+        logoutBtn.addEventListener('click', () => {
+        fetch("/logout", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: ''
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Đăng xuất thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                window.location = "/";
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+    </script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
 
@@ -338,6 +366,7 @@
 
         .dropdown-menu .dropdown-item:hover,
         .dropdown-menu .dropdown-item:focus {
+            cursor: pointer;
             background: #f1bc31;
             color: #fff;
         }
