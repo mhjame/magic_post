@@ -4,65 +4,70 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
-<div id="search-failed-alert" style="display: none;">
-    <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 25px;">
-        Không có điểm tập kết nào tương thích với từ khoá đã nhập!
-    </div>
-</div>
+{{>warehouse_employee/header}}
+<div class="body-container">
 
-
-<div class="container mt-5">
-    {{#if desWarehousesHavePosts}}
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <h3>Các điểm tập kết đích</h3>
-            <p>Và số mã hàng cần chuyển từ {{thisWarehouse.name}} đến mỗi điểm</p>
+    <div id="search-failed-alert" style="display: none;">
+        <div class="alert alert-danger text-center" role="alert" style="margin-bottom: 25px;">
+            Không có điểm tập kết nào tương thích với từ khoá đã nhập!
         </div>
     </div>
-    {{else}}
-    <div class="row text-center">
-        <div class="col-lg-12">
-            <h3>Well, không còn mã hàng nào để tạo đơn</h3>
-            <p>Hiện không có mã hàng nào cần chuyển đến tất cả các điểm tập kết đích</p>
-        </div>
-    </div>
-    {{/if}}
 
-    <div class="row d-flex justify-content-center align-items-center" style="margin-bottom: 40px;">
-        <div class="col-md-6">
-            <div class="search-bar">
-                <i class="fa fa-search"></i>
-                <input id="search-wh" type="search" name="searchValue" class="form-control form-input search-input"
-                    onkeyup="searchWarehouse()" placeholder="Nhập mã hoặc tên điểm tập kết...">
+
+    <div class="container pt-5">
+        {{#if desWarehousesHavePosts}}
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h3>Các điểm tập kết đích</h3>
+                <p>Và số mã hàng cần chuyển từ {{thisWarehouse.name}} đến mỗi điểm</p>
             </div>
         </div>
-    </div>
+        {{else}}
+        <div class="row text-center">
+            <div class="col-lg-12">
+                <h3>Well, không còn mã hàng nào để tạo đơn</h3>
+                <p>Hiện không có mã hàng nào cần chuyển đến tất cả các điểm tập kết đích</p>
+            </div>
+        </div>
+        {{/if}}
 
-    <div class="row text-center justify-content-center">
-        {{#each desWarehousesHavePosts}}
-        <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
-            <div class="warehouse-card card mb-3 h-100 w-100">
-                <div class="card-header h-100">
-                    <h5 class="mb-1">{{this.name}}</h5>
-                    <div class="small text-muted">Mã: {{this.id}}</div>
+        <div class="row d-flex justify-content-center align-items-center" style="margin-bottom: 40px;">
+            <div class="col-md-6">
+                <div class="search-bar">
+                    <i class="fa fa-search"></i>
+                    <input id="search-wh" type="search" name="searchValue" class="form-control form-input search-input"
+                        onkeyup="searchWarehouse()" placeholder="Nhập mã hoặc tên điểm tập kết...">
                 </div>
-                <div class="card-body">
-                    <div class="number-round">
-                        <h1 class="card-title">{{lookup ../totalPostsFromWarehouse this.id}}</h1>
+            </div>
+        </div>
+
+        <div class="row text-center justify-content-center">
+            {{#each desWarehousesHavePosts}}
+            <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
+                <div class="warehouse-card card mb-3 h-100 w-100">
+                    <div class="card-header h-100">
+                        <h5 class="mb-1">{{this.name}}</h5>
+                        <div class="small text-muted">Mã: {{this.id}}</div>
                     </div>
+                    <div class="card-body">
+                        <div class="number-round">
+                            <h1 class="card-title">{{lookup ../totalPostsFromWarehouse this.id}}</h1>
+                        </div>
 
-                    <p class="card-text small text-muted">mã hàng cần chuyển đến</p>
+                        <p class="card-text small text-muted">mã hàng cần chuyển đến</p>
 
-                    <button type="button" class="btn btn-success"
-                        onclick="window.location.href='/create_order/{{this.id}}/create_wh_to_wh'">Tạo đơn
-                        chuyển hàng</button>
+                        <button type="button" class="btn btn-success"
+                            onclick="window.location.href='/create_order/{{this.id}}/create_wh_to_wh'">Tạo đơn
+                            chuyển hàng</button>
 
+                    </div>
                 </div>
             </div>
+            {{/each}}
         </div>
-        {{/each}}
     </div>
 </div>
+
 
 <script>
 

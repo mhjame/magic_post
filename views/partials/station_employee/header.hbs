@@ -1,0 +1,441 @@
+<style>
+    :root {
+        --blue-color: #174a8c;
+        --orange-color: #ef5330;
+    }
+</style>
+<nav style="background-color: #dfdfdf; position: sticky; position: -webkit-sticky; top: 0; z-index: 1000;">
+    <section class="ftco-section" style="padding: 0;">
+
+        <div class="wrap" style="background-color: #d3d3d3;!important">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col">
+                        <style>
+                            .mb-0.phone {
+                                background-color: var(--blue-color);
+                                color: white;
+                                border: 1px solid white;
+                                border-radius: 15px;
+                                padding: 5px 10px;
+                                margin-top: 5px;
+                                text-decoration: none;
+                                font-weight: bold;
+                                transition: background-color 0.3s, color 0.3s;
+                            }
+
+                            .mb-0.phone:hover {
+                                background-color: var(--orange-color);
+                                color: white;
+                            }
+                        </style>
+                        <button class="mb-0 phone"><i class="fa fa-home"></i><a href="#" style="text-decoration: none;">
+                                {{workPlace.name}} - Trực
+                                thuộc: {{desWarehouse.name}}</a></button>
+                    </div>
+                    <div class="col d-flex justify-content-end">
+                        <div class="social-media">
+                            <p class="mb-0 d-flex">
+                                <a href="#" class="d-flex align-items-center justify-content-center " id="aicon"><span
+                                        class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center " id="aicon"><span
+                                        class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center" id="aicon"><span
+                                        class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+                                <a href="#" class="d-flex align-items-center justify-content-center " id="aicon"><span
+                                        class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                                <style>
+                                    #aicon {
+                                        background-color: var(--blue-color);
+                                        !important
+                                    }
+
+                                    #aicon:hover {
+                                        background-color: var(--orange-color);
+                                        !important
+                                    }
+                                </style>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light ftco_navbar bg-light ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <a class="navbar-brand" href="/station_employee_page">Magic Post <span>Trang dành cho <br> nhân viên
+                        điểm giao
+                        dịch</span></a>
+                <div class="searchform order-sm-start order-lg-last">
+                    <div class="dropdown">
+                        <button id="profileBtn" class="dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false"><i class="fa fa-user"></i> {{employee.lastName}}
+                            {{employee.firstName}}</button>
+                        <ul class="dropdown-menu" aria-labelledby="profileBtn">
+                            <li><a class="dropdown-item" href="/profile/view">Hồ sơ</a></li>
+                            <li><a class="dropdown-item" id="logout">Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                    <style>
+                        #profileBtn {
+                            width: 100%;
+                            padding: 15px;
+                            margin-top: 2px;
+                            padding-top: 10px;
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: bold;
+                            color: #fff;
+                            background-color: var(--orange-color);
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            transition: background-color 0.3s, box-shadow 0.3s;
+                            /* Hiệu ứng hover và box-shadow */
+                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                            /* Viền nổi */
+                        }
+
+                        #profileBtn:hover {
+                            background-color: var(--blue-color);
+                            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+                            /* Hiệu ứng hover cho viền nổi */
+                        }
+                    </style>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ftco-nav"
+                    aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span> Menu
+                </button>
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav m-auto" style="background-color: #fcfbfb;!important">
+                        <li class="nav-item"><a href="/createReceipt" class="nav-link">Ghi nhận hàng gửi</a></li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="white-space: normal;">Tạo đơn chuyển hàng</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/create_order/create_station_to_wh">Đến điểm tập
+                                        kết</a></li>
+                                <li><a class="dropdown-item" href="/create_order/create_station_to_receiver">Đến
+                                        người nhận</a></li>
+                            </ul>
+
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"
+                                style="white-space: normal;">Xác nhận đơn hàng</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/confirm_order/confirm_from_wh_to_station">Chuyển về từ điểm tập kết</a></li>
+                                <li><a class="dropdown-item" href="/confirm_order/confirm_station_receivers">Giao đến người nhận</a></li>
+                            </ul>
+
+                        </li>
+                        <li class="nav-item"><a href="#" class="nav-link">Thống kê giao hàng</a></li>
+                        <style>
+                            #ftco-nav .navbar-nav .nav-item a.nav-link {
+                                border-bottom: 2px solid var(--orange-color);
+                            }
+
+                            #ftco-nav .navbar-nav .nav-item:hover a.nav-link {
+                                background-color: var(--orange-color);
+                            }
+                        </style>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </section>
+    <script>
+        const logoutBtn = document.getElementById('logout');
+        logoutBtn.addEventListener('click', () => {
+        fetch("/logout", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: ''
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Đăng xuất thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                window.location = "/";
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
+
+    <style>
+        .ftco-section {
+            padding: 7em 0;
+        }
+
+        .ftco-no-pt {
+            padding-top: 0;
+        }
+
+        .ftco-no-pb {
+            padding-bottom: 0;
+        }
+
+        .heading-section {
+            font-size: 28px;
+            color: #000;
+        }
+
+        .img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .wrap {
+            background: #202020;
+        }
+
+        .wrap .phone a {
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .social-media {
+            display: inline-block;
+        }
+
+        .social-media p a {
+            width: 34px;
+            height: 34px;
+            background: #4d4d4d;
+            margin-right: 1px;
+        }
+
+        .social-media p a span {
+            color: #fff;
+        }
+
+        .social-media p a:hover {
+            background: #f1bc31;
+            border-color: #f1bc31;
+        }
+
+        .social-media p a:hover span {
+            color: #fff;
+        }
+
+        .ftco-navbar-light {
+            background: #fff !important;
+            z-index: 3;
+            padding: 0;
+            -webkit-box-shadow: 0px 5px 20px -17px rgba(0, 0, 0, 0.34);
+            -moz-box-shadow: 0px 5px 20px -17px rgba(0, 0, 0, 0.34);
+            box-shadow: 0px 5px 20px -17px rgba(0, 0, 0, 0.34);
+        }
+
+        @media (max-width: 991.98px) {
+            .ftco-navbar-light {
+                background: #fff;
+                position: relative;
+                top: 0;
+                padding: 10px 15px;
+            }
+        }
+
+        .ftco-navbar-light .navbar-brand {
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .ftco-navbar-light .navbar-brand span {
+            display: block;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+
+        .ftco-navbar-light .navbar-brand:hover,
+        .ftco-navbar-light .navbar-brand:focus {
+            color: #000;
+        }
+
+        @media (max-width: 767.98px) {
+            .ftco-navbar-light .navbar-brand {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .ftco-navbar-light .navbar-nav {
+                padding-bottom: 10px;
+            }
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
+            font-size: 11px;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-weight: 500;
+            color: #4d4d4d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            opacity: 1 !important;
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-color: #f1bc31;
+            visibility: hidden;
+            -webkit-transform: scaleX(0);
+            -ms-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -o-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+            z-index: -1;
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover {
+            color: #fff;
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover:before {
+            visibility: visible;
+            background-color: #f1bc31;
+            -webkit-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 991.98px) {
+            .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
+                padding-left: 0;
+                padding-right: 0;
+                padding-top: .9rem;
+                padding-bottom: .9rem;
+            }
+
+            .ftco-navbar-light .navbar-nav>.nav-item>.nav-link:hover {
+                color: #fff;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .ftco-navbar-light .navbar-nav>.nav-item>.nav-link {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item .dropdown-menu {
+            border: none;
+            background: #f2f0f0;
+            -webkit-box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
+            -moz-box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
+            box-shadow: 0px 10px 34px -20px rgba(0, 0, 0, 0.41);
+            border-radius: 4px;
+        }
+
+        .dropdown-menu .dropdown-item {
+            font-size: 14px;
+            color: #000;
+        }
+
+        .dropdown-menu .dropdown-item:hover,
+        .dropdown-menu .dropdown-item:focus {
+            cursor: pointer;
+            background: #f1bc31;
+            color: #fff;
+        }
+
+        @media (max-width: 991.98px) {
+            .ftco-navbar-light .navbar-nav>.nav-item .dropdown-menu {
+
+                background: #f2f0f0;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item.cta>a {
+            color: #fff;
+            background: #f1bc31;
+            border-radius: 0px;
+        }
+
+        @media (max-width: 767.98px) {
+            .ftco-navbar-light .navbar-nav>.nav-item.cta>a {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .ftco-navbar-light .navbar-nav>.nav-item.cta>a {
+                color: #fff;
+                background: #f1bc31;
+                border-radius: 4px;
+            }
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item.active>a {
+            color: #fff;
+        }
+
+        .ftco-navbar-light .navbar-nav>.nav-item.active>a:before {
+            visibility: visible;
+            background-color: #f1bc31;
+            -webkit-transform: scaleX(1);
+            -ms-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+        @media (max-width: 991.98px) {
+            .ftco-navbar-light .navbar-nav>.nav-item.active>a {
+                color: #000;
+            }
+
+            .ftco-navbar-light .navbar-nav>.nav-item.active>a:before {
+                display: none;
+            }
+        }
+
+        .ftco-navbar-light .navbar-toggler {
+            border: none;
+            color: rgba(0, 0, 0, 0.5) !important;
+            cursor: pointer;
+            padding-right: 0;
+            text-transform: uppercase;
+            font-size: 16px;
+            letter-spacing: .1em;
+        }
+
+        .ftco-navbar-light .navbar-toggler:focus {
+            outline: none !important;
+        }
+    </style>
+
+</nav>

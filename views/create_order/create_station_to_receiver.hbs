@@ -12,71 +12,78 @@
 <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
 </script>
 
-{{#unless posts}}
+{{>station_employee/header}}
 
-<div class="alert alert-danger text-center" role="alert">
-    Hiện không có mã hàng nào đang cần chuyển đến người nhận!
-</div>
+<div class="body-container">
+    {{#unless posts}}
 
-{{/unless}}
+    <div class="alert alert-danger text-center" role="alert">
+        Hiện không có mã hàng nào đang cần chuyển đến người nhận!
+    </div>
+
+    {{/unless}}
 
 
-<div class="container mt-5 px-2">
-    <form id="create-station-to-receiver-form" action="/create_order/create_station_to_receiver_order_form" method="post">
-        <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
-        <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
-        <input type="hidden" name="receiverStationId" value="{{workPlace.id}}">
-        <input type="hidden" name="receiverStationName" value="{{workPlace.name}}">
-        <div class="table-responsive">
+    <div class="container mt-5 px-2">
+        <form id="create-station-to-receiver-form" action="/create_order/create_station_to_receiver_order_form"
+            method="post">
+            <input type="hidden" name="employeeId" value="{{employee.employeeId}}">
+            <input type="hidden" name="employeeName" value="{{employee.lastName}} {{employee.firstName}}">
+            <input type="hidden" name="receiverStationId" value="{{workPlace.id}}">
+            <input type="hidden" name="receiverStationName" value="{{workPlace.name}}">
+            <div class="table-responsive">
 
-            <p style="font-size: 1.1rem;"><strong>Chọn các mã hàng để tạo đơn chuyển lô hàng từ <span
-                        style="color: brown;">{{workPlace.name}}</span> đến
-                    <span style="color: brown;">người nhận</span>:</strong></p>
+                <p style="font-size: 1.1rem;"><strong>Chọn các mã hàng để tạo đơn chuyển lô hàng từ <span
+                            style="color: brown;">{{workPlace.name}}</span> đến
+                        <span style="color: brown;">người nhận</span>:</strong></p>
 
-            <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
-                <thead>
-                    <tr
-                        style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <th class="border-0 text-center" scope="col" width="9%">Mã hàng</th>
-                        <th class="border-0 text-center" scope="col" width="10%">Tên hàng</th>
-                        <th class="border-0 text-center" scope="col" width="14%">Người nhận</th>
-                        <th class="border-0 text-center" scope="col" width="12%">SĐT người nhận</th>
-                        <th class="border-0 text-center" scope="col" width="19%">Địa chỉ người nhận</th>
-                        <th class="border-0 text-center" scope="col" width="21%">Tình trạng</th>
-                        <th class="border-0 text-center" scope="col" width="15%"><label
-                                class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Thêm vào lô hàng</label></th>
-                    </tr>
-                </thead>
+                <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
+                    <thead>
+                        <tr
+                            style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                            <th class="border-0 text-center" scope="col" width="9%">Mã hàng</th>
+                            <th class="border-0 text-center" scope="col" width="10%">Tên hàng</th>
+                            <th class="border-0 text-center" scope="col" width="14%">Người nhận</th>
+                            <th class="border-0 text-center" scope="col" width="12%">SĐT người nhận</th>
+                            <th class="border-0 text-center" scope="col" width="19%">Địa chỉ người nhận</th>
+                            <th class="border-0 text-center" scope="col" width="21%">Tình trạng</th>
+                            <th class="border-0 text-center" scope="col" width="15%"><label
+                                    class="confirm-checkbox all"><input class="form-check-input" type="checkbox"> Thêm
+                                    vào lô hàng</label></th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    {{#each posts}}
-                    <tr>
-                        <td>{{this.id}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.receiverName}}</td>
-                        <td>{{this.receiverPhoneNumber}}</td>
-                        <td>{{this.receiverAddress}}</td>
-                        <td>
-                            <span class="post-status" data-status="{{this.status}}">
+                    <tbody>
+                        {{#each posts}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.receiverName}}</td>
+                            <td>{{this.receiverPhoneNumber}}</td>
+                            <td>{{this.receiverAddress}}</td>
+                            <td>
+                                <span class="post-status" data-status="{{this.status}}">
 
-                            </span>
-                        </td>
-                        <td>
-                            <label class="confirm-checkbox">
-                                <input class="form-check-input" type="checkbox" name="postIds"
-                                    value="{{this.id}}"><strong class="confirm-text success"> Thêm</strong>
-                            </label>
+                                </span>
+                            </td>
+                            <td>
+                                <label class="confirm-checkbox">
+                                    <input class="form-check-input" type="checkbox" name="postIds"
+                                        value="{{this.id}}"><strong class="confirm-text success"> Thêm</strong>
+                                </label>
 
-                        </td>
-                    </tr>
-                    {{/each}}
-                </tbody>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
 
-            </table>
+                </table>
 
-        </div>
-    </form>
-    <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto" disabled>Tạo đơn</button>
+            </div>
+        </form>
+        <button id="submit-button" type="button" class="btn btn-success fw-bold mt-4 d-grid gap-2 col-4 mx-auto"
+            disabled>Tạo đơn</button>
+    </div>
 </div>
 
 
