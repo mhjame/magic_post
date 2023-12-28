@@ -37,7 +37,6 @@ const Post = new Schema({
     statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
     timeSending: {type:Date},
     timeReceived: {type: Date, default: null},
-    id: {type: String}
 }, { timestamps: true });
 
 

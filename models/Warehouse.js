@@ -8,7 +8,6 @@ const warehouseSchema = new Schema({
     address: { type: String },
     detailAddress: { type: String },
     adminId: { type: String }, 
-    id: {type: String}
 }, { timestamps: true });
 
 // Định nghĩa hàm sinh mã tự động không trùng lặp, bao gồm cả chữ và số

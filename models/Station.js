@@ -9,7 +9,6 @@ const stationSchema = new Schema({
     warehouseId: { type: String },
     detailAddress: { type: String },
     adminId: { type: String },
-    id: { type: String}
 }, { timestamps: true });
 
 // Tạo Model từ Schema

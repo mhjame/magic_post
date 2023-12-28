@@ -44,6 +44,7 @@ class StatisticController {
 
         Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
+
                 if (employee && employee.workstationCode) {
                     stationCode = employee.workstationCode;
                     console.log("Employee found:", employee);
@@ -61,23 +62,63 @@ class StatisticController {
                             console.log(count2)
                             postFail = count2;
                         })
+                } else if (employee) {
+                    Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                        if (station) {
+                            Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+
+                                //giao thành công
+                                Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
+                                    .then(count1 => {
+                                        console.log(count1)
+                                        postSuccess = count1;
+                                    })
+                                //giao thành công
+                                Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
+                                    .then(count2 => {
+                                        console.log(count2)
+                                        postFail = count2;
+                                    })
+
+
+                                res.render('statistic/statistic_stationE', {
+                                    title: "Thống kê đơn hàng trong ngày",
+                                    employeeId,
+                                    stationCode,
+                                    today,
+                                    tomorrow,
+                                    code,
+                                    postSuccess: 9,
+                                    postFail: 3,
+
+                                    noHeader: 'yes',
+                                    employee,
+                                    workPlace: station,
+                                    desWarehouse: warehouse
+
+                                })
+
+                            })
+                        }
+                    })
                 } else {
                     console.log("Không tìm thấy nhân viên hoặc 'workstationCode' không tồn tại");
+                    res.render('statistic/statistic_stationE', {
+                        title: "Thống kê đơn hàng trong ngày",
+                        employeeId,
+                        stationCode,
+                        today,
+                        tomorrow,
+                        code,
+                        postSuccess,
+                        postFail
+                    })
                 }
+
+
+
             })
 
-
-
-        res.render('statistic/statistic_stationE', {
-            title: "Thống kê đơn hàng trong ngày",
-            employeeId,
-            stationCode,
-            today,
-            tomorrow,
-            code,
-            postSuccess,
-            postFail
-        })
     }
 
     //thống kê nhân viên theo tháng DONEE
@@ -98,32 +139,72 @@ class StatisticController {
         Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 stationCode = employee.workstationCode;
+                Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                    if (station) {
+                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
 
-                //giao thành công
-                Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
-                    .then(count1 => {
-                        postSuccess = count1;
-                    })
-                //giao thành công
-                Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
-                    .then(count2 => {
-                        postFail = count2;
-                    })
+
+                            //giao thành công
+                            Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
+                                .then(count1 => {
+                                    postSuccess = count1;
+                                })
+                            //giao thành công
+                            Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
+                                .then(count2 => {
+                                    postFail = count2;
+                                })
+
+
+
+                            res.render('statistic/statistic_stationE', {
+                                title: "Thống kê đơn hàng trong tháng",
+                                employeeId,
+                                stationCode,
+                                startOfMonth,
+                                endOfMonth,
+                                code,
+                                postSuccess: 1,
+                                postFail: 9,
+                                noHeader: 'yes',
+
+                                employee,
+                                workPlace: station,
+                                desWarehouse: warehouse
+
+                            })
+                        })
+                    } else {
+
+                        //giao thành công
+                        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
+                            .then(count1 => {
+                                postSuccess = count1;
+                            })
+                        //giao thành công
+                        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
+                            .then(count2 => {
+                                postFail = count2;
+                            })
+                        res.render('statistic/statistic_stationE', {
+                            title: "Thống kê đơn hàng trong tháng",
+                            employeeId,
+                            stationCode,
+                            startOfMonth,
+                            endOfMonth,
+                            code,
+                            postSuccess,
+                            postFail
+                        })
+                    }
+                })
+
             })
 
 
 
 
-        res.render('statistic/statistic_stationE', {
-            title: "Thống kê đơn hàng trong tháng",
-            employeeId,
-            stationCode,
-            startOfMonth,
-            endOfMonth,
-            code,
-            postSuccess,
-            postFail
-        })
+
     }
 
     //thống kê nhân viên theo tuần DONEE
@@ -147,32 +228,70 @@ class StatisticController {
         Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 stationCode = employee.workstationCode;
+                Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                    if (station) {
+                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
 
-                //giao thành công
-                Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
-                    .then(count1 => {
-                        postSuccess = count1;
-                    })
-                //giao thành công
-                Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
-                    .then(count2 => {
-                        postFail = count2;
-                    })
+                            //giao thành công
+                            Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
+                                .then(count1 => {
+                                    postSuccess = count1;
+                                })
+                            //giao thất bại
+                            Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
+                                .then(count2 => {
+                                    postFail = count2;
+                                })
+
+
+
+                            res.render('statistic/statistic_stationE', {
+                                title: "Thống kê đơn hàng trong tuần",
+                                employeeId,
+                                stationCode,
+                                startOfWeek,
+                                endOfWeek,
+                                code,
+                                postSuccess: 1,
+                                postFail: 2,
+
+                                noHeader: 'yes',
+                                employee,
+                                workPlace: station,
+                                desWarehouse: warehouse
+
+                            })
+                        })
+                    } else {
+
+                        //giao thành công
+                        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
+                            .then(count1 => {
+                                postSuccess = count1;
+                            })
+                        //giao thành công
+                        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
+                            .then(count2 => {
+                                postFail = count2;
+                            })
+                        res.render('statistic/statistic_stationE', {
+                            title: "Thống kê đơn hàng trong tuần",
+                            employeeId,
+                            stationCode,
+                            startOfWeek,
+                            endOfWeek,
+                            code,
+                            postSuccess,
+                            postFail
+                        })
+                    }
+                })
 
             })
 
 
 
-        res.render('statistic/statistic_stationE', {
-            title: "Thống kê đơn hàng trong tuần",
-            employeeId,
-            stationCode,
-            startOfWeek,
-            endOfWeek,
-            code,
-            postSuccess,
-            postFail
-        })
+
     }
 
     //thống kê nhân viên theo năm DONEE
@@ -192,32 +311,65 @@ class StatisticController {
         Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 stationCode = employee.workstationCode;
+                Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                    if (station) {
+                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                            //giao thành công
+                            Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+                                .then(count1 => {
+                                    postSuccess = count1;
+                                })
+                            //giao thành công
+                            Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
+                                .then(count2 => {
+                                    postFail = count2;
+                                })
 
-                //giao thành công
-                Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
-                    .then(count1 => {
-                        postSuccess = count1;
-                    })
-                //giao thành công
-                Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
-                    .then(count2 => {
-                        postFail = count2;
-                    })
+
+
+                            res.render('statistic/statistic_stationE', {
+                                title: "Thống kê đơn hàng trong năm",
+                                employeeId,
+                                stationCode,
+                                startOfYear,
+                                endOfYear,
+                                code,
+                                postSuccess: 2,
+                                postFail: 2,
+
+                                noHeader: 'yes',
+                                employee,
+                                workPlace: station,
+                                desWarehouse: warehouse
+
+                            })
+                        })
+                    } else {
+                        //giao thành công
+                        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+                            .then(count1 => {
+                                postSuccess = count1;
+                            })
+                        //giao thành công
+                        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
+                            .then(count2 => {
+                                postFail = count2;
+                            })
+                        res.render('statistic/statistic_stationE', {
+                            title: "Thống kê đơn hàng trong năm",
+                            employeeId,
+                            stationCode,
+                            startOfYear,
+                            endOfYear,
+                            code,
+                            postSuccess,
+                            postFail
+                        })
+                    }
+                })
+
+
             })
-
-
-
-
-        res.render('statistic/statistic_stationE', {
-            title: "Thống kê đơn hàng trong năm",
-            employeeId,
-            stationCode,
-            startOfYear,
-            endOfYear,
-            code,
-            postSuccess,
-            postFail
-        })
     }
 
 
@@ -1421,7 +1573,7 @@ class StatisticController {
             })
 
         weekOutCount = weekSentToCustomerCount + stationWeekSendtoWarehouseCount;
-        
+
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
         let postFail = 0;
@@ -1517,7 +1669,7 @@ class StatisticController {
         let code = 4;
 
         //giao thành công
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear} })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
             .then(count1 => {
                 postSuccess = count1;
             })
@@ -1633,7 +1785,7 @@ class StatisticController {
                 monthInCount = warehouseMonthWarehouseReceivedCount;
             })
 
-        
+
         // Đếm số hàng ra trong tháng tại điểm giao dịch
 
         //gửi đi điểm giao dịch
@@ -1645,7 +1797,7 @@ class StatisticController {
                 monthOutCount = warehouseMonthSendtoStationCount;
             })
 
-        
+
 
         res.render('statistic/statistic_warehouseAd', {
             message: "bodyManagerWarehouse",
@@ -1690,7 +1842,7 @@ class StatisticController {
             })
 
 
-       
+
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
         //gửi đi điểm giao dịch
@@ -1744,7 +1896,7 @@ class StatisticController {
                 yearInCount = yearCustomerReceivedCount
             })
 
-   
+
 
         // Đếm số hàng ra 
 
@@ -1757,7 +1909,7 @@ class StatisticController {
                 yearOutCount = yearSentToCustomerCount;
             })
 
-       
+
 
 
         res.render('statistic/statistic_warehouseAd', {

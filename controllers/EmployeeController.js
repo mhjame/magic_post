@@ -11,27 +11,27 @@ class EmployeeController {
 
     createShipStationToWarehouse(req, res, next) {
         if (req.session.employee && req.session.employee.role === 'StationE') {
-            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+            Employee.findOne({ _id: req.session.employee._id }).lean()
                 .then((employee) => {
                     if (!employee) {
                         res.status(404).send({ message: 'Employee not found' });
                         return;
 
                     } else {
-                        Station.findOne({ id: employee.workPlaceId }).lean()
+                        Station.findOne({ address: employee.workAddress }).lean()
                             .then((station) => {
                                 if (!station) {
                                     res.status(404).send({ message: 'Station not found' });
                                     return;
                                 }
-                                Warehouse.findOne({ id: station.warehouseId }).lean()
+                                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean()
                                     .then((warehouse) => {
                                         if (!warehouse) {
                                             res.status(404).send({ message: 'Warehouse not found' });
                                             return;
                                         }
 
-                                        Post.find({ senderStationId: station.id, status: 'at sStation' }).lean()
+                                        Post.find({ senderStationId: station.stationCode, status: 'at sStation' }).lean()
                                             .then((posts) => {
                                                 res.render('create_order/create_station_to_wh', {
                                                     employee: employee,
@@ -102,7 +102,7 @@ class EmployeeController {
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
                     if (post) {
                         post.statusUpdateTime[1] = new Date();
                         post.save();
@@ -110,7 +110,7 @@ class EmployeeController {
                 });
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'at sStation' }, { status: 'on way to sWarehouse' }).then((post) => {
                 if (post) {
                     post.statusUpdateTime[1] = new Date();
                     post.save();
@@ -146,7 +146,7 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
@@ -157,8 +157,8 @@ class EmployeeController {
                                         const totalPostsFromWarehouse = {};
                                         const desWarehousesHavePosts = [];
                                         for (const desWarehouse of desWarehouses) {
-                                            const desWarehouseId = desWarehouse.id;
-                                            Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouseId, status: 'at sWarehouse' }).lean()
+                                            const desWarehouseId = desWarehouse.warehouseCode;
+                                            Post.find({ senderWarehouseId: warehouse.warehouseCode, receiverWarehouseId: desWarehouseId, status: 'at sWarehouse' }).lean()
                                                 .then((posts) => {
                                                     if (posts.length !== 0) {
                                                         totalPostsFromWarehouse[desWarehouseId] = posts.length;
@@ -200,15 +200,15 @@ class EmployeeController {
                         return;
 
                     } else {
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
                                     return;
                                 }
-                                Warehouse.findOne({ id: req.params.desWarehouseId }).lean()
+                                Warehouse.findOne({ warehouseCode: req.params.desWarehouseId }).lean()
                                     .then((desWarehouse) => {
-                                        Post.find({ senderWarehouseId: warehouse.id, receiverWarehouseId: desWarehouse.id, status: 'at sWarehouse' }).lean()
+                                        Post.find({ senderWarehouseId: warehouse.warehouseCode, receiverWarehouseId: desWarehouse.warehouseCode, status: 'at sWarehouse' }).lean()
                                             .then((posts) => {
 
                                                 res.render('create_order/create_wh_to_wh', {
@@ -273,7 +273,7 @@ class EmployeeController {
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
                     if (post) {
                         post.statusUpdateTime[3] = new Date();
                         post.save();
@@ -282,7 +282,7 @@ class EmployeeController {
 
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'at sWarehouse' }, { status: 'on way to rWarehouse' }).then((post) => {
                 if (post) {
                     post.statusUpdateTime[3] = new Date();
                     post.save();
@@ -317,19 +317,19 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
                                     return;
                                 }
-                                Station.find({ warehouseId: warehouse.id }).lean()
+                                Station.find({ warehouseId: warehouse.warehouseCode }).lean()
                                     .then((desStations) => {
                                         const totalPostsFromStation = {};
                                         const desStationsHavePosts = [];
                                         for (const desStation of desStations) {
-                                            const desStationId = desStation.id;
-                                            Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStationId, status: 'at rWarehouse' }).lean()
+                                            const desStationId = desStation.stationCode;
+                                            Post.find({ receiverWarehouseId: warehouse.warehouseCode, receiverStationId: desStationId, status: 'at rWarehouse' }).lean()
                                                 .then((posts) => {
                                                     if (posts.length !== 0) {
                                                         totalPostsFromStation[desStationId] = posts.length;
@@ -371,15 +371,15 @@ class EmployeeController {
                         res.status(404).send({ message: 'Employee not found' });
                         return;
                     } else {
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
                                     return;
                                 }
-                                Station.findOne({ id: req.params.desStationId }).lean()
+                                Station.findOne({ stationCode: req.params.desStationId }).lean()
                                     .then((desStation) => {
-                                        Post.find({ receiverWarehouseId: warehouse.id, receiverStationId: desStation.id, status: 'at rWarehouse' }).lean()
+                                        Post.find({ receiverWarehouseId: warehouse.warehouseCode, receiverStationId: desStation.stationCode, status: 'at rWarehouse' }).lean()
                                             .then((posts) => {
 
                                                 res.render('create_order/create_wh_to_station', {
@@ -443,7 +443,7 @@ class EmployeeController {
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
                     if (post) {
                         post.statusUpdateTime[5] = new Date();
                         post.save();
@@ -453,7 +453,7 @@ class EmployeeController {
 
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'at rWarehouse' }, { status: 'on way to rStation' }).then((post) => {
                 if (post) {
                     post.statusUpdateTime[5] = new Date();
                     post.save();
@@ -487,16 +487,16 @@ class EmployeeController {
                         res.status(404).send({ message: 'Employee not found' });
                         return;
                     } else {
-                        Station.findOne({ id: employee.workPlaceId }).lean()
+                        Station.findOne({ address: employee.workAddress }).lean()
                             .then((station) => {
                                 if (!station) {
                                     res.status(404).send({ message: 'Station not found' });
                                     return;
                                 }
-                                console.log(station.id)
-                                Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean()
+
+                                Post.find({ receiverStationId: station.stationCode, status: 'at rStation' }).lean()
                                     .then((posts) => {
-                                        Warehouse.findOne({ id: station.warehouseId }).lean().then((warehouse) => {
+                                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                                             res.render('create_order/create_station_to_receiver', {
                                                 employee,
                                                 workPlace: station,
@@ -555,7 +555,7 @@ class EmployeeController {
         if (Array.isArray(postIds)) {
             for (let i = 0; i < postIds.length; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
                     if (post) {
                         post.statusUpdateTime[7] = new Date();
                         post.save();
@@ -563,7 +563,7 @@ class EmployeeController {
                 });
             };
         } else {
-            Post.findOneAndUpdate({ id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'at rStation' }, { status: 'on way to receiver' }).then((post) => {
                 if (post) {
                     post.statusUpdateTime[7] = new Date();
                     post.save();
@@ -622,15 +622,15 @@ class EmployeeController {
                     } else {
 
 
-                        Station.findOne({ id: employee.workPlaceId }).lean()
+                        Station.findOne({ address: employee.workAddress }).lean()
                             .then((station) => {
                                 if (!station) {
                                     res.status(404).send({ message: 'Station not found' });
                                     return;
                                 }
-                                Warehouse.findOne({ id: station.warehouseId }).lean()
+                                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean()
                                     .then((warehouse) => {
-                                        Container.find({ receiverAddressId: station.id, type: 'warehouse-station', status: 'in process' }).lean()
+                                        Container.find({ receiverAddressId: station.stationCode, type: 'warehouse-station', status: 'in process' }).lean()
                                             .then((containers) => {
                                                 res.render('confirm_order/confirm_from_wh_to_station', {
                                                     desStation: station,
@@ -668,25 +668,25 @@ class EmployeeController {
                     } else {
 
 
-                        Station.findOne({ id: employee.workPlaceId }).lean()
+                        Station.findOne({ address: employee.workAddress }).lean()
                             .then((station) => {
                                 if (!station) {
                                     res.status(404).send({ message: 'Station not found' });
                                     return;
                                 }
-                                Warehouse.findOne({ id: station.warehouseId }).lean()
+                                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean()
                                     .then((warehouse) => {
                                         Container.findOne({ containerCode: req.params.containerCode }).lean()
                                             .then((container) => {
                                                 const posts = [];
                                                 if (Array.isArray(container.postIds)) {
                                                     for (let i = 0; i < container.postIds.length; i++) {
-                                                        Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                        Post.findOne({ _id: container.postIds[i] }).lean().then((post) => {
                                                             posts.push(post);
                                                         });
                                                     };
                                                 } else {
-                                                    Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                    Post.findOne({ _id: container.postIds }).lean().then((post) => {
                                                         posts.push(post)
                                                     });
                                                 }
@@ -726,7 +726,7 @@ class EmployeeController {
             postIdsLength = postIds.length;
             for (let i = 0; i < postIdsLength; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to rStation' }, { status: 'at rStation' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'on way to rStation' }, { status: 'at rStation' }).then((post) => {
                     if (post) {
 
                         post.statusUpdateTime[6] = new Date();
@@ -739,7 +739,7 @@ class EmployeeController {
             };
         } else {
             postIdsLength = 1;
-            Post.findOneAndUpdate({ id: postIds, status: 'on way to rStation' }, { status: 'at rStation' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'on way to rStation' }, { status: 'at rStation' }).then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[6] = new Date();
@@ -787,7 +787,7 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
@@ -798,8 +798,8 @@ class EmployeeController {
                                         const totalContainersFromWarehouse = {};
                                         const originWarehousesNeedConfirm = [];
                                         for (const originWarehouse of originWarehouses) {
-                                            const originWarehouseId = originWarehouse.id;
-                                            Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouseId, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                            const originWarehouseId = originWarehouse.warehouseCode;
+                                            Container.find({ receiverAddressId: warehouse.warehouseCode, senderAddressId: originWarehouseId, type: 'warehouse-warehouse', status: 'in process' }).lean()
                                                 .then((containers) => {
                                                     if (containers.length !== 0) {
                                                         totalContainersFromWarehouse[originWarehouseId] = containers.length;
@@ -843,15 +843,15 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
                                     return;
                                 }
-                                Warehouse.findOne({ id: req.params.originWarehouseId }).lean()
+                                Warehouse.findOne({ warehouseCode: req.params.originWarehouseId }).lean()
                                     .then((originWarehouse) => {
-                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originWarehouse.id, type: 'warehouse-warehouse', status: 'in process' }).lean()
+                                        Container.find({ receiverAddressId: warehouse.warehouseCode, senderAddressId: originWarehouse.warehouseCode, type: 'warehouse-warehouse', status: 'in process' }).lean()
                                             .then((containers) => {
                                                 res.render('confirm_order/confirm_wh_wh', {
                                                     desWarehouse: warehouse,
@@ -886,7 +886,7 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
@@ -895,17 +895,17 @@ class EmployeeController {
 
                                 Container.findOne({ containerCode: req.params.containerCode }).lean()
                                     .then((container) => {
-                                        Warehouse.findOne({ id: container.senderAddressId }).lean()
+                                        Warehouse.findOne({ warehouseCode: container.senderAddressId }).lean()
                                             .then((originWarehouse) => {
                                                 const posts = [];
                                                 if (Array.isArray(container.postIds)) {
                                                     for (let i = 0; i < container.postIds.length; i++) {
-                                                        Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                        Post.findOne({ _id: container.postIds[i] }).lean().then((post) => {
                                                             posts.push(post);
                                                         });
                                                     };
                                                 } else {
-                                                    Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                    Post.findOne({ _id: container.postIds }).lean().then((post) => {
                                                         posts.push(post)
                                                     });
                                                 }
@@ -944,7 +944,7 @@ class EmployeeController {
             postIdsLength = postIds.length;
             for (let i = 0; i < postIdsLength; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to rWarehouse' }, { status: 'at rWarehouse' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'on way to rWarehouse' }, { status: 'at rWarehouse' }).then((post) => {
                     if (post) {
 
                         post.statusUpdateTime[4] = new Date();
@@ -957,7 +957,7 @@ class EmployeeController {
             };
         } else {
             postIdsLength = 1;
-            Post.findOneAndUpdate({ id: postIds, status: 'on way to rWarehouse' }, { status: 'at rWarehouse' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'on way to rWarehouse' }, { status: 'at rWarehouse' }).then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[4] = new Date();
@@ -1005,19 +1005,19 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
                                     return;
                                 }
-                                Station.find({ warehouseId: warehouse.id }).lean()
+                                Station.find({ warehouseId: warehouse.warehouseCode }).lean()
                                     .then((originStations) => {
                                         const totalContainersFromStation = {};
                                         const originStationsNeedConfirm = [];
                                         for (const originStation of originStations) {
-                                            const originStationId = originStation.id;
-                                            Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStationId, type: 'station-warehouse', status: 'in process' }).lean()
+                                            const originStationId = originStation.stationCode;
+                                            Container.find({ receiverAddressId: warehouse.warehouseCode, senderAddressId: originStationId, type: 'station-warehouse', status: 'in process' }).lean()
                                                 .then((containers) => {
                                                     if (containers.length !== 0) {
                                                         totalContainersFromStation[originStationId] = containers.length;
@@ -1059,15 +1059,15 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
                                     return;
                                 }
-                                Station.findOne({ id: req.params.originStationId }).lean()
+                                Station.findOne({ stationCode: req.params.originStationId }).lean()
                                     .then((originStation) => {
-                                        Container.find({ receiverAddressId: warehouse.id, senderAddressId: originStation.id, type: 'station-warehouse', status: 'in process' }).lean()
+                                        Container.find({ receiverAddressId: warehouse.warehouseCode, senderAddressId: originStation.stationCode, type: 'station-warehouse', status: 'in process' }).lean()
                                             .then((containers) => {
                                                 res.render('confirm_order/confirm_station_wh', {
                                                     thisWarehouse: warehouse,
@@ -1102,7 +1102,7 @@ class EmployeeController {
                     } else {
 
 
-                        Warehouse.findOne({ id: employee.workPlaceId }).lean()
+                        Warehouse.findOne({ address: employee.workAddress }).lean()
                             .then((warehouse) => {
                                 if (!warehouse) {
                                     res.status(404).send({ message: 'Warehouse not found' });
@@ -1111,17 +1111,17 @@ class EmployeeController {
 
                                 Container.findOne({ containerCode: req.params.containerCode }).lean()
                                     .then((container) => {
-                                        Station.findOne({ id: req.params.originStationId }).lean()
+                                        Station.findOne({ stationCode: req.params.originStationId }).lean()
                                             .then((originStation) => {
                                                 const posts = [];
                                                 if (Array.isArray(container.postIds)) {
                                                     for (let i = 0; i < container.postIds.length; i++) {
-                                                        Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                        Post.findOne({ _id: container.postIds[i] }).lean().then((post) => {
                                                             posts.push(post);
                                                         });
                                                     };
                                                 } else {
-                                                    Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                                    Post.findOne({ _id: container.postIds }).lean().then((post) => {
                                                         posts.push(post)
                                                     });
                                                 }
@@ -1159,7 +1159,7 @@ class EmployeeController {
             postIdsLength = postIds.length;
             for (let i = 0; i < postIdsLength; i++) {
                 console.log(postIds[i])
-                Post.findOneAndUpdate({ id: postIds[i], status: 'on way to sWarehouse' }, { status: 'at sWarehouse' }).then((post) => {
+                Post.findOneAndUpdate({ _id: postIds[i], status: 'on way to sWarehouse' }, { status: 'at sWarehouse' }).then((post) => {
                     if (post) {
 
                         post.statusUpdateTime[2] = new Date();
@@ -1172,7 +1172,7 @@ class EmployeeController {
             };
         } else {
             postIdsLength = 1;
-            Post.findOneAndUpdate({ id: postIds, status: 'on way to sWarehouse' }, { status: 'at sWarehouse' }).then((post) => {
+            Post.findOneAndUpdate({ _id: postIds, status: 'on way to sWarehouse' }, { status: 'at sWarehouse' }).then((post) => {
                 if (post) {
 
                     post.statusUpdateTime[2] = new Date();
@@ -1219,16 +1219,16 @@ class EmployeeController {
 
                     } else {
 
-                        Station.findOne({ id: employee.workPlaceId }).lean()
+                        Station.findOne({ address: employee.workAddress }).lean()
                             .then((station) => {
                                 if (!station) {
                                     res.status(404).send({ message: 'Station not found' });
                                     return;
                                 }
 
-                                Container.find({ senderAddressId: station.id, type: 'station-receiver', status: 'in process' }).lean()
+                                Container.find({ senderAddressId: station.stationCode, type: 'station-receiver', status: 'in process' }).lean()
                                     .then((containers) => {
-                                        Warehouse.findOne({ id: station.warehouseId }).lean().then((warehouse) => {
+                                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                                             res.render('confirm_order/confirm_station_receivers', {
                                                 thisStation: station,
                                                 containers: containers,
@@ -1260,7 +1260,7 @@ class EmployeeController {
                         res.status(404).send({ message: 'Employee not found' });
                         return;
                     } else {
-                        Station.findOne({ id: employee.workPlaceId }).lean()
+                        Station.findOne({ address: employee.workAddress }).lean()
                             .then((station) => {
                                 if (!station) {
                                     res.status(404).send({ message: 'Station not found' });
@@ -1272,17 +1272,17 @@ class EmployeeController {
                                         const posts = [];
                                         if (Array.isArray(container.postIds)) {
                                             for (let i = 0; i < container.postIds.length; i++) {
-                                                Post.findOne({ id: container.postIds[i] }).lean().then((post) => {
+                                                Post.findOne({ _id: container.postIds[i] }).lean().then((post) => {
                                                     posts.push(post);
                                                 });
                                             };
                                         } else {
-                                            Post.findOne({ id: container.postIds }).lean().then((post) => {
+                                            Post.findOne({ _id: container.postIds }).lean().then((post) => {
                                                 posts.push(post)
                                             });
                                         }
 
-                                        Warehouse.findOne({ id: station.warehouseId }).lean().then((warehouse) => {
+                                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                                             res.render('confirm_order/confirm_each_order_station_receivers', {
                                                 thisStation: station,
                                                 container: container,
@@ -1318,7 +1318,7 @@ class EmployeeController {
         if (Array.isArray(receivedPostIds)) {
             receivedPostIdsLength = receivedPostIds.length;
             for (let i = 0; i < receivedPostIdsLength; i++) {
-                Post.findOneAndUpdate({ id: receivedPostIds[i], status: 'on way to receiver' }, { status: 'received' }).then((post) => {
+                Post.findOneAndUpdate({ _id: receivedPostIds[i], status: 'on way to receiver' }, { status: 'received' }).then((post) => {
                     if (post) {
                         post.timeReceived = new Date();
                         post.statusUpdateTime[8] = new Date();
@@ -1329,7 +1329,7 @@ class EmployeeController {
             };
         } else {
             receivedPostIdsLength = 1;
-            Post.findOneAndUpdate({ id: receivedPostIds, status: 'on way to receiver' }, { status: 'received' }).then((post) => {
+            Post.findOneAndUpdate({ _id: receivedPostIds, status: 'on way to receiver' }, { status: 'received' }).then((post) => {
                 if (post) {
                     post.timeReceived = new Date();
                     post.statusUpdateTime[8] = new Date();
@@ -1342,7 +1342,7 @@ class EmployeeController {
         if (Array.isArray(failedPostIds)) {
             failedPostIdsLength = failedPostIds.length;
             for (let i = 0; i < failedPostIdsLength; i++) {
-                Post.findOneAndUpdate({ id: failedPostIds[i], status: 'on way to receiver' }, { status: 'returned' }).then((post) => {
+                Post.findOneAndUpdate({ _id: failedPostIds[i], status: 'on way to receiver' }, { status: 'returned' }).then((post) => {
                     if (post) {
                         post.statusUpdateTime[9] = new Date();
                         console.log(post.statusUpdateTime[9]);
@@ -1352,7 +1352,7 @@ class EmployeeController {
             };
         } else {
             failedPostIdsLength = 1;
-            Post.findOneAndUpdate({ id: failedPostIds, status: 'on way to receiver' }, { status: 'returned' }).then((post) => {
+            Post.findOneAndUpdate({ _id: failedPostIds, status: 'on way to receiver' }, { status: 'returned' }).then((post) => {
                 if (post) {
                     post.statusUpdateTime[9] = new Date();
                     post.save();
@@ -1405,8 +1405,8 @@ class EmployeeController {
             console.log(req.session.employee);
             if (employee && employee.role === 'StationE') {
 
-                Station.findOne({ id: employee.workPlaceId }).lean().then((station) => {
-                    Post.find({ senderStationId: station.id, status: 'at sStation' }).lean().then((posts1) => {
+                Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                    Post.find({ senderStationId: station.stationCode, status: 'at sStation' }).lean().then((posts1) => {
                         if (posts1) {
                             let count = 0;
                             for (const post of posts1) {
@@ -1415,7 +1415,7 @@ class EmployeeController {
                             numOfsStationPosts = count;
                         }
                         console.log(numOfsStationPosts);
-                        Post.find({ receiverStationId: station.id, status: 'at rStation' }).lean().then((posts2) => {
+                        Post.find({ receiverStationId: station.stationCode, status: 'at rStation' }).lean().then((posts2) => {
                             if (posts2) {
                                 let count = 0;
                                 for (const post of posts2) {
@@ -1424,7 +1424,7 @@ class EmployeeController {
                                 numOfrStationPosts = count;
                             }
                             console.log(numOfrStationPosts);
-                            Post.find({ receiverStationId: station.id, status: 'on way to rStation' }).lean().then((posts3) => {
+                            Post.find({ receiverStationId: station.stationCode, status: 'on way to rStation' }).lean().then((posts3) => {
                                 if (posts1) {
                                     let count = 0;
                                     for (const post of posts3) {
@@ -1433,7 +1433,7 @@ class EmployeeController {
                                     numOfTorStationPosts = count;
                                 }
                                 console.log(numOfTorStationPosts);
-                                Post.find({ receiverStationId: station.id, status: 'on way to receiver' }).lean().then((posts4) => {
+                                Post.find({ receiverStationId: station.stationCode, status: 'on way to receiver' }).lean().then((posts4) => {
                                     if (posts4) {
                                         let count = 0;
                                         for (const post of posts4) {
@@ -1442,7 +1442,7 @@ class EmployeeController {
                                         numOfToReceiverPosts = count;
                                     }
                                     console.log(numOfToReceiverPosts);
-                                    Warehouse.findOne({ id: station.warehouseId }).lean().then((warehouse) => {
+                                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                                         res.render('station_employee_page', {
                                             employee,
                                             workPlace: station,
@@ -1492,8 +1492,8 @@ class EmployeeController {
             console.log(req.session.employee);
             if (employee && employee.role === 'WarehouseE') {
 
-                Warehouse.findOne({ id: employee.workPlaceId }).lean().then((warehouse) => {
-                    Post.find({ senderWarehouseId: warehouse.id, status: 'at sWarehouse' }).lean().then((posts1) => {
+                Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
+                    Post.find({ senderWarehouseId: warehouse.warehouseCode, status: 'at sWarehouse' }).lean().then((posts1) => {
                         if (posts1) {
                             let count = 0;
                             for (const post of posts1) {
@@ -1502,7 +1502,7 @@ class EmployeeController {
                             numOfsWarehousePosts = count;
                         }
                         console.log(numOfsWarehousePosts);
-                        Post.find({ receiverWarehouseId: warehouse.id, status: 'at rWarehouse' }).lean().then((posts2) => {
+                        Post.find({ receiverWarehouseId: warehouse.warehouseCode, status: 'at rWarehouse' }).lean().then((posts2) => {
                             if (posts2) {
                                 let count = 0;
                                 for (const post of posts2) {
@@ -1511,7 +1511,7 @@ class EmployeeController {
                                 numOfrWarehousePosts = count;
                             }
                             console.log(numOfrWarehousePosts);
-                            Post.find({ receiverWarehouseId: warehouse.id, status: 'on way to rWarehouse' }).lean().then((posts3) => {
+                            Post.find({ receiverWarehouseId: warehouse.warehouseCode, status: 'on way to rWarehouse' }).lean().then((posts3) => {
                                 if (posts1) {
                                     let count = 0;
                                     for (const post of posts3) {
@@ -1520,7 +1520,7 @@ class EmployeeController {
                                     numOfTorWarehousePosts = count;
                                 }
                                 console.log(numOfTorWarehousePosts);
-                                Post.find({ senderWarehouseId: warehouse.id, status: 'on way to sWarehouse' }).lean().then((posts4) => {
+                                Post.find({ senderWarehouseId: warehouse.warehouseCode, status: 'on way to sWarehouse' }).lean().then((posts4) => {
                                     if (posts4) {
                                         let count = 0;
                                         for (const post of posts4) {

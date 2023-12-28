@@ -50,5 +50,5 @@ router.get('/employee/:id/view', managerController.getEmployeeProfile);
 router.post('/createReceipt', managerController.postReceipt);
 router.get('/createReceipt', managerController.getCreateReceipt);
 
-router.get('manage_warehouse/add_warehouse', managerController.getAddWarehouse)
+router.get('/add_warehouse', managerController.getAddWarehouse)
 module.exports = router;

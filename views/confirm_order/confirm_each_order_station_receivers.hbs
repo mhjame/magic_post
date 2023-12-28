@@ -59,7 +59,7 @@
                     <tbody>
                         {{#each posts}}
                         <tr>
-                            <td>{{this.id}}</td>
+                            <td>{{this._id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.receiverName}}</td>
                             <td>{{this.receiverPhoneNumber}}</td>
@@ -72,13 +72,13 @@
                             <td>
                                 <label class="confirm-checkbox success">
                                     <input class="form-check-input" type="checkbox" name="receivedPostIds"
-                                        value="{{this.id}}"><strong class="confirm-text success"> Đã giao</strong>
+                                        value="{{this._id}}"><strong class="confirm-text success"> Đã giao</strong>
                                 </label>
                             </td>
                             <td>
                                 <label class="confirm-checkbox fail">
                                     <input class="form-check-input" type="checkbox" name="failedPostIds"
-                                        value="{{this.id}}"><strong class="confirm-text fail"> Giao thất bại</strong>
+                                        value="{{this._id}}"><strong class="confirm-text fail"> Giao thất bại</strong>
                                 </label>
                             </td>
                         </tr>

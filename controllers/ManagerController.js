@@ -572,6 +572,9 @@ class ManagerController {
     }
 
     getAddWarehouse(req, res, next) {
+        const warehouseCode = Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
+        console.log(Date.now().toString().slice(-5));
+        console.log(Math.random().toString(16).slice(-7));
         res.render('manage_warehouse/add_warehouse')
     }
 }

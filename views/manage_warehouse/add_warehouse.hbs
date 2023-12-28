@@ -12,93 +12,90 @@
     crossorigin="anonymous"></script>
 
 
+<div class="container-sm">
 
-<div class="profile">
-    <div class="container-sm">
-        {{#if employee}}
-        <div class="row py-5 px-3">
-            <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8">
-                <p class="h3 pb-3">Cập nhật hồ sơ</p>
-                <form action="/profile/update/{{employee._id}}" method="post">
-                    <table class="table table-borderless align-middle">
-                        <tr>
-                            <th><label for="username">Tên đăng nhập:</label></th>
-                            <td><input type="text" class="form-control" id="username" name="username"
-                                    value="{{employee.username}}" disabled=""></td>
-                        </tr>
-                        <tr>
-                            <th><label for="lastName">Họ:</label></th>
-                            <td><input type="text" class="form-control" id="lastName" name="lastName"
-                                    value="{{employee.lastName}}"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="firstName">Tên:</label></th>
-                            <td><input type="text" class="form-control" id="firstName" name="firstName"
-                                    value="{{employee.firstName}}"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="email">Email:</label></th>
-                            <td><input type="email" class="form-control" id="email" name="email"
-                                    value="{{employee.email}}"></td>
-                        </tr>
-                        <tr>
-                            <th><label for="phoneNumber">Số điện thoại:</label></th>
-                            <td><input type="tel" placeholder="0123456789" pattern="[0-9]{10}" class="form-control"
-                                    id="phoneNumber" name="phoneNumber" value="{{employee.phoneNumber}}"></td>
-                        </tr>
+    <div class="row py-5 px-3">
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8">
+            <p class="h3 pb-3">Thêm điểm tập kết</p>
+            <form id="add-warehouse-form" action="/post_add_warehouse" method="post">
+                <table class="table table-borderless align-middle">
+                    <tr>
+                        <th><label for="warehouseCode">Mã điểm tập kết:</label></th>
+                        <td><input type="text" class="form-control" id="warehouseCode" name="warehouseCode"
+                                value="{{warehouseCode}}" disabled></td>
+                    </tr>
+                    <tr>
+                        <th><label for="warehouseName">Tên điểm tập kết:</label></th>
+                        <td><input type="text" class="form-control" id="warehouseName" name="warehouseName" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="address">Tỉnh:</label></th>
+                        <td><input type="text" class="form-control" id="address" name="address" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="detailAddress">Địa chỉ chi tiết:</label></th>
+                        <td><input type="text" class="form-control" id="detailAddress" name="detailAddress" required>
+                        </td>
+                    </tr>
 
-                        <tr>
-                            <th><label for="address"> Địa chỉ:</label></th>
-                            <td><input type="text" placeholder={{employee.address}} class="form-control" id="address"
-                                    name="address" value="{{employee.address}}"></td>
-                        </tr>
-
-                        <tr>
-                            <th><label for="birth"> Ngày sinh:</label></th>
-                            <td><input type="date" class="form-control" id="birth" name="birth"
-                                    value="{{employee.birth}}"></td>
-                        </tr>
-
-                        <tr>
-                            <th></th>
-                            <td>
-                                <button type="submit" class="btn btn-primary mt-3 me-3">Xác nhận</button>
-                                <a class="btn btn-secondary mt-3 ms-3" href="/profile/view" role="button">Hủy</a>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-
-            <div class="col-4 col-sm-5 col-md-3 col-lg-3 col-xl-2">
-                <img class="w-100" src="{{employee.avatar}}" alt="{{employee.username}} avatar">
-            </div>
-        </div>
-        {{else}}
-        <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Thông báo</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p class="modal-message">Bạn cần đăng nhập để thực hiện chức năng này</p>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="modal-button">
-                            <a type="button" class="btn btn-primary" href="/login">Đăng nhập</a>
-                            <a type="button" class="btn btn-primary ms-3" href="/">Về trang chủ</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <button id="submit-button" type="button" class="btn btn-success mt-3 me-3">Thêm</button>
+                            <a class="btn btn-secondary mt-3 ms-3" href="/" role="button">Quay lại</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </div>
 
-        <script>
-            $(window).on('load', () => {
-                $('#modal').modal('toggle');
-            });
-        </script>
-        {{/if}}
+        <div class="col-4 col-sm-5 col-md-3 col-lg-3 col-xl-2">
+            <img class="w-100"
+                src="https://static.vecteezy.com/system/resources/thumbnails/009/589/758/small_2x/location-location-pin-location-icon-transparent-free-png.png"
+                alt="picture">
+        </div>
     </div>
 </div>
+
+<script>
+    const submitButton = document.getElementById('submit-button');
+    submitButton.addEventListener('click', () => {
+        const dataForm = document.getElementById('add-warehouse-form');
+        const warehouseCode = dataForm.querySelector("input[name='warehouseCode']").value;
+        const name = dataForm.querySelector("input[name='warehouseName']").value;
+        const address = dataForm.querySelector("input[name='address']").value;
+        const detailAddress = dataForm.querySelector("input[name='detailAddress']").value;
+
+        fetch("/post_add_warehouse", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                warehouseCode,
+                name,
+                address,
+                detailAddress
+            }),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Thêm điểm tập kết thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+
+                window.location = "/";
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+
+</script>
