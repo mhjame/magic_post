@@ -47,4 +47,6 @@ router.post('/employees/:id/restore', managerController.restore);
 router.post('/employees/:id/force',managerController.forceDestroy);
 router.post('/createReceipt', managerController.postReceipt);
 router.get('/createReceipt', managerController.getCreateReceipt);
+
+router.get('manage_warehouse/add_warehouse', managerController.getAddWarehouse)
 module.exports = router;

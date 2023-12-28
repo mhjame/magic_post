@@ -483,6 +483,10 @@ class ManagerController {
     getCreateReceipt(req, res, next) {
         res.render('createReceipt');
     }
+
+    getAddWarehouse(req, res, next) {
+        res.render('manage_warehouse/add_warehouse')
+    }
 }
 
 module.exports = new ManagerController;
