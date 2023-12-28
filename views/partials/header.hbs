@@ -41,7 +41,7 @@
     <li><a href="/statistic_stationAd/{{station.stationCode}}">Statistic</a></li>
     {{else if (eq employee.role 'WarehouseAd')}}
     <li><a href="/register">Register</a></li>
-    <li><a href="/statistic_warehouseAd/:warehouseCode">Statistic</a></li>
+    <li><a href="/statistic_warehouseAd/{{station.warehouseCode}}">Statistic</a></li>
     {{else if (eq employee.role 'Manager')}}
     <li><a href="/register">Register</a></li>
     <li><a href="/statistic_manager">Statistic</a></li>
