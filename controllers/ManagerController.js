@@ -152,6 +152,8 @@ class ManagerController {
         res.render('home');
     }
 
+
+
     getSearch(req, res) {
         res.render('search');
     }
@@ -215,6 +217,19 @@ class ManagerController {
             employee: req.session.employee,
         });
         // console.log(req.session.employee)
+    }
+
+    getEmployeeProfile(req, res, next) {
+        // Employee.findById({ _id: req.params.id })
+        console.log(req.params.id)
+        Employee.findById(req.params.id).lean()
+            .then(employee2 => {
+                res.render('supervisor/viewEmployeeProfile', {
+                    employee: req.session.employee,
+                    employee2: employee2,
+                })
+            })
+            .catch(next)
     }
 
     getForgotPassword(req, res) {
@@ -482,6 +497,10 @@ class ManagerController {
     }
     getCreateReceipt(req, res, next) {
         res.render('createReceipt');
+    }
+
+    getAddWarehouse(req, res, next) {
+        res.render('manage_warehouse/add_warehouse')
     }
 }
 

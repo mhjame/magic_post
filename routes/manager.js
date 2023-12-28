@@ -17,6 +17,7 @@ router.get('/register', managerController.getRegister);
 router.post('/register', managerController.registerValidate, managerController.postRegister)
 router.get('/profile/view', managerController.getProfile);
 
+
 router.get('/forgotPassword', passwordController.getForgotPassword);
 router.post('/forgotPassword', passwordController.postForgotPassword);
 router.get('/reset-password/:token', passwordController.getResetPassword)
@@ -45,6 +46,9 @@ router.get('/supervisor/oldHR', managerController.oldHR);
 router.post('/employees/handle-form-actions', managerController.handleFormActions);
 router.post('/employees/:id/restore', managerController.restore);
 router.post('/employees/:id/force',managerController.forceDestroy);
+router.get('/employee/:id/view', managerController.getEmployeeProfile);
 router.post('/createReceipt', managerController.postReceipt);
 router.get('/createReceipt', managerController.getCreateReceipt);
+
+router.get('manage_warehouse/add_warehouse', managerController.getAddWarehouse)
 module.exports = router;

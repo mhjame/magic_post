@@ -12,6 +12,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     :root {
         --blue-color: #174a8c;
@@ -29,6 +30,8 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 <body class="bg-default">
+    {{>station_employee/header}}
+    
     <div class="main-content">
 
     </div>
@@ -40,7 +43,7 @@
                 <button class="button" onclick="submitWithStationCode1('{{employeeId}}')">Trong ngày</button>
                 <button class="button" onclick="submitWithStationCode2('{{employeeId}}')">Trong tuần</button>
                 <button class="button" onclick="submitWithStationCode3('{{employeeId}}')">Trong tháng</button>
-                <button class="button" onclick="submitWithStationCode4('{{employeeId}}')">Trong tháng</button>
+                <button class="button" onclick="submitWithStationCode4('{{employeeId}}')">Trong năm</button>
             </div>
             <style>
                 .header {

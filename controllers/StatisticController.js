@@ -19,6 +19,7 @@ class StatisticController {
     getStatisticManager(req, res) {
 
         res.render('statistic/statistic_manager', {
+            employee: req.session.employee,
             message: "bodyManager"
         });
     }
@@ -41,7 +42,7 @@ class StatisticController {
         console.log(employeeId)
 
 
-        Employee.findOne({ employeeId: employeeId })
+        Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 if (employee && employee.workstationCode) {
                     stationCode = employee.workstationCode;
@@ -94,7 +95,7 @@ class StatisticController {
         let postFail = 0;
         let code = 3;
 
-        Employee.findOne({ employeeId: employeeId })
+        Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 stationCode = employee.workstationCode;
 
@@ -143,7 +144,7 @@ class StatisticController {
         let postFail = 0;
         let code = 2;
 
-        Employee.findOne({ employeeId: employeeId })
+        Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 stationCode = employee.workstationCode;
 
@@ -187,7 +188,8 @@ class StatisticController {
         let postFail = 0;
         let code = 4;
 
-        Employee.findOne({ employeeId: employeeId })
+
+        Employee.findOne({ employeeId: employeeId }).lean()
             .then(employee => {
                 stationCode = employee.workstationCode;
 
@@ -202,6 +204,7 @@ class StatisticController {
                         postFail = count2;
                     })
             })
+
 
 
 
@@ -289,7 +292,7 @@ class StatisticController {
             weekInCount: false,
             monthInCount: false,
             yearInCount: false,
-
+            employee: req.session.employee,
         });
     }
 

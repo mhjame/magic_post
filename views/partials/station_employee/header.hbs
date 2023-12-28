@@ -109,8 +109,8 @@
                     aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="fa fa-bars"></span> Menu
                 </button>
-                <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav m-auto" style="background-color: #fcfbfb;!important">
+                <div class="collapse navbar-collapse justify-content-center" id="ftco-nav">
+                    <ul class="navbar-nav" style="background-color: #fcfbfb !important;">
                         <li class="nav-item"><a href="/createReceipt" class="nav-link">Ghi nhận hàng gửi</a></li>
                         <li class="nav-item dropdown">
                             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"
@@ -127,12 +127,15 @@
                             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"
                                 style="white-space: normal;">Xác nhận đơn hàng</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/confirm_order/confirm_from_wh_to_station">Chuyển về từ điểm tập kết</a></li>
-                                <li><a class="dropdown-item" href="/confirm_order/confirm_station_receivers">Giao đến người nhận</a></li>
+                                <li><a class="dropdown-item" href="/confirm_order/confirm_from_wh_to_station">Chuyển về
+                                        từ điểm tập kết</a></li>
+                                <li><a class="dropdown-item" href="/confirm_order/confirm_station_receivers">Giao đến
+                                        người nhận</a></li>
                             </ul>
 
                         </li>
-                        <li class="nav-item"><a href="#" class="nav-link">Thống kê giao hàng</a></li>
+                        <li class="nav-item"><a href="/statistic_stationE/{{employee.employeeId}}"
+                                class="nav-link">Thống kê giao hàng</a></li>
                         <style>
                             #ftco-nav .navbar-nav .nav-item a.nav-link {
                                 border-bottom: 2px solid var(--orange-color);
@@ -151,30 +154,30 @@
     <script>
         const logoutBtn = document.getElementById('logout');
         logoutBtn.addEventListener('click', () => {
-        fetch("/logout", {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: ''
-        })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-
-                } else {
-                    alert("Đăng xuất thất bại!");
-                }
+            fetch("/logout", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: ''
             })
-            .then((data) => {
-                alert(data.message);
-                window.location = "/";
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
 
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    });
+                    } else {
+                        alert("Đăng xuất thất bại!");
+                    }
+                })
+                .then((data) => {
+                    alert(data.message);
+                    window.location = "/";
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        });
     </script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
