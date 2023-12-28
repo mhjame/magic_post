@@ -6,19 +6,19 @@
     <button class="button" type="submit" onclick="submitWithwarehouseCode4('{{warehouseCode}}')">Trong năm</button>
     <script>
     function submitWithwarehouseCode1(warehouseCode) {
-        const url = `/satistic_manager_warehouse/daily/${warehouseCode}`;
+        const url = `/statistic_manager_warehouse/daily/${warehouseCode}`;
         window.location.href = url;
     }
     function submitWithwarehouseCode2(warehouseCode) {
-        const url = `/satistic_manager_warehouse/week/${warehouseCode}`;
+        const url = `/statistic_manager_warehouse/week/${warehouseCode}`;
         window.location.href = url;
     }
     function submitWithwarehouseCode3(warehouseCode) {
-        const url = `/satistic_manager_warehouse/month/${warehouseCode}`;
+        const url = `/statistic_manager_warehouse/month/${warehouseCode}`;
         window.location.href = url;
     }
     function submitWithwarehouseCode4(warehouseCode) {
-        const url = `/satistic_manager_warehouse/year/${warehouseCode}`;
+        const url = `/statistic_manager_warehouse/year/${warehouseCode}`;
         window.location.href = url;
     }
 
@@ -78,7 +78,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Số lượng bưu kiện gửi</h5>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Số lượng bưu kiện nhập kho</h5>
                                 <span class="h2 font-weight-bold mb-0">{{#if dailyInCount }}
                                                                             {{dailyInCount}}
                                                                         {{else}}
@@ -103,10 +103,6 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </p>
                     </div>
                 </div>
             </div>
@@ -115,7 +111,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <h5 class="card-title text-uppercase text-muted mb-0">Số hàng giao cho khách</h5>
+                                <h5 class="card-title text-uppercase text-muted mb-0">Số lượng bưu kiện xuất kho</h5>
                                 <span class="h2 font-weight-bold mb-0">{{#if dailyInCount }}
                                                                             {{dailyOutCount}}
                                                                         {{else}}
@@ -140,10 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="mt-3 mb-0 text-muted text-sm">
-                            <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                            <span class="text-nowrap">Since last week</span>
-                        </p>
+                       
                     </div>
                 </div>
             </div>

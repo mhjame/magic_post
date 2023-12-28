@@ -7,6 +7,7 @@ const statisticController = require('../controllers/StatisticController');
 
 
 // router.get('/statistic', statisticController.getPostStatisticsStation)
+//
 router.get('/statistic_manager', statisticController.postStatisticManagerDailyNationWide)
 router.post('/statistic_manager/daily', statisticController.postStatisticManagerDailyNationWide)
 router.post('/statistic_manager/week', statisticController.postStatisticManagerWeekNationWide)
@@ -28,10 +29,10 @@ router.get('/statistic_manager_warehouse/month/:warehouseCode', statisticControl
 router.get('/statistic_manager_warehouse/year/:warehouseCode', statisticController.getStatisticManagerYearWarehouse)
 //-------
 router.get('/statistic_stationAd/:stationCode', statisticController.getStatisticDailyStation)
-router.get('/statistic_stationAd/daily:stationCode', statisticController.getStatisticDailyStation)
-router.get('/statistic_stationAd/week:stationCode',  statisticController.getStatisticWeekStation)
-router.get('/statistic_stationAd/month:stationCode', statisticController.getStatisticMonthStation)
-router.get('/statistic_stationAd/year:stationCode', statisticController.getStatisticYearStation)
+router.get('/statistic_stationAd/daily/:stationCode', statisticController.getStatisticDailyStation)
+router.get('/statistic_stationAd/week/:stationCode',  statisticController.getStatisticWeekStation)
+router.get('/statistic_stationAd/month/:stationCode', statisticController.getStatisticMonthStation)
+router.get('/statistic_stationAd/year/:stationCode', statisticController.getStatisticYearStation)
 //-------
 router.get('/statistic_warehouseAd/:warehouseCode', statisticController.getStatisticDailyWarehouse)
 router.get('/statistic_warehouseAd/daily/:warehouseCode', statisticController.getStatisticDailyWarehouse)

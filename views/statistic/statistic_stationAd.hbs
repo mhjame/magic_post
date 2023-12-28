@@ -35,12 +35,12 @@
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
 
         <div class="header">
-            <h1 style="padding: 10px; font-size: 30px;  font-weight: bold;">Tổng quan</h1>
+            <h1 style="padding: 10px; font-size: 30px;  font-weight: bold; color:rgb(87, 87, 87); margin-bottom:20px">{{{title}}}</h1>
             <div class="button-container">
-                <button class="button">Trong ngày</button>
-                <button class="button">Trong tuần</button>
-                <button class="button">Trong tháng</button>
-                <button class="button">Trong tháng</button>
+                <button class="button" onclick="submitWithStationCode1('{{stationCode}}')">Trong ngày</button>
+                <button class="button" onclick="submitWithStationCode2('{{stationCode}}')">Trong tuần</button>
+                <button class="button" onclick="submitWithStationCode3('{{stationCode}}')">Trong tháng</button>
+                <button class="button" onclick="submitWithStationCode4('{{stationCode}}')">Trong tháng</button>
             </div>
             <style>
                 .header {
@@ -427,24 +427,24 @@
                         data: {
                             labels: ["Giao hàng thành công", "Không giao thành công"],
                             datasets: [{ 
-                                                                        {{#if dailyInCount }}
-                                                                            data: [{{ dailyInCount }}, {{ dailyOutCount }}],
+                                                                        {{#if (eq code 1) }}
+                                                                            data: [{{ postSuccess }}, {{ postFail }}],
                                                                         {{else}}
-                                                                            {{#if weekInCount }}
-                                                                                data: [{{ weekInCount }}, {{ weekOutCount }}],
+                                                                            {{#if (eq code 2) }}
+                                                                                data: [{{ postSuccess }}, {{ postFail }}],
                                                                             {{else}}
-                                                                                {{#if monthInCount }}
-                                                                                    data: [{{ monthInCount }}, {{ monthOutCount }}],
+                                                                                {{#if (eq code 3) }}
+                                                                                    data: [{{ postSuccess }}, {{ postFail }}],
                                                                                 {{else}}
-                                                                                    {{#if yearInCount }}
-                                                                                        data: [{{ yearInCount }}, {{ yearOutCount }}],
+                                                                                    {{#if (eq code 4) }}
+                                                                                        data: [{{ postSuccess }}, {{ postFail }}],
                                                                                     {{else}}
                                                                                         data: [],
                                                                                     {{/if}}
                                                                                 {{/if}}
                                                                             {{/if}}
                                                                         {{/if}}
-                            backgroundColor: ["rgba(255, 0, 0, 0.5)", "rgba(100, 255, 0, 0.5)"]
+                            backgroundColor: ["#174a8c", "#ef6030"]
         }]
             },
                     options: {
