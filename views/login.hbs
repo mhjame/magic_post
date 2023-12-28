@@ -156,11 +156,9 @@
       .then(json => {
         $('#modal').modal('toggle');
         $('.modal-message').html(json.message);
-        if (json.loginSuccess && json.warehouseE) {
-          $('.modal-button').html('<a type="button" class="btn btn-primary" href="/warehouse_employee_page">OK</a>');
-        } else if (json.loginSuccess && json.stationE) {
-          $('.modal-button').html('<a type="button" class="btn btn-primary" href="/station_employee_page">OK</a>');
-        } else if (json.loginSuccess) {
+        
+       
+         if (json.loginSuccess) {
           $('.modal-button').html('<a type="button" class="btn btn-primary" href="/profile/view">Về trang chủ</a>');
         } else {
           $('.modal-button').html('<button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>');

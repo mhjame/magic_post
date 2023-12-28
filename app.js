@@ -13,7 +13,7 @@ app.engine('hbs', handlebars.engine({
   helpers: {
     sum: (a, b) => a + b,
     eq: function (a, b) {
-      return a === b;
+      return a == b;
     },
 
     contain: function (a, b) {

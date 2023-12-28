@@ -26,11 +26,14 @@
     </style>
 </head>
 
+{{!-- {{#if (eq employee.role 'StationE')}}
+{{>station_employee/header}}
+{{else if employee}} --}}
 {{#if employee}}
 <ul>
     <li><a class="active" href="/profile/view">Home</a></li>
-    <li><a href="#news">News</a></li>
-    <li><a href="#contact">Contact</a></li>
+    {{!-- <li><a href="#news">News</a></li>
+    <li><a href="#contact">Contact</a></li> --}}
     <li><a href="/createReceipt">Tạo đơn</a></li>
     {{#if (eq employee.role 'StationAd')}}
     <li><a href="/register">Register</a></li>
