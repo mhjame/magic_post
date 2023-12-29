@@ -72,9 +72,9 @@
                                 <select id="workAddress" name="workAddress"
                                     class="table table-borderless align-middle form-select">
                                     {{#if (eq employee.role 'StationAd')}}
-                                    <option value={{employee.workAddress}}> {{employee.workAddress}}</option>
+                                    <option value="{{employee.workAddress}}"> {{employee.workAddress}}</option>
                                     {{else if (eq employee.role 'WarehouseAd')}}
-                                    <option value={{employee.workAddress}}> {{employee.workAddress}}</option>
+                                    <option value="{{employee.workAddress}}"> {{employee.workAddress}}</option>
                                     {{else if (eq employee.role 'Manager')}}
                                     <option value="An Giang">An Giang</option>
                                     <option value="Bà Rịa – Vũng Tàu">Bà Rịa – Vũng Tàu</option>
