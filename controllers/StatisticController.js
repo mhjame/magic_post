@@ -68,35 +68,37 @@ class StatisticController {
                             Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
 
                                 //giao thành công
-                                Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
+                                P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
                                     .then(count1 => {
                                         console.log(count1)
                                         postSuccess = count1;
                                     })
                                 //giao thành công
-                                Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
+                                P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
                                     .then(count2 => {
                                         console.log(count2)
                                         postFail = count2;
                                     })
 
+                                Promise.all([P1, P2])
+                                    .then(result => {
+                                        res.render('statistic/statistic_stationE', {
+                                            title: "Thống kê đơn hàng trong ngày",
+                                            employeeId,
+                                            stationCode,
+                                            today,
+                                            tomorrow,
+                                            code,
+                                            postSuccess: 9,
+                                            postFail: 3,
 
-                                res.render('statistic/statistic_stationE', {
-                                    title: "Thống kê đơn hàng trong ngày",
-                                    employeeId,
-                                    stationCode,
-                                    today,
-                                    tomorrow,
-                                    code,
-                                    postSuccess: 9,
-                                    postFail: 3,
+                                            noHeader: 'yes',
+                                            employee,
+                                            workPlace: station,
+                                            desWarehouse: warehouse
 
-                                    noHeader: 'yes',
-                                    employee,
-                                    workPlace: station,
-                                    desWarehouse: warehouse
-
-                                })
+                                        })
+                                    })
 
                             })
                         }
@@ -145,57 +147,63 @@ class StatisticController {
 
 
                             //giao thành công
-                            Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
+                            P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
                                 .then(count1 => {
                                     postSuccess = count1;
                                 })
                             //giao thành công
-                            Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
+                            P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
                                 .then(count2 => {
                                     postFail = count2;
                                 })
 
 
+                            Promise.all([P1, P2])
+                                .then(result => {
+                                    res.render('statistic/statistic_stationE', {
+                                        title: "Thống kê đơn hàng trong tháng",
+                                        employeeId,
+                                        stationCode,
+                                        startOfMonth,
+                                        endOfMonth,
+                                        code,
+                                        postSuccess: 1,
+                                        postFail: 9,
+                                        noHeader: 'yes',
 
-                            res.render('statistic/statistic_stationE', {
-                                title: "Thống kê đơn hàng trong tháng",
-                                employeeId,
-                                stationCode,
-                                startOfMonth,
-                                endOfMonth,
-                                code,
-                                postSuccess: 1,
-                                postFail: 9,
-                                noHeader: 'yes',
+                                        employee,
+                                        workPlace: station,
+                                        desWarehouse: warehouse
 
-                                employee,
-                                workPlace: station,
-                                desWarehouse: warehouse
-
-                            })
+                                    })
+                                })
                         })
                     } else {
 
                         //giao thành công
-                        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
+                        P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
                             .then(count1 => {
                                 postSuccess = count1;
                             })
                         //giao thành công
-                        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
+                        P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
                             .then(count2 => {
                                 postFail = count2;
                             })
-                        res.render('statistic/statistic_stationE', {
-                            title: "Thống kê đơn hàng trong tháng",
-                            employeeId,
-                            stationCode,
-                            startOfMonth,
-                            endOfMonth,
-                            code,
-                            postSuccess,
-                            postFail
-                        })
+
+                        Promise.all([P1, P2])
+                            .then(result => {
+                                res.render('statistic/statistic_stationE', {
+                                    title: "Thống kê đơn hàng trong tháng",
+                                    employeeId,
+                                    stationCode,
+                                    startOfMonth,
+                                    endOfMonth,
+                                    code,
+                                    postSuccess,
+                                    postFail
+                                })
+                            })
                     }
                 })
 
@@ -233,57 +241,63 @@ class StatisticController {
                         Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
 
                             //giao thành công
-                            Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
+                            P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
                                 .then(count1 => {
                                     postSuccess = count1;
                                 })
                             //giao thất bại
-                            Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
+                            P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
                                 .then(count2 => {
                                     postFail = count2;
                                 })
 
 
+                            Promise.all([P1, P2])
+                                .then(result => {
+                                    res.render('statistic/statistic_stationE', {
+                                        title: "Thống kê đơn hàng trong tuần",
+                                        employeeId,
+                                        stationCode,
+                                        startOfWeek,
+                                        endOfWeek,
+                                        code,
+                                        postSuccess: 1,
+                                        postFail: 2,
 
-                            res.render('statistic/statistic_stationE', {
-                                title: "Thống kê đơn hàng trong tuần",
-                                employeeId,
-                                stationCode,
-                                startOfWeek,
-                                endOfWeek,
-                                code,
-                                postSuccess: 1,
-                                postFail: 2,
+                                        noHeader: 'yes',
+                                        employee,
+                                        workPlace: station,
+                                        desWarehouse: warehouse
 
-                                noHeader: 'yes',
-                                employee,
-                                workPlace: station,
-                                desWarehouse: warehouse
-
-                            })
+                                    })
+                                })
                         })
                     } else {
 
                         //giao thành công
-                        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
+                        P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
                             .then(count1 => {
                                 postSuccess = count1;
                             })
                         //giao thành công
-                        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
+                        P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
                             .then(count2 => {
                                 postFail = count2;
                             })
-                        res.render('statistic/statistic_stationE', {
-                            title: "Thống kê đơn hàng trong tuần",
-                            employeeId,
-                            stationCode,
-                            startOfWeek,
-                            endOfWeek,
-                            code,
-                            postSuccess,
-                            postFail
-                        })
+
+                        Promise.all([P1, P2])
+                            .then(result => {
+                                res.render('statistic/statistic_stationE', {
+                                    title: "Thống kê đơn hàng trong tuần",
+                                    employeeId,
+                                    stationCode,
+                                    startOfWeek,
+                                    endOfWeek,
+                                    code,
+                                    postSuccess,
+                                    postFail
+                                })
+                            })
                     }
                 })
 
