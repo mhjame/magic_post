@@ -493,8 +493,7 @@ class StatisticController {
                 console.log(_monthCustomerReceivedCount);
             })
 
-        monthInCount = monthCustomerReceivedCount;
-        // Đếm số hàng ra trong tháng tại điểm giao dịch
+        
 
         //giao cho khách
         let monthSentToCustomerCount = 0;
@@ -504,8 +503,7 @@ class StatisticController {
                 console.log(_monthSentToCustomerCount);
             })
 
-        monthOutCount = monthSentToCustomerCount;
-
+       
         //thống kê giao nhận sucess/fail
         let postSuccess = 0;
         let postFail = 0;
@@ -524,6 +522,10 @@ class StatisticController {
 
         Promise.all([P1, P2, P3, P4])
         then(result => {
+            monthInCount = monthCustomerReceivedCount;
+            monthOutCount = monthSentToCustomerCount;
+        // Đếm số hàng ra trong tháng tại điểm giao dịch
+
             res.render('statistic/statistic_manager', {
                 message: "bodyManagerNationWide",
                 title: "Thống kê toàn quốc theo tháng",
@@ -566,7 +568,7 @@ class StatisticController {
             })
 
 
-        weekInCount = weekCustomerReceivedCount;
+        
 
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
@@ -578,7 +580,7 @@ class StatisticController {
                 console.log(_weekSentToCustomerCount);
             })
 
-        weekOutCount = weekSentToCustomerCount;
+        
 
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
@@ -599,6 +601,9 @@ class StatisticController {
 
         Promise.all([P1, P2, P3, P4])
             .then(result => {
+                weekInCount = weekCustomerReceivedCount;
+                weekOutCount = weekSentToCustomerCount;
+                
                 res.render('statistic/statistic_manager', {
                     message: "bodyManagerNationWide",
                     title: "Thống kê toàn quốc theo tuần",
