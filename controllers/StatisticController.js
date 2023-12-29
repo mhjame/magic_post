@@ -1088,7 +1088,7 @@ class StatisticController {
                 console.log(_stationYearWarehouseReceivedCount);
             })
 
-        
+
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
         //gửi đi điểm tập kết
@@ -1106,7 +1106,7 @@ class StatisticController {
                 console.log(_YearSentToCustomerCount);
             })
 
-        
+
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
         let postFail = 0;
@@ -1174,7 +1174,7 @@ class StatisticController {
 
 
         let warehouseDailyWarehouseReceivedCount = 0;
-        Post.countDocuments({ receiverWarehouseCode: warehouseCode, status: 'at rWarehouse', 'statusUpdateTime.4': { $gte: today, $lte: tomorrow } })
+        P1 = Post.countDocuments({ receiverWarehouseCode: warehouseCode, status: 'at rWarehouse', 'statusUpdateTime.4': { $gte: today, $lte: tomorrow } })
             .then(_warehouseDailyWarehouseReceivedCount => {
                 warehouseDailyWarehouseReceivedCount = _warehouseDailyWarehouseReceivedCount;
                 console.log(_warehouseDailyWarehouseReceivedCount);
@@ -1185,7 +1185,7 @@ class StatisticController {
 
         //gửi đi điểm giao dịch
         let warehouseDailySendtoStationCount = 0;
-        Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: today, $lte: tomorrow } })
+        P2 = Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: today, $lte: tomorrow } })
             .then(_warehouseDailySendtoWarehouseCount => {
                 warehouseDailySendtoStationCount = _warehouseDailySendtoWarehouseCount;
                 console.log(_warehouseDailySendtoWarehouseCount);
@@ -1193,19 +1193,22 @@ class StatisticController {
             })
 
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerWarehouse",
-            title: "Thống kê tại điểm tập kết theo ngày",
-            warehouseCode,
-            today,
-            tomorrow,
-            dailyInCount,
-            dailyOutCount,
-            weekInCount: false,
-            monthInCount: false,
-            yearInCount: false,
+        Promise.all([P1, P2])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerWarehouse",
+                    title: "Thống kê tại điểm tập kết theo ngày",
+                    warehouseCode,
+                    today,
+                    tomorrow,
+                    dailyInCount,
+                    dailyOutCount,
+                    weekInCount: false,
+                    monthInCount: false,
+                    yearInCount: false,
 
-        });
+                });
+            })
     }
 
     //---------------------------
@@ -1227,7 +1230,7 @@ class StatisticController {
 
         //gửi đi điểm giao dịch
         let warehouseMonthWarehouseReceivedCount = 0;
-        Post.countDocuments({ receiverWarehouseCode: warehouseCode, status: 'at rWarehouse', 'statusUpdateTime.4': { $gte: startOfMonth, $lte: endOfMonth } })
+        P1 = Post.countDocuments({ receiverWarehouseCode: warehouseCode, status: 'at rWarehouse', 'statusUpdateTime.4': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_warehouseMonthWarehouseReceivedCount => {
                 warehouseMonthWarehouseReceivedCount = _warehouseMonthWarehouseReceivedCount;
                 console.log(_warehouseMonthWarehouseReceivedCount);
@@ -1238,26 +1241,28 @@ class StatisticController {
 
         //gửi đi điểm giao dịch
         let warehouseMonthSendtoStationCount = 0;
-        Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: startOfMonth, $lte: endOfMonth } })
+        P2 = Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_warehouseMonthSendtoStationCount => {
                 warehouseMonthSendtoStationCount += _warehouseMonthSendtoStationCount;
                 console.log(_warehouseMonthSendtoStationCount);
                 monthOutCount = warehouseMonthSendtoStationCount;
             })
 
-
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerWarehouse",
-            title: "Thống kê tại điểm tập kết theo tháng",
-            warehouseCode,
-            startOfMonth,
-            endOfMonth,
-            dailyInCount: false,
-            weekInCount: false,
-            monthInCount,
-            monthOutCount,
-            yearInCount: false,
-        });
+        Promise.all([P1, P2])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerWarehouse",
+                    title: "Thống kê tại điểm tập kết theo tháng",
+                    warehouseCode,
+                    startOfMonth,
+                    endOfMonth,
+                    dailyInCount: false,
+                    weekInCount: false,
+                    monthInCount,
+                    monthOutCount,
+                    yearInCount: false,
+                });
+            })
     }
 
     //Quản lý warehouse theo tuần DONEE
@@ -1280,7 +1285,7 @@ class StatisticController {
 
         // Đếm số hàng vào trong tuần tại điểm tập kết
         let warehouseWeekWarehouseReceivedCount = 0;
-        Post.countDocuments({ receiverWarehouseCode: warehouseCode, status: 'at rWarehouse', 'statusUpdateTime.4': { $gte: startOfWeek, $lte: endOfWeek } })
+        P1 = Post.countDocuments({ receiverWarehouseCode: warehouseCode, status: 'at rWarehouse', 'statusUpdateTime.4': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_warehouseWeekWarehouseReceivedCount => {
                 warehouseWeekWarehouseReceivedCount = _warehouseWeekWarehouseReceivedCount;
                 console.log(_warehouseWeekWarehouseReceivedCount);
@@ -1294,7 +1299,7 @@ class StatisticController {
 
         //gửi đi điểm giao dịch
         let warehouseDailySendtoStationCount = 0;
-        Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: startOfWeek, $lte: endOfWeek } })
+        P2 = Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_warehouseDailySendtoWarehouseCount => {
                 warehouseDailySendtoStationCount = _warehouseDailySendtoWarehouseCount;
                 console.log(_warehouseDailySendtoWarehouseCount);
@@ -1305,20 +1310,22 @@ class StatisticController {
 
         //thống kê hàng gửi thành công/không thành công
 
+        Promise.all([P1, P2])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerWarehouse",
+                    title: "Thống kê tại điểm tập kết theo tuần",
+                    warehouseCode,
+                    startOfWeek,
+                    endOfWeek,
+                    weekInCount,
+                    weekOutCount,
+                    dailyInCount: false,
+                    monthInCount: false,
+                    yearInCount: false,
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerWarehouse",
-            title: "Thống kê tại điểm tập kết theo tuần",
-            warehouseCode,
-            startOfWeek,
-            endOfWeek,
-            weekInCount,
-            weekOutCount,
-            dailyInCount: false,
-            monthInCount: false,
-            yearInCount: false,
-
-        });
+                });
+            })
     }
 
     //Quản lý warehouse theo năm DONEE
@@ -1336,7 +1343,7 @@ class StatisticController {
 
 
         let yearCustomerReceivedCount = 0;
-        Post.countDocuments({ status: 'at sWarehouse', 'statusUpdateTime.4': { $gte: startOfYear, $lte: endOfYear } })
+        P1 = Post.countDocuments({ status: 'at sWarehouse', 'statusUpdateTime.4': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearCustomerReceivedCount => {
                 yearCustomerReceivedCount = _yearCustomerReceivedCount;
                 console.log(_yearCustomerReceivedCount);
@@ -1349,7 +1356,7 @@ class StatisticController {
 
 
         let yearSentToCustomerCount = 0;
-        Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: startOfYear, $lte: endOfYear } })
+        P2 = Post.countDocuments({ senderWarehouseCode: warehouseCode, status: 'on way to rWarehouse', 'statusUpdateTime.3': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearSentToCustomerCount => {
                 yearSentToCustomerCount += _yearSentToCustomerCount;
                 console.log(_yearSentToCustomerCount);
@@ -1358,20 +1365,22 @@ class StatisticController {
 
 
 
+        Promise.all([P1, P2])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerWarehouse",
+                    title: "Thống kê tại điểm tập kết theo năm",
+                    warehouseCode,
+                    startOfYear,
+                    endOfYear,
+                    yearInCount,
+                    yearOutCount,
+                    weekInCount: false,
+                    monthInCount: false,
+                    dailyInCount: false,
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerWarehouse",
-            title: "Thống kê tại điểm tập kết theo năm",
-            warehouseCode,
-            startOfYear,
-            endOfYear,
-            yearInCount,
-            yearOutCount,
-            weekInCount: false,
-            monthInCount: false,
-            dailyInCount: false,
-
-        });
+                });
+            })
     }
 
     ///---------------------------------------------------
@@ -1396,7 +1405,7 @@ class StatisticController {
 
         //do khách gửi tại điểm giao dịch
         let dailyCustomerReceivedCount = 0;
-        Post.countDocuments({ senderStationCode: stationCode, status: 'at sStation', 'statusUpdateTime.0': { $gte: today, $lte: tomorrow } })
+        P1 = Post.countDocuments({ senderStationCode: stationCode, status: 'at sStation', 'statusUpdateTime.0': { $gte: today, $lte: tomorrow } })
             .then(_dailyCustomerReceivedCount => {
                 dailyCustomerReceivedCount = _dailyCustomerReceivedCount;
                 console.log(_dailyCustomerReceivedCount);
@@ -1404,33 +1413,29 @@ class StatisticController {
 
         //do nhận về từ điểm tập kết
         let stationDailyWarehouseReceivedCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'at rStation', 'statusUpdateTime.6': { $gte: today, $lte: tomorrow } })
+        P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'at rStation', 'statusUpdateTime.6': { $gte: today, $lte: tomorrow } })
             .then(_stationDailyWarehouseReceivedCount => {
                 stationDailyWarehouseReceivedCount = _stationDailyWarehouseReceivedCount;
                 console.log(_stationDailyWarehouseReceivedCount);
             })
 
 
-        dailyInCount = dailyCustomerReceivedCount + stationDailyWarehouseReceivedCount
-
-        // Đếm số hàng ra trong ngày tại điểm giao dịch
 
         //gửi đi điểm tập kết
         let stationDailySendtoWarehouseCount = 0;
-        Post.countDocuments({ senderStationCode: stationCode, status: 'on way to sWarehouse', 'statusUpdateTime.1': { $gte: today, $lte: tomorrow } })
+        P3 = Post.countDocuments({ senderStationCode: stationCode, status: 'on way to sWarehouse', 'statusUpdateTime.1': { $gte: today, $lte: tomorrow } })
             .then(_stationDailySendtoWarehouseCount => {
                 stationDailySendtoWarehouseCount = _stationDailySendtoWarehouseCount;
                 console.log(_stationDailySendtoWarehouseCount);
             })
         //giao cho khách
         let dailySentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
+        P4 = Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
             .then(_dailySentToCustomerCount => {
                 dailySentToCustomerCount += _dailySentToCustomerCount;
                 console.log(_dailySentToCustomerCount);
             })
 
-        dailyOutCount = dailySentToCustomerCount + stationDailySendtoWarehouseCount;
 
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
@@ -1438,38 +1443,46 @@ class StatisticController {
         let code = 1;
 
         //giao thành công
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
+        P5 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
             .then(count1 => {
                 console.log(count1)
                 postSuccess = count1;
             })
         //giao thất bại
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
+        P6 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
             .then(count2 => {
                 console.log(count2)
                 postFail = count2;
             })
 
+        Promise.all([P1, P2, P3, P4, P5, P6])
+            .then(result => {
+                dailyInCount = dailyCustomerReceivedCount + stationDailyWarehouseReceivedCount
 
-        res.render('statistic/statistic_stationAd', {
-            title: "Thống kê tại điểm giao dịch theo ngày",
-            stationCode,
-            today,
-            tomorrow,
-            dailyInCount,
-            dailyCustomerReceivedCount,
-            stationDailyWarehouseReceivedCount,
-            dailyOutCount,
-            stationDailySendtoWarehouseCount,
-            dailySentToCustomerCount,
-            code,
-            postSuccess,
-            postFail,
-            weekInCount: false,
-            monthInCount: false,
-            yearInCount: false,
+                // Đếm số hàng ra trong ngày tại điểm giao dịch
+                dailyOutCount = dailySentToCustomerCount + stationDailySendtoWarehouseCount;
 
-        });
+
+                res.render('statistic/statistic_stationAd', {
+                    title: "Thống kê tại điểm giao dịch theo ngày",
+                    stationCode,
+                    today,
+                    tomorrow,
+                    dailyInCount,
+                    dailyCustomerReceivedCount,
+                    stationDailyWarehouseReceivedCount,
+                    dailyOutCount,
+                    stationDailySendtoWarehouseCount,
+                    dailySentToCustomerCount,
+                    code,
+                    postSuccess,
+                    postFail,
+                    weekInCount: false,
+                    monthInCount: false,
+                    yearInCount: false,
+
+                });
+            })
     }
 
     //---------------------------
