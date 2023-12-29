@@ -329,56 +329,62 @@ class StatisticController {
                     if (station) {
                         Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                             //giao thành công
-                            Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+                            P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
                                 .then(count1 => {
                                     postSuccess = count1;
                                 })
                             //giao thành công
-                            Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
+                            P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
                                 .then(count2 => {
                                     postFail = count2;
                                 })
 
 
+                            Promise.all([P1, P2])
+                                .then(result => {
+                                    res.render('statistic/statistic_stationE', {
+                                        title: "Thống kê đơn hàng trong năm",
+                                        employeeId,
+                                        stationCode,
+                                        startOfYear,
+                                        endOfYear,
+                                        code,
+                                        postSuccess: 2,
+                                        postFail: 2,
 
-                            res.render('statistic/statistic_stationE', {
-                                title: "Thống kê đơn hàng trong năm",
-                                employeeId,
-                                stationCode,
-                                startOfYear,
-                                endOfYear,
-                                code,
-                                postSuccess: 2,
-                                postFail: 2,
+                                        noHeader: 'yes',
+                                        employee,
+                                        workPlace: station,
+                                        desWarehouse: warehouse
 
-                                noHeader: 'yes',
-                                employee,
-                                workPlace: station,
-                                desWarehouse: warehouse
-
-                            })
+                                    })
+                                })
                         })
                     } else {
                         //giao thành công
-                        Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+                        P1 = Post.countDocuments({ receiverStationCode: stationCode, status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
                             .then(count1 => {
                                 postSuccess = count1;
                             })
-                        //giao thành công
-                        Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
+                        //giao ko thành công
+                        P2 = Post.countDocuments({ receiverStationCode: stationCode, status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
                             .then(count2 => {
                                 postFail = count2;
                             })
-                        res.render('statistic/statistic_stationE', {
-                            title: "Thống kê đơn hàng trong năm",
-                            employeeId,
-                            stationCode,
-                            startOfYear,
-                            endOfYear,
-                            code,
-                            postSuccess,
-                            postFail
-                        })
+
+                        Promise.all([P1, P2])
+                            .then(result => {
+                                res.render('statistic/statistic_stationE', {
+                                    title: "Thống kê đơn hàng trong năm",
+                                    employeeId,
+                                    stationCode,
+                                    startOfYear,
+                                    endOfYear,
+                                    code,
+                                    postSuccess,
+                                    postFail
+                                })
+                            })
                     }
                 })
 
@@ -404,7 +410,7 @@ class StatisticController {
 
         //do khách gửi tại điểm giao dịch
         let dailyCustomerReceivedCount = 0;
-        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: today, $lte: tomorrow } })
+        P1 = Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: today, $lte: tomorrow } })
             .then(_dailyCustomerReceivedCount => {
                 dailyCustomerReceivedCount = _dailyCustomerReceivedCount;
                 console.log(_dailyCustomerReceivedCount);
@@ -417,7 +423,7 @@ class StatisticController {
 
         //giao cho khách
         let dailySentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
+        P2 = Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
             .then(_dailySentToCustomerCount => {
                 dailySentToCustomerCount += _dailySentToCustomerCount;
                 console.log(_dailySentToCustomerCount);
@@ -431,13 +437,13 @@ class StatisticController {
         let code = 1;
 
         //giao thành công
-        Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
+        P3 = Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: today, $lte: tomorrow } })
             .then(count1 => {
                 console.log(count1)
                 postSuccess = count1;
             })
         //giao thất bại
-        Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
+        P4 = Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: today, $lte: tomorrow } })
             .then(count2 => {
                 console.log(count2)
                 postFail = count2;
@@ -445,21 +451,24 @@ class StatisticController {
 
 
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerNationWide",
-            title: "Thống kê toàn quốc theo ngày",
-            today,
-            tomorrow,
-            dailyInCount,
-            dailyOutCount,
-            code,
-            postSuccess,
-            postFail,
-            weekInCount: false,
-            monthInCount: false,
-            yearInCount: false,
-            employee: req.session.employee,
-        });
+        Promise.all([P1, P2, P3, P4])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerNationWide",
+                    title: "Thống kê toàn quốc theo ngày",
+                    today,
+                    tomorrow,
+                    dailyInCount,
+                    dailyOutCount,
+                    code,
+                    postSuccess,
+                    postFail,
+                    weekInCount: false,
+                    monthInCount: false,
+                    yearInCount: false,
+                    employee: req.session.employee,
+                });
+            })
     }
 
     //---------------------------
@@ -478,7 +487,7 @@ class StatisticController {
 
         //do khách gửi tại điểm giao dịch
         let monthCustomerReceivedCount = 0;
-        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfMonth, $lte: endOfMonth } })
+        P1 = Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_monthCustomerReceivedCount => {
                 monthCustomerReceivedCount = _monthCustomerReceivedCount;
                 console.log(_monthCustomerReceivedCount);
@@ -489,7 +498,7 @@ class StatisticController {
 
         //giao cho khách
         let monthSentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
+        P2 = Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_monthSentToCustomerCount => {
                 monthSentToCustomerCount += _monthSentToCustomerCount;
                 console.log(_monthSentToCustomerCount);
@@ -503,30 +512,33 @@ class StatisticController {
         let code = 3;
 
         //giao thành công
-        Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
+        P3 = Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(count1 => {
                 postSuccess = count1;
             })
         //giao thành công
-        Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
+        P4 = Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(count2 => {
                 postFail = count2;
             })
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerNationWide",
-            title: "Thống kê toàn quốc theo tháng",
-            startOfMonth,
-            endOfMonth,
-            dailyInCount: false,
-            weekInCount: false,
-            monthInCount,
-            monthOutCount,
-            code,
-            postSuccess,
-            postFail,
-            yearInCount: false,
-        });
+        Promise.all([P1, P2, P3, P4])
+        then(result => {
+            res.render('statistic/statistic_manager', {
+                message: "bodyManagerNationWide",
+                title: "Thống kê toàn quốc theo tháng",
+                startOfMonth,
+                endOfMonth,
+                dailyInCount: false,
+                weekInCount: false,
+                monthInCount,
+                monthOutCount,
+                code,
+                postSuccess,
+                postFail,
+                yearInCount: false,
+            });
+        })
     }
 
     //Quản lý toàn quốc theo tuần DONEE
@@ -547,7 +559,7 @@ class StatisticController {
 
         //do khách gửi tại điểm giao dịch
         let weekCustomerReceivedCount = 0;
-        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfWeek, $lte: endOfWeek } })
+        P1 = Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_weekCustomerReceivedCount => {
                 weekCustomerReceivedCount = _weekCustomerReceivedCount;
                 console.log(_weekCustomerReceivedCount);
@@ -560,7 +572,7 @@ class StatisticController {
 
         //giao cho khách
         let weekSentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
+        P2 = Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_weekSentToCustomerCount => {
                 weekSentToCustomerCount += _weekSentToCustomerCount;
                 console.log(_weekSentToCustomerCount);
@@ -574,32 +586,35 @@ class StatisticController {
         let code = 2;
 
         //giao thành công
-        Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
+        P3 = Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(count1 => {
                 postSuccess = count1;
             })
         //giao thành công
-        Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
+        P4 = Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(count2 => {
                 postFail = count2;
             })
 
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerNationWide",
-            title: "Thống kê toàn quốc theo tuần",
-            startOfWeek,
-            endOfWeek,
-            weekInCount,
-            weekOutCount,
-            code,
-            postSuccess,
-            postFail,
-            dailyInCount: false,
-            monthInCount: false,
-            yearInCount: false,
+        Promise.all([P1, P2, P3, P4])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerNationWide",
+                    title: "Thống kê toàn quốc theo tuần",
+                    startOfWeek,
+                    endOfWeek,
+                    weekInCount,
+                    weekOutCount,
+                    code,
+                    postSuccess,
+                    postFail,
+                    dailyInCount: false,
+                    monthInCount: false,
+                    yearInCount: false,
 
-        });
+                });
+            })
     }
 
     //Quản lý toàn quốc theo năm DONEE
@@ -616,7 +631,7 @@ class StatisticController {
 
         //do khách gửi tại điểm giao dịch
         let yearCustomerReceivedCount = 0;
-        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfYear, $lte: endOfYear } })
+        P1 = Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearCustomerReceivedCount => {
                 yearCustomerReceivedCount = _yearCustomerReceivedCount;
                 console.log(_yearCustomerReceivedCount);
@@ -629,7 +644,7 @@ class StatisticController {
 
         //giao cho khách
         let yearSentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
+        P2 = Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearSentToCustomerCount => {
                 yearSentToCustomerCount += _yearSentToCustomerCount;
                 console.log(_yearSentToCustomerCount);
@@ -643,32 +658,35 @@ class StatisticController {
         let code = 4;
 
         //giao thành công
-        Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+        P3 = Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
             .then(count1 => {
                 postSuccess = count1;
             })
         //giao thành công
-        Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
+        P4 = Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
             .then(count2 => {
                 postFail = count2;
             })
 
 
-        res.render('statistic/statistic_manager', {
-            message: "bodyManagerNationWide",
-            title: "Thống kê toàn quốc theo năm",
-            startOfYear,
-            endOfYear,
-            yearInCount,
-            yearOutCount,
-            code,
-            postSuccess,
-            postFail,
-            weekInCount: false,
-            monthInCount: false,
-            dailyInCount: false,
+        Promise.all([P1, P2, P3, P4])
+            .then(result => {
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerNationWide",
+                    title: "Thống kê toàn quốc theo năm",
+                    startOfYear,
+                    endOfYear,
+                    yearInCount,
+                    yearOutCount,
+                    code,
+                    postSuccess,
+                    postFail,
+                    weekInCount: false,
+                    monthInCount: false,
+                    dailyInCount: false,
 
-        });
+                });
+            })
     }
 
 
