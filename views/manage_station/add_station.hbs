@@ -16,17 +16,16 @@
 
     <div class="row py-5 px-3">
         <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8">
-            <p class="h3 pb-3">Thêm điểm tập kết</p>
-            <form id="add-warehouse-form" action="/post_add_warehouse" method="post">
+            <p class="h3 pb-3">Thêm điểm giao dịch</p>
+            <form id="add-station-form" action="/post_add_station" method="post">
                 <table class="table table-borderless align-middle">
                     <tr>
-                        <th><label for="warehouseCode">Mã điểm tập kết:</label></th>
-                        <td><input type="text" class="form-control" id="warehouseCode" name="warehouseCode" required>
-                        </td>
+                        <th><label for="stationCode">Mã điểm giao dịch:</label></th>
+                        <td><input type="text" class="form-control" id="stationCode" name="stationCode" required></td>
                     </tr>
                     <tr>
-                        <th><label for="warehouseName">Tên điểm tập kết:</label></th>
-                        <td><input type="text" class="form-control" id="warehouseName" name="warehouseName" required>
+                        <th><label for="stationName">Tên điểm giao dịch:</label></th>
+                        <td><input type="text" class="form-control" id="stationName" name="stationName" required>
                         </td>
                     </tr>
                     <tr>
@@ -38,13 +37,17 @@
                         <td><input type="text" class="form-control" id="detailAddress" name="detailAddress" required>
                         </td>
                     </tr>
+                    <tr>
+                        <th><label for="warehouseId">Mã điểm tập kết trực thuộc:</label></th>
+                        <td><input type="text" class="form-control" id="warehouseId" name="warehouseId" required>
+                        </td>
+                    </tr>
 
                     <tr>
                         <th></th>
-                        <td>
-                            <a class="btn btn-secondary mt-3 ms-3" href="/view_warehouses" role="button">Quay lại</a>
-                            <button id="submit-button" type="button" class="btn btn-success mt-3 me-3"
-                                style="margin-left: 40px">Thêm</button>
+                        <td class="text-center">
+                            <a class="btn btn-secondary mt-3 ms-3" href="/view_stations" role="button">Quay lại</a>
+                            <button id="submit-button" type="button" class="btn btn-success mt-3 me-3" style="margin-left: 40px">Thêm</button>
 
                         </td>
                     </tr>
@@ -64,15 +67,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm điểm tập kết mới thành công</h5>
+                <h5 class="modal-title">Thông báo</h5>
             </div>
             <div class="modal-body">
-                <p class="modal-message">Hãy thêm các điểm giao dịch trực thuộc điểm tập kết vừa tạo</p>
+                <p class="modal-message">Thêm điểm giao dịch mới thành công</p>
             </div>
             <div class="modal-footer">
                 <div class="modal-button">
-                    <a type="button" class="btn btn-secondary ms-3" href="/add_warehouse">Để khi khác</a>
-                    <a type="button" class="btn btn-success" href="/add_station">Thêm ngay</a>
+                    <a type="button" class="btn btn-primary ms-3" href="/add_station">OK</a>
 
                 </div>
             </div>
@@ -83,27 +85,29 @@
 <script>
     const submitButton = document.getElementById('submit-button');
     submitButton.addEventListener('click', () => {
-        const dataForm = document.getElementById('add-warehouse-form');
-        const warehouseCode = dataForm.querySelector("input[name='warehouseCode']").value;
-        const name = dataForm.querySelector("input[name='warehouseName']").value;
+        const dataForm = document.getElementById('add-station-form');
+        const stationCode = dataForm.querySelector("input[name='stationCode']").value;
+        const name = dataForm.querySelector("input[name='stationName']").value;
         const address = dataForm.querySelector("input[name='address']").value;
         const detailAddress = dataForm.querySelector("input[name='detailAddress']").value;
+        const warehouseId = dataForm.querySelector("input[name='warehouseId']").value;
 
-        if (!warehouseCode || !name || !address || !detailAddress) {
+        if (!stationCode || !name || !address || !detailAddress || !warehouseId) {
             alert('Vui lòng điền tất cả các trường thông tin!');
             return;
         }
 
-        fetch("/post_add_warehouse", {
+        fetch("/post_add_station", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                warehouseCode,
+                stationCode,
                 name,
                 address,
-                detailAddress
+                detailAddress,
+                warehouseId
             }),
         })
             .then((response) => {
@@ -111,7 +115,7 @@
                     return response.json();
 
                 } else {
-                    alert("Thêm điểm tập kết thất bại!");
+                    alert("Thêm điểm giao dịch thất bại!");
                 }
             })
             .then((data) => {

@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/confirm_order.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
+</script>
+
+<div class="body-container">
+
+    {{#unless warehouses}}
+
+    <div class="alert alert-danger text-center" role="alert">
+        Hiện hệ thống chưa có điểm tập kết nào!
+    </div>
+
+    {{/unless}}
+
+    <div class="container pt-4 px-2">
+
+        <div class="table-responsive">
+
+            <p style="font-size: 1.1rem; color: brown; margin-bottom: 30px"><strong>Danh sách các điểm tập kết thuộc hệ
+                    thống:<button type="button" class="btn btn-success" onclick="window.location.href='/add_warehouse'"
+                        style="font-weight: bold; float: right">Thêm điểm
+                        tập kết mới</button></strong></p>
+
+            <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
+                <thead>
+                    <tr
+                        style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                        <th class="border-0 text-center" scope="col" width="15%">Mã điểm tập kết</th>
+                        <th class="border-0 text-center" scope="col" width="19%">Tên</th>
+                        <th class="border-0 text-center" scope="col" width="14%">Tỉnh</th>
+                        <th class="border-0 text-center" scope="col" width="25%">Địa chỉ</th>
+                        <th class="border-0 text-center" scope="col" width="15%">Số điểm giao dịch trực thuộc</th>
+                        <th class="border-0 text-center" scope="col" width="12%">Hành động</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each warehouses}}
+                    <tr>
+                        <td>{{this.warehouseCode}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.address}}</td>
+                        <td>{{this.detailAddress}}</td>
+
+                        <td>
+                            <a class="fw-bolder confirm-link" href="/{{this.warehouseCode}}/view_stations_of_wh" style="text-decoration: none;">{{lookup
+                                ../countStationsEachWarehouse this.warehouseCode}} (Xem)</a>
+                        </td>
+                        <td>
+                            <a class="fw-bolder confirm-link" href="/{{this.warehouseCode}}/update_warehouse" style="text-decoration: none;">Cập nhật</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+
+</script>
+
+<script>
+    $('#sortedTable').DataTable();
+</script>

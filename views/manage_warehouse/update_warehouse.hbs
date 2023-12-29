@@ -16,26 +16,30 @@
 
     <div class="row py-5 px-3">
         <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8">
-            <p class="h3 pb-3">Thêm điểm tập kết</p>
-            <form id="add-warehouse-form" action="/post_add_warehouse" method="post">
+            <p class="h3 pb-3">Cập nhật thông tin điểm tập kết</p>
+            <form id="update-warehouse-form" action="/post_update_warehouse" method="post">
+                <input type="hidden" name="oldWarehouseCode" value="{{warehouse.warehouseCode}}">
+                <input type="hidden" name="oldAddress" value="{{warehouse.address}}">
+                <input type="hidden" name="oldName" value="{{warehouse.name}}">
+                <input type="hidden" name="oldDetailAddress" value="{{warehouse.detailAddress}}">
                 <table class="table table-borderless align-middle">
                     <tr>
                         <th><label for="warehouseCode">Mã điểm tập kết:</label></th>
-                        <td><input type="text" class="form-control" id="warehouseCode" name="warehouseCode" required>
+                        <td><input type="text" class="form-control" id="warehouseCode" name="warehouseCode" value="{{warehouse.warehouseCode}}" required>
                         </td>
                     </tr>
                     <tr>
                         <th><label for="warehouseName">Tên điểm tập kết:</label></th>
-                        <td><input type="text" class="form-control" id="warehouseName" name="warehouseName" required>
+                        <td><input type="text" class="form-control" id="warehouseName" name="warehouseName" value="{{warehouse.name}}" required>
                         </td>
                     </tr>
                     <tr>
                         <th><label for="address">Tỉnh:</label></th>
-                        <td><input type="text" class="form-control" id="address" name="address" required></td>
+                        <td><input type="text" class="form-control" id="address" name="address" value="{{warehouse.address}}" required></td>
                     </tr>
                     <tr>
                         <th><label for="detailAddress">Địa chỉ chi tiết:</label></th>
-                        <td><input type="text" class="form-control" id="detailAddress" name="detailAddress" required>
+                        <td><input type="text" class="form-control" id="detailAddress" name="detailAddress" value="{{warehouse.detailAddress}}" required>
                         </td>
                     </tr>
 
@@ -44,7 +48,7 @@
                         <td>
                             <a class="btn btn-secondary mt-3 ms-3" href="/view_warehouses" role="button">Quay lại</a>
                             <button id="submit-button" type="button" class="btn btn-success mt-3 me-3"
-                                style="margin-left: 40px">Thêm</button>
+                                style="margin-left: 40px">Cập nhật</button>
 
                         </td>
                     </tr>
@@ -64,15 +68,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm điểm tập kết mới thành công</h5>
+                <h5 class="modal-title">Thông báo</h5>
             </div>
             <div class="modal-body">
-                <p class="modal-message">Hãy thêm các điểm giao dịch trực thuộc điểm tập kết vừa tạo</p>
+                <p class="modal-message">Cập nhật điểm tập kết thành công</p>
             </div>
             <div class="modal-footer">
                 <div class="modal-button">
-                    <a type="button" class="btn btn-secondary ms-3" href="/add_warehouse">Để khi khác</a>
-                    <a type="button" class="btn btn-success" href="/add_station">Thêm ngay</a>
+                    <a type="button" class="btn btn-primary ms-3" href="/{{warehouse.warehouseCode}}/update_warehouse">OK</a>
 
                 </div>
             </div>
@@ -82,24 +85,37 @@
 
 <script>
     const submitButton = document.getElementById('submit-button');
+    const dataForm = document.getElementById('update-station-form');
+    const oldWarehouseCode = dataForm.querySelector("input[name='oldWarehouseCode']").value;
+    const oldAddress = dataForm.querySelector("input[name='oldAddress']").value;
+    const oldDetailAddress = dataForm.querySelector("input[name='oldDetailAddress']").value;
+    const oldName = dataForm.querySelector("input[name='oldName']").value;
     submitButton.addEventListener('click', () => {
-        const dataForm = document.getElementById('add-warehouse-form');
+
         const warehouseCode = dataForm.querySelector("input[name='warehouseCode']").value;
         const name = dataForm.querySelector("input[name='warehouseName']").value;
         const address = dataForm.querySelector("input[name='address']").value;
         const detailAddress = dataForm.querySelector("input[name='detailAddress']").value;
+       
 
         if (!warehouseCode || !name || !address || !detailAddress) {
-            alert('Vui lòng điền tất cả các trường thông tin!');
+            alert('Vui lòng không bỏ trống các trường thông tin!');
             return;
         }
 
-        fetch("/post_add_warehouse", {
+        if (warehouseCode === oldWarehouseCode && name === oldName && address === oldAddress && detailAddress === oldDetailAddress) {
+            alert('Bạn chưa thực hiện thay đổi nào!');
+            return;
+        }
+
+        fetch("/post_update_warehouse", {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
+                oldWarehouseCode,
+                oldAddress,
                 warehouseCode,
                 name,
                 address,
@@ -111,7 +127,8 @@
                     return response.json();
 
                 } else {
-                    alert("Thêm điểm tập kết thất bại!");
+                    alert("Cập nhật điểm tập kết thất bại!");
+                    return;
                 }
             })
             .then((data) => {

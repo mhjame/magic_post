@@ -91,12 +91,12 @@ class ManagerController {
 
     postLogin(req, res, next) {
         const formData = req.body;
-    
+
         // Create promises
         const findEmployeePromise = Employee.findOne(formData).exec();
-    
+
         console.log("formData", formData);
-    
+
         // Use Promise.all with an array of promises
         Promise.all([findEmployeePromise])
             .then(([employee]) => {
@@ -106,40 +106,40 @@ class ManagerController {
                         message: 'Tên đăng nhập hoặc mật khẩu không đúng'
                     });
                 }
-    
+
                 const findStationPromise = Station.findOne({ address: employee.workAddress }).exec();
                 const findWareHousePromise = Warehouse.findOne({ address: employee.workAddress }).exec();
-    
+
                 Promise.all([findStationPromise, findWareHousePromise])
                     .then(([station, warehouse]) => {
                         console.log("employee:", employee);
                         console.log("station", station);
                         console.log("warehouse", warehouse);
-    
+
                         req.session.regenerate(err => {
                             if (err) return next(err);
-    
+
                             req.session.employee = mongooseToObject(employee);
                             // StationE', 'StationAd', 'WarehouseAd', "WarehouseE", 'Manager'
                             req.session.station = mongooseToObject(station);
                             if (employee.role === 'WarehouseAd' || employee.role === 'WarehouseE') {
                                 req.session.station = mongooseToObject(warehouse);
                             }
-    
+
                             req.session.save(err => {
                                 if (err) return next(err);
-    
+
                                 let response = {
                                     loginSuccess: true,
                                     message: 'Đăng nhập thành công'
                                 };
-    
+
                                 if (employee.role === 'StationE') {
                                     response.stationE = 'yes';
                                 } else if (employee.role === 'WarehouseE') {
                                     response.warehouseE = 'yes';
                                 }
-    
+
                                 res.json(response);
                             });
                         });
@@ -148,8 +148,8 @@ class ManagerController {
             })
             .catch(next);
     }
-    
-    
+
+
     // postLogin(req, res, next) {
     //     const formData = req.body;
     //     // console.log(formData)
@@ -572,10 +572,198 @@ class ManagerController {
     }
 
     getAddWarehouse(req, res, next) {
-        const warehouseCode = Date.now().toString().slice(-5) + Math.random().toString(16).slice(-7);
-        console.log(Date.now().toString().slice(-5));
-        console.log(Math.random().toString(16).slice(-7));
         res.render('manage_warehouse/add_warehouse')
+    }
+
+    postAddWarehouse(req, res, next) {
+        const newWarehouse = new Warehouse({
+            warehouseCode: req.body.warehouseCode,
+            name: req.body.name,
+            address: req.body.address,
+            detailAddress: req.body.detailAddress
+        });
+        newWarehouse.save()
+            .then(() => res.json({
+                message: 'Tạo điểm tập kết mới thành công'
+            }))
+            .catch(next);
+    }
+
+    getAddStation(req, res, next) {
+        res.render('manage_station/add_station')
+    }
+
+    postAddStation(req, res, next) {
+        const newStation = new Station({
+            stationCode: req.body.stationCode,
+            name: req.body.name,
+            address: req.body.address,
+            detailAddress: req.body.detailAddress,
+            warehouseId: req.body.warehouseId
+        });
+        newStation.save()
+            .then(() => res.json({
+                message: 'Tạo điểm giao dịch mới thành công'
+            }))
+            .catch(next);
+    }
+
+    getViewWarehouses(req, res, next) {
+        Warehouse.find({}).lean().then((warehouses) => {
+            if (warehouses) {
+                const countStationsEachWarehouse = {};
+                for (const warehouse of warehouses) {
+
+                    Station.find({ warehouseId: warehouse.warehouseCode }).lean().then((stations) => {
+                        let numOfStations = 0;
+                        for (const station of stations) {
+                            numOfStations++;
+                        }
+                        countStationsEachWarehouse[warehouse.warehouseCode] = numOfStations;
+
+                    })
+                }
+                res.render('manage_warehouse/view_warehouses', {
+                    warehouses,
+                    countStationsEachWarehouse
+                })
+
+            } else {
+                res.render('manage_warehouse/view_warehouses')
+            }
+        }).catch(next)
+    }
+
+    getViewStationsOfWh(req, res, next) {
+        Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
+            Station.find({ warehouseId: req.params.warehouseCode }).lean().then((stations) => {
+                if (stations) {
+
+                    res.render('manage_station/view_stations_of_wh', {
+                        stations,
+                        warehouse
+                    })
+
+
+                } else {
+                    res.render('manage_station/view_stations_of_wh', {
+                        warehouse
+                    })
+                }
+            })
+        }).catch(next)
+    }
+
+    getUpdateWarehouse(req, res, next) {
+        Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
+            res.render('manage_warehouse/update_warehouse', {
+                warehouse
+            })
+        }).catch(next)
+    }
+
+    postUpdateWarehouse(req, res, next) {
+        Warehouse.findOneAndUpdate({ warehouseCode: req.body.oldWarehouseCode },
+            {
+                warehouseCode: req.body.warehouseCode,
+                name: req.body.name,
+                address: req.body.address,
+                detailAddress: req.body.detailAddress
+            }).lean().then((warehouse) => {
+                if (req.body.address !== req.body.oldAddress) {
+                    Employee.updateMany({workAddress: req.body.oldAddress, role: 'WarehouseE'}, {workAddress: req.body.address}).then(() => {});
+
+                }
+
+                if (req.body.warehouseCode !== req.body.oldWarehouseCode) {
+                    Post.updateMany({receiverWarehouseCode: req.body.oldWarehouseCode}, {receiverWarehouseCode: req.body.warehouseCode}).then(() => {});
+                    Post.updateMany({senderWarehouseCode: req.body.oldWarehouseCode}, {senderWarehouseCode: req.body.stationCode}).then(() => {});
+                    Station.updateMany({warehouseId: req.body.oldWarehouseCode}, {warehouseId: req.body.warehouseCode})
+                }
+
+
+                console.log(req.body)
+                console.log(warehouse)
+                res.json({
+                    message: 'Cập nhật thành công'
+                })
+
+            }).catch(next);
+    }
+
+    getUpdateStation(req, res, next) {
+        Station.findOne({ stationCode: req.params.stationCode }).lean().then((station) => {
+            Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                if (warehouse) {
+                    res.render('manage_station/update_station', {
+                        station,
+                        warehouse
+
+                    })
+                } else {
+                    res.render('manage_station/update_station', {
+                        station,
+
+                    })
+                }
+
+            })
+        }).catch(next)
+    }
+
+    postUpdateStation(req, res, next) {
+        Station.findOneAndUpdate({ stationCode: req.body.oldStationCode },
+            {
+
+                stationCode: req.body.stationCode,
+                name: req.body.name,
+                address: req.body.address,
+                detailAddress: req.body.detailAddress
+            }).lean().then((station) => {
+                if (req.body.address !== req.body.oldAddress) {
+                    Employee.updateMany({workAddress: req.body.oldAddress, role: 'StationE'}, {workAddress: req.body.address}).then(() => {});
+
+                }
+
+                if (req.body.stationCode !== req.body.oldStationCode) {
+                    Post.updateMany({receiverStationCode: req.body.oldStationCode}, {receiverStationCode: req.body.stationCode}).then(() => {});
+                    Post.updateMany({senderStationCode: req.body.oldStationCode}, {senderStationCode: req.body.stationCode}).then(() => {});
+                }
+
+                console.log(req.body)
+                console.log(station)
+                res.json({
+                    message: 'Cập nhật thành công'
+                })
+           
+
+            }).catch(next);
+    }
+
+    getViewStations(req, res, next) {
+        Station.find({}).lean().then((stations) => {
+            if (stations) {
+                const warehouseStationBelongTo = {};
+                for (const station of stations) {
+
+                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                        if (warehouse) {
+                            warehouseStationBelongTo[station.stationCode] = warehouse.name;
+                        }
+
+                    })
+                }
+                res.render('manage_station/view_stations', {
+                    stations,
+                    warehouseStationBelongTo
+                })
+
+            } else {
+                res.render('manage_station/view_stations')
+            }
+
+
+        }).catch(next)
     }
 }
 

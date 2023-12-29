@@ -1,0 +1,149 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+
+<div class="container-sm">
+
+    <div class="row py-5 px-3">
+        <div class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-8">
+            <p class="h3 pb-3">Cập nhật thông tin điểm giao dịch</p>
+            <form id="update-station-form" action="/post_update_station" method="post">
+                <input type="hidden" name="oldStationCode" value="{{station.stationCode}}">
+                <input type="hidden" name="oldAddress" value="{{station.address}}">
+                <input type="hidden" name="oldName" value="{{station.name}}">
+                <input type="hidden" name="oldDetailAddress" value="{{station.detailAddress}}">
+                <table class="table table-borderless align-middle">
+                    <tr>
+                        <th><label for="stationCode">Mã điểm giao dịch:</label></th>
+                        <td><input type="text" class="form-control" id="stationCode" name="stationCode"
+                                value="{{station.stationCode}}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="stationName">Tên điểm giao dịch:</label></th>
+                        <td><input type="text" class="form-control" id="stationName" name="stationName"
+                                value="{{station.name}}" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="address">Tỉnh:</label></th>
+                        <td><input type="text" class="form-control" id="address" name="address"
+                                value="{{station.address}}" required></td>
+                    </tr>
+                    <tr>
+                        <th><label for="detailAddress">Địa chỉ chi tiết:</label></th>
+                        <td><input type="text" class="form-control" id="detailAddress" name="detailAddress"
+                                value="{{station.detailAddress}}" required>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <td>
+                            <a class="btn btn-secondary mt-3 ms-3" href="/view_stations" role="button">Quay lại</a>
+                            <button id="submit-button" type="button" class="btn btn-success mt-3 me-3"
+                                style="margin-left: 40px">Cập nhật</button>
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div class="col-4 col-sm-5 col-md-3 col-lg-3 col-xl-2">
+            <img class="w-100"
+                src="https://static.vecteezy.com/system/resources/thumbnails/009/589/758/small_2x/location-location-pin-location-icon-transparent-free-png.png"
+                alt="picture">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thông báo</h5>
+            </div>
+            <div class="modal-body">
+                <p class="modal-message">Cập nhật điểm giao dịch thành công</p>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-button">
+                    <a type="button" class="btn btn-primary ms-3" href="/{{station.stationCode}}/update_station">OK</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const submitButton = document.getElementById('submit-button');
+    const dataForm = document.getElementById('update-station-form');
+    const oldStationCode = dataForm.querySelector("input[name='oldStationCode']").value;
+    const oldAddress = dataForm.querySelector("input[name='oldAddress']").value;
+    const oldDetailAddress = dataForm.querySelector("input[name='oldDetailAddress']").value;
+    const oldName = dataForm.querySelector("input[name='oldName']").value;
+    submitButton.addEventListener('click', () => {
+        
+        const stationCode = dataForm.querySelector("input[name='stationCode']").value;
+        const name = dataForm.querySelector("input[name='stationName']").value;
+        const address = dataForm.querySelector("input[name='address']").value;
+        const detailAddress = dataForm.querySelector("input[name='detailAddress']").value;
+
+
+        if (!stationCode || !name || !address || !detailAddress) {
+            alert('Vui lòng không bỏ trống các trường thông tin!');
+            return;
+        }
+
+        if (stationCode === oldStationCode && name === oldName && address === oldAddress && detailAddress === oldDetailAddress) {
+            alert('Bạn chưa thực hiện thay đổi nào!');
+            return;
+        }
+
+            fetch("/post_update_station", {
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    oldStationCode,
+                    oldAddress,
+                    stationCode,
+                    name,
+                    address,
+                    detailAddress
+                }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json();
+
+                    } else {
+                        alert("Cập nhật điểm giao dịch thất bại!");
+                        return;
+                    }
+                })
+                .then((data) => {
+                    if (data) {
+                        $('#modal').modal('toggle');
+                    }
+
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+    });
+
+</script>
