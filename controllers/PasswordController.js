@@ -9,7 +9,9 @@ const { mongooseToObject } = require('../util/mongoose');
 class PasswordController {
 
   getForgotPassword(req, res) {
-    res.render('password/forgotPassword');
+    res.render('password/forgotPassword', {
+      noHeader: 'yes'
+    });
   }
 
   postForgotPassword(req, res) {
@@ -109,7 +111,8 @@ class PasswordController {
         console.log(employee)
         // Hiển thị form để người dùng đặt lại mật khẩu
         res.render('password/resetPassword', {
-          token: token
+          token: token,
+          noHeader: 'yes'
         });
       })
 

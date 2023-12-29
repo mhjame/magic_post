@@ -24,7 +24,7 @@
 
                 <div class="overlay" id="overlay1">
                     <div class="popup">
-                        <p style="font-weight: bold; font-size: 20px; color:#174a8c">Thống kê theo điểm giao dịch</p>
+                            <p style="font-weight: bold; font-size: 20px; color:#174a8c">Thống kê theo điểm giao dịch</p>
                         <div>
                             <form method="POST" action="" class="formPopup" id="formcode1">
                                 <label class="lbPopup" for="">Mã điểm giao dịch</label>
@@ -33,9 +33,17 @@
                                 <button class="btnPopup" type="submit">Tìm kiếm</button>
                             </form>
                             <div id="result" style="background-color: #ffffff;"></div>
+                            <button onclick="closePopup1()" class="btnClose">Đóng</button>
                         </div>
                     </div>
-                    <button onclick="closePopup1()" class="btnClose">Đóng</button>
+                    <style>
+                        .btnClose {
+                            width: 100px;
+                            background-color: #174a8c;
+                            margin-top: 20px;
+                            margin-left: 412px;
+                        }
+                    </style>
                     <script>
                         document.getElementById('formcode1').addEventListener('submit', function (event) {
                             event.preventDefault();
@@ -96,10 +104,11 @@
                             <button class="btnPopup" type="submit">Tìm kiếm</button>
                         </form>
                         <div id="result2" style="background-color: #ffffff;"></div>
+                        <button onclick="closePopup2()" class="btnClose">Đóng</button>
                     </div>
 
                 </div>
-                <button onclick="closePopup2()" class="btnClose">Đóng</button>
+                
                 <script>
                         document.getElementById('formcode2').addEventListener('submit', function (event) {
                             event.preventDefault();
@@ -135,7 +144,7 @@
                                         console.log("khá thành công")
                                         resultDiv.innerHTML = resultHTML;
                                         resultDiv.style.color = 'black';
-                                        resultDiv.style.margin = "0 30px";
+                                        resultDiv.style.margin = "0 10px";
                                         resultDiv.style.padding = "10px";
 
                                         // Thiết lập border cho div

@@ -10,50 +10,25 @@ const warehouseSchema = new Schema({
     adminId: { type: String }, 
 }, { timestamps: true });
 
-// Định nghĩa hàm sinh mã tự động không trùng lặp, bao gồm cả chữ và số
-function generateUniqueWarehouseCode(usedCodes) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
-    let newCode;
 
-    do {
-        // Sinh ngẫu nhiên một chữ cái và ba chữ số
-        const randomChar = characters[Math.floor(Math.random() * characters.length)];
-        const randomDigits = Math.floor(100 + Math.random() * 900);
-
-        newCode = `${randomChar}${randomDigits}`;
-    } while (usedCodes.has(newCode));
-
-    // Đánh dấu mã mới đã được sử dụng
-    usedCodes.add(newCode);
-
-    return newCode;
-}
-// Tạo Model từ Schema
 const Warehouse = mongoose.model('Warehouse', warehouseSchema);
 
-// Tạo một danh sách các kho
 const warehouses = [
-    { name: 'Kho Hà Nội', detailAddress: '256 Nguyễn Văn Cừ, Long Biên, Hà Nội', address: 'Hà Nội' },
-    { name: 'Kho Hồ Chí Minh', detailAddress: '789 Lê Lợi, Quận 1, Hồ Chí Minh', address: 'Hồ Chí Minh' },
-    { name: 'Kho Đà Nẵng', detailAddress: '123 Trần Phú, Hải Châu, Đà Nẵng', address: 'Đà Nẵng' },
-    { name: 'Kho Hải Phòng', detailAddress: '456 Đào Duy Anh, Kiến An, Hải Phòng', address: 'Hải Phòng' },
-    { name: 'Kho Cần Thơ', detailAddress: '789 Cách Mạng Tháng Tám, Ninh Kiều, Cần Thơ', address: 'Cần Thơ' },
-    { name: 'Kho Huế', detailAddress: '234 Hùng Vương, Huế', address: 'Huế' },
-    { name: 'Kho Nha Trang', detailAddress: '567 Lê Thánh Tôn, Nha Trang', address: 'Nha Trang' },
-    { name: 'Kho Vũng Tàu', detailAddress: '123 Trần Phú, Bà Rịa - Vũng Tàu', address: 'Vũng Tàu' },
-    { name: 'Kho Đồng Nai', detailAddress: '456 Quốc Lộ 1A, Biên Hòa, Đồng Nai', address: 'Đồng Nai' },
-    { name: 'Kho Hà Nam', detailAddress: '789 Trần Hưng Đạo, Phủ Lý, Hà Nam', address: 'Hà Nam' },
+    { name: 'Kho Hà Nội', warehouseCode: 'W001', detailAddress: '256 Nguyễn Văn Cừ, Long Biên, Hà Nội', address: 'Hà Nội' },
+    { name: 'Kho Thái Nguyên', warehouseCode: 'W002', detailAddress: 'Hoà Bình, Đồng Hỷ, Thái Nguyên', address: 'Thái Nguyên' },
+    { name: 'Kho Hải Dương', warehouseCode: 'W003', detailAddress: '123 Trần Phú, Hải Châu, Hải Dương', address: 'Hải Dương' },
+    { name: 'Kho Hồ Chí Minh', warehouseCode: 'W004', detailAddress: '789 Lê Lợi, Quận 1, Hồ Chí Minh', address: 'Hồ Chí Minh' },
+    { name: 'Kho Hải Phòng', warehouseCode: 'W005', detailAddress: '456 Đào Duy Anh, Kiến An, Hải Phòng', address: 'Hải Phòng' },
+    { name: 'Kho Tuyên Quang', warehouseCode: 'W006', detailAddress: 'An Khang, Tuyên Quang', address: 'Tuyên Quang' },
+    { name: 'Kho Yên Bái', warehouseCode: 'W007', detailAddress: 'Cường Thịnh, Tp. Yên Bái, Yên Bái', address: 'Yên Bái' },
+    { name: 'Kho Phú Thọ', warehouseCode: 'W008', detailAddress: 'Hà Lộc, Phú Thọ', address: 'Phú Thọ' },
+    { name: 'Kho Cần Thơ', warehouseCode: 'W009', detailAddress: '789 Cách Mạng Tháng Tám, Ninh Kiều, Cần Thơ', address: 'Cần Thơ' },
+    { name: 'Kho Bắc Kan', warehouseCode: 'W0010', detailAddress: 'Đôn Phong, Bạch Thông, Bắc Kạn', address: 'Bắc Kan' },
+    { name: 'Kho Lạng Sơn', warehouseCode: 'W0011', detailAddress: 'Tân Mỹ, Văn Lãng, Lạng Sơn', address: 'Lạng Sơn' },
+    
 ];
 
-// Sử dụng Set để theo dõi mã đã được sử dụng
-const usedCodes = new Set();
 
-warehouses.forEach(warehouse => {
-    // Gọi hàm sinh mã tự động không trùng lặp và thêm vào thông tin kho
-    warehouse.warehouseCode = generateUniqueWarehouseCode(usedCodes);
-});
-
-// // Lưu danh sách kho vào cơ sở dữ liệu
 // Warehouse.insertMany(warehouses)
 //     .then(result => {
 //         console.log('Danh sách kho đã được lưu trữ thành công:', result);

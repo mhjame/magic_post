@@ -17,6 +17,7 @@ class ManagerController {
 
     getMaps(req, res) {
         res.render('map');
+        noHeader: 'yes'
     }
 
     getPriceList(req, res) {
@@ -47,7 +48,10 @@ class ManagerController {
     }
 
     getSearchStation(req, res) {
-        res.render('searchStation');
+        res.render('searchStation', {
+            noHeader: 'yes'
+        });
+        
     }
     postSearchStation(req, res) {
         const address = req.body.stationProvince;
