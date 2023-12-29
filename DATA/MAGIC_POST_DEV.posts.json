@@ -1485,7 +1485,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sWarehouse",
+  "status": "on way to rWarehouse",
   "statusCode": [
     0,
     1,
@@ -1509,7 +1509,7 @@
       "$date": "2023-06-02T12:47:31.000Z"
     },
     {
-      "$date": "2023-06-02T12:47:31.000Z"
+      "$date": "2023-12-29T13:33:53.130Z"
     },
     {
       "$date": "2023-06-02T12:47:31.000Z"
@@ -1536,7 +1536,7 @@
     "$date": "2023-12-29T12:47:31.280Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:47:31.280Z"
+    "$date": "2023-12-29T13:33:53.131Z"
   }
 },
 {
@@ -1753,7 +1753,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sWarehouse",
+  "status": "on way to rWarehouse",
   "statusCode": [
     0,
     1,
@@ -1777,7 +1777,7 @@
       "$date": "2023-06-02T12:47:32.000Z"
     },
     {
-      "$date": "2023-06-02T12:47:32.000Z"
+      "$date": "2023-12-29T13:33:53.134Z"
     },
     {
       "$date": "2023-06-02T12:47:32.000Z"
@@ -1804,7 +1804,7 @@
     "$date": "2023-12-29T12:47:32.196Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:47:32.196Z"
+    "$date": "2023-12-29T13:33:53.134Z"
   }
 },
 {
@@ -1954,7 +1954,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "at sWarehouse",
   "statusCode": [
     0,
     1,
@@ -1972,10 +1972,10 @@
       "$date": "2023-06-02T12:47:56.000Z"
     },
     {
-      "$date": "2023-06-02T12:47:56.000Z"
+      "$date": "2023-12-29T13:28:43.461Z"
     },
     {
-      "$date": "2023-06-02T12:47:56.000Z"
+      "$date": "2023-12-29T13:33:10.130Z"
     },
     {
       "$date": "2023-06-02T12:47:56.000Z"
@@ -2005,7 +2005,7 @@
     "$date": "2023-12-29T12:47:56.515Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:47:56.515Z"
+    "$date": "2023-12-29T13:33:10.135Z"
   }
 },
 {
@@ -2021,7 +2021,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "at sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2039,10 +2039,10 @@
       "$date": "2023-06-02T12:47:56.000Z"
     },
     {
-      "$date": "2023-06-02T12:47:56.000Z"
+      "$date": "2023-12-29T13:28:43.457Z"
     },
     {
-      "$date": "2023-06-02T12:47:56.000Z"
+      "$date": "2023-12-29T13:33:10.122Z"
     },
     {
       "$date": "2023-06-02T12:47:56.000Z"
@@ -2072,7 +2072,7 @@
     "$date": "2023-12-29T12:47:56.515Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:47:56.515Z"
+    "$date": "2023-12-29T13:33:10.128Z"
   }
 },
 {
@@ -2088,7 +2088,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2106,7 +2106,7 @@
       "$date": "2023-06-02T12:47:56.000Z"
     },
     {
-      "$date": "2023-06-02T12:47:56.000Z"
+      "$date": "2023-12-29T13:28:43.463Z"
     },
     {
       "$date": "2023-06-02T12:47:56.000Z"
@@ -2139,7 +2139,7 @@
     "$date": "2023-12-29T12:47:56.515Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:47:56.515Z"
+    "$date": "2023-12-29T13:28:43.463Z"
   }
 },
 {
@@ -2222,7 +2222,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2240,7 +2240,7 @@
       "$date": "2023-12-02T12:48:07.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:07.000Z"
+      "$date": "2023-12-29T13:31:20.451Z"
     },
     {
       "$date": "2023-12-02T12:48:07.000Z"
@@ -2273,7 +2273,7 @@
     "$date": "2023-12-29T12:48:07.809Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:07.809Z"
+    "$date": "2023-12-29T13:31:20.452Z"
   }
 },
 {
@@ -2289,7 +2289,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2307,7 +2307,7 @@
       "$date": "2023-12-02T12:48:07.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:07.000Z"
+      "$date": "2023-12-29T13:31:20.446Z"
     },
     {
       "$date": "2023-12-02T12:48:07.000Z"
@@ -2340,7 +2340,7 @@
     "$date": "2023-12-29T12:48:07.810Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:07.810Z"
+    "$date": "2023-12-29T13:31:20.447Z"
   }
 },
 {
@@ -2356,7 +2356,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2374,7 +2374,7 @@
       "$date": "2023-12-02T12:48:07.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:07.000Z"
+      "$date": "2023-12-29T13:31:20.450Z"
     },
     {
       "$date": "2023-12-02T12:48:07.000Z"
@@ -2407,7 +2407,7 @@
     "$date": "2023-12-29T12:48:07.810Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:07.810Z"
+    "$date": "2023-12-29T13:31:20.450Z"
   }
 },
 {
@@ -2490,7 +2490,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2508,7 +2508,7 @@
       "$date": "2023-12-02T12:48:14.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:14.000Z"
+      "$date": "2023-12-29T13:31:35.303Z"
     },
     {
       "$date": "2023-12-02T12:48:14.000Z"
@@ -2541,7 +2541,7 @@
     "$date": "2023-12-29T12:48:14.460Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:14.460Z"
+    "$date": "2023-12-29T13:31:35.303Z"
   }
 },
 {
@@ -2557,7 +2557,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2575,7 +2575,7 @@
       "$date": "2023-12-02T12:48:14.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:14.000Z"
+      "$date": "2023-12-29T13:31:35.293Z"
     },
     {
       "$date": "2023-12-02T12:48:14.000Z"
@@ -2608,7 +2608,7 @@
     "$date": "2023-12-29T12:48:14.461Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:14.461Z"
+    "$date": "2023-12-29T13:31:35.294Z"
   }
 },
 {
@@ -2624,7 +2624,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2642,7 +2642,7 @@
       "$date": "2023-12-02T12:48:14.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:14.000Z"
+      "$date": "2023-12-29T13:31:35.301Z"
     },
     {
       "$date": "2023-12-02T12:48:14.000Z"
@@ -2675,7 +2675,7 @@
     "$date": "2023-12-29T12:48:14.461Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:14.461Z"
+    "$date": "2023-12-29T13:31:35.301Z"
   }
 },
 {
@@ -2825,7 +2825,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2843,7 +2843,7 @@
       "$date": "2023-12-02T12:48:25.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:25.000Z"
+      "$date": "2023-12-29T13:31:35.296Z"
     },
     {
       "$date": "2023-12-02T12:48:25.000Z"
@@ -2876,7 +2876,7 @@
     "$date": "2023-12-29T12:48:25.480Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:25.480Z"
+    "$date": "2023-12-29T13:31:35.297Z"
   }
 },
 {
@@ -2892,7 +2892,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -2910,7 +2910,7 @@
       "$date": "2023-12-02T12:48:25.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:25.000Z"
+      "$date": "2023-12-29T13:31:35.298Z"
     },
     {
       "$date": "2023-12-02T12:48:25.000Z"
@@ -2943,7 +2943,7 @@
     "$date": "2023-12-29T12:48:25.481Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:25.481Z"
+    "$date": "2023-12-29T13:31:35.298Z"
   }
 },
 {
@@ -3160,7 +3160,7 @@
   "receiverStationCode": "S003",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at sStation",
+  "status": "on way to sWarehouse",
   "statusCode": [
     0,
     1,
@@ -3178,7 +3178,7 @@
       "$date": "2023-12-02T12:48:30.000Z"
     },
     {
-      "$date": "2023-12-02T12:48:30.000Z"
+      "$date": "2023-12-29T13:31:35.299Z"
     },
     {
       "$date": "2023-12-02T12:48:30.000Z"
@@ -3211,7 +3211,7 @@
     "$date": "2023-12-29T12:48:30.583Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:48:30.583Z"
+    "$date": "2023-12-29T13:31:35.300Z"
   }
 },
 {
@@ -9257,7 +9257,7 @@
   "receiverStationCode": "S002",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at rStation",
+  "status": "received",
   "statusCode": [
     0,
     1,
@@ -9293,22 +9293,24 @@
       "$date": "2023-12-20T12:56:11.000Z"
     },
     {
-      "$date": "2023-12-20T12:56:11.000Z"
+      "$date": "2023-12-29T13:31:51.548Z"
     },
     {
-      "$date": "2023-12-20T12:56:11.000Z"
+      "$date": "2023-12-29T13:32:13.564Z"
     },
     {
       "$date": "2023-12-20T12:56:11.000Z"
     }
   ],
-  "timeReceived": null,
+  "timeReceived": {
+    "$date": "2023-12-29T13:32:13.564Z"
+  },
   "__v": 0,
   "createdAt": {
     "$date": "2023-12-29T12:56:11.920Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:56:11.920Z"
+    "$date": "2023-12-29T13:32:13.565Z"
   }
 },
 {
@@ -9324,7 +9326,7 @@
   "receiverStationCode": "S002",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at rStation",
+  "status": "received",
   "statusCode": [
     0,
     1,
@@ -9360,22 +9362,24 @@
       "$date": "2023-12-20T12:56:11.000Z"
     },
     {
-      "$date": "2023-12-20T12:56:11.000Z"
+      "$date": "2023-12-29T13:31:51.550Z"
     },
     {
-      "$date": "2023-12-20T12:56:11.000Z"
+      "$date": "2023-12-29T13:32:13.567Z"
     },
     {
       "$date": "2023-12-20T12:56:11.000Z"
     }
   ],
-  "timeReceived": null,
+  "timeReceived": {
+    "$date": "2023-12-29T13:32:13.567Z"
+  },
   "__v": 0,
   "createdAt": {
     "$date": "2023-12-29T12:56:11.921Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:56:11.921Z"
+    "$date": "2023-12-29T13:32:13.567Z"
   }
 },
 {
@@ -9525,7 +9529,7 @@
   "receiverStationCode": "S002",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at rStation",
+  "status": "returned",
   "statusCode": [
     0,
     1,
@@ -9561,13 +9565,13 @@
       "$date": "2023-12-27T12:56:32.000Z"
     },
     {
-      "$date": "2023-12-27T12:56:32.000Z"
+      "$date": "2023-12-29T13:31:51.554Z"
     },
     {
       "$date": "2023-12-27T12:56:32.000Z"
     },
     {
-      "$date": "2023-12-27T12:56:32.000Z"
+      "$date": "2023-12-29T13:32:13.569Z"
     }
   ],
   "timeReceived": null,
@@ -9576,7 +9580,7 @@
     "$date": "2023-12-29T12:56:32.912Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:56:32.912Z"
+    "$date": "2023-12-29T13:32:13.570Z"
   }
 },
 {
@@ -9592,7 +9596,7 @@
   "receiverStationCode": "S002",
   "receiverWarehouseCode": "W003",
   "guidePending": [],
-  "status": "at rStation",
+  "status": "received",
   "statusCode": [
     0,
     1,
@@ -9628,22 +9632,24 @@
       "$date": "2023-12-27T12:56:32.000Z"
     },
     {
-      "$date": "2023-12-27T12:56:32.000Z"
+      "$date": "2023-12-29T13:31:51.553Z"
     },
     {
-      "$date": "2023-12-27T12:56:32.000Z"
+      "$date": "2023-12-29T13:32:28.313Z"
     },
     {
       "$date": "2023-12-27T12:56:32.000Z"
     }
   ],
-  "timeReceived": null,
+  "timeReceived": {
+    "$date": "2023-12-29T13:32:28.312Z"
+  },
   "__v": 0,
   "createdAt": {
     "$date": "2023-12-29T12:56:32.912Z"
   },
   "updatedAt": {
-    "$date": "2023-12-29T12:56:32.912Z"
+    "$date": "2023-12-29T13:32:28.314Z"
   }
 },
 {
@@ -14201,4 +14207,2194 @@
   "updatedAt": {
     "$date": "2023-12-29T13:03:00.130Z"
   }
+},
+{
+  "_id": {
+    "$oid": "658ec7ab26c5f954e8e3b631"
+  },
+  "genre": [
+    "hanghoa"
+  ],
+  "payState": "not",
+  "senderName": "Nguyễn Thị Lan",
+  "receiverName": "Nguyễn Văn Vinh",
+  "senderAddress": "Phổ Yên",
+  "senderPhoneNumber": "0123456789",
+  "receiverPhoneNumber": "0123456789",
+  "senderId": "",
+  "senderStationEId": "0",
+  "convertedVolume": null,
+  "actualWeight": null,
+  "specialServices": "",
+  "COD": null,
+  "othersPay": null,
+  "serviceNotes": "",
+  "guidePending": [],
+  "status": "at sStation",
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    }
+  ],
+  "timeSending": {
+    "$date": "2023-12-28T13:20:00.000Z"
+  },
+  "timeReceived": null,
+  "createdAt": {
+    "$date": "2023-12-29T13:20:43.395Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T13:20:43.395Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65523db7821170c9c1bc7a25"
+  },
+  "cost": 20000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Sách",
+  "payState": "done",
+  "receiverAddress": "Quận Cầu Giấy",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456000",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A1",
+  "status": "on way to sWarehouse",
+  "senderStationEId": "TN01",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-28T02:37:31.197Z"
+  },
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-28T02:37:31.196Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:19:23.850Z"
+    },
+    {
+      "$date": "2023-12-23T17:20:52.809Z"
+    }
+  ],
+  "actualWeight": 2,
+  "receiverStationCode": "HN",
+  "receiverWarehouseCode": "TKHN",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "6554efaff4199595625f4d85"
+  },
+  "cost": 25000,
+  "genre": "Giấy tờ",
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "TP Đà Nẵng",
+  "receiverId": "02",
+  "receiverName": "Nguyễn Văn C",
+  "receiverPhoneNumber": "0123456781",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A2",
+  "status": "on way to rWarehouse",
+  "senderStationEId": "TN02",
+  "updatedAt": {
+    "$date": "2023-12-01T11:23:05.331Z"
+  },
+  "actualWeight": 0.2,
+  "receiverStationCode": "DN",
+  "receiverWarehouseCode": "TKDN",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "6554f014f4199595625f4d86"
+  },
+  "cost": 25000,
+  "genre": "Hàng thông dụng",
+  "name": "Áo",
+  "payState": "not",
+  "receiverAddress": "TP Hải Phòng",
+  "receiverId": "03",
+  "receiverName": "Nguyễn Văn D",
+  "receiverPhoneNumber": "0123456782",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-18T00:00:00.000Z"
+  },
+  "id": "A3",
+  "status": "on way to rStation",
+  "senderStationEId": "TN03",
+  "createdAt": {
+    "$date": "2023-11-13T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-01T16:21:03.108Z"
+  },
+  "actualWeight": 0.9,
+  "receiverStationCode": "HP",
+  "receiverWarehouseCode": "TKHN",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "655a6957c7b5ed6fb57cf74d"
+  },
+  "cost": 34000,
+  "genre": "Hàng thông dụng",
+  "name": "Đồ hộp",
+  "payState": "done",
+  "receiverAddress": "TP Hải Dương",
+  "receiverId": "08",
+  "receiverName": "Nguyễn Thị T",
+  "receiverPhoneNumber": "0123485782",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-16T00:00:00.000Z"
+  },
+  "id": "A4",
+  "status": "on way to rStation",
+  "senderStationEId": "TN03",
+  "createdAt": {
+    "$date": "2023-11-16T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-01T17:34:27.999Z"
+  },
+  "statusUpdateTime": [
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    }
+  ],
+  "actualWeight": 1.5,
+  "receiverStationCode": "HD",
+  "receiverWarehouseCode": "TKHN",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "655a69c9c7b5ed6fb57cf74e"
+  },
+  "cost": 30000,
+  "genre": "Hàng thông dụng",
+  "name": "Thuốc",
+  "payState": "not",
+  "receiverAddress": "Vinh",
+  "receiverId": "06",
+  "receiverName": "Nguyễn Thị V",
+  "receiverPhoneNumber": "0123788592",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-17T00:00:00.000Z"
+  },
+  "id": "A5",
+  "status": "on way to rWarehouse",
+  "senderStationEId": "TN01",
+  "createdAt": {
+    "$date": "2023-11-17T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-01T11:23:05.331Z"
+  },
+  "actualWeight": 0.25,
+  "receiverStationCode": "NA",
+  "receiverWarehouseCode": "TKDN",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "655a6a24c7b5ed6fb57cf74f"
+  },
+  "cost": 50000,
+  "genre": [
+    "Hồ sơ",
+    "Hàng hoá"
+  ],
+  "name": "Giấy tờ",
+  "payState": "not",
+  "receiverAddress": "Cần Thơ",
+  "receiverId": "099",
+  "receiverName": "Nguyễn Thị H",
+  "receiverPhoneNumber": "0723788582",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-17T00:00:00.000Z"
+  },
+  "id": "A6",
+  "status": "at sWarehouse",
+  "senderStationEId": "TN01",
+  "createdAt": {
+    "$date": "2023-11-17T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-17T19:11:33.633Z"
+  },
+  "statusUpdateTime": [
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2023-12-15T02:57:47.179Z"
+    },
+    {
+      "$date": "2023-12-17T19:11:33.629Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    }
+  ],
+  "__v": 1,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "actualWeight": 0.1,
+  "receiverStationCode": "CT",
+  "receiverWarehouseCode": "TKHCM",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "655b18e8c7b5ed6fb57cf75a"
+  },
+  "cost": 45000,
+  "genre": "Hàng thông dụng",
+  "name": "Đồ hộp",
+  "payState": "done",
+  "receiverAddress": "Bình Dương",
+  "receiverId": "079",
+  "receiverName": "Nguyễn Thị P",
+  "receiverPhoneNumber": "0182788582",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-15T00:00:00.000Z"
+  },
+  "id": "A7",
+  "status": "on way to rWarehouse",
+  "senderStationEId": "TN01",
+  "createdAt": {
+    "$date": "2023-11-15T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-01T11:45:57.503Z"
+  },
+  "actualWeight": 1.1,
+  "receiverStationCode": "BD",
+  "receiverWarehouseCode": "TKHCM",
+  "senderStationCode": "TN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "655b195cc7b5ed6fb57cf75b"
+  },
+  "cost": 52000,
+  "genre": "Hàng thông dụng",
+  "name": "Đồ hộp",
+  "payState": "done",
+  "receiverAddress": "TP Vũng Tàu",
+  "receiverId": "078",
+  "receiverName": "Nguyễn Quang S",
+  "receiverPhoneNumber": "0382788582",
+  "senderAddress": "Quận Ba Đình",
+  "senderId": "111",
+  "senderName": "Nguyễn Văn X",
+  "senderPhoneNumber": "0823777487",
+  "timeReceived": {
+    "$date": "2023-11-15T00:00:00.000Z"
+  },
+  "id": "A8",
+  "status": "on way to rWarehouse",
+  "senderStationEId": "HN01",
+  "createdAt": {
+    "$date": "2023-11-15T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-01T15:58:14.054Z"
+  },
+  "actualWeight": 1.2,
+  "receiverStationCode": "BRVT",
+  "receiverWarehouseCode": "TKHCM",
+  "senderStationCode": "HN",
+  "senderWarehouseCode": "TKHN"
+},
+{
+  "_id": {
+    "$oid": "655b1ab1c7b5ed6fb57cf75c"
+  },
+  "cost": 10000,
+  "genre": [
+    "Hồ sơ",
+    "Hàng thông dụng"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "Quận Hoàn Kiếm",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A9",
+  "status": "received",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-23T16:30:23.299Z"
+  },
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-23T16:30:23.293Z"
+    }
+  ],
+  "actualWeight": 0.1
+},
+{
+  "_id": {
+    "$oid": "656a3a000cc755be0649413c"
+  },
+  "cost": 18000,
+  "genre": [
+    "Hồ sơ"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "Quận Hoàn Kiếm",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn N",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A10",
+  "status": "returned",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-23T16:30:23.290Z"
+  },
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:33:02.663Z"
+    },
+    {
+      "$date": "2023-12-23T16:30:23.288Z"
+    }
+  ],
+  "actualWeight": 0.1
+},
+{
+  "_id": {
+    "$oid": "6576e79ab0ac97cf013606a7"
+  },
+  "cost": 18000,
+  "genre": [
+    "Hồ sơ",
+    "Hàng hoá"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "Quận Hoàn Kiếm",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn N",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A11",
+  "status": "at rStation",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:28:03.225Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    },
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    },
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    },
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    },
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    },
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    },
+    {
+      "$date": "2023-12-27T05:28:03.223Z"
+    },
+    {
+      "$date": "2023-12-26T15:44:52.121Z"
+    },
+    {
+      "$date": "2023-12-15T11:04:07.466Z"
+    }
+  ],
+  "actualWeight": 0.1,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "6576e7c5b0ac97cf013606a8"
+  },
+  "cost": 20000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Sách",
+  "payState": "done",
+  "receiverAddress": "Quận Cầu Giấy",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-12-27T04:20:07.857Z"
+  },
+  "id": "A12",
+  "status": "at rStation",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:28:34.550Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-15T10:53:45.390Z"
+    },
+    {
+      "$date": "2023-12-15T10:53:45.390Z"
+    },
+    {
+      "$date": "2023-12-15T10:53:45.390Z"
+    },
+    {
+      "$date": "2023-12-15T10:53:45.390Z"
+    },
+    {
+      "$date": "2023-12-15T10:53:45.390Z"
+    },
+    {
+      "$date": "2023-12-15T10:53:45.390Z"
+    },
+    {
+      "$date": "2023-12-27T05:28:34.547Z"
+    },
+    {
+      "$date": "2023-12-26T15:47:14.517Z"
+    },
+    {
+      "$date": "2023-12-27T04:20:07.858Z"
+    }
+  ],
+  "actualWeight": 2,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "6576e83ab0ac97cf013606a9"
+  },
+  "cost": 10000,
+  "genre": [
+    "Hồ sơ"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "Quận Hoàn Kiếm",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-12-27T04:47:54.627Z"
+  },
+  "id": "A13",
+  "status": "at rStation",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:28:22.069Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-27T05:28:22.067Z"
+    },
+    {
+      "$date": "2023-12-27T03:34:46.361Z"
+    },
+    {
+      "$date": "2023-12-27T04:47:54.627Z"
+    },
+    {
+      "$date": "2023-12-27T04:43:23.791Z"
+    }
+  ],
+  "actualWeight": 0.1,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "6576e86fb0ac97cf013606aa"
+  },
+  "cost": 10000,
+  "genre": [
+    "Hồ sơ"
+  ],
+  "name": "Giấy khen",
+  "payState": "done",
+  "receiverAddress": "Quận Ba Vì",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn X",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-12-27T04:47:54.620Z"
+  },
+  "id": "A14",
+  "status": "at rStation",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:28:03.221Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-15T12:35:57.165Z"
+    },
+    {
+      "$date": "2023-12-27T05:28:03.218Z"
+    },
+    {
+      "$date": "2023-12-27T03:34:46.363Z"
+    },
+    {
+      "$date": "2023-12-27T04:47:54.620Z"
+    }
+  ],
+  "actualWeight": 0.1,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "657e8def4d9973b502593c48"
+  },
+  "cost": 25000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Áo",
+  "payState": "not",
+  "receiverAddress": "TP Hải Phòng",
+  "receiverId": "03",
+  "receiverName": "Nguyễn Văn D",
+  "receiverPhoneNumber": "0123456782",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-18T00:00:00.000Z"
+  },
+  "id": "A15",
+  "status": "on way to rStation",
+  "receiverStationId": "HP",
+  "senderStationEId": "TN03",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-13T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-26T14:20:17.351Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-17T05:54:58.721Z"
+    },
+    {
+      "$date": "2023-12-17T05:54:58.721Z"
+    },
+    {
+      "$date": "2023-12-17T05:54:58.721Z"
+    },
+    {
+      "$date": "2023-12-17T06:04:24.909Z"
+    },
+    {
+      "$date": "2023-12-26T10:20:37.825Z"
+    },
+    {
+      "$date": "2023-12-26T14:20:17.350Z"
+    },
+    {
+      "$date": "2023-12-17T05:54:58.721Z"
+    },
+    {
+      "$date": "2023-12-17T05:54:58.721Z"
+    },
+    {
+      "$date": "2023-12-17T05:54:58.721Z"
+    }
+  ],
+  "actualWeight": 0.9,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "657e8e074d9973b502593c49"
+  },
+  "cost": 25000,
+  "genre": [
+    "Giấy tờ"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "Quận Cầu Giấy",
+  "receiverId": "02",
+  "receiverName": "Nguyễn Văn C",
+  "receiverPhoneNumber": "0123456781",
+  "senderAddress": "Vinh",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A16",
+  "status": "on way to rStation",
+  "receiverStationId": "HN",
+  "senderStationEId": "NA02",
+  "senderStationId": "NA",
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKDN",
+  "updatedAt": {
+    "$date": "2023-12-27T02:44:10.992Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:12.861Z"
+    },
+    {
+      "$date": "2023-12-17T09:13:33.905Z"
+    },
+    {
+      "$date": "2023-12-27T02:44:10.992Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    }
+  ],
+  "actualWeight": 0.2,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "657e8e1f4d9973b502593c4a"
+  },
+  "cost": 25000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Áo",
+  "payState": "not",
+  "receiverAddress": "TP Hải Phòng",
+  "receiverId": "03",
+  "receiverName": "Nguyễn Văn D",
+  "receiverPhoneNumber": "0123456782",
+  "senderAddress": "Quận 1 - TPHCM",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-18T00:00:00.000Z"
+  },
+  "id": "A17",
+  "status": "on way to rStation",
+  "receiverStationId": "HP",
+  "senderStationEId": "HCM03",
+  "senderStationId": "HCM",
+  "createdAt": {
+    "$date": "2023-11-13T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHCM",
+  "updatedAt": {
+    "$date": "2023-12-26T14:20:17.346Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-17T06:06:27.060Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:27.060Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:27.060Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:34.923Z"
+    },
+    {
+      "$date": "2023-12-17T17:02:37.539Z"
+    },
+    {
+      "$date": "2023-12-26T14:20:17.345Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:27.060Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:27.060Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:27.060Z"
+    }
+  ],
+  "actualWeight": 0.9,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "657e8e334d9973b502593c4b"
+  },
+  "cost": 30000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Thuốc",
+  "payState": "not",
+  "receiverAddress": "Thị xã Phổ Yên",
+  "receiverId": "06",
+  "receiverName": "Nguyễn Thị V",
+  "receiverPhoneNumber": "0123788592",
+  "senderAddress": "Thành phố Đà Nẵng",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-17T00:00:00.000Z"
+  },
+  "id": "A18",
+  "status": "on way to receiver",
+  "receiverStationId": "TN",
+  "senderStationEId": "DN01",
+  "senderStationId": "DN",
+  "createdAt": {
+    "$date": "2023-11-17T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKDN",
+  "updatedAt": {
+    "$date": "2023-12-28T16:33:43.886Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:12.864Z"
+    },
+    {
+      "$date": "2023-12-17T09:15:47.220Z"
+    },
+    {
+      "$date": "2023-12-26T14:17:50.302Z"
+    },
+    {
+      "$date": "2023-12-28T14:38:11.307Z"
+    },
+    {
+      "$date": "2023-12-28T16:33:43.886Z"
+    },
+    {
+      "$date": "2023-12-17T06:06:02.378Z"
+    }
+  ],
+  "actualWeight": 0.25,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "657f49014d9973b502593c73"
+  },
+  "cost": 20000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Sách",
+  "payState": "done",
+  "receiverAddress": "Quận Cầu Giấy",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Quận Hoàn Kiếm",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A19",
+  "status": "at rWarehouse",
+  "receiverStationId": "HN",
+  "senderStationEId": "HN01",
+  "senderStationId": "HN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-28T17:04:02.253Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:18:02.620Z"
+    },
+    {
+      "$date": "2023-12-17T19:19:38.512Z"
+    },
+    {
+      "$date": "2023-12-27T03:15:47.593Z"
+    },
+    {
+      "$date": "2023-12-28T17:04:02.247Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    }
+  ],
+  "actualWeight": 2,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "65879898d2dafb665cef805b"
+  },
+  "cost": 20000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Sách",
+  "payState": "done",
+  "receiverAddress": "Quận Cầu Giấy",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Quận Hoàn Kiếm",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A20",
+  "status": "on way to receiver",
+  "receiverStationId": "HN",
+  "senderStationEId": "HN01",
+  "senderStationId": "HN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T03:34:26.768Z"
+  },
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:18:02.620Z"
+    },
+    {
+      "$date": "2023-12-17T19:19:38.512Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    },
+    {
+      "$date": "2023-12-27T03:34:26.767Z"
+    },
+    {
+      "$date": "2023-12-17T19:17:28.246Z"
+    }
+  ],
+  "actualWeight": 2,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "658a36f8d5b0f551b4834fb2"
+  },
+  "cost": 50000,
+  "genre": [
+    "Hồ sơ",
+    "Hàng hoá"
+  ],
+  "name": "Giấy tờ",
+  "payState": "not",
+  "receiverAddress": "Cần Thơ",
+  "receiverId": "099",
+  "receiverName": "Nguyễn Thị H",
+  "receiverPhoneNumber": "0723788582",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-17T00:00:00.000Z"
+  },
+  "id": "A21",
+  "status": "on way to sWarehouse",
+  "receiverStationId": "CT",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-17T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHCM",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-26T08:42:22.422Z"
+  },
+  "statusUpdateTime": [
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2023-12-26T08:42:22.418Z"
+    },
+    {
+      "$date": "2023-12-17T19:11:33.629Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "1970-01-01T00:00:00.000Z"
+    }
+  ],
+  "__v": 2,
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "actualWeight": 0.1,
+  "guidePending": []
+},
+{
+  "_id": {
+    "$oid": "658a374ed5b0f551b4834fb5"
+  },
+  "cost": 25000,
+  "genre": [
+    "Giấy tờ"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "TP Đà Nẵng",
+  "receiverId": "02",
+  "receiverName": "Nguyễn Văn C",
+  "receiverPhoneNumber": "0123456781",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A22",
+  "status": "at sWarehouse",
+  "receiverStationId": "DN",
+  "senderStationEId": "TN02",
+  "senderStationId": "TN",
+  "receiverWarehouseId": "TKDN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:16:12.629Z"
+  },
+  "actualWeight": 0.2,
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:45.994Z"
+    },
+    {
+      "$date": "2023-12-27T05:16:12.627Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    },
+    {
+      "$date": "2023-12-26T07:21:17.917Z"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "658a3796d5b0f551b4834fb6"
+  },
+  "cost": 34000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Đồ hộp",
+  "payState": "done",
+  "receiverAddress": "TP Hải Dương",
+  "receiverId": "08",
+  "receiverName": "Nguyễn Thị T",
+  "receiverPhoneNumber": "0123485782",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-16T00:00:00.000Z"
+  },
+  "id": "A23",
+  "status": "on way to rWarehouse",
+  "receiverStationId": "HD",
+  "senderStationEId": "TN03",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-16T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-28T16:44:35.243Z"
+  },
+  "statusUpdateTime": [
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2023-12-27T03:24:10.455Z"
+    },
+    {
+      "$date": "2023-12-27T05:15:32.498Z"
+    },
+    {
+      "$date": "2023-12-28T16:44:35.242Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    },
+    {
+      "$date": "2020-01-01T00:00:00.000Z"
+    }
+  ],
+  "actualWeight": 1.5,
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ]
+},
+{
+  "_id": {
+    "$oid": "658a37b2d5b0f551b4834fb7"
+  },
+  "cost": 30000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Thuốc",
+  "payState": "not",
+  "receiverAddress": "Vinh",
+  "receiverId": "06",
+  "receiverName": "Nguyễn Thị V",
+  "receiverPhoneNumber": "0123788592",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-11-17T00:00:00.000Z"
+  },
+  "id": "A24",
+  "status": "at sWarehouse",
+  "receiverStationId": "NA",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-17T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKDN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:15:32.494Z"
+  },
+  "actualWeight": 0.25,
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-27T03:24:10.453Z"
+    },
+    {
+      "$date": "2023-12-27T05:15:32.492Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    },
+    {
+      "$date": "2023-12-26T08:33:38.881Z"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "658a37c8d5b0f551b4834fb8"
+  },
+  "cost": 10000,
+  "genre": [
+    "Hồ sơ",
+    "Hàng thông dụng"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "Quận Hoàn Kiếm",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456789",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A25",
+  "status": "at sWarehouse",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-27T05:14:36.784Z"
+  },
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-27T03:24:10.456Z"
+    },
+    {
+      "$date": "2023-12-27T05:14:36.779Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-18T17:31:45.392Z"
+    },
+    {
+      "$date": "2023-12-23T16:30:23.293Z"
+    }
+  ],
+  "actualWeight": 0.1
+},
+{
+  "_id": {
+    "$oid": "658a9f89d5b0f551b4834fc8"
+  },
+  "cost": 20000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Sách",
+  "payState": "done",
+  "receiverAddress": "Quận Cầu Giấy",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456000",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A26",
+  "status": "on way to rStation",
+  "receiverStationId": "HN",
+  "senderStationEId": "TN01",
+  "senderStationId": "TN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-28T16:45:02.173Z"
+  },
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-27T03:41:22.150Z"
+    },
+    {
+      "$date": "2023-12-27T05:40:22.967Z"
+    },
+    {
+      "$date": "2023-12-28T16:45:02.172Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:19:23.850Z"
+    },
+    {
+      "$date": "2023-12-23T17:20:52.809Z"
+    }
+  ],
+  "actualWeight": 2
+},
+{
+  "_id": {
+    "$oid": "658aa064d5b0f551b4834fc9"
+  },
+  "cost": 25000,
+  "genre": [
+    "Giấy tờ"
+  ],
+  "name": "Hồ sơ",
+  "payState": "done",
+  "receiverAddress": "TP Đà Nẵng",
+  "receiverId": "02",
+  "receiverName": "Nguyễn Văn C",
+  "receiverPhoneNumber": "0123456781",
+  "senderAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": null,
+  "id": "A27",
+  "status": "on way to rWarehouse",
+  "receiverStationId": "DN",
+  "senderStationEId": "TN02",
+  "senderStationId": "TN",
+  "receiverWarehouseId": "TKDN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-26T12:17:52.663Z"
+  },
+  "actualWeight": 0.2,
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:52.661Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    },
+    {
+      "$date": "2023-12-26T12:17:08.510Z"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "658c6578d5b0f551b4834ff6"
+  },
+  "cost": 20000,
+  "genre": [
+    "Hàng thông dụng"
+  ],
+  "name": "Sách",
+  "payState": "done",
+  "senderAddress": "Quận Cầu Giấy",
+  "receiverId": "01",
+  "receiverName": "Nguyễn Văn B",
+  "receiverPhoneNumber": "0123456000",
+  "receiverAddress": "Thị xã Phổ Yên",
+  "senderId": "123",
+  "senderName": "Nguyễn Văn A",
+  "senderPhoneNumber": "0123777487",
+  "timeReceived": {
+    "$date": "2023-12-28T16:32:42.319Z"
+  },
+  "id": "A28",
+  "status": "received",
+  "receiverStationId": "TN",
+  "senderStationEId": "HN01",
+  "senderStationId": "HN",
+  "createdAt": {
+    "$date": "2023-11-18T17:00:00.000Z"
+  },
+  "receiverWarehouseId": "TKHN",
+  "senderWarehouseId": "TKHN",
+  "updatedAt": {
+    "$date": "2023-12-28T16:32:42.320Z"
+  },
+  "__v": 1,
+  "guidePending": [],
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-27T17:41:31.523Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-23T17:05:11.686Z"
+    },
+    {
+      "$date": "2023-12-28T02:38:28.706Z"
+    },
+    {
+      "$date": "2023-12-28T16:32:42.319Z"
+    },
+    {
+      "$date": "2023-12-23T17:20:52.809Z"
+    }
+  ],
+  "actualWeight": 2
+},
+{
+  "_id": {
+    "$oid": "658d882673905da5fb5a8094"
+  },
+  "genre": [
+    "tailieu",
+    "hanghoa"
+  ],
+  "payState": "not",
+  "senderName": "VPH",
+  "receiverName": "NNN",
+  "senderAddress": "Hà Nội",
+  "senderPhoneNumber": "0123456",
+  "receiverPhoneNumber": "0123456",
+  "senderId": "",
+  "senderStationEId": "0",
+  "senderStationId": "",
+  "receiverStationId": "",
+  "convertedVolume": null,
+  "actualWeight": null,
+  "specialServices": "",
+  "COD": null,
+  "othersPay": null,
+  "serviceNotes": "",
+  "guidePending": [
+    "Gọi điện cho người gửi BC gửi"
+  ],
+  "status": "at sStation",
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    },
+    {
+      "$date": "2023-12-28T14:34:51.689Z"
+    }
+  ],
+  "timeSending": {
+    "$date": "2023-12-28T06:37:00.000Z"
+  },
+  "timeReceived": null,
+  "createdAt": {
+    "$date": "2023-12-28T14:37:26.883Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-28T14:37:26.883Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658ece1b26c5f954e8e3b8a0"
+  },
+  "genre": [],
+  "payState": "not",
+  "senderName": "Nguyen AN",
+  "receiverName": "NGUYEN B",
+  "senderAddress": "HN",
+  "senderPhoneNumber": "0123456789",
+  "receiverPhoneNumber": "0123456789",
+  "senderId": "",
+  "senderStationEId": "0",
+  "convertedVolume": null,
+  "actualWeight": null,
+  "specialServices": "",
+  "COD": null,
+  "othersPay": null,
+  "serviceNotes": "",
+  "guidePending": [
+    "Chuyển hoàn khi hết thời gian lưu trữ"
+  ],
+  "status": "at sStation",
+  "statusCode": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "statusUpdateTime": [
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    },
+    {
+      "$date": "2023-12-29T13:07:09.961Z"
+    }
+  ],
+  "timeSending": {
+    "$date": "2023-12-27T13:48:00.000Z"
+  },
+  "timeReceived": null,
+  "createdAt": {
+    "$date": "2023-12-29T13:48:11.972Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T13:48:11.972Z"
+  },
+  "__v": 0
 }]

@@ -22,11 +22,27 @@ class UserController {
 
                 } else {
 
-                    res.render('search_post', {
-                        post: post,
-                        previousValue: value
-
-                    });
+                    Station.findOne({ stationCode: post.senderStationCode }).lean()
+                        .then((senderStation) => {
+                            Station.findOne({ stationCode: post.receiverStationCode }).lean()
+                                .then((receiverStation) => {
+                                    Warehouse.findOne({ warehouseCode: post.senderWarehouseCode }).lean()
+                                        .then((senderWarehouse) => {
+                                            Warehouse.findOne({ warehouseCode: post.receiverWarehouseCode }).lean()
+                                                .then((receiverWarehouse) => {
+                                                    res.render('search_post', {
+                                                        post: post,
+                                                        previousValue: value,
+                                                        senderStation,
+                                                        senderWarehouse,
+                                                        receiverStation,
+                                                        receiverWarehouse,
+                                                        noHeader: 'yes'
+                                                    });
+                                                })
+                                        })
+                                })
+                        })
                 }
 
             })
