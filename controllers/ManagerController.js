@@ -414,44 +414,44 @@ class ManagerController {
     }
 
     edit(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
-                res.json('Bạn không có quyền truy cập chức năng này');
-                return;
-            }
+        // try {
+        //     const userRole = req.session.employee.role;
+        //     if (userRole != 'Manager' && userRole!= 'StationAd' && userRole != 'WarehouseAd') {
+        //         res.json('Bạn không có quyền truy cập chức năng này');
+        //         return;
+        //     }
 
             Employee.findById(req.params.id)
                 .then(employee => res.render('profile/edit', {
                     employee: mongooseToObject(employee)
                 }))
                 .catch(next);
-        } catch (e) {
-            res.render('error')
-        }
+        // } catch (e) {
+        //     res.render('error')
+        // }
     }
 
     update(req, res, next) {
-        try {
-            const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
-                res.json('Bạn không có quyền truy cập chức năng này');
-                return;
-            }
+        // try {
+        //     const userRole = req.session.employee.role;
+        //     if (userRole != 'Manager' && userRole!= 'StationAd' && userRole != 'WarehouseAd') {
+        //         res.json('Bạn không có quyền truy cập chức năng này');
+        //         return;
+        //     }
 
             Employee.updateOne({ _id: req.params.id }, req.body)
                 .then(() => res.redirect('supervisor/humanResource'))
                 .catch(next);
-        } catch (e) {
-            res.render('error')
-        }
+        // } catch (e) {
+        //     res.render('error')
+        // }
 
     }
 
     destroy(req, res, next) {
         try {
             const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
+            if (userRole != 'Manager' && userRole!= 'StationAd' && userRole != 'WarehouseAd') {
                 res.json('Bạn không có quyền truy cập chức năng này')
                 return;
             }
@@ -469,7 +469,7 @@ class ManagerController {
     forceDestroy(req, res, next) {
         try {
             const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
+            if (userRole != 'Manager' && userRole!= 'StationAd' && userRole != 'WarehouseAd') {
                 res.json('Bạn không có quyền truy cập chức năng này');
                 return;
             }
@@ -485,7 +485,7 @@ class ManagerController {
     restore(req, res, next) {
         try {
             const userRole = req.session.employee.role;
-            if (userRole != 'Manager') {
+            if (userRole != 'Manager' && userRole!= 'StationAd' && userRole != 'WarehouseAd') {
                 res.json('Bạn không có quyền truy cập chức năng này');
                 return;
             }

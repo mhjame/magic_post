@@ -1,0 +1,301 @@
+[{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1f5"
+  },
+  "name": "Kho Hà Nội",
+  "warehouseCode": "W001",
+  "address": "TP. Hà Nội",
+  "detailAddress": "256 Nguyễn Văn Cừ, Long Biên, Hà Nội",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.497Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:26:46.713Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1f6"
+  },
+  "name": "Kho Thái Nguyên",
+  "warehouseCode": "W002",
+  "address": "Tỉnh Thái Nguyên",
+  "detailAddress": "Hoà Bình, Đồng Hỷ, Thái Nguyên",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.497Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:28:05.283Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1f7"
+  },
+  "name": "Kho Hải Dương",
+  "warehouseCode": "W003",
+  "address": "Tỉnh Hải Dương",
+  "detailAddress": "123 Trần Phú, Hải Châu, Hải Dương",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.497Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:27:45.496Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1f8"
+  },
+  "name": "Kho Hồ Chí Minh",
+  "warehouseCode": "W004",
+  "address": "TP. Hồ Chí Minh",
+  "detailAddress": "TP. 789 Lê Lợi, Quận 1, TP. Hồ Chí Minh",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:28:29.100Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1f9"
+  },
+  "name": "Kho Hải Phòng",
+  "warehouseCode": "W005",
+  "address": "Tỉnh Hải Phòng",
+  "detailAddress": "456 Đào Duy Anh, Kiến An, Hải Phòng",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:28:46.187Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1fa"
+  },
+  "name": "Kho Tuyên Quang",
+  "warehouseCode": "W006",
+  "address": "Tỉnh Tuyên Quang",
+  "detailAddress": "An Khang, Tuyên Quang",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:28:57.630Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1fb"
+  },
+  "name": "Kho Yên Bái",
+  "warehouseCode": "W007",
+  "address": "Tỉnh Yên Bái",
+  "detailAddress": "Cường Thịnh, Tp. Yên Bái, Yên Bái",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:29:07.489Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1fc"
+  },
+  "name": "Kho Phú Thọ",
+  "warehouseCode": "W008",
+  "address": "Tỉnh Phú Thọ",
+  "detailAddress": "Hà Lộc, Phú Thọ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:29:18.018Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1fd"
+  },
+  "name": "Kho Cần Thơ",
+  "warehouseCode": "W009",
+  "address": "TP. Cần Thơ",
+  "detailAddress": "789 Cách Mạng Tháng Tám, Ninh Kiều, Cần Thơ",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:29:47.697Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1fe"
+  },
+  "name": "Kho Bắc Kạn",
+  "warehouseCode": "W0010",
+  "address": "Tỉnh Bắc Kạn",
+  "detailAddress": "Đôn Phong, Bạch Thông, Bắc Kạn",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:29:34.649Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658eac573f02b5e8d6f4b1ff"
+  },
+  "name": "Kho Lạng Sơn",
+  "warehouseCode": "W0011",
+  "address": "Tỉnh Lạng Sơn",
+  "detailAddress": "Tân Mỹ, Văn Lãng, Lạng Sơn",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:07.498Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:27:26.543Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658ebd6b588b705c8c41f4a5"
+  },
+  "name": "Kho Đà Nẵng",
+  "warehouseCode": "W0012",
+  "address": "TP. Đà Nẵng",
+  "detailAddress": "An Hải Bắc, Sơn Trà, Đà Nẵng",
+  "createdAt": {
+    "$date": "2023-12-29T12:36:59.083Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:36:59.083Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658ebdaf588b705c8c41f4b4"
+  },
+  "name": "Kho Nghệ An",
+  "warehouseCode": "W0013",
+  "address": "Tỉnh Nghệ An",
+  "detailAddress": "Hưng Lộc, TP. Vinh, Nghệ An",
+  "createdAt": {
+    "$date": "2023-12-29T12:38:07.633Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:38:07.633Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658ebdf3588b705c8c41f4c4"
+  },
+  "name": "Kho Bình Dương",
+  "warehouseCode": "W0014",
+  "address": "Tỉnh Bình Dương",
+  "detailAddress": "Lạc An, Tân Uyên, Bình Dương",
+  "createdAt": {
+    "$date": "2023-12-29T12:39:15.852Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:39:15.852Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658ebe39588b705c8c41f4d5"
+  },
+  "name": "Kho Lâm Đồng",
+  "warehouseCode": "W0015",
+  "address": "Tỉnh Lâm Đồng",
+  "detailAddress": "TP. Bảo Lộc, Lâm Đồng",
+  "createdAt": {
+    "$date": "2023-12-29T12:40:25.992Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T12:40:25.992Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6555f4c6c9237c461cae9bcb"
+  },
+  "adminId": "HN00",
+  "name": "Điểm tập kết Hà Nội",
+  "warehouseCode": "TKHN",
+  "address": "Điểm tập kết Hà Nội",
+  "detailAddress": "Hà Nội",
+  "updatedAt": {
+    "$date": "2023-12-29T00:03:50.938Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6555f521c9237c461cae9bcc"
+  },
+  "adminId": "DN00",
+  "name": "Điểm tập kết Đà Nẵng",
+  "warehouseCode": "TKDN"
+},
+{
+  "_id": {
+    "$oid": "655a2f56c6cffe9558057799"
+  },
+  "adminId": "HCM00",
+  "name": "Điểm tập kết TP. Hồ Chí Minh",
+  "warehouseCode": "TKHCM"
+},
+{
+  "_id": {
+    "$oid": "658dcd32e46245c836f5e001"
+  },
+  "name": "Điểm tập kết Sơn La",
+  "warehouseCode": "SL01",
+  "address": "Sơn La",
+  "detailAddress": "số 7, đường 19, TP Sơn La",
+  "createdAt": {
+    "$date": "2023-12-28T19:32:02.975Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-28T19:32:02.975Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658dcd9d889a98990de53497"
+  },
+  "name": "Cần Thơ",
+  "warehouseCode": "CT01",
+  "address": "Cần Thơ",
+  "detailAddress": "số 9 đường 5",
+  "createdAt": {
+    "$date": "2023-12-28T19:33:49.392Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-28T22:17:36.688Z"
+  },
+  "__v": 0
+}]

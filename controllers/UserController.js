@@ -9,7 +9,7 @@ const Warehouse = require('../models/Warehouse');
 class UserController {
 
     getPost(req, res, next) {
-        const value = req.query.searchValue;
+        const value = req.params.id;
         Post.findOne({ _id: req.params.id })
             .then((post) => {
                 if (!post) {
@@ -26,8 +26,8 @@ class UserController {
 
                     res.render('search_post', {
                         post: post,
-                        previousValue: value,
-                        noHeader: 'yes'
+                        previousValue: value
+
                     });
                 }
 
