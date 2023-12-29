@@ -13,10 +13,6 @@ class ManagerController {
         res.render('login');
     }
 
-    getLogout(req, res) {
-        res.render('home')
-    }
-
     getMaps(req, res) {
         res.render('map');
     }
@@ -571,8 +567,18 @@ class ManagerController {
         res.render('createReceipt');
     }
 
+
+
+
     getAddWarehouse(req, res, next) {
-        res.render('manage_warehouse/add_warehouse')
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            res.render('manage_warehouse/add_warehouse', {
+                employee
+            })
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     postAddWarehouse(req, res, next) {
@@ -590,7 +596,14 @@ class ManagerController {
     }
 
     getAddStation(req, res, next) {
-        res.render('manage_station/add_station')
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            res.render('manage_station/add_station', {
+                employee
+            })
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     postAddStation(req, res, next) {
@@ -609,57 +622,78 @@ class ManagerController {
     }
 
     getViewWarehouses(req, res, next) {
-        Warehouse.find({}).lean().then((warehouses) => {
-            if (warehouses) {
-                const countStationsEachWarehouse = {};
-                for (const warehouse of warehouses) {
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            Warehouse.find({}).lean().then((warehouses) => {
+                if (warehouses) {
+                    const countStationsEachWarehouse = {};
+                    for (const warehouse of warehouses) {
 
-                    Station.find({ warehouseId: warehouse.warehouseCode }).lean().then((stations) => {
-                        let numOfStations = 0;
-                        for (const station of stations) {
-                            numOfStations++;
-                        }
-                        countStationsEachWarehouse[warehouse.warehouseCode] = numOfStations;
+                        Station.find({ warehouseId: warehouse.warehouseCode }).lean().then((stations) => {
+                            let numOfStations = 0;
+                            for (const station of stations) {
+                                numOfStations++;
+                            }
+                            countStationsEachWarehouse[warehouse.warehouseCode] = numOfStations;
 
+                        })
+                    }
+                    res.render('manage_warehouse/view_warehouses', {
+                        warehouses,
+                        countStationsEachWarehouse,
+                        employee
+                    })
+
+                } else {
+                    res.render('manage_warehouse/view_warehouses', {
+                        employee
                     })
                 }
-                res.render('manage_warehouse/view_warehouses', {
-                    warehouses,
-                    countStationsEachWarehouse
-                })
-
-            } else {
-                res.render('manage_warehouse/view_warehouses')
-            }
-        }).catch(next)
+            }).catch(next)
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     getViewStationsOfWh(req, res, next) {
-        Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
-            Station.find({ warehouseId: req.params.warehouseCode }).lean().then((stations) => {
-                if (stations) {
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
+                Station.find({ warehouseId: req.params.warehouseCode }).lean().then((stations) => {
+                    if (stations) {
 
-                    res.render('manage_station/view_stations_of_wh', {
-                        stations,
-                        warehouse
-                    })
+                        res.render('manage_station/view_stations_of_wh', {
+                            stations,
+                            warehouse,
+                            employee
+                        })
 
 
-                } else {
-                    res.render('manage_station/view_stations_of_wh', {
-                        warehouse
-                    })
-                }
-            })
-        }).catch(next)
+                    } else {
+                        res.render('manage_station/view_stations_of_wh', {
+                            warehouse,
+                            employee
+                        })
+                    }
+                })
+            }).catch(next)
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     getUpdateWarehouse(req, res, next) {
-        Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
-            res.render('manage_warehouse/update_warehouse', {
-                warehouse
-            })
-        }).catch(next)
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
+                res.render('manage_warehouse/update_warehouse', {
+                    warehouse,
+                    employee
+                })
+            }).catch(next)
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     postUpdateWarehouse(req, res, next) {
@@ -671,14 +705,14 @@ class ManagerController {
                 detailAddress: req.body.detailAddress
             }).lean().then((warehouse) => {
                 if (req.body.address !== req.body.oldAddress) {
-                    Employee.updateMany({workAddress: req.body.oldAddress, role: 'WarehouseE'}, {workAddress: req.body.address}).then(() => {});
+                    Employee.updateMany({ workAddress: req.body.oldAddress, role: 'WarehouseE' }, { workAddress: req.body.address }).then(() => { });
 
                 }
 
                 if (req.body.warehouseCode !== req.body.oldWarehouseCode) {
-                    Post.updateMany({receiverWarehouseCode: req.body.oldWarehouseCode}, {receiverWarehouseCode: req.body.warehouseCode}).then(() => {});
-                    Post.updateMany({senderWarehouseCode: req.body.oldWarehouseCode}, {senderWarehouseCode: req.body.stationCode}).then(() => {});
-                    Station.updateMany({warehouseId: req.body.oldWarehouseCode}, {warehouseId: req.body.warehouseCode})
+                    Post.updateMany({ receiverWarehouseCode: req.body.oldWarehouseCode }, { receiverWarehouseCode: req.body.warehouseCode }).then(() => { });
+                    Post.updateMany({ senderWarehouseCode: req.body.oldWarehouseCode }, { senderWarehouseCode: req.body.stationCode }).then(() => { });
+                    Station.updateMany({ warehouseId: req.body.oldWarehouseCode }, { warehouseId: req.body.warehouseCode })
                 }
 
 
@@ -692,23 +726,30 @@ class ManagerController {
     }
 
     getUpdateStation(req, res, next) {
-        Station.findOne({ stationCode: req.params.stationCode }).lean().then((station) => {
-            Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
-                if (warehouse) {
-                    res.render('manage_station/update_station', {
-                        station,
-                        warehouse
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            Station.findOne({ stationCode: req.params.stationCode }).lean().then((station) => {
+                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                    if (warehouse) {
+                        res.render('manage_station/update_station', {
+                            station,
+                            warehouse,
+                            employee
 
-                    })
-                } else {
-                    res.render('manage_station/update_station', {
-                        station,
+                        })
+                    } else {
+                        res.render('manage_station/update_station', {
+                            station,
+                            employee
 
-                    })
-                }
+                        })
+                    }
 
-            })
-        }).catch(next)
+                })
+            }).catch(next)
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 
     postUpdateStation(req, res, next) {
@@ -721,13 +762,13 @@ class ManagerController {
                 detailAddress: req.body.detailAddress
             }).lean().then((station) => {
                 if (req.body.address !== req.body.oldAddress) {
-                    Employee.updateMany({workAddress: req.body.oldAddress, role: 'StationE'}, {workAddress: req.body.address}).then(() => {});
+                    Employee.updateMany({ workAddress: req.body.oldAddress, role: 'StationE' }, { workAddress: req.body.address }).then(() => { });
 
                 }
 
                 if (req.body.stationCode !== req.body.oldStationCode) {
-                    Post.updateMany({receiverStationCode: req.body.oldStationCode}, {receiverStationCode: req.body.stationCode}).then(() => {});
-                    Post.updateMany({senderStationCode: req.body.oldStationCode}, {senderStationCode: req.body.stationCode}).then(() => {});
+                    Post.updateMany({ receiverStationCode: req.body.oldStationCode }, { receiverStationCode: req.body.stationCode }).then(() => { });
+                    Post.updateMany({ senderStationCode: req.body.oldStationCode }, { senderStationCode: req.body.stationCode }).then(() => { });
                 }
 
                 console.log(req.body)
@@ -735,35 +776,43 @@ class ManagerController {
                 res.json({
                     message: 'Cập nhật thành công'
                 })
-           
+
 
             }).catch(next);
     }
 
     getViewStations(req, res, next) {
-        Station.find({}).lean().then((stations) => {
-            if (stations) {
-                const warehouseStationBelongTo = {};
-                for (const station of stations) {
+        if (req.session.employee && req.session.employee.role === 'Manager') {
+            const employee = req.session.employee;
+            Station.find({}).lean().then((stations) => {
+                if (stations) {
+                    const warehouseStationBelongTo = {};
+                    for (const station of stations) {
 
-                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
-                        if (warehouse) {
-                            warehouseStationBelongTo[station.stationCode] = warehouse.name;
-                        }
+                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                            if (warehouse) {
+                                warehouseStationBelongTo[station.stationCode] = warehouse.name;
+                            }
 
+                        })
+                    }
+                    res.render('manage_station/view_stations', {
+                        stations,
+                        warehouseStationBelongTo,
+                        employee
+                    })
+
+                } else {
+                    res.render('manage_station/view_stations', {
+                        employee
                     })
                 }
-                res.render('manage_station/view_stations', {
-                    stations,
-                    warehouseStationBelongTo
-                })
-
-            } else {
-                res.render('manage_station/view_stations')
-            }
 
 
-        }).catch(next)
+            }).catch(next)
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này');
+        }
     }
 }
 

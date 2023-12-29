@@ -39,7 +39,8 @@ class UserController {
         if (!ObjectId.isValid(value)) {
             res.render('search_post', {
                 message: 'post not found',
-                previousValue: value
+                previousValue: value,
+                noHeader: 'yes'
             });
             return;
         }
@@ -49,7 +50,8 @@ class UserController {
                 if (!post) {
                     res.render('search_post', {
                         message: 'post not found',
-                        previousValue: value
+                        previousValue: value,
+                        noHeader: 'yes'
                     });
 
                 } else {
@@ -67,7 +69,8 @@ class UserController {
                                                         senderStation,
                                                         senderWarehouse,
                                                         receiverStation,
-                                                        receiverWarehouse
+                                                        receiverWarehouse,
+                                                        noHeader: 'yes'
                                                     });
                                                 })
                                         })
@@ -153,7 +156,9 @@ class UserController {
     }
 
     userSearchPost(req, res, next) {
-        res.render('user_search_post');
+        res.render('user_search_post', {
+            noHeader: 'yes'
+        });
     }
 
 }

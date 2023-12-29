@@ -16,16 +16,16 @@
 
     {{#unless stations}}
 
-    <div class="alert alert-danger text-center" role="alert">
+    <div class="alert alert-danger text-center" role="alert" style="margin-top: -1rem;">
         {{warehouse.name}} chưa có điểm giao dịch trực thuộc nào!
     </div>
 
     {{/unless}}
 
-    <nav class="pt-4" style="--bs-breadcrumb-divider: '>'; margin-left: 30px; font-size: 15px; color: gray;"
+    <nav class="mt-5" style="--bs-breadcrumb-divider: '>'; margin-left: 30px; font-size: 15px; color: gray;"
         aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <a class="breadcrumb-item" href="/view_warehouses" style="color: gray; text-decoration: none">Các điểm
+            <a class="breadcrumb-item" href="/view_warehouses" style="text-decoration: none">Các điểm
                 tập kết</a>
             <li class="breadcrumb-item active" aria-current="page">Các điểm giao dịch trực thuộc</li>
         </ol>

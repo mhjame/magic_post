@@ -22,6 +22,8 @@
 
         li a:hover {
             background-color: #ef5330;
+            text-decoration: none;
+            color: white;
         }
     </style>
 </head>
@@ -32,7 +34,6 @@
 {{#if employee}}
 <ul>
     <li><a class="active" href="/profile/view">Home</a></li>
-    <li><a href="/logout">Logout</a></li>
     {{!-- <li><a href="#news">News</a></li>
     <li><a href="#contact">Contact</a></li> --}}
     <li><a href="/createReceipt">Tạo đơn</a></li>
@@ -47,7 +48,7 @@
     <li><a href="/statistic_manager">Statistic</a></li>
     {{else}}
     <li><a href="/statistic_stationE/{{employee._id}}">Statistic</a></li>
-    
+
     {{/if}}
 
     {{#if (eq employee.role 'StationAd')}}
@@ -58,5 +59,40 @@
     <li><a href="/supervisor/humanResource">Human Resource</a></li>
     {{/if}}
 
+    {{#if (eq employee.role 'Manager')}}
+    <li><a href="/view_warehouses">Quản lý điểm tập kết</a></li>
+    <li><a href="/view_stations">Quản lý điểm giao dịch</a></li>
+    {{/if}}
+    <li><a id="logoutBtn" href="#">Logout</a></li>
+
 </ul>
 {{/if}}
+
+<script>
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', () => {
+        fetch("/logout", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: ''
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+
+                } else {
+                    alert("Đăng xuất thất bại!");
+                }
+            })
+            .then((data) => {
+                alert(data.message);
+                window.location = "/";
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
+</script>
