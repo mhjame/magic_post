@@ -3,6 +3,7 @@ const Container = require('../models/Container');
 const Employee = require('../models/Employee');
 const Station = require('../models/Station');
 const Warehouse = require('../models/Warehouse');
+const e = require('express');
 
 
 
@@ -472,7 +473,7 @@ class EmployeeController {
             containerCode: req.body.containerCode
         });
         container.save()
-            
+
             .then(() => res.json({
                 message: 'Tạo đơn thành công'
             }))
@@ -1551,6 +1552,110 @@ class EmployeeController {
 
         } catch (e) {
             res.json('error')
+        }
+
+    }
+
+    getStationEmProfile(req, res) {
+        const employee = req.session.employee
+        if (employee && employee.role === 'StationE') {
+
+            Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                if (station) {
+                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                        res.render('employee_profile/station_employee_view_profile', {
+                            employee,
+                            workPlace: station,
+                            desWarehouse: warehouse,
+                            noHeader: 'yes'
+                        });
+
+                    })
+                }
+            })
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
+    }
+
+    editStationEmProfile(req, res) {
+        const employee = req.session.employee
+        if (employee && employee.role === 'StationE') {
+
+            Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+                if (station) {
+                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                        res.render('employee_profile/station_employee_edit_profile', {
+                            employee,
+                            workPlace: station,
+                            desWarehouse: warehouse,
+                            noHeader: 'yes'
+                        });
+
+                    })
+                }
+            })
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
+    }
+
+
+    getWarehouseEmProfile(req, res) {
+        const employee = req.session.employee
+        if (employee && employee.role === 'WarehouseE') {
+
+
+            Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
+                res.render('employee_profile/warehouse_employee_view_profile', {
+                    employee,
+                    workPlace: warehouse,
+                    noHeader: 'yes'
+                });
+
+            })
+
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
+    }
+
+    editWarehouseEmProfile(req, res) {
+        const employee = req.session.employee
+        if (employee && employee.role === 'WarehouseE') {
+
+
+            Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
+                res.render('employee_profile/warehouse_employee_edit_profile', {
+                    employee,
+                    workPlace: warehouse,
+                    noHeader: 'yes'
+                });
+
+            })
+
+        } else {
+            res.json('Bạn không có quyền truy cập chức năng này')
+        }
+    }
+
+
+
+
+
+    postEditEmProfile(req, res, nex) {
+        const employee = req.session.employee;
+        if (employee) {
+            console.log(employee._id)
+
+            Employee.updateOne({ _id: employee._id }, req.body).lean().then((e) => {
+                if (e) {
+
+                    res.json({
+                        message: 'Cập nhật thành công'
+                    })
+                }
+            })
         }
 
     }
