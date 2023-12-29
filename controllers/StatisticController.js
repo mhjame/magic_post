@@ -603,7 +603,7 @@ class StatisticController {
             .then(result => {
                 weekInCount = weekCustomerReceivedCount;
                 weekOutCount = weekSentToCustomerCount;
-                
+
                 res.render('statistic/statistic_manager', {
                     message: "bodyManagerNationWide",
                     title: "Thống kê toàn quốc theo tuần",
@@ -647,6 +647,7 @@ class StatisticController {
 
 
         
+        
 
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
@@ -660,7 +661,7 @@ class StatisticController {
 
             })
 
-       
+        
 
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
@@ -684,6 +685,8 @@ class StatisticController {
 
         Promise.all([P1, P2, P3, P4])
             .then(result => {
+                yearInCount = yearCustomerReceivedCount
+                yearOutCount = yearSentToCustomerCount;
                 res.render('statistic/statistic_manager', {
                     message: "bodyManagerNationWide",
                     title: "Thống kê toàn quốc theo năm",
