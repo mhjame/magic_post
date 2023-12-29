@@ -43,6 +43,21 @@ app.engine('hbs', handlebars.engine({
           return 'Đang ở điểm giao dịch đầu';
       }
     },
+    renderRole: (role) => {
+      switch (role) {
+        case 'StationE':
+          return 'Nhân viên điểm giao dịch';
+        case 'WarehouseE':
+          return 'Nhân viên điểm tập kết';
+        case 'StationAd':
+          return 'Trưởng điểm giao dịch';
+        case 'WarehouseAd':
+          return 'Trưởng điểm tập kết';
+        case 'Manager':
+          return 'Lãnh đạo hệ thống';
+
+      }
+    },
     renderPayState: (state) => {
       if (state === 'done') {
         return 'Trả khi gửi hàng';
@@ -53,6 +68,13 @@ app.engine('hbs', handlebars.engine({
     formatDate: (date) => {
       if (date === null) {
         return 'Chưa nhận được';
+      } else {
+        return new Date(date).toLocaleDateString("vi-VN");
+      }
+    },
+    renderDate: (date) => {
+      if (date === null) {
+        return 'Chưa có';
       } else {
         return new Date(date).toLocaleDateString("vi-VN");
       }

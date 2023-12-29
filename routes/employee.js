@@ -45,6 +45,12 @@ router.post('/stored/confirm_posts_station_receivers', employeeController.postCo
 router.get('/station_employee_page', employeeController.getStationEmployeePage);
 router.get('/warehouse_employee_page', employeeController.getWarehouseEmployeePage);
 
+router.get('/station_employee_view_profile', employeeController.getStationEmProfile);
+router.get('/station_employee_edit_profile', employeeController.editStationEmProfile);
+router.get('/warehouse_employee_view_profile', employeeController.getWarehouseEmProfile);
+router.get('/warehouse_employee_edit_profile', employeeController.editWarehouseEmProfile);
+router.post('/update_employee_profile', employeeController.postEditEmProfile);
+
 router.post('/logout', employeeController.logout);
 
 module.exports = router;
