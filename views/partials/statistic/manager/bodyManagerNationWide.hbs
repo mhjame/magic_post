@@ -312,17 +312,17 @@
                 data: {
                     labels: ["Giao hàng thành công", "Không giao thành công"],
                     datasets: [{ 
-                                                                        {{#if dailyInCount }}
-                                                                            data: [{{ dailyInCount }}, {{ dailyOutCount }}],
+                                                                        {{#if (eq code 1) }}
+                                                                            data: [{{ postSuccess }}, {{ postFail }}],
                                                                         {{else}}
-                                                                            {{#if weekInCount }}
-                                                                                data: [{{ weekInCount }}, {{ weekOutCount }}],
+                                                                            {{#if (eq code 2) }}
+                                                                                data: [{{ postSuccess }}, {{ postFail }}],
                                                                             {{else}}
-                                                                                {{#if monthInCount }}
-                                                                                    data: [{{ monthInCount }}, {{ monthOutCount }}],
+                                                                                {{#if (eq code 3) }}
+                                                                                    data: [{{ postSuccess }}, {{ postFail }}],
                                                                                 {{else}}
-                                                                                    {{#if yearInCount }}
-                                                                                        data: [{{ yearInCount }}, {{ yearOutCount }}],
+                                                                                    {{#if (eq code 4) }}
+                                                                                        data: [{{ postSuccess }}, {{ postFail }}],
                                                                                     {{else}}
                                                                                         data: [],
                                                                                     {{/if}}

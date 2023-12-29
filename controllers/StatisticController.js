@@ -251,7 +251,7 @@ class StatisticController {
 
         //giao cho khách
         let dailySentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
+        Post.countDocuments({ status: 'on way to receiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
             .then(_dailySentToCustomerCount => {
                 dailySentToCustomerCount += _dailySentToCustomerCount;
                 console.log(_dailySentToCustomerCount);
@@ -323,7 +323,7 @@ class StatisticController {
 
         //giao cho khách
         let monthSentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
+        Post.countDocuments({ status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_monthSentToCustomerCount => {
                 monthSentToCustomerCount += _monthSentToCustomerCount;
                 console.log(_monthSentToCustomerCount);
@@ -394,7 +394,7 @@ class StatisticController {
 
         //giao cho khách
         let weekSentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
+        Post.countDocuments({ status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_weekSentToCustomerCount => {
                 weekSentToCustomerCount += _weekSentToCustomerCount;
                 console.log(_weekSentToCustomerCount);
@@ -445,31 +445,36 @@ class StatisticController {
         let yearInCount = 0;
         let yearOutCount = 0;
 
+        console.log(startOfYear + "--" + endOfYear)
+
 
         // Đếm số hàng vào trong ngày tại điểm giao dịch
 
         //do khách gửi tại điểm giao dịch
         let yearCustomerReceivedCount = 0;
-        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfYear, $lte: endOfYear } })
+        Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear }  })
             .then(_yearCustomerReceivedCount => {
                 yearCustomerReceivedCount = _yearCustomerReceivedCount;
-                console.log(_yearCustomerReceivedCount);
+                yearInCount = yearCustomerReceivedCount
+                console.log("yearInCount" +yearInCount);
             })
 
 
-        yearInCount = yearCustomerReceivedCount
+        
 
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
         //giao cho khách
         let yearSentToCustomerCount = 0;
-        Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
+        Post.countDocuments({ status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearSentToCustomerCount => {
-                yearSentToCustomerCount += _yearSentToCustomerCount;
-                console.log(_yearSentToCustomerCount);
+                yearSentToCustomerCount = _yearSentToCustomerCount;               
+                yearOutCount = yearSentToCustomerCount;
+                console.log("yearOutCount" +yearOutCount);
+
             })
 
-        yearOutCount = yearSentToCustomerCount;
+       
 
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
@@ -477,14 +482,17 @@ class StatisticController {
         let code = 4;
 
         //giao thành công
-        Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
+        Post.countDocuments({ status: 'received' })
             .then(count1 => {
                 postSuccess = count1;
+                console.log("postSuccess = count1;" + postSuccess)
             })
         //giao thành công
-        Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
+        Post.find({ status: 'returned' }).countDocuments()
             .then(count2 => {
                 postFail = count2;
+                console.log("postFail = count2;" + postFail)
+                
             })
 
 
@@ -493,7 +501,7 @@ class StatisticController {
             title: "Thống kê toàn quốc theo năm",
             startOfYear,
             endOfYear,
-            yearInCount,
+            yearInCount:2,
             yearOutCount,
             code,
             postSuccess,
@@ -617,7 +625,7 @@ class StatisticController {
             })
         //giao cho khách
         let dailySentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
             .then(_dailySentToCustomerCount => {
                 dailySentToCustomerCount += _dailySentToCustomerCount;
                 console.log(_dailySentToCustomerCount);
@@ -713,7 +721,7 @@ class StatisticController {
             })
         //giao cho khách
         let monthSentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_monthSentToCustomerCount => {
                 monthSentToCustomerCount += _monthSentToCustomerCount;
                 console.log(_monthSentToCustomerCount);
@@ -812,7 +820,7 @@ class StatisticController {
             })
         //giao cho khách
         let weekSentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_weekSentToCustomerCount => {
                 weekSentToCustomerCount += _weekSentToCustomerCount;
                 console.log(_weekSentToCustomerCount);
@@ -904,7 +912,7 @@ class StatisticController {
             })
         //giao cho khách
         let yearSentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
             .then(_YearSentToCustomerCount => {
                 yearSentToCustomerCount += _YearSentToCustomerCount;
                 console.log(_YearSentToCustomerCount);
@@ -1224,7 +1232,7 @@ class StatisticController {
             })
         //giao cho khách
         let dailySentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: today, $lte: tomorrow } })
             .then(_dailySentToCustomerCount => {
                 dailySentToCustomerCount += _dailySentToCustomerCount;
                 console.log(_dailySentToCustomerCount);
@@ -1319,7 +1327,7 @@ class StatisticController {
             })
         //giao cho khách
         let monthSentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfMonth, $lte: endOfMonth } })
             .then(_monthSentToCustomerCount => {
                 monthSentToCustomerCount += _monthSentToCustomerCount;
                 console.log(_monthSentToCustomerCount);
@@ -1414,7 +1422,7 @@ class StatisticController {
             })
         //giao cho khách
         let weekSentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfWeek, $lte: endOfWeek } })
             .then(_weekSentToCustomerCount => {
                 weekSentToCustomerCount += _weekSentToCustomerCount;
                 console.log(_weekSentToCustomerCount);
@@ -1502,7 +1510,7 @@ class StatisticController {
             })
         //giao cho khách
         let yearSentToCustomerCount = 0;
-        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
+        Post.countDocuments({ receiverStationCode: stationCode, status: 'on way to receiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
             .then(_YearSentToCustomerCount => {
                 yearSentToCustomerCount += _YearSentToCustomerCount;
                 console.log(_YearSentToCustomerCount);
