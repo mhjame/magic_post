@@ -493,7 +493,7 @@ class StatisticController {
                 console.log(_monthCustomerReceivedCount);
             })
 
-        
+
 
         //giao cho khách
         let monthSentToCustomerCount = 0;
@@ -503,7 +503,7 @@ class StatisticController {
                 console.log(_monthSentToCustomerCount);
             })
 
-       
+
         //thống kê giao nhận sucess/fail
         let postSuccess = 0;
         let postFail = 0;
@@ -521,26 +521,26 @@ class StatisticController {
             })
 
         Promise.all([P1, P2, P3, P4])
-        then(result => {
-            monthInCount = monthCustomerReceivedCount;
-            monthOutCount = monthSentToCustomerCount;
-        // Đếm số hàng ra trong tháng tại điểm giao dịch
+            .then(result => {
+                monthInCount = monthCustomerReceivedCount;
+                monthOutCount = monthSentToCustomerCount;
+                // Đếm số hàng ra trong tháng tại điểm giao dịch
 
-            res.render('statistic/statistic_manager', {
-                message: "bodyManagerNationWide",
-                title: "Thống kê toàn quốc theo tháng",
-                startOfMonth,
-                endOfMonth,
-                dailyInCount: false,
-                weekInCount: false,
-                monthInCount,
-                monthOutCount,
-                code,
-                postSuccess,
-                postFail,
-                yearInCount: false,
-            });
-        })
+                res.render('statistic/statistic_manager', {
+                    message: "bodyManagerNationWide",
+                    title: "Thống kê toàn quốc theo tháng",
+                    startOfMonth,
+                    endOfMonth,
+                    dailyInCount: false,
+                    weekInCount: false,
+                    monthInCount,
+                    monthOutCount,
+                    code,
+                    postSuccess,
+                    postFail,
+                    yearInCount: false,
+                });
+            })
     }
 
     //Quản lý toàn quốc theo tuần DONEE
@@ -568,7 +568,7 @@ class StatisticController {
             })
 
 
-        
+
 
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
@@ -580,7 +580,7 @@ class StatisticController {
                 console.log(_weekSentToCustomerCount);
             })
 
-        
+
 
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
@@ -642,12 +642,12 @@ class StatisticController {
             .then(_yearCustomerReceivedCount => {
                 yearCustomerReceivedCount = _yearCustomerReceivedCount;
                 yearInCount = yearCustomerReceivedCount
-                console.log("yearInCount" +yearInCount);
+                console.log("yearInCount" + yearInCount);
             })
 
 
-        
-        
+
+
 
         // Đếm số hàng ra trong ngày tại điểm giao dịch
 
@@ -655,13 +655,13 @@ class StatisticController {
         let yearSentToCustomerCount = 0;
         let P2 = Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearSentToCustomerCount => {
-                yearSentToCustomerCount = _yearSentToCustomerCount;               
+                yearSentToCustomerCount = _yearSentToCustomerCount;
                 yearOutCount = yearSentToCustomerCount;
-                console.log("yearOutCount" +yearOutCount);
+                console.log("yearOutCount" + yearOutCount);
 
             })
 
-        
+
 
         //thống kê hàng gửi thành công/không thành công
         let postSuccess = 0;
@@ -679,7 +679,7 @@ class StatisticController {
             .then(count2 => {
                 postFail = count2;
                 console.log("postFail = count2;" + postFail)
-                
+
             })
 
 
