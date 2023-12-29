@@ -1643,19 +1643,23 @@ class EmployeeController {
 
 
 
-    postEditEmProfile(req, res, nex) {
+    postEditEmProfile(req, res, next) {
         const employee = req.session.employee;
         if (employee) {
             console.log(employee._id)
 
-            Employee.updateOne({ _id: employee._id }, req.body).lean().then((e) => {
-                if (e) {
+            Employee.updateOne({ _id: employee._id }, req.body)
+                .then(() => res.redirect('station_employee_view_profile'))
+                .catch(next);
 
-                    res.json({
-                        message: 'Cập nhật thành công'
-                    })
-                }
-            })
+            // Employee.updateOne({ _id: employee._id }, req.body).lean().then((e) => {
+            //     if (e) {
+
+            //         res.json({
+            //             message: 'Cập nhật thành công'
+            //         })
+            //     }
+            // })
         }
 
     }

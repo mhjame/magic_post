@@ -33,20 +33,33 @@
 {{else if employee}} --}}
 {{#if employee}}
 <ul>
-    <li><a class="active" href="/profile/view">Hồ sơ</a></li>
+    {{#if (eq employee.role 'StationE')}}
+        <div class = "header" style="height: 56px">
+            {{>station_employee/header}}
+        </div>
+    {{else if (eq employee.role 'WarehouseE')}}
+        <div class = "header" style="height: 56px">
+            {{>warehouse_employee/header}}
+        </div>
+    {{/if}}
+
+    
     {{!-- <li><a href="#news">News</a></li>
     <li><a href="#contact">Contact</a></li> --}}
     {{#if (eq employee.role 'StationAd')}}
+    <li><a class="active" href="/profile/view">Hồ sơ</a></li>
     <li><a href="/register">Tạo tài khoản</a></li>
     <li><a href="/statistic_stationAd/{{station.stationCode}}">Thống kê</a></li>
     {{else if (eq employee.role 'WarehouseAd')}}
+    <li><a class="active" href="/profile/view">Hồ sơ</a></li>
     <li><a href="/register">Tạo tài khoản</a></li>
     <li><a href="/statistic_warehouseAd/{{station.warehouseCode}}">Thống kê</a></li>
     {{else if (eq employee.role 'Manager')}}
+    <li><a class="active" href="/profile/view">Hồ sơ</a></li>
     <li><a href="/register">Tạo tài khoản</a></li>
     <li><a href="/statistic_manager">Thống kê</a></li>
-    {{else}}
-    <li><a href="/statistic_stationE/{{employee._id}}">Thống kê</a></li>
+    {{!-- {{else}}
+    <li><a href="/statistic_stationE/{{employee._id}}">Thống kê</a></li> --}}
 
     {{/if}}
 

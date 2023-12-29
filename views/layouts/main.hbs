@@ -11,6 +11,19 @@
 
 <body>
     {{#if noHeader}}
+    {{!-- {{#if employee}}
+    <div>
+        {{#if eq employee.role 'StationE'}}
+        <div class = "header" style="height: 56px">
+            {{>station_employee/header}}
+        </div>
+
+        {{else if eq employee.role 'WarehouseE'}}
+            <div class = "header" style="height: 56px">
+                {{>station_employee/header}}
+            </div>
+        {{else}}
+    </div> --}}
     {{else}}
     <div class="header" style="height: 56px;">
         {{> header}}
