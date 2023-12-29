@@ -576,7 +576,7 @@ class ManagerController {
             const employee = req.session.employee;
             res.render('manage_warehouse/add_warehouse', {
                 employee,
-                station: req.session.station,
+                
             })
         } else {
             res.json('Bạn không có quyền truy cập chức năng này');
@@ -602,7 +602,7 @@ class ManagerController {
             const employee = req.session.employee;
             res.render('manage_station/add_station', {
                 employee,
-                station: req.session.station,
+             
             })
         } else {
             res.json('Bạn không có quyền truy cập chức năng này');
@@ -645,7 +645,7 @@ class ManagerController {
                         warehouses,
                         countStationsEachWarehouse,
                         employee,
-                        station: req.session.station,
+                      
                     })
 
                 } else {
@@ -671,7 +671,6 @@ class ManagerController {
                             stations,
                             warehouse,
                             employee,
-                            station: req.session.station,
                         })
 
 
@@ -679,7 +678,7 @@ class ManagerController {
                         res.render('manage_station/view_stations_of_wh', {
                             warehouse,
                             employee,
-                            station: req.session.station,
+                       
                         })
                     }
                 })
@@ -696,7 +695,7 @@ class ManagerController {
                 res.render('manage_warehouse/update_warehouse', {
                     warehouse,
                     employee,
-                    station: req.session.station,
+            
                 })
             }).catch(next)
         } else {
@@ -736,21 +735,21 @@ class ManagerController {
     getUpdateStation(req, res, next) {
         if (req.session.employee && req.session.employee.role === 'Manager') {
             const employee = req.session.employee;
-            Station.findOne({ stationCode: req.params.stationCode }).lean().then((stations) => {
-                Warehouse.findOne({ warehouseCode: stations.warehouseId }).lean().then((warehouse) => {
+            Station.findOne({ stationCode: req.params.stationCode }).lean().then((station) => {
+                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
                     if (warehouse) {
                         res.render('manage_station/update_station', {
-                            stations,
+                            station,
                             warehouse,
                             employee,
-                            station: req.session.station,
+                            
 
                         })
                     } else {
                         res.render('manage_station/update_station', {
-                            stations,
+                            station,
                             employee,
-                            station: req.session.station,
+                 
                         })
                     }
 
@@ -809,13 +808,13 @@ class ManagerController {
                         stations,
                         warehouseStationBelongTo,
                         employee,
-                        station: req.session.station,
+                       
                     })
 
                 } else {
                     res.render('manage_station/view_stations', {
                         employee,
-                        station: req.session.station,
+                   
                     })
                 }
 

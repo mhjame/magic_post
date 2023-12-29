@@ -1499,6 +1499,7 @@ class StatisticController {
                     weekInCount: false,
                     monthInCount: false,
                     yearInCount: false,
+                    employee: req.session.employee
 
                 });
             })
@@ -1598,6 +1599,7 @@ class StatisticController {
                     monthInCount,
                     monthOutCount,
                     yearInCount: false,
+                    employee: req.session.employee
                 });
             })
     }
@@ -1695,6 +1697,7 @@ class StatisticController {
                     dailyInCount: false,
                     monthInCount: false,
                     yearInCount: false,
+                    employee: req.session.employee
 
                 });
             })
@@ -1788,6 +1791,7 @@ class StatisticController {
                     weekInCount: false,
                     monthInCount: false,
                     dailyInCount: false,
+                    employee: req.session.employee
 
                 });
             })
@@ -1849,6 +1853,7 @@ class StatisticController {
                     weekInCount: false,
                     monthInCount: false,
                     yearInCount: false,
+                    employee: req.session.employee
 
                 });
             })
@@ -1906,6 +1911,7 @@ class StatisticController {
                     monthInCount,
                     monthOutCount,
                     yearInCount: false,
+                    employee: req.session.employee
                 });
             })
     }
@@ -1968,6 +1974,7 @@ class StatisticController {
                     dailyInCount: false,
                     monthInCount: false,
                     yearInCount: false,
+                    employee: req.session.employee
 
                 });
             })
@@ -2025,7 +2032,7 @@ class StatisticController {
                     weekInCount: false,
                     monthInCount: false,
                     dailyInCount: false,
-
+                    employee: req.session.employee
                 });
             })
     }
