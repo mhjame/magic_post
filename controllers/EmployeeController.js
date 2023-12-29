@@ -1211,46 +1211,44 @@ class EmployeeController {
     }
 
     getConfirmStationToReceivers(req, res, next) {
-        if (req.session.employee && req.session.employee.role === 'StationE') {
-            Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
-                .then((employee) => {
-                    if (!employee) {
-                        res.status(404).send({ message: 'Employee not found' });
-                        return;
 
-                    } else {
+        Employee.findOne({ employeeId: req.session.employee.employeeId }).lean()
+            .then((employee) => {
+                if (!employee) {
+                    res.status(404).send({ message: 'Employee not found' });
+                    return;
 
-                        Station.findOne({ address: employee.workAddress }).lean()
-                            .then((station) => {
-                                if (!station) {
-                                    res.status(404).send({ message: 'Station not found' });
-                                    return;
-                                }
+                } else {
 
-                                Container.find({ senderAddressId: station.stationCode, type: 'station-receiver', status: 'in process' }).lean()
-                                    .then((containers) => {
-                                        Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
-                                            res.render('confirm_order/confirm_station_receivers', {
-                                                thisStation: station,
-                                                containers: containers,
+                    Station.findOne({ address: employee.workAddress }).lean()
+                        .then((station) => {
+                            if (!station) {
+                                res.status(404).send({ message: 'Station not found' });
+                                return;
+                            }
 
-                                                workPlace: station,
-                                                desWarehouse: warehouse,
-                                                noHeader: 'yes',
-                                                employee
-                                            });
-                                        })
+                            Container.find({ senderAddressId: station.stationCode, type: 'station-receiver', status: 'in process' }).lean()
+                                .then((containers) => {
+                                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                                        res.render('confirm_order/confirm_station_receivers', {
+                                            thisStation: station,
+                                            containers: containers,
 
+                                            workPlace: station,
+                                            desWarehouse: warehouse,
+                                            noHeader: 'yes',
+                                            employee
+                                        });
                                     })
 
-                            })
-                    }
+                                })
 
-                })
-                .catch(next);
-        } else {
-            res.json('Bạn không có quyền truy cập chức năng này');
-        }
+                        })
+                }
+
+            })
+            .catch(next);
+
     }
 
     getConfirmEachOrderStationToReceivers(req, res, next) {
@@ -1491,64 +1489,62 @@ class EmployeeController {
             let numOfTorWarehousePosts = 0;
             let numOfTosWarehousePosts = 0;
             console.log(req.session.employee);
-            if (employee && employee.role === 'WarehouseE') {
 
-                Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
-                    Post.find({ senderWarehouseCode: warehouse.warehouseCode, status: 'at sWarehouse' }).lean().then((posts1) => {
-                        if (posts1) {
+
+            Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
+                Post.find({ senderWarehouseCode: warehouse.warehouseCode, status: 'at sWarehouse' }).lean().then((posts1) => {
+                    if (posts1) {
+                        let count = 0;
+                        for (const post of posts1) {
+                            count++;
+                        }
+                        numOfsWarehousePosts = count;
+                    }
+                    console.log(numOfsWarehousePosts);
+                    Post.find({ receiverWarehouseCode: warehouse.warehouseCode, status: 'at rWarehouse' }).lean().then((posts2) => {
+                        if (posts2) {
                             let count = 0;
-                            for (const post of posts1) {
+                            for (const post of posts2) {
                                 count++;
                             }
-                            numOfsWarehousePosts = count;
+                            numOfrWarehousePosts = count;
                         }
-                        console.log(numOfsWarehousePosts);
-                        Post.find({ receiverWarehouseCode: warehouse.warehouseCode, status: 'at rWarehouse' }).lean().then((posts2) => {
-                            if (posts2) {
+                        console.log(numOfrWarehousePosts);
+                        Post.find({ receiverWarehouseCode: warehouse.warehouseCode, status: 'on way to rWarehouse' }).lean().then((posts3) => {
+                            if (posts1) {
                                 let count = 0;
-                                for (const post of posts2) {
+                                for (const post of posts3) {
                                     count++;
                                 }
-                                numOfrWarehousePosts = count;
+                                numOfTorWarehousePosts = count;
                             }
-                            console.log(numOfrWarehousePosts);
-                            Post.find({ receiverWarehouseCode: warehouse.warehouseCode, status: 'on way to rWarehouse' }).lean().then((posts3) => {
-                                if (posts1) {
+                            console.log(numOfTorWarehousePosts);
+                            Post.find({ senderWarehouseCode: warehouse.warehouseCode, status: 'on way to sWarehouse' }).lean().then((posts4) => {
+                                if (posts4) {
                                     let count = 0;
-                                    for (const post of posts3) {
+                                    for (const post of posts4) {
                                         count++;
                                     }
-                                    numOfTorWarehousePosts = count;
+                                    numOfTosWarehousePosts = count;
                                 }
-                                console.log(numOfTorWarehousePosts);
-                                Post.find({ senderWarehouseCode: warehouse.warehouseCode, status: 'on way to sWarehouse' }).lean().then((posts4) => {
-                                    if (posts4) {
-                                        let count = 0;
-                                        for (const post of posts4) {
-                                            count++;
-                                        }
-                                        numOfTosWarehousePosts = count;
-                                    }
-                                    console.log(numOfTosWarehousePosts);
+                                console.log(numOfTosWarehousePosts);
 
-                                    res.render('warehouse_employee_page', {
-                                        employee,
-                                        workPlace: warehouse,
-                                        numOfsWarehousePosts,
-                                        numOfrWarehousePosts,
-                                        numOfTorWarehousePosts,
-                                        numOfTosWarehousePosts,
-                                        noHeader: 'yes'
-                                    })
-
+                                res.render('warehouse_employee_page', {
+                                    employee,
+                                    workPlace: warehouse,
+                                    numOfsWarehousePosts,
+                                    numOfrWarehousePosts,
+                                    numOfTorWarehousePosts,
+                                    numOfTosWarehousePosts,
+                                    noHeader: 'yes'
                                 })
+
                             })
                         })
                     })
                 })
-            } else {
-                res.json('Bạn không có quyền truy cập chức năng này')
-            }
+            })
+
 
         } catch (e) {
             res.json('error')
@@ -1558,85 +1554,77 @@ class EmployeeController {
 
     getStationEmProfile(req, res) {
         const employee = req.session.employee
-        if (employee && employee.role === 'StationE') {
 
-            Station.findOne({ address: employee.workAddress }).lean().then((station) => {
-                if (station) {
-                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
-                        res.render('employee_profile/station_employee_view_profile', {
-                            employee,
-                            workPlace: station,
-                            desWarehouse: warehouse,
-                            noHeader: 'yes'
-                        });
 
-                    })
-                }
-            })
-        } else {
-            res.json('Bạn không có quyền truy cập chức năng này')
-        }
+        Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+            if (station) {
+                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                    res.render('employee_profile/station_employee_view_profile', {
+                        employee,
+                        workPlace: station,
+                        desWarehouse: warehouse,
+                        noHeader: 'yes'
+                    });
+
+                })
+            }
+        })
+
     }
 
     editStationEmProfile(req, res) {
         const employee = req.session.employee
-        if (employee && employee.role === 'StationE') {
 
-            Station.findOne({ address: employee.workAddress }).lean().then((station) => {
-                if (station) {
-                    Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
-                        res.render('employee_profile/station_employee_edit_profile', {
-                            employee,
-                            workPlace: station,
-                            desWarehouse: warehouse,
-                            noHeader: 'yes'
-                        });
 
-                    })
-                }
-            })
-        } else {
-            res.json('Bạn không có quyền truy cập chức năng này')
-        }
+        Station.findOne({ address: employee.workAddress }).lean().then((station) => {
+            if (station) {
+                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+                    res.render('employee_profile/station_employee_edit_profile', {
+                        employee,
+                        workPlace: station,
+                        desWarehouse: warehouse,
+                        noHeader: 'yes'
+                    });
+
+                })
+            }
+        })
+
     }
 
 
     getWarehouseEmProfile(req, res) {
         const employee = req.session.employee
-        if (employee && employee.role === 'WarehouseE') {
 
 
-            Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
-                res.render('employee_profile/warehouse_employee_view_profile', {
-                    employee,
-                    workPlace: warehouse,
-                    noHeader: 'yes'
-                });
 
-            })
+        Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
+            res.render('employee_profile/warehouse_employee_view_profile', {
+                employee,
+                workPlace: warehouse,
+                noHeader: 'yes'
+            });
 
-        } else {
-            res.json('Bạn không có quyền truy cập chức năng này')
-        }
+        })
+
+
     }
 
     editWarehouseEmProfile(req, res) {
         const employee = req.session.employee
-        if (employee && employee.role === 'WarehouseE') {
 
 
-            Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
-                res.render('employee_profile/warehouse_employee_edit_profile', {
-                    employee,
-                    workPlace: warehouse,
-                    noHeader: 'yes'
-                });
 
-            })
+        Warehouse.findOne({ address: employee.workAddress }).lean().then((warehouse) => {
+            res.render('employee_profile/warehouse_employee_edit_profile', {
+                employee,
+                workPlace: warehouse,
+                noHeader: 'yes'
+            });
 
-        } else {
-            res.json('Bạn không có quyền truy cập chức năng này')
-        }
+        })
+
+
     }
 
 
@@ -1645,18 +1633,23 @@ class EmployeeController {
 
     postEditEmProfile(req, res, nex) {
         const employee = req.session.employee;
-        if (employee) {
-            console.log(employee._id)
 
-            Employee.updateOne({ _id: employee._id }, req.body).lean().then((e) => {
-                if (e) {
+        console.log(employee._id)
+        Employee.updateOne({ _id: employee._id }, req.body)
+            .then(() => {
+                Employee.findOne({ _id: employee._id }).lean().then((e) => {
+                    req.session.employee = e;
+                    req.session.save(function (err) {
+                        req.session.reload(function (err) {
+                            res.json({
+                                message: 'Cập nhật thành công'
+                            })
+                        });
+                    });
+                    
+                })
 
-                    res.json({
-                        message: 'Cập nhật thành công'
-                    })
-                }
             })
-        }
 
     }
 

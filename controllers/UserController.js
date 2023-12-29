@@ -9,6 +9,7 @@ const Warehouse = require('../models/Warehouse');
 class UserController {
 
     getPost(req, res, next) {
+        const value = req.query.searchValue;
         Post.findOne({ _id: req.params.id })
             .then((post) => {
                 if (!post) {
@@ -17,15 +18,16 @@ class UserController {
 
                     res.render('search_post', {
                         message: 'post not found',
-                        previousValue: value
+                        previousValue: value,
+                        noHeader: 'yes'
                     });
 
                 } else {
 
                     res.render('search_post', {
                         post: post,
-                        previousValue: value
-
+                        previousValue: value,
+                        noHeader: 'yes'
                     });
                 }
 
@@ -57,6 +59,7 @@ class UserController {
                 } else {
                     Station.findOne({ stationCode: post.senderStationCode }).lean()
                         .then((senderStation) => {
+                            console.log(sen)
                             Station.findOne({ stationCode: post.receiverStationCode }).lean()
                                 .then((receiverStation) => {
                                     Warehouse.findOne({ warehouseCode: post.senderWarehouseCode }).lean()
