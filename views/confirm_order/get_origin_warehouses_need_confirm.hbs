@@ -43,21 +43,21 @@
 
         <div class="row text-center justify-content-center">
             {{#each originWarehousesNeedConfirm}}
-            <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
+            <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.warehouseCode}}" data-name="{{this.name}}">
                 <div class="warehouse-card card mb-3 h-100 w-100">
                     <div class="card-header h-100">
                         <h5 class="mb-1">{{this.name}}</h5>
-                        <div class="small text-muted">Mã: {{this.id}}</div>
+                        <div class="small text-muted">Mã: {{this.warehouseCode}}</div>
                     </div>
                     <div class="card-body">
                         <div class="number-round">
-                            <h1 class="card-title">{{lookup ../totalContainersFromWarehouse this.id}}</h1>
+                            <h1 class="card-title">{{lookup ../totalContainersFromWarehouse this.warehouseCode}}</h1>
                         </div>
 
                         <p class="card-text small text-muted">lô hàng đang chuyển đến</p>
 
                         <button type="button" class="btn btn-success"
-                            onclick="window.location.href='/confirm_order/{{this.id}}/confirm_wh_wh'">Xác nhận
+                            onclick="window.location.href='/confirm_order/{{this.warehouseCode}}/confirm_wh_wh'">Xác nhận
                             ngay</button>
 
                     </div>

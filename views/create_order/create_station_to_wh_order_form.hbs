@@ -76,10 +76,10 @@
                     Điểm giao dịch gửi lô hàng
                 </label>
 
-                <input class="readonly" type="text" id="workPlace" value="{{senderStationId}} - {{senderStationName}}"
+                <input class="readonly" type="text" id="workPlace" value="{{senderStationCode}} - {{senderStationName}}"
                     readonly />
 
-                <input type="hidden" name="senderAddressId" value="{{senderStationId}}">
+                <input type="hidden" name="senderAddressId" value="{{senderStationCode}}">
             </div>
 
             <input type="hidden" name="typeOfOrder" value="station-warehouse">
@@ -90,9 +90,9 @@
                 </label>
 
                 <input class="readonly" type="text" id="desWarehouse"
-                    value="{{senderWarehouseId}} - {{senderWarehouseName}}" readonly />
+                    value="{{senderWarehouseCode}} - {{senderWarehouseName}}" readonly />
 
-                <input type="hidden" name="receiverAddressId" value="{{senderWarehouseId}}">
+                <input type="hidden" name="receiverAddressId" value="{{senderWarehouseCode}}">
             </div>
 
             <div class="input-control">

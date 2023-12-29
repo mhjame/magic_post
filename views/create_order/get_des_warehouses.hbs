@@ -43,21 +43,21 @@
 
         <div class="row text-center justify-content-center">
             {{#each desWarehousesHavePosts}}
-            <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.id}}" data-name="{{this.name}}">
+            <div class="card-container col-lg-3 col-md-4 col-sm-6 mb-3" data-id="{{this.warehouseCode}}" data-name="{{this.name}}">
                 <div class="warehouse-card card mb-3 h-100 w-100">
                     <div class="card-header h-100">
                         <h5 class="mb-1">{{this.name}}</h5>
-                        <div class="small text-muted">Mã: {{this.id}}</div>
+                        <div class="small text-muted">Mã: {{this.warehouseCode}}</div>
                     </div>
                     <div class="card-body">
                         <div class="number-round">
-                            <h1 class="card-title">{{lookup ../totalPostsFromWarehouse this.id}}</h1>
+                            <h1 class="card-title">{{lookup ../totalPostsFromWarehouse this.warehouseCode}}</h1>
                         </div>
 
                         <p class="card-text small text-muted">mã hàng cần chuyển đến</p>
 
                         <button type="button" class="btn btn-success"
-                            onclick="window.location.href='/create_order/{{this.id}}/create_wh_to_wh'">Tạo đơn
+                            onclick="window.location.href='/create_order/{{this.warehouseCode}}/create_wh_to_wh'">Tạo đơn
                             chuyển hàng</button>
 
                     </div>

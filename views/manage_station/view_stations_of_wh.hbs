@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/confirm_order.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
+</script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js">
+</script>
+
+<div class="body-container">
+
+    {{#unless stations}}
+
+    <div class="alert alert-danger text-center" role="alert">
+        {{warehouse.name}} chưa có điểm giao dịch trực thuộc nào!
+    </div>
+
+    {{/unless}}
+
+    <nav class="pt-4" style="--bs-breadcrumb-divider: '>'; margin-left: 30px; font-size: 15px; color: gray;"
+        aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <a class="breadcrumb-item" href="/view_warehouses" style="color: gray; text-decoration: none">Các điểm
+                tập kết</a>
+            <li class="breadcrumb-item active" aria-current="page">Các điểm giao dịch trực thuộc</li>
+        </ol>
+    </nav>
+
+
+    <div class="container pt-4 px-2">
+
+        <div class="table-responsive">
+
+            <p style="font-size: 1.1rem; color: brown; margin-bottom: 30px"><strong>Danh sách các điểm giao dịch trực
+                    thuộc {{warehouse.name}}:<button type="button" class="btn btn-success"
+                        onclick="window.location.href='/add_station'" style="font-weight: bold; float: right">Thêm
+                        điểm
+                        giao dịch mới</button></strong></p>
+
+            <table id="sortedTable" class="table table-responsive text-center" style="vertical-align: middle;">
+                <thead>
+                    <tr
+                        style="background-color: #eeeeee; vertical-align: middle; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                        <th class="border-0 text-center" scope="col" width="15%">Mã điểm giao dịch</th>
+                        <th class="border-0 text-center" scope="col" width="25%">Tên</th>
+                        <th class="border-0 text-center" scope="col" width="15%">Tỉnh</th>
+                        <th class="border-0 text-center" scope="col" width="30%">Địa chỉ</th>
+                        <th class="border-0 text-center" scope="col" width="15%">Hành động</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each stations}}
+                    <tr>
+                        <td>{{this.stationCode}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.address}}</td>
+                        <td>{{this.detailAddress}}</td>
+                        <td>
+                            <a class="fw-bolder confirm-link" href="/{{this.stationCode}}/update_station"
+                                style="text-decoration: none;">Cập nhật</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<script>
+
+</script>
+
+<script>
+    $('#sortedTable').DataTable();
+</script>

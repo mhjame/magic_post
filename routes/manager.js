@@ -54,5 +54,15 @@ router.get('/employee/:id/view', managerController.getEmployeeProfile);
 router.post('/createReceipt', managerController.postReceipt);
 router.get('/createReceipt', managerController.getCreateReceipt);
 
-router.get('manage_warehouse/add_warehouse', managerController.getAddWarehouse)
+router.get('/add_warehouse', managerController.getAddWarehouse)
+router.post('/post_add_warehouse', managerController.postAddWarehouse)
+router.get('/add_station', managerController.getAddStation)
+router.post('/post_add_station', managerController.postAddStation)
+router.get('/view_warehouses', managerController.getViewWarehouses)
+router.get('/:warehouseCode/view_stations_of_wh', managerController.getViewStationsOfWh)
+router.get('/:warehouseCode/update_warehouse', managerController.getUpdateWarehouse)
+router.post('/post_update_warehouse', managerController.postUpdateWarehouse)
+router.get('/:stationCode/update_station', managerController.getUpdateStation)
+router.post('/post_update_station', managerController.postUpdateStation)
+router.get('/view_stations', managerController.getViewStations)
 module.exports = router;

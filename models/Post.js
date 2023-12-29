@@ -16,13 +16,9 @@ const PostSchema = new Schema({
     senderId: {type: String},
     receiverId: {type: String},
     senderStationEId: {type: String},
-    senderStationId: {type: String},
     senderStationCode: {type: String},
-    senderWarehouseId: {type: String},
     senderWarehouseCode: {type: String},
-    receiverStationId: {type: String},
     receiverStationCode: {type: String},
-    receiverWarehouseId: {type: String},
     receiverWarehouseCode: {type: String},
     convertedVolume:{type: Number},
     actualWeight: {type: Number},
@@ -37,7 +33,6 @@ const PostSchema = new Schema({
     statusUpdateTime: {type: [Date], default: [new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date(), new Date()]},
     timeSending: {type:Date},
     timeReceived: {type: Date, default: null},
-    id: {type: String}
 }, { timestamps: true });
 
 

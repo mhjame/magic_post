@@ -54,7 +54,7 @@
                     <tbody>
                         {{#each posts}}
                         <tr>
-                            <td>{{this.id}}</td>
+                            <td>{{this._id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{renderArray this.genre}}</td>
                             <td>{{this.actualWeight}} kg</td>
@@ -69,7 +69,7 @@
 
                                 <label class="confirm-checkbox">
                                     <input class="form-check-input" type="checkbox" name="postIds"
-                                        value="{{this.id}}"><strong class="confirm-text success"> Đã
+                                        value="{{this._id}}"><strong class="confirm-text success"> Đã
                                         nhận</strong>
                                 </label>
 

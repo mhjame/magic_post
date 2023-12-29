@@ -107,12 +107,12 @@
                                 <thead class="thead-light">
                                     <tr>
 
-                                        <th class="text-center" scope="col" width="13%">Mã bưu kiện</th>
-                                        <th class="text-center" scope="col" width="11%" style="vertical-align: middle;">
-                                            Tên hàng
+                                        <th class="text-center" scope="col" width="12%">Tên hàng</th>
+                                        <th class="text-center" scope="col" width="17%" style="vertical-align: middle;">
+                                            Loại hàng
                                         </th>
                                         <th scope="col" width="28%" style="vertical-align: middle;">Thông tin</th>
-                                        <th class="text-center" scope="col" width="48%" style="vertical-align: middle;">
+                                        <th class="text-center" scope="col" width="43%" style="vertical-align: middle;">
                                             Tình trạng
                                         </th>
                                     </tr>
@@ -122,19 +122,21 @@
                                     <tr class="inner-box">
                                         <td>
                                             <div class="event-date">
-                                                <p class="order-id">{{post.id}}</p>
+                                                <p class="order-id">{{post.name}}</p>
 
                                             </div>
                                         </td>
                                         <td>
 
                                             <div class="post-name">
-                                                <h4>{{post.name}}</h4>
+                                                <h4>{{renderArray post.genre}}</h4>
 
                                             </div>
                                         </td>
                                         <td>
                                             <div class="event-wrap">
+                                                <p><i class="fa fa-id-card-o"></i><strong> Mã bưu kiện:</strong>
+                                                    {{post._id}}</p>
                                                 <p><i class="fa fa-user"></i><strong> Người gửi:</strong>
                                                     {{post.senderName}}</p>
                                                 <p><i class="fa fa-address-book"></i><strong> Địa chỉ người

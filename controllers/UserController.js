@@ -35,7 +35,16 @@ class UserController {
 
     searchPost(req, res, next) {
         const value = req.query.searchValue;
-        Post.findOne({ id: value }).lean()
+        const ObjectId = require('mongoose').Types.ObjectId;
+        if (!ObjectId.isValid(value)) {
+            res.render('search_post', {
+                message: 'post not found',
+                previousValue: value
+            });
+            return;
+        }
+
+        Post.findOne({ _id: value }).lean()
             .then((post) => {
                 if (!post) {
                     res.render('search_post', {
@@ -44,13 +53,13 @@ class UserController {
                     });
 
                 } else {
-                    Station.findOne({ id: post.senderStationId }).lean()
+                    Station.findOne({ stationCode: post.senderStationCode }).lean()
                         .then((senderStation) => {
-                            Station.findOne({ id: post.receiverStationId }).lean()
+                            Station.findOne({ stationCode: post.receiverStationCode }).lean()
                                 .then((receiverStation) => {
-                                    Warehouse.findOne({ id: post.senderWarehouseId }).lean()
+                                    Warehouse.findOne({ warehouseCode: post.senderWarehouseCode }).lean()
                                         .then((senderWarehouse) => {
-                                            Warehouse.findOne({ id: post.receiverWarehouseId }).lean()
+                                            Warehouse.findOne({ warehouseCode: post.receiverWarehouseCode }).lean()
                                                 .then((receiverWarehouse) => {
                                                     res.render('search_post', {
                                                         post: post,
@@ -69,6 +78,8 @@ class UserController {
 
             })
             .catch(next);
+
+
     }
 
 
@@ -109,16 +120,16 @@ class UserController {
                             // Thêm post vào mảng posts
                             posts.push(post);
                             const routine = {};
-                            Station.findOne({id: post.senderStationId}).lean().then((senderStation) => {
+                            Station.findOne({ id: post.senderStationId }).lean().then((senderStation) => {
                                 routine['senderStation'] = senderStation;
                             })
-                            Warehouse.findOne({id: post.senderWarehouseId}).lean().then((senderWarehouse) => {
+                            Warehouse.findOne({ id: post.senderWarehouseId }).lean().then((senderWarehouse) => {
                                 routine['senderWarehouse'] = senderWarehouse;
                             })
-                            Warehouse.findOne({id: post.receiverWarehouseId}).lean().then((receiverWarehouse) => {
+                            Warehouse.findOne({ id: post.receiverWarehouseId }).lean().then((receiverWarehouse) => {
                                 routine['receiverWarehouse'] = receiverWarehouse;
                             })
-                            Station.findOne({id: post.receiverStationId}).lean().then((receiverStation) => {
+                            Station.findOne({ id: post.receiverStationId }).lean().then((receiverStation) => {
                                 routine['receiverStation'] = receiverStation;
                             })
                             postRoutine[post.id] = routine;

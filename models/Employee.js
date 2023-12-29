@@ -24,7 +24,6 @@ const Employee = new Schema({
     slug: { type: String },
   
     // deleted: {type: Boolean, default: false}
-    workPlaceId: {type: String},
     
 }, { timestamps: true });
 
