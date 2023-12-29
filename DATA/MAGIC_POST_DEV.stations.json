@@ -12,7 +12,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.256Z"
-  }
+  },
+  "warehouseId": "W001"
 },
 {
   "_id": {
@@ -28,7 +29,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W002"
 },
 {
   "_id": {
@@ -44,7 +46,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W003"
 },
 {
   "_id": {
@@ -60,7 +63,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W004"
 },
 {
   "_id": {
@@ -76,7 +80,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W005"
 },
 {
   "_id": {
@@ -92,7 +97,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W006"
 },
 {
   "_id": {
@@ -108,7 +114,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W007"
 },
 {
   "_id": {
@@ -124,7 +131,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.257Z"
-  }
+  },
+  "warehouseId": "W008"
 },
 {
   "_id": {
@@ -140,7 +148,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.258Z"
-  }
+  },
+  "warehouseId": "W009"
 },
 {
   "_id": {
@@ -156,7 +165,8 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.258Z"
-  }
+  },
+  "warehouseId": "W0010"
 },
 {
   "_id": {
@@ -172,5 +182,146 @@
   },
   "updatedAt": {
     "$date": "2023-12-29T11:24:22.258Z"
+  },
+  "warehouseId": "W0011"
+},
+{
+  "_id": {
+    "$oid": "658ec2f1e3ac67305130e2ae"
+  },
+  "name": "Bưu cục An Giang",
+  "address": "An Giang",
+  "stationCode": "S001",
+  "detailAddress": "An Giang",
+  "__v": 0,
+  "createdAt": {
+    "$date": "2023-12-29T11:24:22.256Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-29T11:24:22.256Z"
+  },
+  "warehouseId": "W004"
+},
+{
+  "_id": {
+    "$oid": "6555f422c9237c461cae9bc5"
+  },
+  "adminId": "TN00",
+  "name": "Điểm giao dịch Thái Nguyên",
+  "warehouseId": "TKHN",
+  "address": "Điểm giao dịch Thái Nguyên",
+  "stationCode": "TN"
+},
+{
+  "_id": {
+    "$oid": "6555f49ac9237c461cae9bc6"
+  },
+  "adminId": "HP00",
+  "name": "Điểm giao dịch Hải Phòng",
+  "warehouseId": "TKHN",
+  "stationCode": "HP",
+  "address": "Hải Phòng",
+  "detailAddress": "Lê Chân, Hải Phòng",
+  "updatedAt": {
+    "$date": "2023-12-28T22:54:39.465Z"
   }
+},
+{
+  "_id": {
+    "$oid": "6555f4bec9237c461cae9bc9"
+  },
+  "adminId": "DN00",
+  "name": "Điểm giao dịch Đà Nẵng",
+  "warehouseId": "TKDN",
+  "stationCode": "DN",
+  "address": "Đà Nẵng",
+  "detailAddress": "Sơn Trà Đà Nẵng",
+  "updatedAt": {
+    "$date": "2023-12-29T00:00:02.422Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "655b78a0c7b5ed6fb57cf762"
+  },
+  "adminId": "HD00",
+  "name": "Điểm giao dịch Hải Dương",
+  "warehouseId": "TKHN",
+  "stationCode": "HD"
+},
+{
+  "_id": {
+    "$oid": "6569fc1d0cc755be06494126"
+  },
+  "adminId": "HN00",
+  "name": "Điểm giao dịch Hà Nội",
+  "warehouseId": "TKHN",
+  "stationCode": "HN"
+},
+{
+  "_id": {
+    "$oid": "65878ce060487f126d096418"
+  },
+  "adminId": "BRVT00",
+  "name": "Điểm giao dịch Vũng Tàu",
+  "warehouseId": "TKHCM",
+  "stationCode": "BRVT"
+},
+{
+  "_id": {
+    "$oid": "6587c820d2dafb665cef805d"
+  },
+  "adminId": "NA00",
+  "name": "Điểm giao dịch Nghệ An",
+  "warehouseId": "TKDN",
+  "stationCode": "NA",
+  "address": "NA",
+  "detailAddress": "NA",
+  "updatedAt": {
+    "$date": "2023-12-28T22:36:55.593Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "658dd2bec0459222970e900c"
+  },
+  "name": "Quảng Ninh",
+  "address": "Quảng Ninh",
+  "stationCode": "QN01",
+  "warehouseId": "TKHN",
+  "detailAddress": "số 4, phường 78, đường Lý Thường Kiệt",
+  "createdAt": {
+    "$date": "2023-12-28T19:55:42.007Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-28T19:55:42.007Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658dd2ff87fc63529b576a22"
+  },
+  "name": "Quảng Ngãi",
+  "address": "Quảng Ngãi",
+  "stationCode": "QN0001",
+  "warehouseId": "TKDN",
+  "detailAddress": "số 43 đường 58",
+  "createdAt": {
+    "$date": "2023-12-28T19:56:47.214Z"
+  },
+  "updatedAt": {
+    "$date": "2023-12-28T22:34:49.860Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "658e5453e3ac67305130e288"
+  },
+  "adminId": "TN00",
+  "name": "Điểm giao dịch An Giang",
+  "warehouseId": "TKHCM",
+  "address": "An",
+  "stationCode": "AG"
 }]
