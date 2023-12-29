@@ -574,7 +574,8 @@ class ManagerController {
         if (req.session.employee && req.session.employee.role === 'Manager') {
             const employee = req.session.employee;
             res.render('manage_warehouse/add_warehouse', {
-                employee
+                employee,
+                station: req.session.station,
             })
         } else {
             res.json('Bạn không có quyền truy cập chức năng này');
@@ -599,7 +600,8 @@ class ManagerController {
         if (req.session.employee && req.session.employee.role === 'Manager') {
             const employee = req.session.employee;
             res.render('manage_station/add_station', {
-                employee
+                employee,
+                station: req.session.station,
             })
         } else {
             res.json('Bạn không có quyền truy cập chức năng này');
@@ -641,12 +643,14 @@ class ManagerController {
                     res.render('manage_warehouse/view_warehouses', {
                         warehouses,
                         countStationsEachWarehouse,
-                        employee
+                        employee,
+                        station: req.session.station,
                     })
 
                 } else {
                     res.render('manage_warehouse/view_warehouses', {
-                        employee
+                        employee,
+                        station: req.session.station,
                     })
                 }
             }).catch(next)
@@ -665,14 +669,16 @@ class ManagerController {
                         res.render('manage_station/view_stations_of_wh', {
                             stations,
                             warehouse,
-                            employee
+                            employee,
+                            station: req.session.station,
                         })
 
 
                     } else {
                         res.render('manage_station/view_stations_of_wh', {
                             warehouse,
-                            employee
+                            employee,
+                            station: req.session.station,
                         })
                     }
                 })
@@ -688,7 +694,8 @@ class ManagerController {
             Warehouse.findOne({ warehouseCode: req.params.warehouseCode }).lean().then((warehouse) => {
                 res.render('manage_warehouse/update_warehouse', {
                     warehouse,
-                    employee
+                    employee,
+                    station: req.session.station,
                 })
             }).catch(next)
         } else {
@@ -728,20 +735,21 @@ class ManagerController {
     getUpdateStation(req, res, next) {
         if (req.session.employee && req.session.employee.role === 'Manager') {
             const employee = req.session.employee;
-            Station.findOne({ stationCode: req.params.stationCode }).lean().then((station) => {
-                Warehouse.findOne({ warehouseCode: station.warehouseId }).lean().then((warehouse) => {
+            Station.findOne({ stationCode: req.params.stationCode }).lean().then((stations) => {
+                Warehouse.findOne({ warehouseCode: stations.warehouseId }).lean().then((warehouse) => {
                     if (warehouse) {
                         res.render('manage_station/update_station', {
-                            station,
+                            stations,
                             warehouse,
-                            employee
+                            employee,
+                            station: req.session.station,
 
                         })
                     } else {
                         res.render('manage_station/update_station', {
-                            station,
-                            employee
-
+                            stations,
+                            employee,
+                            station: req.session.station,
                         })
                     }
 
@@ -799,12 +807,14 @@ class ManagerController {
                     res.render('manage_station/view_stations', {
                         stations,
                         warehouseStationBelongTo,
-                        employee
+                        employee,
+                        station: req.session.station,
                     })
 
                 } else {
                     res.render('manage_station/view_stations', {
-                        employee
+                        employee,
+                        station: req.session.station,
                     })
                 }
 
