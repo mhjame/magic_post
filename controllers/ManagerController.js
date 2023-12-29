@@ -10,7 +10,9 @@ const Warehouse = require('../models/Warehouse');
 class ManagerController {
 
     getLogin(req, res) {
-        res.render('login');
+        res.render('login', {
+            noHeader: 'yes'
+        });
     }
 
     getMaps(req, res) {
@@ -18,13 +20,19 @@ class ManagerController {
     }
 
     getPriceList(req, res) {
-        res.render('home_page/priceList')
+        res.render('home_page/priceList', {
+            noHeader: 'yes'
+        })
     }
     getRecruitment(req, res) {
-        res.render('home_page/recruitment')
+        res.render('home_page/recruitment', {
+            noHeader: 'yes'
+        })
     }
     getServiceHome(req, res) {
-        res.render('home_page/service')
+        res.render('home_page/service', {
+            noHeader: 'yes'
+        })
     }
     getQRCode(req, res) {
         // const newPostData = req.body;
@@ -191,24 +199,10 @@ class ManagerController {
     // }
 
     getHome(req, res) {
-        Employee.findOne({ _id: '65599ec015476e96d3c953ff' })
-            .then((result) => {
-                console.log(result);
-                console.log('success to find');
-                // Handle the query result here
-            })
-            .catch((error) => {
-                res.json(error);
-                // Handle any errors here
-            });
 
-
-        // // User.find({}, function (err, users){
-        // //     if(!err) res.json(users)
-        // //     else res.json('error')
-        // // })
-        // // res.json('hallo');
-        res.render('home');
+        res.render('home', {
+            noHeader: 'yes'
+        });
     }
 
 
@@ -295,7 +289,10 @@ class ManagerController {
     }
 
     getForgotPassword(req, res) {
-        res.render('forgotPassword');
+        res.render('password/forgotPassword', {
+            noHeader: 'yes',
+            
+        });
     }
 
     humanResource(req, res, next) {
