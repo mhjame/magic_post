@@ -631,6 +631,8 @@ class StatisticController {
         let yearInCount = 0;
         let yearOutCount = 0;
 
+        console.log(startOfYear + "--" + endOfYear)
+
 
         // Đếm số hàng vào trong ngày tại điểm giao dịch
 
@@ -639,10 +641,12 @@ class StatisticController {
         let P1 = Post.countDocuments({ status: 'at sStation', 'statusUpdateTime.0': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearCustomerReceivedCount => {
                 yearCustomerReceivedCount = _yearCustomerReceivedCount;
-                console.log(_yearCustomerReceivedCount);
+                yearInCount = yearCustomerReceivedCount
+                console.log("yearInCount" +yearInCount);
             })
 
 
+        
         
 
         // Đếm số hàng ra trong ngày tại điểm giao dịch
@@ -651,8 +655,10 @@ class StatisticController {
         let yearSentToCustomerCount = 0;
         let P2 = Post.countDocuments({ status: 'on way to reveiver', 'statusUpdateTime.7': { $gte: startOfYear, $lte: endOfYear } })
             .then(_yearSentToCustomerCount => {
-                yearSentToCustomerCount += _yearSentToCustomerCount;
-                console.log(_yearSentToCustomerCount);
+                yearSentToCustomerCount = _yearSentToCustomerCount;               
+                yearOutCount = yearSentToCustomerCount;
+                console.log("yearOutCount" +yearOutCount);
+
             })
 
         
@@ -666,11 +672,14 @@ class StatisticController {
         let P3 = Post.countDocuments({ status: 'received', 'statusUpdateTime.8': { $gte: startOfYear, $lte: endOfYear } })
             .then(count1 => {
                 postSuccess = count1;
+                console.log("postSuccess = count1;" + postSuccess)
             })
         //giao thành công
         let P4 = Post.countDocuments({ status: 'returned', 'statusUpdateTime.9': { $gte: startOfYear, $lte: endOfYear } })
             .then(count2 => {
                 postFail = count2;
+                console.log("postFail = count2;" + postFail)
+                
             })
 
 

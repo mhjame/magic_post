@@ -5,8 +5,12 @@ const managerController = require('../controllers/ManagerController');
 const passwordController = require('../controllers/PasswordController');
 const statisticController = require('../controllers/StatisticController');
 
+//Login
 router.get('/login', managerController.getLogin); // get/post
 router.post('/login', managerController.loginValidate, managerController.postLogin);
+
+//Logout
+router.get('/logout', managerController.getLogout);
 
 router.get('/', managerController.getHome);
 router.get('/home', managerController.getHome);
